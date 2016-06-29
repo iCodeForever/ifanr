@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F6B961C5D3AEA7AF280C28D481FD0C9AFF417FF2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "BB6E1C15644B557AE8897F107E91C5792924479E" : 0,
+    "F6B961C5D3AEA7AF280C28D481FD0C9AFF417FF2" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1EAA70E7-FCBB-4645-948C-6FE981CAA3A2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "BB6E1C15644B557AE8897F107E91C5792924479E" : "",
+    "F6B961C5D3AEA7AF280C28D481FD0C9AFF417FF2" : "IFanrApp\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ifanr",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ifanr\/ifanr.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lyimin\/TourApp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BB6E1C15644B557AE8897F107E91C5792924479E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iCodeForever\/ifanr.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F6B961C5D3AEA7AF280C28D481FD0C9AFF417FF2"
+    }
+  ]
+}
