@@ -16,6 +16,11 @@
 		F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119375B1D24018A00DF143B /* UIView+Frame.swift */; };
 		F119376D1D2409A700DF143B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119376C1D2409A700DF143B /* MainViewController.swift */; };
 		F11937721D240A4E00DF143B /* ifanrVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F11937711D240A4E00DF143B /* ifanrVideo.mp4 */; };
+		F1498D931D24FA9F005BB684 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D921D24FA9F005BB684 /* MainHeaderView.swift */; };
+		F1498D951D24FCBD005BB684 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D941D24FCBD005BB684 /* Constant.swift */; };
+		F1498D971D250E65005BB684 /* MainTabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D961D250E65005BB684 /* MainTabModel.swift */; };
+		F1498D991D2510A1005BB684 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D981D2510A1005BB684 /* MainTableViewCell.swift */; };
+		F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D9A1D25150E005BB684 /* Reusable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,11 @@
 		F119376C1D2409A700DF143B /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F119376F1D240A1300DF143B /* DINPro-Medium.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Medium.TTF"; sourceTree = "<group>"; };
 		F11937711D240A4E00DF143B /* ifanrVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ifanrVideo.mp4; sourceTree = "<group>"; };
+		F1498D921D24FA9F005BB684 /* MainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
+		F1498D941D24FCBD005BB684 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		F1498D961D250E65005BB684 /* MainTabModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabModel.swift; sourceTree = "<group>"; };
+		F1498D981D2510A1005BB684 /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		F1498D9A1D25150E005BB684 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +172,7 @@
 		F11937541D24013A00DF143B /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				F1498D941D24FCBD005BB684 /* Constant.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -178,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				F119375B1D24018A00DF143B /* UIView+Frame.swift */,
+				F1498D9A1D25150E005BB684 /* Reusable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -185,6 +197,7 @@
 		F11937571D24013A00DF143B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F1498D961D250E65005BB684 /* MainTabModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +221,7 @@
 		F119375A1D24013A00DF143B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1498D911D24FA88005BB684 /* MainView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,6 +248,15 @@
 				F11937711D240A4E00DF143B /* ifanrVideo.mp4 */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F1498D911D24FA88005BB684 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				F1498D921D24FA9F005BB684 /* MainHeaderView.swift */,
+				F1498D981D2510A1005BB684 /* MainTableViewCell.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,7 +330,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 3G3JV73KM2;
+						DevelopmentTeam = 5N8LXT5RPD;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -421,8 +444,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1498D931D24FA9F005BB684 /* MainHeaderView.swift in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,
+				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
+				F1498D991D2510A1005BB684 /* MainTableViewCell.swift in Sources */,
+				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
+				F1498D971D250E65005BB684 /* MainTabModel.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,9 +584,11 @@
 			baseConfigurationReference = EB8AAD341F889C52B9B9BEA9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ifanr/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ifanr.ifanr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iCodeForever.ifanr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ifanr/ifanr-Bridging-Header.h";
 			};
@@ -569,9 +599,11 @@
 			baseConfigurationReference = AAF3231417F430423C78A28E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ifanr/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ifanr.ifanr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.iCodeForever.ifanr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ifanr/ifanr-Bridging-Header.h";
 			};
