@@ -1,15 +1,15 @@
 //
-//  MainTableViewCell.swift
+//  MenuTableViewCell.swift
 //  ifanr
 //
-//  Created by 梁亦明 on 16/6/30.
+//  Created by 梁亦明 on 16/7/1.
 //  Copyright © 2016年 ifanrOrg. All rights reserved.
 //
 
 import UIKit
 
-class MainTableViewCell: UITableViewCell,Reusable {
-
+class MenuTableViewCell: UITableViewCell, Reusable {
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,7 +31,7 @@ class MainTableViewCell: UITableViewCell,Reusable {
         }
     }
     
-        /// 给外部传递模型进来， 然后设置数据
+    /// 给外部传递模型进来， 然后设置数据
     var model: MainTabModel! {
         didSet {
             self.iconView.image = model.image
@@ -39,10 +39,10 @@ class MainTableViewCell: UITableViewCell,Reusable {
         }
     }
     
-    class func cellWithTableView(tableView : UITableView) -> MainTableViewCell {
-        var cell: MainTableViewCell? = tableView.dequeueReusableCell() as MainTableViewCell?
+    class func cellWithTableView(tableView : UITableView) -> MenuTableViewCell {
+        var cell: MenuTableViewCell? = tableView.dequeueReusableCell() as MenuTableViewCell?
         if cell == nil {
-            cell = MainTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
+            cell = MenuTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
             cell?.selectionStyle = .None
         }
         return cell!
@@ -54,14 +54,14 @@ class MainTableViewCell: UITableViewCell,Reusable {
     
     
     //MARK: --------------------------- Getter and Setter --------------------------
-        /// 图标
+    /// 图标
     private lazy var iconView: UIImageView = {
         var iconView = UIImageView()
         iconView.contentMode = .ScaleAspectFit
         return iconView
     }()
     
-        /// 标题
+    /// 标题
     private lazy var titleLabel: UILabel = {
         var titleLabel = UILabel()
         titleLabel.font = UIConstant.UI_FONT_16

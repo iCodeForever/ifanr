@@ -1,16 +1,15 @@
 //
-//  MainHeaderView.swift
+//  MenuHeaaderView.swift
 //  ifanr
 //
-//  Created by 梁亦明 on 16/6/30.
+//  Created by 梁亦明 on 16/7/1.
 //  Copyright © 2016年 ifanrOrg. All rights reserved.
 //
 
 import UIKit
 import SnapKit
- /// 主界面 顶部控件
 
-class MainHeaderView: UIView {
+class MenuHeaaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,17 +54,18 @@ class MainHeaderView: UIView {
         return logoImageView
     }()
     
-        /// 搜索按钮
+    /// 搜索按钮
     private lazy var searchBtn: UIButton = {
         var searchBtn: UIButton = UIButton()
         searchBtn.setImage(UIImage(named: "ic_search"), forState: .Normal)
         return searchBtn
     }()
     
-        /// 设置按钮
+    /// 设置按钮
     private lazy var settingBtn: UIButton = {
         var settingBtn: UIButton = UIButton()
         settingBtn.setImage(UIImage(named: "ic_setting"), forState: .Normal)
         return settingBtn
     }()
+
 }
