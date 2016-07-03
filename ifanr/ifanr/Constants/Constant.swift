@@ -14,6 +14,7 @@ struct UIConstant {
     static let IPHONE6_HEIGHT : CGFloat = 667
     static let IPHONE5_WIDTH : CGFloat = 320
     static let IPHONE5_HEIGHT : CGFloat = 568
+    
     static let SCREEN_WIDTH : CGFloat = UIScreen.mainScreen().bounds.width
     static let SCREEN_HEIGHT : CGFloat = UIScreen.mainScreen().bounds.height
     // 导航栏高度
@@ -26,9 +27,11 @@ struct UIConstant {
     static let UI_FONT_14 : UIFont = UIFont.systemFontOfSize(14)
     static let UI_FONT_16 : UIFont = UIFont.systemFontOfSize(16)
     static let UI_FONT_20 : UIFont = UIFont.systemFontOfSize(20)
+    static let UI_FONT_22 : UIFont = UIFont.systemFontOfSize(22)
     // 间距
     static let UI_MARGIN_5 : CGFloat = 5
     static let UI_MARGIN_10 : CGFloat = 10
+    static let UI_MARGIN_12 : CGFloat = 12
     static let UI_MARGIN_15 : CGFloat = 15
     static let UI_MARGIN_20 : CGFloat = 20
     
