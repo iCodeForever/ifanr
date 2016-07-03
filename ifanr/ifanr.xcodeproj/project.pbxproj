@@ -221,11 +221,11 @@
 		F11937551D24013A00DF143B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
+
 				F170BE501D26B7C500D84EBC /* HomeViewController */,
-=======
+
 				43751CDE1D26CFBB0032BBE3 /* NewsFlashController */,
->>>>>>> 5c7b8eeb1d470565c45f6e111951f80442bd7ded
+
 				F170BE471D269EEC00D84EBC /* MenuController */,
 				F119376B1D24098F00DF143B /* MainViewController */,
 			);
@@ -548,12 +548,12 @@
 				F1498D971D250E65005BB684 /* MainTabModel.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
-<<<<<<< HEAD
+
 				F11DA0771D282E7100E574CC /* HomePageControl.swift in Sources */,
-=======
+
 				43751CE21D26CFC90032BBE3 /* NewsFlashModel.swift in Sources */,
 				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,
->>>>>>> 5c7b8eeb1d470565c45f6e111951f80442bd7ded
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
