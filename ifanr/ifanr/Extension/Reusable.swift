@@ -23,3 +23,13 @@ public extension UITableView {
         return self.dequeueReusableCellWithIdentifier(T.reuseIdentifier) as? T
     }
 }
+
+public extension UICollectionView {
+    func dequeueReusableCell<T: Reusable>(indexPath: NSIndexPath) -> T? {
+        return self.dequeueReusableCellWithReuseIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as? T
+    }
+    
+    func registerClass<T: UICollectionViewCell where T: Reusable>(_:T.Type) {
+        self.registerClass(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
+    }
+}

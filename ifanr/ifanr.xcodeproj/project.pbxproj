@@ -22,6 +22,7 @@
 		F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119375B1D24018A00DF143B /* UIView+Frame.swift */; };
 		F119376D1D2409A700DF143B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119376C1D2409A700DF143B /* MainViewController.swift */; };
 		F11937721D240A4E00DF143B /* ifanrVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F11937711D240A4E00DF143B /* ifanrVideo.mp4 */; };
+		F11DA0771D282E7100E574CC /* HomePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11DA0761D282E7100E574CC /* HomePageControl.swift */; };
 		F1498D951D24FCBD005BB684 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D941D24FCBD005BB684 /* Constant.swift */; };
 		F1498D971D250E65005BB684 /* MainTabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D961D250E65005BB684 /* MainTabModel.swift */; };
 		F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D9A1D25150E005BB684 /* Reusable.swift */; };
@@ -29,6 +30,9 @@
 		F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE481D269F0000D84EBC /* MenuViewController.swift */; };
 		F170BE4C1D269F4400D84EBC /* MenuHeaaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE4B1D269F4400D84EBC /* MenuHeaaderView.swift */; };
 		F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE4D1D269F7D00D84EBC /* MenuTableViewCell.swift */; };
+		F170BE521D26B7D100D84EBC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE511D26B7D100D84EBC /* HomeViewController.swift */; };
+		F170BE551D27E9B300D84EBC /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE541D27E9B300D84EBC /* HomeHeaderView.swift */; };
+		F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE561D27F12F00D84EBC /* HomeHeaderItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +78,7 @@
 		F119376C1D2409A700DF143B /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F119376F1D240A1300DF143B /* DINPro-Medium.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Medium.TTF"; sourceTree = "<group>"; };
 		F11937711D240A4E00DF143B /* ifanrVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ifanrVideo.mp4; sourceTree = "<group>"; };
+		F11DA0761D282E7100E574CC /* HomePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageControl.swift; sourceTree = "<group>"; };
 		F1498D941D24FCBD005BB684 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		F1498D961D250E65005BB684 /* MainTabModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabModel.swift; sourceTree = "<group>"; };
 		F1498D9A1D25150E005BB684 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -81,6 +86,9 @@
 		F170BE481D269F0000D84EBC /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		F170BE4B1D269F4400D84EBC /* MenuHeaaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHeaaderView.swift; sourceTree = "<group>"; };
 		F170BE4D1D269F7D00D84EBC /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		F170BE511D26B7D100D84EBC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F170BE541D27E9B300D84EBC /* HomeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		F170BE561D27F12F00D84EBC /* HomeHeaderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,7 +221,11 @@
 		F11937551D24013A00DF143B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+
+				F170BE501D26B7C500D84EBC /* HomeViewController */,
+
 				43751CDE1D26CFBB0032BBE3 /* NewsFlashController */,
+
 				F170BE471D269EEC00D84EBC /* MenuController */,
 				F119376B1D24098F00DF143B /* MainViewController */,
 			);
@@ -259,6 +271,7 @@
 		F119375A1D24013A00DF143B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F170BE531D27E94B00D84EBC /* HomeView */,
 				F170BE4A1D269F3200D84EBC /* MenuView */,
 				F1498D911D24FA88005BB684 /* MainView */,
 			);
@@ -313,6 +326,24 @@
 				F170BE4D1D269F7D00D84EBC /* MenuTableViewCell.swift */,
 			);
 			path = MenuView;
+			sourceTree = "<group>";
+		};
+		F170BE501D26B7C500D84EBC /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F170BE511D26B7D100D84EBC /* HomeViewController.swift */,
+			);
+			path = HomeViewController;
+			sourceTree = "<group>";
+		};
+		F170BE531D27E94B00D84EBC /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				F170BE541D27E9B300D84EBC /* HomeHeaderView.swift */,
+				F170BE561D27F12F00D84EBC /* HomeHeaderItem.swift */,
+				F11DA0761D282E7100E574CC /* HomePageControl.swift */,
+			);
+			path = HomeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,6 +532,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F170BE551D27E9B300D84EBC /* HomeHeaderView.swift in Sources */,
+				F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */,
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,
 				43751CE61D26D0630032BBE3 /* NewsFlashTableViewCell.swift in Sources */,
@@ -511,11 +544,16 @@
 				F170BE4C1D269F4400D84EBC /* MenuHeaaderView.swift in Sources */,
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
+				F170BE521D26B7D100D84EBC /* HomeViewController.swift in Sources */,
 				F1498D971D250E65005BB684 /* MainTabModel.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
+
+				F11DA0771D282E7100E574CC /* HomePageControl.swift in Sources */,
+
 				43751CE21D26CFC90032BBE3 /* NewsFlashModel.swift in Sources */,
 				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
