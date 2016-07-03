@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353790F1D28BD37004A2766 /* NSDate+IF.swift */; };
+		43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */; };
+		43751CE21D26CFC90032BBE3 /* NewsFlashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CE11D26CFC90032BBE3 /* NewsFlashModel.swift */; };
+		43751CE61D26D0630032BBE3 /* NewsFlashTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CE51D26D0630032BBE3 /* NewsFlashTableViewCell.swift */; };
+		43751CE81D26D0820032BBE3 /* 爱范儿API.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */; };
+		43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */; };
 		578C5CC4EB609089221BD17D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19142DE52BA65CA63302D628 /* Pods.framework */; };
 		699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699874BE1D23C6CA0059A2BE /* AppDelegate.swift */; };
 		699874C61D23C6CA0059A2BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699874C51D23C6CA0059A2BE /* Assets.xcassets */; };
@@ -44,6 +50,12 @@
 
 /* Begin PBXFileReference section */
 		19142DE52BA65CA63302D628 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4353790F1D28BD37004A2766 /* NSDate+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+IF.swift"; sourceTree = "<group>"; };
+		43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashController.swift; sourceTree = "<group>"; };
+		43751CE11D26CFC90032BBE3 /* NewsFlashModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashModel.swift; sourceTree = "<group>"; };
+		43751CE51D26D0630032BBE3 /* NewsFlashTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashTableViewCell.swift; sourceTree = "<group>"; };
+		43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "爱范儿API.rtf"; sourceTree = "<group>"; };
+		43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFNetWorkTool.swift; path = Utils/IFNetWorkTool.swift; sourceTree = "<group>"; };
 		699874BB1D23C6CA0059A2BE /* ifanr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifanr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		699874BE1D23C6CA0059A2BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		699874C51D23C6CA0059A2BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -112,6 +124,22 @@
 				19142DE52BA65CA63302D628 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43751CDE1D26CFBB0032BBE3 /* NewsFlashController */ = {
+			isa = PBXGroup;
+			children = (
+				43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */,
+			);
+			path = NewsFlashController;
+			sourceTree = "<group>";
+		};
+		43F2E6DF1D274A7400224B6F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		699874B21D23C6CA0059A2BE = {
@@ -185,6 +213,7 @@
 		F11937551D24013A00DF143B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				43751CDE1D26CFBB0032BBE3 /* NewsFlashController */,
 				F170BE471D269EEC00D84EBC /* MenuController */,
 				F119376B1D24098F00DF143B /* MainViewController */,
 			);
@@ -196,6 +225,7 @@
 			children = (
 				F119375B1D24018A00DF143B /* UIView+Frame.swift */,
 				F1498D9A1D25150E005BB684 /* Reusable.swift */,
+				4353790F1D28BD37004A2766 /* NSDate+IF.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -203,6 +233,7 @@
 		F11937571D24013A00DF143B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				43751CE11D26CFC90032BBE3 /* NewsFlashModel.swift */,
 				F1498D961D250E65005BB684 /* MainTabModel.swift */,
 			);
 			path = Models;
@@ -213,6 +244,7 @@
 			children = (
 				F119376E1D2409FD00DF143B /* Font */,
 				F11937591D24013A00DF143B /* Lib */,
+				43F2E6DF1D274A7400224B6F /* Utils */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -252,6 +284,7 @@
 		F11937701D240A3200DF143B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */,
 				F11937711D240A4E00DF143B /* ifanrVideo.mp4 */,
 			);
 			path = Resources;
@@ -260,6 +293,7 @@
 		F1498D911D24FA88005BB684 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				43751CE51D26D0630032BBE3 /* NewsFlashTableViewCell.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -352,7 +386,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5N8LXT5RPD;
+						DevelopmentTeam = 48E3LB8PD7;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -392,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11937721D240A4E00DF143B /* ifanrVideo.mp4 in Resources */,
+				43751CE81D26D0820032BBE3 /* 爱范儿API.rtf in Resources */,
 				699874C91D23C6CA0059A2BE /* LaunchScreen.storyboard in Resources */,
 				699874C61D23C6CA0059A2BE /* Assets.xcassets in Resources */,
 			);
@@ -468,14 +503,19 @@
 			files = (
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,
+				43751CE61D26D0630032BBE3 /* NewsFlashTableViewCell.swift in Sources */,
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
+				435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */,
 				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
+				43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */,
 				F170BE4C1D269F4400D84EBC /* MenuHeaaderView.swift in Sources */,
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
 				F1498D971D250E65005BB684 /* MainTabModel.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
+				43751CE21D26CFC90032BBE3 /* NewsFlashModel.swift in Sources */,
+				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

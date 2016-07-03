@@ -92,4 +92,10 @@ extension UIView {
             self.frame = frame
         }
     }
+    
+    public var bottom : CGFloat {
+        get {
+            return self.frame.origin.y + self.frame.size.height
+        }
+    }
 }
