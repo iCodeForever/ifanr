@@ -18,6 +18,7 @@ extension Reusable {
     }  
 }
 
+// MARK: - 扩展UITableView, 不用传入identifier参数  identifier参数为类名
 public extension UITableView {
     func dequeueReusableCell<T: Reusable>() -> T? {
         return self.dequeueReusableCellWithIdentifier(T.reuseIdentifier) as? T
@@ -25,6 +26,7 @@ public extension UITableView {
 }
 
 public extension UICollectionView {
+    
     func dequeueReusableCell<T: Reusable>(indexPath: NSIndexPath) -> T? {
         return self.dequeueReusableCellWithReuseIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as? T
     }
