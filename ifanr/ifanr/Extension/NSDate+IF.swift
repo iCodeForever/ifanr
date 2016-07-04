@@ -10,7 +10,7 @@ import Foundation
 
 extension NSDate {
     // 获取今天日期
-    class func today() -> String{
+    class func today() -> String {
         let dataFormatter : NSDateFormatter = NSDateFormatter()
         dataFormatter.dateFormat = "yyyy-MM-dd"
         let now : NSDate = NSDate()
@@ -37,5 +37,13 @@ extension NSDate {
         let dateBefore = formatter.dateFromString(dateString)
         
         return (dateBefore?.timeIntervalSinceNow)!
+    }
+    
+    /**
+     *  获取当前时间戳
+     */
+    class func getCurrentTimeStamp() -> String {
+        let timeStamp : String = "\(Int64(floor(NSDate().timeIntervalSince1970 * 1000)))"
+        return timeStamp
     }
 }

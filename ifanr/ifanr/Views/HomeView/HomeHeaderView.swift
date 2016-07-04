@@ -16,13 +16,16 @@ class HomeHeaderView: UIView {
         contentScrollView.addSubview(currentImageView)
         contentScrollView.addSubview(lastImageView)
         contentScrollView.addSubview(nextImageView)
+        
         addSubview(contentScrollView)
+        addSubview(pageControl)
     }
     
-    convenience init(frame: CGRect, imageArray: [UIImage]!) {
+    convenience init(frame: CGRect, modelArray: [HomePopularModel]!) {
         self.init(frame: frame)
-        self.imageArray = imageArray
+        self.modelArray = modelArray
         
+        pageControl.numberOfPage = self.modelArray.count
         // 默认显示第一张图片
         self.indexOfCurrentImage = 0
         // 设置uiimageview位置
@@ -45,7 +48,7 @@ class HomeHeaderView: UIView {
     private func getLastImageIndex(indexOfCurrentImage index: Int) -> Int {
         let tempIndex = index - 1
         if tempIndex == -1 {
-            return self.imageArray.count - 1
+            return self.modelArray.count - 1
         } else {
             return tempIndex
         }
@@ -60,16 +63,22 @@ class HomeHeaderView: UIView {
      */
     private func getNextImageIndex(indexOfCurrentImage index: Int) -> Int {
         let tempIndex = index + 1
-        return tempIndex < self.imageArray.count ? tempIndex : 0
+        return tempIndex < self.modelArray.count ? tempIndex : 0
     }
     
     /**
      重新设置scrollview的图片
      */
     private func setScrollViewOfImage() {
-        self.currentImageView.image = self.imageArray[self.indexOfCurrentImage]
-        self.nextImageView.image = self.imageArray[self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
-        self.lastImageView.image = self.imageArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
+        // 获取当前模型数据
+        let currentModel = self.modelArray[self.indexOfCurrentImage]
+        self.currentImageView.if_setImage(NSURL(string: currentModel.image))
+        // 获取下一张图片的模型
+        let nextImageModel = self.modelArray[self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
+        self.nextImageView.if_setImage(NSURL(string: nextImageModel.image))
+        // 获取上衣张图片的模型
+        let lastImageModle = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
+        self.lastImageView.if_setImage(NSURL(string: lastImageModle.image))
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
@@ -84,25 +93,25 @@ class HomeHeaderView: UIView {
     }()
     
         /// 监听图片数组的变化，如果有变化立即刷新轮转图中显示的图片
-    var imageArray: [UIImage]! {
+    var modelArray: [HomePopularModel]! {
         
         willSet {
-            self.imageArray = newValue
+            self.modelArray = newValue
         }
         /**
          *  如果数据源改变，则需要改变scrollView、分页指示器的数量
          */
         didSet {
-            contentScrollView.scrollEnabled = !(imageArray.count == 1)
-//            self.pageIndicator.frame = CGRectMake(self.frame.size.width - 20 * CGFloat(imageArray.count), self.frame.size.height - 30, 20 * CGFloat(imageArray.count), 20)
-//            self.pageIndicator?.numberOfPages = self.imageArray.count
+            contentScrollView.scrollEnabled = !(modelArray.count == 1)
+            pageControl.numberOfPage = self.modelArray.count
             setScrollViewOfImage()
+            contentScrollView.setContentOffset(CGPoint(x: self.width, y: 0), animated: false)
         }
     }
         /// 监听显示的第几张图片，来更新分页指示器
-    var indexOfCurrentImage: Int! {
+    var indexOfCurrentImage: Int! = 0{
         didSet {
-//            self.pageIndicator.currentPage = indexOfCurrentImage
+            self.pageControl.currentPage = indexOfCurrentImage
         }
     }
     
@@ -127,6 +136,11 @@ class HomeHeaderView: UIView {
         nextImageView.contentMode = UIViewContentMode.ScaleAspectFill
         return nextImageView
     }()
+    
+    private lazy var pageControl: HomePageControl = {
+        var pageControl = HomePageControl(frame: CGRect(x: UIConstant.UI_MARGIN_10, y: self.height-40, width: self.width, height: 25))
+        return pageControl
+    }()
 }
 
 extension HomeHeaderView: UIScrollViewDelegate {
@@ -143,7 +157,7 @@ extension HomeHeaderView: UIScrollViewDelegate {
         let offset = scrollView.contentOffset.x
         if offset == 0 {
             self.indexOfCurrentImage = self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)
-        }else if offset == self.frame.size.width * 2 {
+        } else if offset == self.frame.size.width * 2 {
             self.indexOfCurrentImage = self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)
         }
         // 重新布局图片

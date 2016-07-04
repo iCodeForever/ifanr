@@ -32,7 +32,7 @@ class MenuTableViewCell: UITableViewCell, Reusable {
     }
     
     /// 给外部传递模型进来， 然后设置数据
-    var model: MainTabModel! {
+    var model: MenuTabModel! {
         didSet {
             self.iconView.image = model.image
             self.titleLabel.text = model.title
