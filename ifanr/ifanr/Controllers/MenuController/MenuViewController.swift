@@ -45,13 +45,13 @@ class MenuViewController: UIViewController {
 extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MainTabItems.count
+        return MenuTabItems.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = MenuTableViewCell.cellWithTableView(tableView)
-        cell.model = MainTabItems[indexPath.row]
+        cell.model = MenuTabItems[indexPath.row]
         return cell
     }
 }

@@ -7,21 +7,24 @@
 //
 
 import UIKit
-
+import SnapKit
 class HomeViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blueColor()
         
-        let headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: 200), imageArray: imageArray)
+        let headerView = HomeHeaderView()
         self.view.addSubview(headerView)
         
+        headerView.snp_makeConstraints { (make) in
+            make.left.top.right.equalTo(self.view)
+            make
+        }
+        
+        
+        IFanrService.shareInstance.getHomeHotDate(0, posts_per_page: 5, successHandle: { (modelArray) in
+            headerView.modelArray = modelArray
+            }, errorHandle: nil)
+
     }
-    let imageArray = [
-        UIImage(named: "ic_about")!,
-        UIImage(named: "ic_login")!,
-        UIImage(named: "ic_report")!,
-        UIImage(named: "ic_search")!,
-        UIImage(named: "ic_setting")!
-    ]
 }
