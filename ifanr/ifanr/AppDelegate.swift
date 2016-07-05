@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
 
-        window?.rootViewController = HomeViewController()
+//        window?.rootViewController = HomeViewController()
 
-//        window?.rootViewController = NewsFlashController()
+        window?.rootViewController = PlayingZhiController()
 
         return true
     }
