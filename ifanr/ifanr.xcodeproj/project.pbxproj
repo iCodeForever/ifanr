@@ -31,6 +31,7 @@
 		F15349DF1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15349DE1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift */; };
 		F15349E11D2D7EB900A11BCB /* String+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15349E01D2D7EB900A11BCB /* String+ifanr.swift */; };
 		F15349E31D2DF52F00A11BCB /* HomeLatestTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15349E21D2DF52F00A11BCB /* HomeLatestTextCell.swift */; };
+		F15349E51D2EA5D900A11BCB /* HomeLatestDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15349E41D2EA5D900A11BCB /* HomeLatestDataCell.swift */; };
 		F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE451D26388B00D84EBC /* APIConstant.swift */; };
 		F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE481D269F0000D84EBC /* MenuViewController.swift */; };
 		F170BE4C1D269F4400D84EBC /* MenuHeaaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE4B1D269F4400D84EBC /* MenuHeaaderView.swift */; };
@@ -99,6 +100,7 @@
 		F15349DE1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+ifanr.swift"; sourceTree = "<group>"; };
 		F15349E01D2D7EB900A11BCB /* String+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ifanr.swift"; sourceTree = "<group>"; };
 		F15349E21D2DF52F00A11BCB /* HomeLatestTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLatestTextCell.swift; sourceTree = "<group>"; };
+		F15349E41D2EA5D900A11BCB /* HomeLatestDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLatestDataCell.swift; sourceTree = "<group>"; };
 		F170BE451D26388B00D84EBC /* APIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
 		F170BE481D269F0000D84EBC /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		F170BE4B1D269F4400D84EBC /* MenuHeaaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHeaaderView.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				F11DA0761D282E7100E574CC /* HomePageControl.swift */,
 				F15349D81D2C156500A11BCB /* HomeLatestImageCell.swift */,
 				F15349E21D2DF52F00A11BCB /* HomeLatestTextCell.swift */,
+				F15349E41D2EA5D900A11BCB /* HomeLatestDataCell.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
 				F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */,
+				F15349E51D2EA5D900A11BCB /* HomeLatestDataCell.swift in Sources */,
 				F170BE521D26B7D100D84EBC /* HomeViewController.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
