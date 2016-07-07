@@ -20,12 +20,12 @@ class IFanrService {
     /**
      获取首页热门5条信息
      
-     - parameter page:           <#page description#>
-     - parameter posts_per_page: <#posts_per_page description#>
-     - parameter successHandle:  <#successHandle description#>
-     - parameter errorHandle:    <#errorHandle description#>
+     - parameter page:           页数
+     - parameter posts_per_page: 每一页返回多少条
+     - parameter successHandle:  请求成功回调
+     - parameter errorHandle:    请求错误回调
      */
-    func getHomeHotDate(page: Int, posts_per_page: Int, successHandle: ((Array<HomePopularModel>) -> Void)? , errorHandle: ((Error) -> Void)?) {
+    func getHomeHotData(page: Int, posts_per_page: Int, successHandle: ((Array<HomePopularModel>) -> Void)? , errorHandle: ((Error) -> Void)?) {
         ifanrProvider.request(APIConstant.Home_hot_features(page, posts_per_page)) { (result) in
             switch result {
                 // 请求成功
@@ -33,7 +33,7 @@ class IFanrService {
                 do {
                     let json = try response.mapJSON() as? Dictionary<String, AnyObject>
                     if let json = json {
-                        // 获取Date数组
+                        // 获取Data数组
                         if let content = json["data"] as? Array<AnyObject> {
                             // 字典转模型， 放到异步去处理好一点
                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { 
@@ -47,7 +47,11 @@ class IFanrService {
                                     }
                                 })
                             })
+                        } else {
+                            print("没有数据")
                         }
+                    } else {
+                        print("没有数据")
                     }
                 } catch {
                     print("出现异常")
@@ -63,5 +67,55 @@ class IFanrService {
                 }
             }
         }
+    }
+    
+    /**
+     获取首页列表数据
+     
+     - parameter page:          请求的页数
+     - parameter successHandle: 请求成功回调
+     - parameter errorHandle:   请求失败回调
+     */
+    
+    func getHomeLatestData(page: Int, successHandle: (Array<HomePopularLayout> -> Void)?, errorHandle:((Error) -> Void)?) {
+        ifanrProvider.request(APIConstant.Home_latest(page)) { (result) in
+            switch result {
+            case let .Success(response):
+                do {
+                    // 获取json数据
+                    let json = try response.mapJSON() as? Dictionary<String, AnyObject>
+                    if let json = json {
+                        // 获取Data数组
+                        if let content = json["data"] as? Array<AnyObject> {
+                            // 放到异步去处理字典转模型，提前计算好cell的高度。
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { 
+                                let layoutArray = content.map({ (dict) -> HomePopularLayout in
+                                    return HomePopularLayout(model: HomePopularModel(dict: dict as! NSDictionary))
+                                })
+                                
+                                dispatch_async(dispatch_get_main_queue(), { 
+                                    if let success = successHandle {
+                                        success(layoutArray)
+                                    }
+                                })
+                            })
+                        } else {
+                            print("没有数据")
+                        }
+                    } else {
+                        print("没有数据")
+                    }
+                } catch {
+                    print("出现异常")
+                }
+                
+            case let .Failure(error):
+                // 错误回调
+                if let handle = errorHandle {
+                    handle(error)
+                }
+            }
+        }
+        
     }
 }

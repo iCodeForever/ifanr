@@ -40,6 +40,21 @@ extension NSDate {
     }
     
     /**
+     将yyyy-MM-dd HH:mm:ss装换成MM月dd日 HH:mm
+     
+     - parameter timeStamp: 时间戳
+     */
+    class func getDate(date: String) -> String{
+        let lastFormatter = NSDateFormatter()
+        lastFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let lastDate = lastFormatter.dateFromString(date)
+        
+        let currFormatter = NSDateFormatter()
+        currFormatter.dateFormat = "MM月dd日 HH:mm"
+        return currFormatter.stringFromDate(lastDate!)
+    }
+    
+    /**
      *  获取当前时间戳
      */
     class func getCurrentTimeStamp() -> String {

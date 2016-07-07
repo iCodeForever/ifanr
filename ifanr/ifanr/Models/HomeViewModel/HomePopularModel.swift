@@ -7,8 +7,17 @@
 //
 
 import UIKit
-
+/**
+ 发布类型： 在计算cell高度是需要分类进行计算（目前只发现这几种）
+ */
+enum PostType {
+    case post
+    case data
+    case dasheng
+}
 struct HomePopularModel {
+    
+    
         /// id
     var ID: Int64!
         /// 标题
@@ -31,8 +40,8 @@ struct HomePopularModel {
     var comments: String!
         /// 分类
     var category: String!
-        /// 发布类型
-    var post_type: String!
+        /// 发布类型(目前发现几种data, post, dasheng) 默认是post类型
+    var post_type: PostType! = .post
         /// 分类网页
     var category_link: String!
         /// tag
@@ -42,8 +51,11 @@ struct HomePopularModel {
     var is_ad: Int!
         /// 摘录
     var excerpt: String!
+        /// 作者信息，有可能为空
+    var authorModel: AuthorInfoModel?
+    var dasheng_author: String!
     
-    init(dict: NSDictionary) {
+    init(dict: NSDictionary, isCalculate: Bool = false) {
         self.ID = dict["ID"] as? Int64 ?? 0
         self.title = dict["title"] as? String ?? ""
         self.author = dict["author"] as? String ?? ""
@@ -55,15 +67,55 @@ struct HomePopularModel {
         self.link = dict["link"] as? String ?? ""
         self.comments = dict["comments"] as? String ?? ""
         self.category = dict["category"] as? String ?? ""
-        self.post_type = dict["post_type"] as? String ?? ""
+        if let type = dict["post_type"] as? String {
+            if type == "post" {
+                self.post_type = .post
+            } else if type == "dasheng" {
+                self.post_type = .dasheng
+            } else if type == "data" {
+                self.post_type = .data
+            }
+        }
         self.category_link = dict["category_link"] as? String ?? ""
         self.tags = dict["tags"] as? String ?? ""
         self.like = dict["like"] as? Int ?? 0
         self.is_ad = dict["is_ad"] as? Int ?? 0
         self.excerpt = dict["excerpt"] as? String ?? ""
+        
+        // 作者信息
+        let authorDict = dict["author_info"] as! NSDictionary?
+        if let authorDic = authorDict {
+            self.authorModel = AuthorInfoModel(dict: authorDic)
+        }
+        self.dasheng_author = dict["dasheng_author"] as? String ?? ""
+    }
+    
+    /**
+     *  作者信息
+     */
+    struct AuthorInfoModel {
+        var job: String!
+        var name: String!
+        var avatar: String!
+        var description: String!
+        
+        init(dict: NSDictionary) {
+            self.job = dict["job"] as? String ?? ""
+            self.name = dict["name"] as? String ?? ""
+            self.avatar = dict["avatar"] as? String ?? ""
+            self.description = dict["description"] as? String ?? ""
+        }
     }
 }
 
+/*
+"author_info":{
+    "job":"编辑",
+    "name":"nemo603",
+    "avatar":"http://images.ifanr.cn/wp-content/uploads/2015/09/3.pic_hd1.jpg",
+    "description":"相逢意气为君饮，系马高楼垂柳边。"
+}
+*/
 /*
  
  
