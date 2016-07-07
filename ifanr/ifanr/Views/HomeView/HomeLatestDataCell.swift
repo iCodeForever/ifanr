@@ -1,5 +1,5 @@
 //
-//  HomeLatestTextCell.swift
+//  HomeLatestDataCell.swift
 //  ifanr
 //
 //  Created by 梁亦明 on 16/7/7.
@@ -8,27 +8,29 @@
 
 import Foundation
 
-class HomeLatestTextCell: UITableViewCell, Reusable {
-    class func cellWithTableView(tableView: UITableView) -> HomeLatestTextCell {
-        var cell = tableView.dequeueReusableCell() as HomeLatestTextCell?
-        
+
+
+class HomeLatestDataCell: UITableViewCell, Reusable {
+    
+    class func cellWithTableView(tableView: UITableView) -> HomeLatestDataCell {
+        var cell = tableView.dequeueReusableCell() as HomeLatestDataCell?
         if cell == nil {
-            cell = HomeLatestTextCell(style: .Default, reuseIdentifier: HomeLatestTextCell.reuseIdentifier)
+            cell = HomeLatestDataCell(style: .Default, reuseIdentifier: HomeLatestDataCell.reuseIdentifier)
         }
         return cell!
     }
     
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         self.selectionStyle = .None
-        
         self.contentView.addSubview(authorImageView)
         self.contentView.addSubview(dateLabel)
         self.contentView.addSubview(likeLabel)
         self.contentView.addSubview(likeImageView)
+        self.contentView.addSubview(numberLabel)
+        self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(introduceLabel)
-        self.contentView.addSubview(authorLabel)
         self.contentView.layer.addSublayer(cellBottomLine)
         
     }
@@ -53,13 +55,19 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
             likeLabel.frame = popularLayout.kHomeCellLikeRect
             likeImageView.frame = popularLayout.kHomeCellLikeImgRect
             
-            // 引文
-            introduceLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.excerpt)
-            introduceLabel.frame = popularLayout.kHomeCellTextRect
+            // 数字
+            let numberAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.number)  \(popularLayout.model.subfix)")
+            numberAttributeText.addAttribute(NSFontAttributeName, value: UIFont.customFont_FZLTZCHJW(fontSize: 40), range: NSRange(location: 0, length: popularLayout.model.number.length))
+            numberLabel.attributedText = numberAttributeText
+            numberLabel.frame = popularLayout.kHomeCellNumberRect
             
-            // 作者
-            authorLabel.text = "—— \(popularLayout.model.dasheng_author)"
-            authorLabel.frame = popularLayout.kHomeCellAuthorRect
+            // 标题
+            self.titleLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.title)
+            self.titleLabel.frame = popularLayout.kHomeCellTitleRect
+            
+            // 引文
+            introduceLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.content.stringByReplacingOccurrencesOfString("<p>", withString: "").stringByReplacingOccurrencesOfString("</p>", withString: ""))
+            introduceLabel.frame = popularLayout.kHomeCellTextRect
             
             // 底部横线
             cellBottomLine.frame = CGRect(x: UIConstant.UI_MARGIN_20, y: popularLayout.cellHeight-1, width: self.width-2*UIConstant.UI_MARGIN_20, height: 1)
@@ -67,7 +75,7 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
-        /// 作者图片
+    /// 作者图片
     private lazy var authorImageView: UIImageView = {
         var authorImageView = UIImageView()
         authorImageView.image = UIImage(named: "ic_shudu")
@@ -97,22 +105,30 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
         return likeImage
     }()
     
+        /// 数字
+    private lazy var numberLabel: UILabel = {
+        var numberLabel = UILabel()
+        numberLabel.textColor = UIColor.blackColor()
+        numberLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 18)
+        return numberLabel
+    }()
+    
+        /// 标题
+    private lazy var titleLabel: UILabel = {
+        var titleLabel = UILabel()
+        titleLabel.numberOfLines = 0
+        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
+        titleLabel.textColor = UIConstant.UI_COLOR_RedTheme
+        return titleLabel
+    }()
+    
     /// 引文
     private lazy var introduceLabel: UILabel = {
         var introduceLabel = UILabel()
-        introduceLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
+        introduceLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         introduceLabel.numberOfLines = 0
         introduceLabel.textColor = UIConstant.UI_COLOR_RedTheme
         return introduceLabel
-    }()
-    
-    /// 作者
-    private lazy var authorLabel: UILabel = {
-        var authorLabel = UILabel()
-        authorLabel.textAlignment = .Center
-        authorLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
-        authorLabel.textColor = UIConstant.UI_COLOR_GrayTheme
-        return authorLabel
     }()
     
     /// 底部分割线
@@ -121,4 +137,5 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
         cellBottomLine.backgroundColor = UIConstant.UI_COLOR_GrayTheme.CGColor
         return cellBottomLine
     }()
+
 }

@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
             self.headerView.modelArray = modelArray
             }, errorHandle: nil)
         
-        IFanrService.shareInstance.getHomeLatestData(3, successHandle: { [unowned self](layoutArray) in
+        IFanrService.shareInstance.getHomeLatestData(9, successHandle: { [unowned self](layoutArray) in
             self.latestCellLayout = layoutArray
             self.tableView.reloadData()
             }, errorHandle: nil)
@@ -52,24 +52,30 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let cellModel = latestCellLayout[indexPath.row].model
-        if cellModel.post_type == PostType.post {
-            let cell = cell as! HomeLatestImageCell
+        
+        if cellModel.post_type == PostType.dasheng {
+            let cell = cell as! HomeLatestTextCell
+            cell.popularLayout = latestCellLayout[indexPath.row]
+        } else if cellModel.post_type == PostType.data {
+            let cell = cell as! HomeLatestDataCell
             cell.popularLayout = latestCellLayout[indexPath.row]
         } else {
-            let cell = cell as! HomeLatestTextCell
+            let cell = cell as! HomeLatestImageCell
             cell.popularLayout = latestCellLayout[indexPath.row]
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellModel = latestCellLayout[indexPath.row].model
-        if cellModel.post_type == PostType.post {
-            let cell = HomeLatestImageCell.cellWithTableView(tableView)
-            return cell
+        var cell : UITableViewCell!
+        if cellModel.post_type == PostType.dasheng {
+            cell = HomeLatestTextCell.cellWithTableView(tableView)
+        } else if cellModel.post_type == PostType.data {
+            cell = HomeLatestDataCell.cellWithTableView(tableView)
         } else {
-            let cell = HomeLatestTextCell.cellWithTableView(tableView)
-            return cell
+            cell = HomeLatestImageCell.cellWithTableView(tableView)
         }
+        return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
