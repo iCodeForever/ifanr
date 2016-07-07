@@ -20,22 +20,24 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
                 let range = NSRange(location: 10, length: 6)
                 self.timeLabel.text = "昨天 " + (model.pubDate! as NSString).substringWithRange(range)
             } else if timeInterval < 72 {
-                let range = NSRange(location: 10, length: 5)
+                let range = NSRange(location: 10, length: 6)
                 self.timeLabel.text = "前天 " + (model.pubDate! as NSString).substringWithRange(range)
             } else {
-                self.timeLabel.text = model.pubDate
+                
+                var timeStr: String = ""
+                if let tmpArray: Array = (model.pubDate?.componentsSeparatedByString(" "))! {
+                    if let monthDayArray: Array = tmpArray[0].componentsSeparatedByString("-") {
+                        timeStr = monthDayArray[1] + "月" + monthDayArray[2] + "日"
+                    }
+                    let range = NSRange(location: 0, length: 5)
+                    timeStr = timeStr + " " + ((tmpArray[1] as NSString).substringWithRange(range))
+                }
+                self.timeLabel.text = timeStr
             }
             self.likeCountLabel.text    = "55"
             
-            let attrs = NSMutableAttributedString(string: model.title!)
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 5.0
-            attrs.addAttribute(NSParagraphStyleAttributeName,
-                               value: paragraphStyle,
-                               range: NSMakeRange(0, ((model.title)!.characters.count)))
-            self.titleLabel.attributedText = attrs
-            
-            self.infoLabel.text     = model.excerpt
+            self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
+            self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
             self.logoImageView.yy_setImageWithURL(NSURL(string: model.image!), options: .AllowBackgroundTask)
         }
     }
@@ -116,7 +118,7 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
-            make.height.equalTo(150).priority(1000)
+            make.height.equalTo(170).priority(1000)
         }
         self.timeLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.logoImageView.snp_bottom).offset(UIConstant.UI_MARGIN_10)
@@ -195,7 +197,7 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
         let labelRect : CGRect = content.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
         
         // 50为其他控件的高度
-        return labelRect.height + 260;
+        return labelRect.height + 280;
     }
     
 }

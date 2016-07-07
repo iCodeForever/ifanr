@@ -13,6 +13,7 @@
 		43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */; };
 		43751CE21D26CFC90032BBE3 /* NewsFlashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CE11D26CFC90032BBE3 /* NewsFlashModel.swift */; };
 		43751CE81D26D0820032BBE3 /* 爱范儿API.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */; };
+		43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */; };
 		43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */; };
 		43EBEAC31D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EBEAC11D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift */; };
 		43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */; };
@@ -67,6 +68,7 @@
 		43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashController.swift; sourceTree = "<group>"; };
 		43751CE11D26CFC90032BBE3 /* NewsFlashModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashModel.swift; sourceTree = "<group>"; };
 		43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "爱范儿API.rtf"; sourceTree = "<group>"; };
+		43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+IF.swift"; sourceTree = "<group>"; };
 		43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEAC11D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingZhiTableViewCell.swift; sourceTree = "<group>"; };
 		43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFNetWorkTool.swift; path = Utils/IFNetWorkTool.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				4353790F1D28BD37004A2766 /* NSDate+IF.swift */,
 				F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */,
 				F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */,
+				43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				F1A06AAB1D2918F300563FA1 /* HomePopularModel.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
 				F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */,
+				43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */,
 				F170BE521D26B7D100D84EBC /* HomeViewController.swift in Sources */,
 				F1498D971D250E65005BB684 /* MenuTabModel.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,

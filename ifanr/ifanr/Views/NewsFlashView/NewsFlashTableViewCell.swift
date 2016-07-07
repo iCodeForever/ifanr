@@ -42,7 +42,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
                 let range = NSRange(location: 10, length: 5)
                 self.timeLabel.text = "前天 " + (model.pubDate! as NSString).substringWithRange(range)
             } else {
-                self.textLabel?.text = model.pubDate
+                self.timeLabel.text = model.pubDate
             }
             
             // 设置行间距
