@@ -53,7 +53,12 @@ struct HomePopularModel {
     var excerpt: String!
         /// 作者信息，有可能为空
     var authorModel: AuthorInfoModel?
-    var dasheng_author: String!
+        /// 大声作者
+    var dasheng_author: String! = ""
+        /// 数读
+    var data_author: String! = ""
+    var number: String! = ""
+    var subfix: String! = ""
     
     init(dict: NSDictionary, isCalculate: Bool = false) {
         self.ID = dict["ID"] as? Int64 ?? 0
@@ -72,8 +77,12 @@ struct HomePopularModel {
                 self.post_type = .post
             } else if type == "dasheng" {
                 self.post_type = .dasheng
+                self.dasheng_author = dict["dasheng_author"] as? String ?? ""
             } else if type == "data" {
                 self.post_type = .data
+                self.data_author = "数读"
+                self.number = dict["number"] as? String ?? ""
+                self.subfix = dict["subfix"] as? String ?? ""
             }
         }
         self.category_link = dict["category_link"] as? String ?? ""
@@ -87,7 +96,7 @@ struct HomePopularModel {
         if let authorDic = authorDict {
             self.authorModel = AuthorInfoModel(dict: authorDic)
         }
-        self.dasheng_author = dict["dasheng_author"] as? String ?? ""
+        
     }
     
     /**
