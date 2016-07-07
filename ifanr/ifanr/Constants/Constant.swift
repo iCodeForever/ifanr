@@ -35,6 +35,7 @@ struct UIConstant {
     static let UI_MARGIN_15 : CGFloat = 15
     static let UI_MARGIN_20 : CGFloat = 20
     
-    // 颜色
+    // 颜色 首页灰色
     static let UI_COLOR_GrayTheme: UIColor = UIColor(red: 155/255.0, green: 155/255.0, blue: 155/255.0, alpha: 1)
+    static let UI_COLOR_RedTheme: UIColor = UIColor(red: 221/255.0, green: 64/255.0, blue: 43/255.0, alpha: 1)
 }
