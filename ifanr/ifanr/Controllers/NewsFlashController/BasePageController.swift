@@ -98,33 +98,9 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         detailTitleLabel.textColor = UIColor.whiteColor()
         headerView.addSubview(detailTitleLabel)
         
-        
-        /*
-         // HAPPENING NOW
-         let categoryLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-         categoryLabel.numberOfLines = 0
-         categoryLabel.textAlignment = .Center
-         categoryLabel.font = UIFont.boldSystemFontOfSize(12)
-         
-         let attrs = NSMutableAttributedString(string: "HAPPENING NOW")
-         // 设置不同颜色
-         attrs.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSMakeRange(10, 3))
-         categoryLabel.attributedText = attrs
-         // 获得合适高度
-         let size = CGSizeMake(320,2000)
-         let labelRect : CGRect = (categoryLabel.text)!.boundingRectWithSize(size, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nil , context: nil);
-         categoryLabel.frame = CGRectMake(UIConstant.SCREEN_WIDTH/2.0 - labelRect.width/2.0 - 15,
-         backgroundImageView.bottom + 50 - labelRect.height - 5,
-         labelRect.width + 30,
-         labelRect.height + 10)
-         categoryLabel.layer.borderColor = UIColor.darkGrayColor().CGColor
-         categoryLabel.layer.borderWidth = 1
-         headerView.addSubview(categoryLabel)
-         */
-        
         let tagImageView = UIImageView(frame: CGRect(x: 0, y: backgroundImageView.bottom + 38, width: UIConstant.SCREEN_WIDTH, height: 25))
         if (self.tagImgName != "") {
-            tagImageView.image = UIImage(imageLiteral: "tag_happeningnow")
+            tagImageView.image = UIImage(imageLiteral: self.tagImgName)
         }
         tagImageView.contentMode = UIViewContentMode.ScaleAspectFit
         headerView.addSubview(tagImageView)

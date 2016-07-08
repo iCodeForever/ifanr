@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        window?.rootViewController = HomeViewController()
 
-        window?.rootViewController = PlayingZhiController()
+        window?.rootViewController = AppSoViewController()
 
         return true
     }
