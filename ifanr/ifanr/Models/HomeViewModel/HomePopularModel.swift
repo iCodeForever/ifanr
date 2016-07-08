@@ -47,8 +47,8 @@ struct HomePopularModel {
         /// tag
     var tags: String!
         /// 喜欢数
-    var like: Int!
-    var is_ad: Int!
+    var like: Int64!
+    var is_ad: Int64!
         /// 摘录
     var excerpt: String!
         /// 作者信息，有可能为空
@@ -56,7 +56,6 @@ struct HomePopularModel {
         /// 大声作者
     var dasheng_author: String! = ""
         /// 数读
-    var data_author: String! = ""
     var number: String! = ""
     var subfix: String! = ""
     
@@ -78,17 +77,18 @@ struct HomePopularModel {
             } else if type == "dasheng" {
                 self.post_type = .dasheng
                 self.dasheng_author = dict["dasheng_author"] as? String ?? ""
+                self.category = "大声"
             } else if type == "data" {
                 self.post_type = .data
-                self.data_author = "数读"
+                self.category = "数读"
                 self.number = dict["number"] as? String ?? ""
                 self.subfix = dict["subfix"] as? String ?? ""
             }
         }
         self.category_link = dict["category_link"] as? String ?? ""
         self.tags = dict["tags"] as? String ?? ""
-        self.like = dict["like"] as? Int ?? 0
-        self.is_ad = dict["is_ad"] as? Int ?? 0
+        self.like = dict["like"] as? Int64 ?? 0
+        self.is_ad = dict["is_ad"] as? Int64 ?? 0
         self.excerpt = dict["excerpt"] as? String ?? ""
         
         // 作者信息

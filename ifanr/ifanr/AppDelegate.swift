@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
 
-        window?.rootViewController = HomeViewController()
-
+//        window?.rootViewController = HomeViewController()
+        window?.rootViewController = MainViewController()
 //        window?.rootViewController = NewsFlashController()
 
         return true
