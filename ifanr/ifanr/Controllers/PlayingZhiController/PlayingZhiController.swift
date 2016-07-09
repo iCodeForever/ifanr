@@ -11,6 +11,7 @@ import Alamofire
 
 class PlayingZhiController: BasePageController {
 
+    var dataSource : Array<HomePopularModel> = Array()
     //MARK:-----life cycle-----
     override func viewDidLoad() {
         
@@ -37,7 +38,7 @@ class PlayingZhiController: BasePageController {
                     if dataDic["data"] is NSArray {
                         let dataArr : NSArray = (dataDic["data"] as? NSArray)!
                         for item in dataArr {
-                            self.dataSource.append(NewsFlashModel(dict: item as! NSDictionary))
+                            self.dataSource.append(HomePopularModel(dict: item as! NSDictionary))
                         }
                     }
                     self.tableView.reloadData()

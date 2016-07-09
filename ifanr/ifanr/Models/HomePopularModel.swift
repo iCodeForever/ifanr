@@ -5,6 +5,7 @@
 //  Created by 梁亦明 on 16/7/3.
 //  Copyright © 2016年 ifanrOrg. All rights reserved.
 //
+//  首页/快讯/玩物志 model是一致的
 
 import UIKit
 
@@ -21,6 +22,8 @@ struct HomePopularModel {
     var post_modified: String!
         /// 图片
     var image: String!
+        /// cwb_image_url
+    var cwb_image_url: String!
         /// 内容
     var content: String!
         /// 引文
@@ -50,6 +53,7 @@ struct HomePopularModel {
         self.pubDate = dict["pubDate"] as? String ?? ""
         self.post_modified = dict["post_modified"] as? String ?? ""
         self.image = dict["image"] as? String ?? ""
+        self.cwb_image_url = dict["cwb_image_url"] as? String ?? ""
         self.content = dict["content"] as? String ?? ""
         self.introduce = dict["introduce"] as? String ?? ""
         self.link = dict["link"] as? String ?? ""

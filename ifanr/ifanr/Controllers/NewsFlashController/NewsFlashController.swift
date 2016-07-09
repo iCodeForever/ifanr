@@ -9,28 +9,25 @@
 import UIKit
 import Alamofire
 
-class NewsFlashController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewsFlashController: BasePageController {
     
-    var dataSource : Array<NewsFlashModel> = Array()
+    var dataSource : Array<HomePopularModel> = Array()
 
     //MARK:-----life cycle-----
     
     override func viewDidLoad() {
+        
+        self.backgroundImgName  = "buzz_header_background"
+        self.tagImgName         = "tag_happeningnow"
+        
         super.viewDidLoad()
         
-        // 添加tableView
-        self.view.addSubview(self.tableView)
-        self.view.addSubview(self.hamburgButton)
-        
-        //
         self.getData()
-        
-        self.setUpLayout()
     }
     
     //MARK:-----custom function-----
     
-    private func getData() {
+    internal override func getData() {
         Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=buzz&posts_per_page=12&sign=19eb476eb0c1fc74bee104316c626fd3&timestamp=1467296130", parameters: [:])
             .responseJSON { response in
                 
@@ -40,7 +37,7 @@ class NewsFlashController: UIViewController, UITableViewDelegate, UITableViewDat
                     if dataDic["data"] is NSArray {
                         let dataArr : NSArray = (dataDic["data"] as? NSArray)!
                         for item in dataArr {
-                            self.dataSource.append(NewsFlashModel(dict: item as! NSDictionary))
+                            self.dataSource.append(HomePopularModel(dict: item as! NSDictionary))
                         }
                     }
                     self.tableView.reloadData()
@@ -48,53 +45,9 @@ class NewsFlashController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    private func setUpLayout() {
-        self.hamburgButton.snp_makeConstraints { (make) in
-            make.right.equalTo(-15)
-            make.top.equalTo(35)
-            make.width.height.equalTo(45)
-        }
-    }
-    
     //MARK:-----getter setter-----
-    private lazy var hamburgButton : UIButton = {
-        let hamburgButton = UIButton()
-        hamburgButton.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
-        
-        return hamburgButton
-    }()
     
-    private lazy var tableView : UITableView = {
-        let tableView = UITableView(frame: self.view.frame)
-        tableView.delegate      = self;
-        tableView.dataSource    = self;
-        tableView.tableFooterView   = UIView()
-        tableView.tableHeaderView   = self.headerView
-        
-        return tableView;
-    }()
     
-    private lazy var headerView : UIView = {
-        let headerView  = UIView(frame: CGRect(x: 0, y: 20, width: UIConstant.SCREEN_WIDTH, height:  220 * UIConstant.SCREEN_HEIGHT / UIConstant.IPHONE5_HEIGHT))
-        
-        let backgroundImageView   = UIImageView(frame: CGRectMake(0, 20, UIConstant.SCREEN_WIDTH, 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
-        backgroundImageView.contentMode     = .ScaleAspectFit
-        backgroundImageView.image = UIImage(imageLiteral: "buzz_header_background")
-        headerView.addSubview(backgroundImageView)
-        
-        let titleLabel  = UILabel(frame: CGRect(x: 20, y: 30, width: 100, height: 40))
-        titleLabel.text = "爱范快讯"
-        titleLabel.font = UIFont.boldSystemFontOfSize(22)
-        titleLabel.textColor = UIColor.whiteColor()
-        headerView.addSubview(titleLabel)
-        
-        let detailTitleLabel    = UILabel(frame: CGRect(x: 20, y: titleLabel.bottom, width: 100, height: 30))
-        detailTitleLabel.text   = "最新的咨询快报"
-        detailTitleLabel.font   = UIConstant.UI_FONT_14
-        detailTitleLabel.textColor = UIColor.whiteColor()
-        headerView.addSubview(detailTitleLabel)
-        
-        
         /*
         // HAPPENING NOW
         let categoryLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -118,16 +71,9 @@ class NewsFlashController: UIViewController, UITableViewDelegate, UITableViewDat
         headerView.addSubview(categoryLabel)
         */
         
-        let tagImageView = UIImageView(frame: CGRect(x: 0, y: backgroundImageView.bottom + 38, width: UIConstant.SCREEN_WIDTH, height: 25))
-        tagImageView.image = UIImage(imageLiteral: "tag_happeningnow")
-        tagImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        headerView.addSubview(tagImageView)
-        
-        return headerView
-    }()
     
     //MARK:-----UITableViewDelegate UITableViewDataSource
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = NewsFlashTableViewCell.cellWithTableView(tableView)
         cell.model = self.dataSource[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
@@ -135,19 +81,15 @@ class NewsFlashController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataSource.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return NewsFlashTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 30
     }
     
-    //MARK:-----hidden status bar
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
  }

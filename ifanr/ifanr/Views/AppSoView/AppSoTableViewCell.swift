@@ -11,7 +11,7 @@ import UIKit
 class AppSoTableViewCell: UITableViewCell, Reusable {
 
     //MARK:-----variables-----
-    var model : NewsFlashModel! {
+    var model : AppSoModel! {
         didSet {
             let timeInterval = (NSDate.getTimeIntervalFromNow(model.pubDate!) * -1)/60/60
             if timeInterval < 24 {

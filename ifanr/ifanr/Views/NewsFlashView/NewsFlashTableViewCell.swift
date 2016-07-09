@@ -29,7 +29,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     
     //MARK:-----
     
-    var model : NewsFlashModel! {
+    var model : HomePopularModel! {
         didSet {
             
             let timeInterval = (NSDate.getTimeIntervalFromNow(model.pubDate!) * -1)/60/60

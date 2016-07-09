@@ -11,7 +11,6 @@ import Alamofire
 
 class BasePageController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var dataSource : Array<NewsFlashModel> = Array()
     var backgroundImgName : String = ""
     var tagImgName : String = ""
     
@@ -32,21 +31,7 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
      get data, need to ovrried
      */
     internal func getData() {
-        Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=buzz&posts_per_page=12&sign=19eb476eb0c1fc74bee104316c626fd3&timestamp=1467296130", parameters: [:])
-            .responseJSON { response in
-                
-                if let dataAny = response.result.value {
-                    
-                    let dataDic : NSDictionary = (dataAny as? NSDictionary)!
-                    if dataDic["data"] is NSArray {
-                        let dataArr : NSArray = (dataDic["data"] as? NSArray)!
-                        for item in dataArr {
-                            self.dataSource.append(NewsFlashModel(dict: item as! NSDictionary))
-                        }
-                    }
-                    self.tableView.reloadData()
-                }
-        }
+       
     }
     
     private func setUpLayout() {
@@ -114,7 +99,6 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
      */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = NewsFlashTableViewCell.cellWithTableView(tableView)
-        cell.model = self.dataSource[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
         
         return cell
