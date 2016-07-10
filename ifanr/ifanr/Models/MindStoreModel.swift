@@ -66,25 +66,33 @@ struct MindStoreModel {
         self.vote_user_count = dict["vote_user_count"] as? String ?? ""
         self.voted = dict["voted"] as? String ?? ""
         
-        self.createdByModel.avatar_url = dict["created_by"]!["avatar_url"] as? String ?? ""
-        self.createdByModel.company = dict["created_by"]!["company"] as? String ?? ""
-        self.createdByModel.email = dict["created_by"]!["email"] as? String ?? ""
-        self.createdByModel.id = dict["created_by"]!["id"] as? String ?? ""
+        self.createdByModel.avatar_url  = dict["created_by"]!["avatar_url"] as? String ?? ""
+        self.createdByModel.company     = dict["created_by"]!["company"] as? String ?? ""
+        self.createdByModel.email       = dict["created_by"]!["email"] as? String ?? ""
+        self.createdByModel.id          = dict["created_by"]!["id"] as? String ?? ""
         self.createdByModel.lime_home_url = dict["created_by"]!["lime_home_url"] as? String ?? ""
         self.createdByModel.nickname = dict["created_by"]!["nickname"] as? String ?? ""
         self.createdByModel.position = dict["created_by"]!["position"] as? String ?? ""
         self.createdByModel.wechat_screenname = dict["created_by"]!["wechat_screenname"] as? String ?? ""
         
-        if let tmp = dict["related_image"] {
-            
-            for item in tmp as! [[String: AnyObject]] {
-                var model: RelatedImageModel = RelatedImageModel()
-                model.link = item["link"] as! String
-                model.resource_uri = item["resource_uri"] as! String
-                model.title = item["title"] as! String
-                self.relatedImageModelArr.append(model)
-            }
-        }
+//        if let tmp = dict["related_image"] {
+//            for item in (tmp as? NSArray)! {
+//                if let itemDic: NSDictionary = item as? NSDictionary {
+//                    var model: RelatedImageModel = RelatedImageModel()
+//                    model.link  = itemDic["link"] as! String
+//                    model.title = itemDic["title"] as! String
+//                    model.resource_uri = itemDic["resource_uri"] as! String
+//                    self.relatedImageModelArr.append(model)
+//                }
+//            }
+//        }
+        
+        var model: RelatedImageModel = RelatedImageModel()
+        model.link = "http://media.ifanrusercontent.com/media/user_files/lime/fc/0f/fc0f1fa3b6eb1b3f8e6c2e2666415e1acaea6387-137691a83047904eca6b05d23d91cda63702b847.jpg"
+        self.relatedImageModelArr.append(model)
+        var model1: RelatedImageModel = RelatedImageModel()
+        model1.link = "http://media.ifanrusercontent.com/media/user_files/lime/fc/0f/fc0f1fa3b6eb1b3f8e6c2e2666415e1acaea6387-137691a83047904eca6b05d23d91cda63702b847.jpg"
+        self.relatedImageModelArr.append(model1)
     }
 }
 

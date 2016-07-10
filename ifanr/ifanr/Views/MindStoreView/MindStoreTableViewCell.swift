@@ -30,12 +30,17 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     //MARK: variables
     var model : MindStoreModel! {
         didSet {
-            self.titleLabel.text = model.title
-            self.tagLineLabel.text = model.tagline
-//            self.relatedImg1.yy_setImageWithURL(NSURL(string: model.relatedImageModelArr[0].link!),
-//                                                options: .AllowBackgroundTask)
-//            self.relatedImg2.yy_setImageWithURL(NSURL(string: model.relatedImageModelArr[1].link!),
-//                                                options: .AllowBackgroundTask)
+            self.titleLabel.attributedText      = UILabel.setAttributText(model.title, lineSpcae: 5.0)
+            self.tagLineLabel.attributedText    = UILabel.setAttributText(model.tagline, lineSpcae: 5.0);
+            
+            self.relatedImg1.yy_setImageWithURL(NSURL(string: model.relatedImageModelArr[0].link!),
+                                                options: .AllowBackgroundTask)
+            self.relatedImg2.yy_setImageWithURL(NSURL(string: model.relatedImageModelArr[1].link!),
+                                                options: .AllowBackgroundTask)
+        
+            self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
+            self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
+            self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
         }
     }
     
@@ -85,40 +90,44 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.voteBtn.snp_makeConstraints { (make) in
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
-            make.width.equalTo(50)
-            make.height.equalTo(75)
+            make.width.equalTo(35)
+            make.height.equalTo(45)
         }
         
         self.relatedImg1.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
+            make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_20)
             make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(20)
         }
         
         self.relatedImg2.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
+            make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_20)
             make.left.equalTo(self.relatedImg1.snp_right).offset(UIConstant.UI_MARGIN_5)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(20)
         }
         
         self.titleLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
-            make.bottom.equalTo(self.tagLineLabel.snp_top)
+            make.bottom.equalTo(self.tagLineLabel.snp_top).offset(-UIConstant.UI_MARGIN_10)
         }
         
         self.tagLineLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.tagLineLabel.bottom)
             make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
-            make.bottom.equalTo(self.relatedImg1.snp_top).offset(UIConstant.UI_MARGIN_15)
+            make.bottom.equalTo(self.relatedImg1.snp_top).offset(-UIConstant.UI_MARGIN_10)
         }
         
         self.relatedImg1.contentMode    = .ScaleAspectFill
+        self.relatedImg1.layer.cornerRadius     = 10
+        self.relatedImg1.layer.masksToBounds    = true
         self.relatedImg1.clipsToBounds  = true
+        
         self.relatedImg2.contentMode    = .ScaleAspectFill
         self.relatedImg2.clipsToBounds  = true
+        self.relatedImg2.layer.cornerRadius = 10
+        self.relatedImg2.layer.masksToBounds = true
     }
     
     
@@ -162,6 +171,6 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     // 动态计算 titleLabel/tagLineLabel 的高度
     class func estimateCellHeight(title : String, tagline: String) -> CGFloat {
         
-        return estimateLabelHeight(title) + estimateLabelHeight(tagline) + 70;
+        return estimateLabelHeight(title) + estimateLabelHeight(tagline) + 60;
     }
 }
