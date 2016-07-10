@@ -9,8 +9,6 @@
 import UIKit
 
 class HomePageControl: UIView {
-    
-   
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -40,7 +38,7 @@ class HomePageControl: UIView {
         inactiveLabel.font = UIConstant.UI_FONT_12
         inactiveLabel.alpha = 0.8
         inactiveLabel.layer.borderColor = UIColor(red: 225/255.0, green: 225/255.0, blue: 225/255.0, alpha: 1).CGColor
-        inactiveLabel.layer.borderWidth = 0.5
+        inactiveLabel.layer.borderWidth = 1
         return inactiveLabel
     }
     

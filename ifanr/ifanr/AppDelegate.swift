@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        window?.rootViewController = HomeViewController()
 
+//        window?.rootViewController = MainViewController()
 //        window?.rootViewController = NewsFlashController()
 //        window?.rootViewController = PlayingZhiController()
 //        window?.rootViewController = AppSoViewController()

@@ -37,4 +37,5 @@ struct UIConstant {
     
     // 颜色 首页灰色
     static let UI_COLOR_GrayTheme: UIColor = UIColor(red: 155/255.0, green: 155/255.0, blue: 155/255.0, alpha: 1)
+    static let UI_COLOR_RedTheme: UIColor = UIColor(red: 221/255.0, green: 64/255.0, blue: 43/255.0, alpha: 1)
 }
