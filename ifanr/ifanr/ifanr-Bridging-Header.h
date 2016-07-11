@@ -7,3 +7,4 @@
 //
 
 #import <YYWebImage/YYWebImage.h>
+#import "YYFPSLabel.h"

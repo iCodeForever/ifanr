@@ -25,6 +25,11 @@ class HomeViewController: UIViewController {
             }, errorHandle: nil)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("home 内存警告")
+    }
+    
     //MARK: --------------------------- Getter and Setter --------------------------
     // 列表数据
     private var latestCellLayout = [HomePopularLayout]()

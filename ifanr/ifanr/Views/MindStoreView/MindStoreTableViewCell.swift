@@ -19,8 +19,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.contentView.addSubview(self.titleLabel)
         self.contentView.addSubview(self.relatedImg1)
         self.contentView.addSubview(self.relatedImg2)
-        
-        self.setupLayout()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +42,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
             self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
             self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
             self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
+            self.setupLayout()
         }
     }
     
@@ -90,34 +90,35 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         // - - - - rImg1-rImg2 - -
         //
         self.voteBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
-            make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
+            make.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_20)
+            make.left.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_15)
             make.width.equalTo(35)
             make.height.equalTo(45)
         }
         
         self.relatedImg1.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_20)
+            make.bottom.equalTo(self.contentView).offset(-UIConstant.UI_MARGIN_20)
             make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
-            make.width.height.equalTo(20)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
         
         self.relatedImg2.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_20)
+            make.bottom.equalTo(relatedImg1)
             make.left.equalTo(self.relatedImg1.snp_right).offset(UIConstant.UI_MARGIN_5)
-            make.width.height.equalTo(20)
+            make.size.equalTo(relatedImg1)
         }
         
         self.titleLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
-            make.right.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
-            make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
+            make.right.equalTo(self.contentView).offset(-UIConstant.UI_MARGIN_15)
+            make.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_20)
             make.bottom.equalTo(self.tagLineLabel.snp_top).offset(-UIConstant.UI_MARGIN_10)
         }
         
         self.tagLineLabel.snp_makeConstraints { (make) in
             make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
-            make.right.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
+            make.right.equalTo(self.contentView).offset(-UIConstant.UI_MARGIN_15)
             make.bottom.equalTo(self.relatedImg1.snp_top).offset(-UIConstant.UI_MARGIN_10)
         }
         
