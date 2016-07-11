@@ -57,6 +57,7 @@
 		F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */; };
 		F1A262DB1D3364EE00521914 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DA1D3364EE00521914 /* YYFPSLabel.m */; };
 		F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */; };
+		F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DE1D34034D00521914 /* MainHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		F1A262D91D3364EE00521914 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		F1A262DA1D3364EE00521914 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1A262DE1D34034D00521914 /* MainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */,
+				F1A262DE1D34034D00521914 /* MainHeaderView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
 				43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */,
 				43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */,
+				F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */,
 				43D3D9811D2F37E80069993F /* MindStoreViewController.swift in Sources */,
 				F15349D91D2C156500A11BCB /* HomeLatestImageCell.swift in Sources */,
 				43A32C3C1D31F30000A74858 /* HomePageControl.swift in Sources */,
@@ -858,7 +862,6 @@
 			baseConfigurationReference = EB8AAD341F889C52B9B9BEA9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ifanr/Info.plist;
@@ -876,7 +879,6 @@
 			baseConfigurationReference = AAF3231417F430423C78A28E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ifanr/Info.plist;

@@ -86,6 +86,13 @@ struct MindStoreModel {
                 }
             }
         }
+        
+        var model: RelatedImageModel = RelatedImageModel()
+        model.link = "http://media.ifanrusercontent.com/media/user_files/lime/fc/0f/fc0f1fa3b6eb1b3f8e6c2e2666415e1acaea6387-137691a83047904eca6b05d23d91cda63702b847.jpg"
+        self.relatedImageModelArr.append(model)
+        var model1: RelatedImageModel = RelatedImageModel()
+        model1.link = "http://media.ifanrusercontent.com/media/user_files/lime/fc/0f/fc0f1fa3b6eb1b3f8e6c2e2666415e1acaea6387-137691a83047904eca6b05d23d91cda63702b847.jpg"
+        self.relatedImageModelArr.append(model1)
     }
 }
 

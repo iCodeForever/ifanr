@@ -17,11 +17,21 @@ class MainViewController: UIViewController {
     //MARK: --------------------------- Life Cycle --------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.blackColor()
         self.view.addSubview(collectionView)
         self.view.addSubview(fpsLabel)
         
         // 添加根控制器
         self.addrootViewController()
+        
+        self.view.addSubview(headerView)
+    }
+    
+    /**
+     隐藏状态栏
+     */
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     //MARK: --------------------------- Private Methods --------------------------
@@ -30,23 +40,14 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
-        // 首页
-        let homeViewController = HomeViewController()
-        // 快讯
-        let newsFlashController = NewsFlashController()
-        // Appso
-        let appSoController = AppSoViewController()
-        // 玩物志
-        let playzhiController = PlayingZhiController()
-        // MindStore
-        let mindStoreController = MindStoreViewController()
         
-        self.addChildViewController(homeViewController)
         self.addChildViewController(newsFlashController)
-        self.addChildViewController(appSoController)
+        self.addChildViewController(homeViewController)
         self.addChildViewController(playzhiController)
+        self.addChildViewController(appSoController)
         self.addChildViewController(mindStoreController)
         
+        homeViewController.view.size = CGSize(width: self.view.width, height: self.view.height-20)
         viewArray.append(homeViewController.view)
         viewArray.append(newsFlashController.view)
         viewArray.append(appSoController.view)
@@ -55,19 +56,37 @@ class MainViewController: UIViewController {
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
+    // 首页
+    let homeViewController = HomeViewController()
+    // 快讯
+    let newsFlashController = NewsFlashController()
+    // Appso
+    let appSoController = AppSoViewController()
+    // 玩物志
+    let playzhiController = PlayingZhiController()
+    // MindStore
+    let mindStoreController = MindStoreViewController()
+    
     var viewArray = [UIView]()
+    
+        /// fps标签
     private lazy var fpsLabel: YYFPSLabel = {
         var fpsLabel: YYFPSLabel = YYFPSLabel(frame: CGRect(x: UIConstant.UI_MARGIN_20, y: self.view.height-40, width: 0, height: 0))
         fpsLabel.sizeToFit()
         return fpsLabel
     }()
     
+    private lazy var headerView: MainHeaderView = {
+        var headerView: MainHeaderView = MainHeaderView(frame: CGRect(x: 0, y: 0, width: 5*UIConstant.SCREEN_WIDTH, height: 20))
+        return headerView
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .Horizontal
         collectionLayout.minimumLineSpacing = 0
-        collectionLayout.itemSize = self.view.size
-        var collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: collectionLayout)
+        collectionLayout.itemSize = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
+        var collectionView = UICollectionView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20), collectionViewLayout: collectionLayout)
         collectionView.registerClass(MainCollectionViewCell.self)
         collectionView.pagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -87,5 +106,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(indexPath) as MainCollectionViewCell
         cell.childVCView = viewArray[indexPath.row]
         return cell
+    }
+}
+
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let scale = self.view.width/(self.view.width*0.5-20)
+        headerView.x = -scrollView.contentOffset.x/scale
     }
 }
