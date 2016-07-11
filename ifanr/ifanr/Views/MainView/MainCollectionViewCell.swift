@@ -12,12 +12,8 @@ class MainCollectionViewCell: UICollectionViewCell, Reusable {
     
     var childVCView: UIView! {
         didSet {
+            print(childVCView.frame)
             self.contentView.addSubview(childVCView)
-            childVCView.snp_makeConstraints { (make) in
-                make.left.equalTo(self.contentView).offset(2)
-                make.right.equalTo(self.contentView).offset(-2)
-                make.top.bottom.equalTo(self.contentView)
-            }
         }
     }
 }

@@ -35,7 +35,9 @@ class HomeViewController: UIViewController {
     private var latestCellLayout = [HomePopularLayout]()
     
     private lazy var tableView: UITableView = {
-        var tableView = UITableView(frame: self.view.bounds)
+        var tableView = UITableView()
+        tableView.origin = CGPoint.zero
+        tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
         tableView.sectionHeaderHeight = self.view.width*0.625
         tableView.tableHeaderView = self.headerView
         tableView.separatorStyle = .None

@@ -31,7 +31,15 @@ public extension UICollectionView {
         return self.dequeueReusableCellWithReuseIdentifier(T.reuseIdentifier, forIndexPath: indexPath) as! T
     }
     
-    func registerClass<T: UICollectionViewCell where T: Reusable>(_:T.Type) {
+    func registerClass<T: UICollectionViewCell where T: Reusable>(_: T.Type) {
         self.registerClass(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    func registerClass<T: UICollectionReusableView where T: Reusable>(_: T.Type, forSupplementaryViewOfKind: String) {
+        return self.registerClass(T.self, forSupplementaryViewOfKind: forSupplementaryViewOfKind, withReuseIdentifier: T.reuseIdentifier)
+    }
+    
+    func dequeueReusableSupplementaryViewOfKind<T: UICollectionReusableView where T: Reusable>(elementKind: String, indexPath: NSIndexPath) -> T {
+        return self.dequeueReusableSupplementaryViewOfKind(elementKind, withReuseIdentifier: T.reuseIdentifier, forIndexPath: indexPath) as! T
     }
 }

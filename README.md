@@ -1,5 +1,6 @@
 # 高仿 爱范儿
 - 更新Tips
+    - 1.改了一下Appicon 2.正在开发MainViewController头部  ----- 2016-07-12    by lyiming
     - 正在开发MainViewController, 新增FPS标签，修改Mindstore约束造成错误 ----- 2016-07-11    by lyiming
     - 初步完成AppSo、玩物志、MindStore页面，一些细节仍然需要完善 ----- 2016-07-10 by dby
     - (正在开发) 正在搭建主框架MainViewController ----- 2016-07-08    by lyiming
