@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(collectionView)
+        self.view.addSubview(fpsLabel)
         
         // 添加根控制器
         self.addrootViewController()
@@ -29,25 +30,45 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
+        // 首页
         let homeViewController = HomeViewController()
+        // 快讯
         let newsFlashController = NewsFlashController()
+        // Appso
+        let appSoController = AppSoViewController()
+        // 玩物志
+        let playzhiController = PlayingZhiController()
+        // MindStore
+        let mindStoreController = MindStoreViewController()
+        
         self.addChildViewController(homeViewController)
         self.addChildViewController(newsFlashController)
+        self.addChildViewController(appSoController)
+        self.addChildViewController(playzhiController)
+        self.addChildViewController(mindStoreController)
+        
         viewArray.append(homeViewController.view)
         viewArray.append(newsFlashController.view)
+        viewArray.append(appSoController.view)
+        viewArray.append(playzhiController.view)
+        viewArray.append(mindStoreController.view)
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
     var viewArray = [UIView]()
-    
+    private lazy var fpsLabel: YYFPSLabel = {
+        var fpsLabel: YYFPSLabel = YYFPSLabel(frame: CGRect(x: UIConstant.UI_MARGIN_20, y: self.view.height-40, width: 0, height: 0))
+        fpsLabel.sizeToFit()
+        return fpsLabel
+    }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .Horizontal
-        
+        collectionLayout.minimumLineSpacing = 0
         collectionLayout.itemSize = self.view.size
         var collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: collectionLayout)
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "mainviewcontrollerid")
+        collectionView.registerClass(MainCollectionViewCell.self)
         collectionView.pagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
@@ -63,8 +84,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("mainviewcontrollerid", forIndexPath: indexPath)
-        cell.addSubview(viewArray[indexPath.row])
+        let cell = collectionView.dequeueReusableCell(indexPath) as MainCollectionViewCell
+        cell.childVCView = viewArray[indexPath.row]
         return cell
     }
 }

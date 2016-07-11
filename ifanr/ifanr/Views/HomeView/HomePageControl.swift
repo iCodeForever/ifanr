@@ -60,10 +60,6 @@ class HomePageControl: UIView {
     //MARK: --------------------------- Getter and Setter --------------------------
     var currentPage: Int! {
         didSet {
-//            if currentPage < 0 || currentPage >= self.numberOfPage {
-//                currentPage = 0
-//            }
-            
             // 设置当前page颜色
             self.setupPage(currentPage)
         }
