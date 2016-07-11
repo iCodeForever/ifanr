@@ -30,23 +30,28 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
-        let homeViewController  = HomeViewController()
+        // 首页
+        let homeViewController = HomeViewController()
+        // 快讯
         let newsFlashController = NewsFlashController()
-        let appSoViewController = AppSoViewController()
-        let playingZhiController    = PlayingZhiController()
-        let mindStoreViewController = MindStoreViewController()
+        // Appso
+        let appSoController = AppSoViewController()
+        // 玩物志
+        let playzhiController = PlayingZhiController()
+        // MindStore
+        let mindStoreController = MindStoreViewController()
         
-        self.addChildViewController(newsFlashController)
         self.addChildViewController(homeViewController)
-        self.addChildViewController(playingZhiController)
-        self.addChildViewController(appSoViewController)
-        self.addChildViewController(mindStoreViewController)
+        self.addChildViewController(newsFlashController)
+        self.addChildViewController(appSoController)
+        self.addChildViewController(playzhiController)
+        self.addChildViewController(mindStoreController)
         
-        viewArray.append(newsFlashController.view)
         viewArray.append(homeViewController.view)
-        viewArray.append(playingZhiController.view)
-        viewArray.append(appSoViewController.view)
-        viewArray.append(mindStoreViewController.view)
+        viewArray.append(newsFlashController.view)
+        viewArray.append(appSoController.view)
+        viewArray.append(playzhiController.view)
+        viewArray.append(mindStoreController.view)
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
@@ -79,9 +84,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("mainviewcontrollerid", forIndexPath: indexPath)
-        cell.contentView.addSubview(viewArray[indexPath.row])
-//        cell.addSubview(viewArray[indexPath.row])
+        let cell = collectionView.dequeueReusableCell(indexPath) as MainCollectionViewCell
+        cell.childVCView = viewArray[indexPath.row]
         return cell
     }
 }
