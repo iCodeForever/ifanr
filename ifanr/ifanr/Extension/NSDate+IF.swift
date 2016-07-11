@@ -39,6 +39,32 @@ extension NSDate {
         return (dateBefore?.timeIntervalSinceNow)!
     }
     
+    class func getCommonExpressionOfDate(dateString: String) -> String {
+        
+        var resStr = ""
+        let timeInterval = (NSDate.getTimeIntervalFromNow(dateString) * -1)/60/60
+        if timeInterval < 24 {
+            resStr = "\(Int(timeInterval)) 小时前"
+        } else if timeInterval < 48 {
+            let range = NSRange(location: 10, length: 6)
+            resStr = "昨天 " + (dateString as NSString).substringWithRange(range)
+        } else if timeInterval < 72 {
+            let range = NSRange(location: 10, length: 6)
+            resStr = "前天 " + (dateString as NSString).substringWithRange(range)
+        } else {
+            var timeStr: String = ""
+            if let tmpArray: Array = (dateString.componentsSeparatedByString(" ")) {
+                if let monthDayArray: Array = tmpArray[0].componentsSeparatedByString("-") {
+                    timeStr = monthDayArray[1] + "月" + monthDayArray[2] + "日"
+                }
+                let range   = NSRange(location: 0, length: 5)
+                timeStr     = timeStr + " " + ((tmpArray[1] as NSString).substringWithRange(range))
+            }
+            resStr = timeStr
+        }
+        return resStr
+    }
+    
     /**
      将yyyy-MM-dd HH:mm:ss装换成MM月dd日 HH:mm
      

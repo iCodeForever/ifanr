@@ -32,19 +32,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     var model : HomePopularModel! {
         didSet {
             
-            let timeInterval = (NSDate.getTimeIntervalFromNow(model.pubDate!) * -1)/60/60
-            if timeInterval < 24 {
-                self.timeLabel.text = "\(Int(timeInterval)) 小时前"
-            } else if timeInterval < 48 {
-                let range = NSRange(location: 10, length: 5)
-                self.timeLabel.text = "昨天 " + (model.pubDate! as NSString).substringWithRange(range)
-            } else if timeInterval < 72 {
-                let range = NSRange(location: 10, length: 5)
-                self.timeLabel.text = "前天 " + (model.pubDate! as NSString).substringWithRange(range)
-            } else {
-                self.timeLabel.text = model.pubDate
-            }
-            
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
             // 设置行间距
             let attrs = NSMutableAttributedString(string: model.title!)
             let paragraphStyle = NSMutableParagraphStyle()

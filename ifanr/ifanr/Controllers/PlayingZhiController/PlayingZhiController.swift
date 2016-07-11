@@ -15,9 +15,7 @@ class PlayingZhiController: BasePageController {
     //MARK:-----life cycle-----
     override func viewDidLoad() {
         
-        //进行特定配置
-        self.backgroundImgName  = "coolbuy_header_background"
-        self.tagImgName         = "tag_coolbuy"
+        self.localDataSource = ["coolbuy_header_background", "tag_coolbuy", "玩物志", "值得买的未来生活"]
         
         super.viewDidLoad()
         

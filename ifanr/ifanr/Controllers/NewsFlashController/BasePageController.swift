@@ -11,8 +11,7 @@ import Alamofire
 
 class BasePageController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var backgroundImgName : String = ""
-    var tagImgName : String = ""
+    var localDataSource = [String]()
     
     //MARK:-----life cycle-----
     
@@ -28,10 +27,39 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK:-----custom function-----
     /*!
-     get data, need to ovrried
+     get data, need to ovrride
      */
     internal func getData() {
        
+    }
+    
+    // get topImgName, not to ovrride
+    private func getTopImgName() -> String? {
+        if localDataSource.count == 4 {
+            return localDataSource[0]
+        }
+        return nil
+    }
+    
+    private func getTagImgName() -> String? {
+        if localDataSource.count == 4 {
+            return localDataSource[1]
+        }
+        return nil
+    }
+    
+    private func getTitle() -> String? {
+        if localDataSource.count == 4 {
+            return localDataSource[2]
+        }
+        return nil
+    }
+    
+    private func getDetailTitle() -> String? {
+        if localDataSource.count == 4 {
+            return localDataSource[3]
+        }
+        return nil
     }
     
     private func setUpLayout() {
@@ -66,27 +94,23 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         
         let backgroundImageView   = UIImageView(frame: CGRectMake(0, 20, UIConstant.SCREEN_WIDTH, 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
         backgroundImageView.contentMode     = .ScaleAspectFit
-        if (self.backgroundImgName != "") {
-            backgroundImageView.image = UIImage(imageLiteral: self.backgroundImgName)
-        }
+        backgroundImageView.image = UIImage(imageLiteral: self.getTopImgName()!)
         headerView.addSubview(backgroundImageView)
         
-        let titleLabel  = UILabel(frame: CGRect(x: 20, y: 30, width: 100, height: 40))
-        titleLabel.text = "爱范快讯"
+        let titleLabel  = UILabel(frame: CGRect(x: 20, y: 30, width: UIConstant.SCREEN_WIDTH, height: 40))
+        titleLabel.text = self.getTitle()
         titleLabel.font = UIFont.boldSystemFontOfSize(22)
         titleLabel.textColor = UIColor.whiteColor()
         headerView.addSubview(titleLabel)
         
-        let detailTitleLabel    = UILabel(frame: CGRect(x: 20, y: titleLabel.bottom, width: 100, height: 30))
-        detailTitleLabel.text   = "最新的咨询快报"
+        let detailTitleLabel    = UILabel(frame: CGRect(x: 20, y: titleLabel.bottom, width: UIConstant.SCREEN_WIDTH, height: 30))
+        detailTitleLabel.text   = self.getDetailTitle()
         detailTitleLabel.font   = UIConstant.UI_FONT_14
         detailTitleLabel.textColor = UIColor.whiteColor()
         headerView.addSubview(detailTitleLabel)
         
         let tagImageView = UIImageView(frame: CGRect(x: 0, y: backgroundImageView.bottom + 38, width: UIConstant.SCREEN_WIDTH, height: 25))
-        if (self.tagImgName != "") {
-            tagImageView.image = UIImage(imageLiteral: self.tagImgName)
-        }
+        tagImageView.image = UIImage(imageLiteral: self.getTagImgName()!)
         tagImageView.contentMode = UIViewContentMode.ScaleAspectFit
         headerView.addSubview(tagImageView)
         

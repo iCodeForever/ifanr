@@ -14,12 +14,11 @@ class AppSoViewController: BasePageController {
     var dataSource : Array<AppSoModel> = Array()
     override func viewDidLoad() {
         
-        self.backgroundImgName  = "appso_header_background"
-        self.tagImgName         = "tag_appsolution"
+        self.localDataSource = ["appso_header_background", "tag_appsolution", "AppSolution", "智能手机更好用的秘密"]
         
         super.viewDidLoad()
         
-        self.getData();
+        self.getData()
         self.tableView.separatorStyle = .None
     }
     

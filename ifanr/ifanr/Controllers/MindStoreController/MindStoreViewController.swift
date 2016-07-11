@@ -14,8 +14,7 @@ class MindStoreViewController: BasePageController {
     var dataSource : Array<MindStoreModel> = Array()
     override func viewDidLoad() {
         
-        self.backgroundImgName = "mind_store_header_background"
-        self.tagImgName = "tag_appsolution"
+        self.localDataSource = ["mind_store_header_background", "tag_appsolution", "MindStore", "在这里发现最好的产品和想法"]
         
         super.viewDidLoad()
         

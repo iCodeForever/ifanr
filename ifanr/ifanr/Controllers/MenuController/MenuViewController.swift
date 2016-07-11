@@ -34,10 +34,10 @@ class MenuViewController: UIViewController {
         mainTabView.backgroundColor = UIColor.clearColor()
         mainTabView.tableHeaderView = MenuHeaaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: 100))
         mainTabView.separatorStyle = .None
-        mainTabView.rowHeight = 80
+        mainTabView.rowHeight   = 80
         mainTabView.sectionHeaderHeight = 100
-        mainTabView.dataSource = self
-        mainTabView.delegate = self
+        mainTabView.dataSource  = self
+        mainTabView.delegate    = self
         return mainTabView
     }()
 }

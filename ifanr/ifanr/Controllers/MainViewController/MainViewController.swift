@@ -29,12 +29,23 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
-        let homeViewController = HomeViewController()
+        let homeViewController  = HomeViewController()
         let newsFlashController = NewsFlashController()
-        self.addChildViewController(homeViewController)
+        let appSoViewController = AppSoViewController()
+        let playingZhiController    = PlayingZhiController()
+        let mindStoreViewController = MindStoreViewController()
+        
         self.addChildViewController(newsFlashController)
-        viewArray.append(homeViewController.view)
+        self.addChildViewController(homeViewController)
+        self.addChildViewController(playingZhiController)
+        self.addChildViewController(appSoViewController)
+        self.addChildViewController(mindStoreViewController)
+        
         viewArray.append(newsFlashController.view)
+        viewArray.append(homeViewController.view)
+        viewArray.append(playingZhiController.view)
+        viewArray.append(appSoViewController.view)
+        viewArray.append(mindStoreViewController.view)
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
@@ -64,7 +75,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("mainviewcontrollerid", forIndexPath: indexPath)
-        cell.addSubview(viewArray[indexPath.row])
+        cell.contentView.addSubview(viewArray[indexPath.row])
+//        cell.addSubview(viewArray[indexPath.row])
         return cell
     }
 }

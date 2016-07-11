@@ -17,8 +17,7 @@ class NewsFlashController: BasePageController {
     
     override func viewDidLoad() {
         
-        self.backgroundImgName  = "buzz_header_background"
-        self.tagImgName         = "tag_happeningnow"
+        self.localDataSource = ["buzz_header_background", "tag_happeningnow", "爱范科技", "最新的咨询快报"]
         
         super.viewDidLoad()
         

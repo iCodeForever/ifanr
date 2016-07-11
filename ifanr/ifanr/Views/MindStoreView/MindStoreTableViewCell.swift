@@ -32,12 +32,14 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         didSet {
             self.titleLabel.attributedText      = UILabel.setAttributText(model.title, lineSpcae: 5.0)
             self.tagLineLabel.attributedText    = UILabel.setAttributText(model.tagline, lineSpcae: 5.0);
+           
+            if model.relatedImageModelArr.count == 1 {
+                self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
+            } else if model.relatedImageModelArr.count == 2 {
+                self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
+                self.relatedImg2.if_setImage(NSURL(string: model.relatedImageModelArr[1].link!))
+            }
             
-            self.relatedImg1.yy_setImageWithURL(NSURL(string: model.relatedImageModelArr[0].link!),
-                                                options: .AllowBackgroundTask)
-            self.relatedImg2.yy_setImageWithURL(NSURL(string: model.relatedImageModelArr[1].link!),
-                                                options: .AllowBackgroundTask)
-        
             self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
             self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
             self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)

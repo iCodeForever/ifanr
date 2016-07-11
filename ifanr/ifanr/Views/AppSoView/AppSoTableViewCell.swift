@@ -13,28 +13,8 @@ class AppSoTableViewCell: UITableViewCell, Reusable {
     //MARK:-----variables-----
     var model : AppSoModel! {
         didSet {
-            let timeInterval = (NSDate.getTimeIntervalFromNow(model.pubDate!) * -1)/60/60
-            if timeInterval < 24 {
-                self.timeLabel.text = "\(Int(timeInterval)) 小时前"
-            } else if timeInterval < 48 {
-                let range = NSRange(location: 10, length: 6)
-                self.timeLabel.text = "昨天 " + (model.pubDate! as NSString).substringWithRange(range)
-            } else if timeInterval < 72 {
-                let range = NSRange(location: 10, length: 6)
-                self.timeLabel.text = "前天 " + (model.pubDate! as NSString).substringWithRange(range)
-            } else {
-                
-                var timeStr: String = ""
-                if let tmpArray: Array = (model.pubDate?.componentsSeparatedByString(" "))! {
-                    if let monthDayArray: Array = tmpArray[0].componentsSeparatedByString("-") {
-                        timeStr = monthDayArray[1] + "月" + monthDayArray[2] + "日"
-                    }
-                    let range   = NSRange(location: 0, length: 5)
-                    timeStr     = timeStr + " " + ((tmpArray[1] as NSString).substringWithRange(range))
-                }
-                self.timeLabel.text = timeStr
-            }
-            self.likeCountLabel.text    = "55"
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
+            self.likeCountLabel.text    = "\(model.like)"
             
             self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
             self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
