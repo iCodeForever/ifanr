@@ -24,7 +24,7 @@ class AppSoViewController: BasePageController {
     
     
     override func getData() {
-        Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=coolbuy&posts_per_page=12&sign=6e1a1b825a30456e4c68ac0a6e0a2aa7&timestamp=1467295944", parameters: [:])
+        Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=2&post_type=app&posts_per_page=12&sign=52eb3928dc47f57a26b00932226eff22&timestamp=1467295827", parameters: [:])
             .responseJSON { response in
                 
                 if let dataAny = response.result.value {
@@ -46,10 +46,21 @@ class AppSoViewController: BasePageController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell    = AppSoTableViewCell.cellWithTableView(tableView)
-        cell.model  = self.dataSource[indexPath.row]
         
-        return cell
+        var cell: UITableViewCell? = nil
+        let curModel = self.dataSource[indexPath.row];
+        
+        debugPrint(curModel.app_icon_url)
+        
+        if curModel.app_icon_url != "" {
+            cell    = AppSoTableViewCell.cellWithTableView(tableView)
+            (cell as! AppSoTableViewCell).model = curModel
+        } else {
+            cell    = PlayingZhiTableViewCell.cellWithTableView(tableView)
+            (cell as! PlayingZhiTableViewCell).appSoModel = curModel
+        }
+        
+        return cell!
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

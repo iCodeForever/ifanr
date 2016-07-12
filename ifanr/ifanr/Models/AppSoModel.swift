@@ -13,6 +13,8 @@ struct AppSoModel {
     var ID: Int64!
     /// 标题
     var title: String!
+    /// 应用图标
+    var app_icon_url: String!
     /// 作者
     var author: String!
     /// 时间
@@ -48,6 +50,7 @@ struct AppSoModel {
     init(dict: NSDictionary) {
         self.ID = dict["ID"] as? Int64 ?? 0
         self.title = dict["title"] as? String ?? ""
+        self.app_icon_url = dict["app_icon_url"] as? String ?? ""
         self.author = dict["author"] as? String ?? ""
         self.pubDate = dict["pubDate"] as? String ?? ""
         self.post_modified = dict["post_modified"] as? String ?? ""

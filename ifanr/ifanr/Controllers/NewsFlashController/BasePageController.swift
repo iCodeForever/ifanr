@@ -18,6 +18,8 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.blackColor()
+        
         // 添加tableView
         self.view.addSubview(self.tableView)
         self.view.addSubview(self.hamburgButton)
@@ -41,6 +43,7 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         return nil
     }
     
+    // get tagImgName, not to ovrride
     private func getTagImgName() -> String? {
         if localDataSource.count == 4 {
             return localDataSource[1]
@@ -48,6 +51,7 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         return nil
     }
     
+    // get title, not to ovrride
     private func getTitle() -> String? {
         if localDataSource.count == 4 {
             return localDataSource[2]
@@ -55,6 +59,7 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         return nil
     }
     
+    // get detailTitle, not to ovrride
     private func getDetailTitle() -> String? {
         if localDataSource.count == 4 {
             return localDataSource[3]
@@ -62,6 +67,7 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         return nil
     }
     
+    // 布局
     private func setUpLayout() {
         self.hamburgButton.snp_makeConstraints { (make) in
             make.right.equalTo(-15)
@@ -90,14 +96,14 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
     
     /// headerView not need to override
     private lazy var headerView : UIView = {
-        let headerView  = UIView(frame: CGRect(x: 0, y: 20, width: UIConstant.SCREEN_WIDTH, height:  220 * UIConstant.SCREEN_HEIGHT / UIConstant.IPHONE5_HEIGHT))
+        let headerView  = UIView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height:  220 * UIConstant.SCREEN_HEIGHT / UIConstant.IPHONE5_HEIGHT))
         
-        let backgroundImageView   = UIImageView(frame: CGRectMake(0, 20, UIConstant.SCREEN_WIDTH, 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
+        let backgroundImageView   = UIImageView(frame: CGRectMake(0, 0, UIConstant.SCREEN_WIDTH, 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
         backgroundImageView.contentMode     = .ScaleAspectFit
         backgroundImageView.image = UIImage(imageLiteral: self.getTopImgName()!)
         headerView.addSubview(backgroundImageView)
         
-        let titleLabel  = UILabel(frame: CGRect(x: 20, y: 30, width: UIConstant.SCREEN_WIDTH, height: 40))
+        let titleLabel  = UILabel(frame: CGRect(x: 20, y: 10, width: UIConstant.SCREEN_WIDTH, height: 40))
         titleLabel.text = self.getTitle()
         titleLabel.font = UIFont.boldSystemFontOfSize(22)
         titleLabel.textColor = UIColor.whiteColor()

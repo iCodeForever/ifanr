@@ -48,10 +48,10 @@ class MainViewController: UIViewController {
         self.addChildViewController(mindStoreController)
         
         homeViewController.view.size = CGSize(width: self.view.width, height: self.view.height-20)
-        viewArray.append(homeViewController.view)
         viewArray.append(newsFlashController.view)
-        viewArray.append(appSoController.view)
+        viewArray.append(homeViewController.view)
         viewArray.append(playzhiController.view)
+        viewArray.append(appSoController.view)
         viewArray.append(mindStoreController.view)
     }
     

@@ -23,6 +23,18 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
         }
     }
     
+    var appSoModel: AppSoModel! {
+        didSet {
+            
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(appSoModel.pubDate)
+            self.likeCountLabel.text    = "\(appSoModel.like)"
+            
+            self.titleLabel.attributedText = UILabel.setAttributText(appSoModel.title, lineSpcae: 5.0)
+            self.infoLabel.attributedText  = UILabel.setAttributText(appSoModel.excerpt, lineSpcae: 5.0)
+            self.logoImageView.yy_setImageWithURL(NSURL(string: appSoModel.image!), options: .AllowBackgroundTask)
+        }
+    }
+    
     //MARK:-----init-----
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
