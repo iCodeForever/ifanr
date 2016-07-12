@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YYWebImage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = MindStoreViewController()
 
         return true
+    }
+    
+    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+        // 获取缓存大小
+        let cache = YYWebImageManager.sharedManager().cache
+        let memoryCache = cache!.memoryCache.totalCost
+        let diskCache = cache!.diskCache.totalCost
+        
+        print("memoryCache: \(memoryCache) -- diskCache: \(diskCache)")
     }
 }
 
