@@ -28,8 +28,6 @@ class MainViewController: UIViewController {
         self.view.addSubview(self.hamburgButton)
         self.view.addSubview(self.circleButton)
         
-        self.view.layer.addSublayer(redLine)
-        
         self.setUpLayout()
     }
     
@@ -53,7 +51,7 @@ class MainViewController: UIViewController {
         self.addChildViewController(appSoController)
         self.addChildViewController(mindStoreController)
         
-//        homeViewController.view.size = CGSize(width: self.view.width, height: self.view.height-20)
+        homeViewController.view.size = CGSize(width: self.view.width, height: self.view.height-20)
         viewArray.append(newsFlashController.view)
         viewArray.append(homeViewController.view)
         viewArray.append(playzhiController.view)
@@ -129,15 +127,6 @@ class MainViewController: UIViewController {
         
         return circleButton
     }()
-    /// 顶部红线
-    private lazy var redLine: CALayer = {
-        let redLine = CALayer()
-        redLine.bounds = CGRect(x: 0, y: 0, width: 40, height: 1)
-        redLine.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        redLine.position = CGPoint(x: self.view.width*0.5, y: 1)
-        redLine.backgroundColor = UIConstant.UI_COLOR_RedTheme.CGColor
-        return redLine
-    }()
 }
 
 
@@ -155,7 +144,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let scale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
+        let scale = self.view.width/(self.view.width*0.5-20)
         headerView.x = -scrollView.contentOffset.x/scale
     }
 }

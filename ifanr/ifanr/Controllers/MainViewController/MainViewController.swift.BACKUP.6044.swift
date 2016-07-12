@@ -28,9 +28,8 @@ class MainViewController: UIViewController {
         self.view.addSubview(self.hamburgButton)
         self.view.addSubview(self.circleButton)
         
-        self.view.layer.addSublayer(redLine)
-        
         self.setUpLayout()
+        self.view.layer.addSublayer(redLine)
     }
     
     /**
@@ -116,6 +115,7 @@ class MainViewController: UIViewController {
         return collectionView;
     }()
     
+<<<<<<< HEAD
     private lazy var hamburgButton : UIButton = {
         let hamburgButton = UIButton()
         hamburgButton.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
@@ -128,8 +128,8 @@ class MainViewController: UIViewController {
         circleButton.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
         
         return circleButton
-    }()
-    /// 顶部红线
+=======
+        /// 顶部红线
     private lazy var redLine: CALayer = {
         let redLine = CALayer()
         redLine.bounds = CGRect(x: 0, y: 0, width: 40, height: 1)
@@ -137,6 +137,7 @@ class MainViewController: UIViewController {
         redLine.position = CGPoint(x: self.view.width*0.5, y: 1)
         redLine.backgroundColor = UIConstant.UI_COLOR_RedTheme.CGColor
         return redLine
+>>>>>>> a86c9f6a9d9ca8e1f7093690901baac051da2830
     }()
 }
 

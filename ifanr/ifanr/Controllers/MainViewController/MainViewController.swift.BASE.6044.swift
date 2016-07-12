@@ -25,12 +25,6 @@ class MainViewController: UIViewController {
         self.addrootViewController()
         
         self.view.addSubview(headerView)
-        self.view.addSubview(self.hamburgButton)
-        self.view.addSubview(self.circleButton)
-        
-        self.view.layer.addSublayer(redLine)
-        
-        self.setUpLayout()
     }
     
     /**
@@ -53,28 +47,13 @@ class MainViewController: UIViewController {
         self.addChildViewController(appSoController)
         self.addChildViewController(mindStoreController)
         
-//        homeViewController.view.size = CGSize(width: self.view.width, height: self.view.height-20)
+        homeViewController.view.size = CGSize(width: self.view.width, height: self.view.height-20)
         viewArray.append(newsFlashController.view)
         viewArray.append(homeViewController.view)
         viewArray.append(playzhiController.view)
         viewArray.append(appSoController.view)
         viewArray.append(mindStoreController.view)
     }
-    
-    // 布局
-    private func setUpLayout() {
-        self.hamburgButton.snp_makeConstraints { (make) in
-            make.right.equalTo(-15)
-            make.top.equalTo(35)
-            make.width.height.equalTo(45)
-        }
-        self.circleButton.snp_makeConstraints { (make) in
-            make.left.equalTo(15)
-            make.top.equalTo(35)
-            make.width.height.equalTo(45)
-        }
-    }
-    
     
     //MARK: --------------------------- Getter and Setter --------------------------
     // 首页
@@ -115,29 +94,6 @@ class MainViewController: UIViewController {
         collectionView.dataSource = self
         return collectionView;
     }()
-    
-    private lazy var hamburgButton : UIButton = {
-        let hamburgButton = UIButton()
-        hamburgButton.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
-        
-        return hamburgButton
-    }()
-    
-    private lazy var circleButton: UIButton = {
-        let circleButton = UIButton()
-        circleButton.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
-        
-        return circleButton
-    }()
-    /// 顶部红线
-    private lazy var redLine: CALayer = {
-        let redLine = CALayer()
-        redLine.bounds = CGRect(x: 0, y: 0, width: 40, height: 1)
-        redLine.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        redLine.position = CGPoint(x: self.view.width*0.5, y: 1)
-        redLine.backgroundColor = UIConstant.UI_COLOR_RedTheme.CGColor
-        return redLine
-    }()
 }
 
 
@@ -155,7 +111,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let scale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
+        let scale = self.view.width/(self.view.width*0.5-20)
         headerView.x = -scrollView.contentOffset.x/scale
     }
 }
