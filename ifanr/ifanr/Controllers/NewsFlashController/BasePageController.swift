@@ -22,9 +22,7 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         
         // 添加tableView
         self.view.addSubview(self.tableView)
-        self.view.addSubview(self.hamburgButton)
         
-        self.setUpLayout()
     }
     
     //MARK:-----custom function-----
@@ -66,23 +64,6 @@ class BasePageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return nil
     }
-    
-    // 布局
-    private func setUpLayout() {
-        self.hamburgButton.snp_makeConstraints { (make) in
-            make.right.equalTo(-15)
-            make.top.equalTo(35)
-            make.width.height.equalTo(45)
-        }
-    }
-    
-    //MARK:-----getter setter-----
-    private lazy var hamburgButton : UIButton = {
-        let hamburgButton = UIButton()
-        hamburgButton.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
-        
-        return hamburgButton
-    }()
     
     internal lazy var tableView : UITableView = {
         let tableView = UITableView(frame: self.view.frame)

@@ -19,6 +19,7 @@ class MindStoreViewController: BasePageController {
         super.viewDidLoad()
         
         self.getData()
+        self.view.userInteractionEnabled = true
     }
     
     override func getData() {

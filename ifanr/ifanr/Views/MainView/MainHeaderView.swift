@@ -18,7 +18,7 @@ class MainHeaderView: UIView, Reusable {
     override func layoutSubviews() {
         for i in 0..<textArray.count {
             let label = createLable(textArray[i])
-            label.frame = CGRect(origin: CGPointZero, size: CGSize(width: 40, height: self.height))
+            label.frame = CGRect(origin: CGPointZero, size: CGSize(width: 60, height: self.height))
             let x = CGFloat(i)*(UIConstant.SCREEN_WIDTH*0.5-20)+UIConstant.SCREEN_WIDTH*0.5
             label.center = CGPoint(x: x, y: self.height*0.5)
         }

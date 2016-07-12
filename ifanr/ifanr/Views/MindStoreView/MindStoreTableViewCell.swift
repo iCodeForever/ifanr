@@ -14,6 +14,9 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.userInteractionEnabled = true
+        self.contentView.userInteractionEnabled = true
+        
         self.contentView.addSubview(self.voteBtn)
         self.contentView.addSubview(self.tagLineLabel)
         self.contentView.addSubview(self.titleLabel)
@@ -81,6 +84,11 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     }()
     
     //MARK:-----custom function-----
+    
+    private func toVote() {
+        
+    }
+    
     //布局
     private func setupLayout() -> Void {
         //
@@ -132,7 +140,6 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.relatedImg2.layer.cornerRadius = 10
         self.relatedImg2.layer.masksToBounds = true
     }
-    
     
     class func cellWithTableView(tableView : UITableView) -> MindStoreTableViewCell {
         

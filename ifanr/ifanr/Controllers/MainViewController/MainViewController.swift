@@ -25,6 +25,10 @@ class MainViewController: UIViewController {
         self.addrootViewController()
         
         self.view.addSubview(headerView)
+        self.view.addSubview(self.hamburgButton)
+        self.view.addSubview(self.circleButton)
+        
+        self.setUpLayout()
     }
     
     /**
@@ -54,6 +58,21 @@ class MainViewController: UIViewController {
         viewArray.append(appSoController.view)
         viewArray.append(mindStoreController.view)
     }
+    
+    // 布局
+    private func setUpLayout() {
+        self.hamburgButton.snp_makeConstraints { (make) in
+            make.right.equalTo(-15)
+            make.top.equalTo(35)
+            make.width.height.equalTo(45)
+        }
+        self.circleButton.snp_makeConstraints { (make) in
+            make.left.equalTo(15)
+            make.top.equalTo(35)
+            make.width.height.equalTo(45)
+        }
+    }
+    
     
     //MARK: --------------------------- Getter and Setter --------------------------
     // 首页
@@ -93,6 +112,20 @@ class MainViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         return collectionView;
+    }()
+    
+    private lazy var hamburgButton : UIButton = {
+        let hamburgButton = UIButton()
+        hamburgButton.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
+        
+        return hamburgButton
+    }()
+    
+    private lazy var circleButton: UIButton = {
+        let circleButton = UIButton()
+        circleButton.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
+        
+        return circleButton
     }()
 }
 
