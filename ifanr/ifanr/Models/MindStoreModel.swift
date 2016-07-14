@@ -40,9 +40,9 @@ struct MindStoreModel {
     var share_count: String!
     var tagline: String!
     var title: String!
-    var vote_count: String!
-    var vote_user_count: String!
-    var voted: String!
+    var vote_count: NSNumber!
+    var vote_user_count: NSNumber!
+    var voted: Int64!
     
     var createdByModel: CreatedByModel! = CreatedByModel()
     var relatedImageModelArr: [RelatedImageModel] = Array()
@@ -62,9 +62,9 @@ struct MindStoreModel {
         self.share_count    = dict["share_count"] as? String ?? ""
         self.tagline    = dict["tagline"] as? String ?? ""
         self.title      = dict["title"] as? String ?? ""
-        self.vote_count = dict["vote_count"] as? String ?? ""
-        self.vote_user_count = dict["vote_user_count"] as? String ?? ""
-        self.voted = dict["voted"] as? String ?? ""
+        self.vote_count = dict["vote_count"] as? NSNumber ?? 0
+        self.vote_user_count = dict["vote_user_count"] as? NSNumber ?? 0
+        self.voted = dict["voted"] as? Int64 ?? 0
         
         self.createdByModel.avatar_url  = dict["created_by"]!["avatar_url"] as? String ?? ""
         self.createdByModel.company     = dict["created_by"]!["company"] as? String ?? ""

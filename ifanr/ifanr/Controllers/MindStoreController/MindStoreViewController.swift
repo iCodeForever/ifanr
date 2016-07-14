@@ -49,6 +49,9 @@ class MindStoreViewController: BasePageController {
         let cell    = MindStoreTableViewCell.cellWithTableView(tableView)
         cell.model  = self.dataSource[indexPath.row]
         
+        cell.layoutMargins = UIEdgeInsetsMake(0, 65, 0, 0)
+        
+        
         return cell
     }
     

@@ -18,6 +18,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.contentView.userInteractionEnabled = true
         
         self.contentView.addSubview(self.voteBtn)
+        self.contentView.addSubview(self.voteNumberLabel)
         self.contentView.addSubview(self.tagLineLabel)
         self.contentView.addSubview(self.titleLabel)
         self.contentView.addSubview(self.relatedImg1)
@@ -43,8 +44,8 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
             }
             
             self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
-            self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
-            self.voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
+            self.voteNumberLabel.text = "\(model.vote_user_count)"
+            
             self.setupLayout()
         }
     }
@@ -54,7 +55,19 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     // vote button
     private lazy var voteBtn: UIButton = {
         let voteBtn = UIButton()
+        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
+        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
+        voteBtn.addTarget(self, action: #selector(toVote), forControlEvents: .TouchUpInside)
         return voteBtn
+    }()
+    // vote label
+    private lazy var voteNumberLabel: UILabel = {
+        let voteNumberLabel = UILabel()
+        voteNumberLabel.font = UIFont.boldSystemFontOfSize(13)
+        voteNumberLabel.textAlignment = .Center
+        voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
+                                            green: 173/255.0, blue: 169/255.0, alpha: 1)
+        return voteNumberLabel
     }()
     // 标题，需动态计算高度
     private lazy var titleLabel: UILabel = {
@@ -69,7 +82,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         let tagLineLabel = UILabel()
         tagLineLabel.numberOfLines     = 0
         tagLineLabel.lineBreakMode     = .ByCharWrapping
-        tagLineLabel.font      = UIConstant.UI_FONT_12
+        tagLineLabel.font      = UIConstant.UI_FONT_14
         tagLineLabel.textColor = UIColor.lightGrayColor()
         return tagLineLabel
     }()
@@ -85,8 +98,19 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     
     //MARK:-----custom function-----
     
-    private func toVote() {
-        
+    @objc private func toVote(btn: UIButton) {
+        if btn.selected {
+            btn.selected = false
+            let num: Int = Int(self.voteNumberLabel.text!)! - 1;
+            self.voteNumberLabel.text = "\(num)"
+            self.voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
+                                                     green: 173/255.0, blue: 169/255.0, alpha: 1)
+        } else {
+            btn.selected = true
+            let num: Int = Int(self.voteNumberLabel.text!)! + 1;
+            self.voteNumberLabel.text = "\(num)"
+            self.voteNumberLabel.textColor = UIColor.whiteColor()
+        }
     }
     
     //布局
@@ -102,6 +126,13 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
             make.left.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_15)
             make.width.equalTo(35)
             make.height.equalTo(45)
+        }
+        
+        self.voteNumberLabel.snp_makeConstraints { (make) in
+            make.top.equalTo(self.voteBtn.snp_top).offset(20)
+            make.left.equalTo(self.voteBtn.snp_left).offset(3)
+            make.right.equalTo(self.voteBtn.snp_right).offset(-3)
+            make.bottom.equalTo(self.voteBtn.snp_bottom).offset(-3)
         }
         
         self.relatedImg1.snp_makeConstraints { (make) in
@@ -139,6 +170,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.relatedImg2.clipsToBounds  = true
         self.relatedImg2.layer.cornerRadius = 10
         self.relatedImg2.layer.masksToBounds = true
+        
     }
     
     class func cellWithTableView(tableView : UITableView) -> MindStoreTableViewCell {
