@@ -67,8 +67,6 @@ extension APIConstant: TargetType {
     public var path: String {
         return ""
     }
-    
-    
         /// 请求方法
     public var method: Moya.Method {
         return .GET
