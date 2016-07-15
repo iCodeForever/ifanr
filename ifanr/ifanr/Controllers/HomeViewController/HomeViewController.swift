@@ -12,7 +12,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        
+        tableView.insertSubview(pulltorefresh, atIndex: 0)
         self.view.addSubview(tableView)
         
         IFanrService.shareInstance.getHomeHotData(0, posts_per_page: 5, successHandle: { [unowned self](modelArray) in
@@ -23,6 +24,14 @@ class HomeViewController: UIViewController {
             self.latestCellLayout = layoutArray
             self.tableView.reloadData()
             }, errorHandle: nil)
+        
+//        tableView.headerViewPullToRefresh({ [unowned self](contentoffsetY) in
+//            self.pullToRefreshDelegate?.scrollViewPullToRefreshNormal(self.tableView, contentoffsetY: contentoffsetY)
+//            }, pulling: {
+//                self.pullToRefreshDelegate?.scrollViewPullToRefreshPulling(self.tableView)
+//            }) { 
+//                self.pullToRefreshDelegate?.scrollViewPullToRefreshFinish(self.tableView)
+//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,9 +42,12 @@ class HomeViewController: UIViewController {
     //MARK: --------------------------- Getter and Setter --------------------------
     // 列表数据
     private var latestCellLayout = [HomePopularLayout]()
+    // 下拉刷新代理
+    weak var scrollViewReusable: ScrollViewControllerReusable?
     
     private lazy var tableView: UITableView = {
         var tableView = UITableView()
+        tableView.backgroundColor = UIColor.whiteColor()
         tableView.origin = CGPoint.zero
         tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
         tableView.sectionHeaderHeight = self.view.width*0.625
@@ -49,6 +61,14 @@ class HomeViewController: UIViewController {
     private lazy var headerView: HomeHeaderView = {
         // tag 高度 65
         return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width*0.625+45))
+    }()
+    
+    
+    lazy var pulltorefresh: PullToRefreshView = {
+        let pulltorefresh = PullToRefreshView(frame: CGRect(x: 0, y: -sceneHeight, width: self.view.width, height: sceneHeight))
+        pulltorefresh.delegate = self
+        pulltorefresh.dataSource = self
+        return pulltorefresh
     }()
 }
 
@@ -87,5 +107,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return latestCellLayout[indexPath.row].cellHeight
+    }
+}
+
+extension HomeViewController: PullToRefreshDataSource, PullToRefreshDelegate {
+    func scrollView() -> UIScrollView {
+        return self.tableView
+    }
+    
+    func titleHeaderView() -> MainHeaderView {
+        return scrollViewReusable!.titleHeaderView()
+    }
+    
+    func redLine() -> UIView {
+        return scrollViewReusable!.redLineView()
+    }
+
+    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
+        
+    }
+    
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+        print("刷新完成")
     }
 }

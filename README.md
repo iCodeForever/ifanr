@@ -1,7 +1,8 @@
 # 高仿 爱范儿
 - 更新Tips
+    - 重新撸了一个下拉刷新（上拉刷新还没做，代码还不太优雅）----- 2016-07-16    by lyiming
     - 新增下拉刷新框架，加载进度动画。完成MainviewController顶部的界面   ----- 2016-07-13    by lyiming
-    - 微调界面 ----- by dby 2016-07-12
+    - 微调界面 ----- by dby 2016-07-12  
     - 1.改了一下Appicon 2.正在开发MainViewController头部  ----- 2016-07-12    by lyiming
     - 微调AppSo的模型，调整HeaderView ----- 2016-07-11 by dby
     - 正在开发MainViewController, 新增FPS标签，修改Mindstore约束造成错误 ----- 2016-07-11    by lyiming

@@ -37,12 +37,7 @@
 		F11937721D240A4E00DF143B /* ifanrVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F11937711D240A4E00DF143B /* ifanrVideo.mp4 */; };
 		F1498D951D24FCBD005BB684 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D941D24FCBD005BB684 /* Constant.swift */; };
 		F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D9A1D25150E005BB684 /* Reusable.swift */; };
-		F14CC2561D354BE800C50107 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2501D354BE800C50107 /* ActivityIndicatorView.swift */; };
-		F14CC2571D354BE800C50107 /* UIScrollView+XM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2511D354BE800C50107 /* UIScrollView+XM.swift */; };
-		F14CC2581D354BE800C50107 /* XMRefreshBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2521D354BE800C50107 /* XMRefreshBase.swift */; };
-		F14CC2591D354BE800C50107 /* XMRefreshConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2531D354BE800C50107 /* XMRefreshConst.swift */; };
-		F14CC25A1D354BE800C50107 /* XMRefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2541D354BE800C50107 /* XMRefreshFooterView.swift */; };
-		F14CC25B1D354BE800C50107 /* XMRefreshHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2551D354BE800C50107 /* XMRefreshHeaderView.swift */; };
+		F14CC2621D37FCFA00C50107 /* ControllerReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */; };
 		F15349D71D2C08B600A11BCB /* HomePopularLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15349D61D2C08B600A11BCB /* HomePopularLayout.swift */; };
 		F15349D91D2C156500A11BCB /* HomeLatestImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15349D81D2C156500A11BCB /* HomeLatestImageCell.swift */; };
 		F15349DC1D2C39EC00A11BCB /* FZLTXIHJW--GB1-0.TTF in Resources */ = {isa = PBXBuildFile; fileRef = F15349DA1D2C39EC00A11BCB /* FZLTXIHJW--GB1-0.TTF */; };
@@ -64,6 +59,8 @@
 		F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */; };
 		F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DE1D34034D00521914 /* MainHeaderView.swift */; };
 		F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B81D001D34DB8C00946931 /* YYFPSLabel.m */; };
+		F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E006391D38D9C600901099 /* PullToRefreshView.swift */; };
+		F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,12 +121,7 @@
 		F11937711D240A4E00DF143B /* ifanrVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ifanrVideo.mp4; sourceTree = "<group>"; };
 		F1498D941D24FCBD005BB684 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		F1498D9A1D25150E005BB684 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
-		F14CC2501D354BE800C50107 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
-		F14CC2511D354BE800C50107 /* UIScrollView+XM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+XM.swift"; sourceTree = "<group>"; };
-		F14CC2521D354BE800C50107 /* XMRefreshBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMRefreshBase.swift; sourceTree = "<group>"; };
-		F14CC2531D354BE800C50107 /* XMRefreshConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMRefreshConst.swift; sourceTree = "<group>"; };
-		F14CC2541D354BE800C50107 /* XMRefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMRefreshFooterView.swift; sourceTree = "<group>"; };
-		F14CC2551D354BE800C50107 /* XMRefreshHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMRefreshHeaderView.swift; sourceTree = "<group>"; };
+		F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerReusable.swift; sourceTree = "<group>"; };
 		F15349D61D2C08B600A11BCB /* HomePopularLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePopularLayout.swift; sourceTree = "<group>"; };
 		F15349D81D2C156500A11BCB /* HomeLatestImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLatestImageCell.swift; sourceTree = "<group>"; };
 		F15349DA1D2C39EC00A11BCB /* FZLTXIHJW--GB1-0.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FZLTXIHJW--GB1-0.TTF"; sourceTree = "<group>"; };
@@ -152,6 +144,8 @@
 		F1A262DE1D34034D00521914 /* MainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		F1B81CFF1D34DB8C00946931 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		F1B81D001D34DB8C00946931 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		F1E006391D38D9C600901099 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,8 +350,9 @@
 		F11937561D24013A00DF143B /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				F119375B1D24018A00DF143B /* UIView+Frame.swift */,
 				F1498D9A1D25150E005BB684 /* Reusable.swift */,
+				F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */,
+				F119375B1D24018A00DF143B /* UIView+Frame.swift */,
 				4353790F1D28BD37004A2766 /* NSDate+IF.swift */,
 				F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */,
 				F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */,
@@ -393,7 +388,6 @@
 		F11937591D24013A00DF143B /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				F14CC24F1D354BE800C50107 /* XMRefresh */,
 				F1B81CFE1D34DB8C00946931 /* YYFPSLabel */,
 			);
 			path = Lib;
@@ -402,6 +396,7 @@
 		F119375A1D24013A00DF143B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1E006381D38D9A500901099 /* PullToRefresh */,
 				43EBEABC1D2AB35E00BF7DC3 /* AppSoView */,
 				43EBEABD1D2AB35E00BF7DC3 /* MindStoreView */,
 				43EBEABE1D2AB35E00BF7DC3 /* NewsFlashView */,
@@ -447,19 +442,6 @@
 				F1A262DE1D34034D00521914 /* MainHeaderView.swift */,
 			);
 			path = MainView;
-			sourceTree = "<group>";
-		};
-		F14CC24F1D354BE800C50107 /* XMRefresh */ = {
-			isa = PBXGroup;
-			children = (
-				F14CC2501D354BE800C50107 /* ActivityIndicatorView.swift */,
-				F14CC2511D354BE800C50107 /* UIScrollView+XM.swift */,
-				F14CC2521D354BE800C50107 /* XMRefreshBase.swift */,
-				F14CC2531D354BE800C50107 /* XMRefreshConst.swift */,
-				F14CC2541D354BE800C50107 /* XMRefreshFooterView.swift */,
-				F14CC2551D354BE800C50107 /* XMRefreshHeaderView.swift */,
-			);
-			path = XMRefresh;
 			sourceTree = "<group>";
 		};
 		F170BE471D269EEC00D84EBC /* MenuController */ = {
@@ -532,6 +514,15 @@
 				F1B81D001D34DB8C00946931 /* YYFPSLabel.m */,
 			);
 			path = YYFPSLabel;
+			sourceTree = "<group>";
+		};
+		F1E006381D38D9A500901099 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				F1E006391D38D9C600901099 /* PullToRefreshView.swift */,
+				F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */,
+			);
+			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -724,12 +715,11 @@
 			files = (
 				F170BE551D27E9B300D84EBC /* HomeHeaderView.swift in Sources */,
 				F1A06AA91D28F91200563FA1 /* Request+ifanr.swift in Sources */,
-				F14CC2591D354BE800C50107 /* XMRefreshConst.swift in Sources */,
 				F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */,
+				F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */,
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
-				F14CC2571D354BE800C50107 /* UIScrollView+XM.swift in Sources */,
 				43D16EC61D30773F00BE54E1 /* AppSoModel.swift in Sources */,
-				F14CC2561D354BE800C50107 /* ActivityIndicatorView.swift in Sources */,
+				F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */,
 				F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,
 				F17C51E61D2BCBAB0077A4C5 /* MenuTabModel.swift in Sources */,
@@ -744,12 +734,12 @@
 				43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */,
 				F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */,
 				43D3D9811D2F37E80069993F /* MindStoreViewController.swift in Sources */,
+				F14CC2621D37FCFA00C50107 /* ControllerReusable.swift in Sources */,
 				F15349D91D2C156500A11BCB /* HomeLatestImageCell.swift in Sources */,
 				43A32C3C1D31F30000A74858 /* HomePageControl.swift in Sources */,
 				F15349E11D2D7EB900A11BCB /* String+ifanr.swift in Sources */,
 				F15349D71D2C08B600A11BCB /* HomePopularLayout.swift in Sources */,
 				F17C51E51D2BCBAB0077A4C5 /* HomePopularModel.swift in Sources */,
-				F14CC2581D354BE800C50107 /* XMRefreshBase.swift in Sources */,
 				F15349E31D2DF52F00A11BCB /* HomeLatestTextCell.swift in Sources */,
 				43A32C3E1D31F32B00A74858 /* HomeViewController.swift in Sources */,
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
@@ -760,13 +750,11 @@
 				43D16EC81D30793100BE54E1 /* MindStoreModel.swift in Sources */,
 				F15349E51D2EA5D900A11BCB /* HomeLatestDataCell.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
-				F14CC25A1D354BE800C50107 /* XMRefreshFooterView.swift in Sources */,
 				4354EA501D2ABDBC007D419A /* PlayingZhiController.swift in Sources */,
 				43B443A11D2DE7A7000D8283 /* AppSoViewController.swift in Sources */,
 				43A32C3A1D31F2C400A74858 /* MenuHeaaderView.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
 				43EBEAC31D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift in Sources */,
-				F14CC25B1D354BE800C50107 /* XMRefreshHeaderView.swift in Sources */,
 				43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */,
 				4354EA521D2ABF2C007D419A /* BasePageController.swift in Sources */,
 				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,

@@ -22,6 +22,7 @@ class ActivityIndicatorView: UIView {
         }
         self.layer.speed = 1
         self.animating = true
+        hidden = false
     }
     
     /**
@@ -35,15 +36,14 @@ class ActivityIndicatorView: UIView {
     
     func setUpAnimationInLayer() {
         let size = self.frame.size
-        // 线宽
-        let lineSize = size.width / 9
-        let x = (layer.bounds.size.width - size.width) / 2
-        let y = (layer.bounds.size.height - size.height) / 2
+        // 线宽  7条
+        let lineSize: CGFloat = 1
+        let margin = (size.width-lineSize*7)/6
         let duration: CFTimeInterval = 1
         let beginTime = CACurrentMediaTime()
         
         // 5条曲线的开始时间
-        let beginTimes = [0.4, 0.2, 0, 0.2, 0.4]
+        let beginTimes = [0.4, 0.2, 0.1, 0, 0.1, 0.2, 0.4]
         // 时间曲线 快慢快
         let timingFunction = CAMediaTimingFunction(controlPoints: 0.85, 0.25, 0.37, 0.85)
         
@@ -52,16 +52,16 @@ class ActivityIndicatorView: UIView {
         
         animation.keyTimes = [0, 0.5, 1]
         animation.timingFunctions = [timingFunction, timingFunction]
-        animation.values = [1, 0.4, 1]
+        animation.values = [1, 0.3, 1]
         animation.duration = duration
         animation.repeatCount = HUGE
         animation.removedOnCompletion = false
         
         // 添加园条
-        for i in 0 ..< 5 {
+        for i in 0 ..< 7 {
             let line = createLayer(CGSize(width: lineSize, height: size.height), color: DEFAULT_COLOR)
-            let frame = CGRect(x: x + lineSize * 2 * CGFloat(i),
-                               y: y,
+            let frame = CGRect(x: CGFloat(i)*(margin+lineSize),
+                               y: 0,
                                width: lineSize,
                                height: size.height)
             
