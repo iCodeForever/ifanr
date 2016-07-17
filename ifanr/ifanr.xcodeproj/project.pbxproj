@@ -12,6 +12,8 @@
 		4354EA521D2ABF2C007D419A /* BasePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354EA511D2ABF2C007D419A /* BasePageController.swift */; };
 		43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */; };
 		43751CE81D26D0820032BBE3 /* 爱范儿API.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */; };
+		4376F6201D3B4E8C00D64913 /* NewsFlashDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F61F1D3B4E8C00D64913 /* NewsFlashDetailController.swift */; };
+		4376F6231D3B5CA600D64913 /* IFBaseNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F6221D3B5CA600D64913 /* IFBaseNavController.swift */; };
 		43A32C3A1D31F2C400A74858 /* MenuHeaaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C391D31F2C400A74858 /* MenuHeaaderView.swift */; };
 		43A32C3C1D31F30000A74858 /* HomePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C3B1D31F30000A74858 /* HomePageControl.swift */; };
 		43A32C3E1D31F32B00A74858 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C3D1D31F32B00A74858 /* HomeViewController.swift */; };
@@ -87,6 +89,8 @@
 		4354EA511D2ABF2C007D419A /* BasePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasePageController.swift; path = NewsFlashController/BasePageController.swift; sourceTree = "<group>"; };
 		43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashController.swift; sourceTree = "<group>"; };
 		43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "爱范儿API.rtf"; sourceTree = "<group>"; };
+		4376F61F1D3B4E8C00D64913 /* NewsFlashDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashDetailController.swift; sourceTree = "<group>"; };
+		4376F6221D3B5CA600D64913 /* IFBaseNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFBaseNavController.swift; path = Base/IFBaseNavController.swift; sourceTree = "<group>"; };
 		43A32C391D31F2C400A74858 /* MenuHeaaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHeaaderView.swift; sourceTree = "<group>"; };
 		43A32C3B1D31F30000A74858 /* HomePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageControl.swift; sourceTree = "<group>"; };
 		43A32C3D1D31F32B00A74858 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -204,8 +208,17 @@
 			isa = PBXGroup;
 			children = (
 				43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */,
+				4376F61F1D3B4E8C00D64913 /* NewsFlashDetailController.swift */,
 			);
 			path = NewsFlashController;
+			sourceTree = "<group>";
+		};
+		4376F6211D3B5C6C00D64913 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4376F6221D3B5CA600D64913 /* IFBaseNavController.swift */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		43B4439F1D2DE774000D8283 /* AppSoController */ = {
@@ -336,6 +349,7 @@
 		F11937551D24013A00DF143B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4376F6211D3B5C6C00D64913 /* Base */,
 				43D3D97F1D2F37870069993F /* MindStoreController */,
 				43B4439F1D2DE774000D8283 /* AppSoController */,
 				4354EA4E1D2ABD92007D419A /* PlayingZhiController */,
@@ -727,7 +741,9 @@
 				F17C51DE1D2AB1DE0077A4C5 /* UIFont+ifanr.swift in Sources */,
 				F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */,
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
+				4376F6201D3B4E8C00D64913 /* NewsFlashDetailController.swift in Sources */,
 				435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */,
+				4376F6231D3B5CA600D64913 /* IFBaseNavController.swift in Sources */,
 				F15349DF1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift in Sources */,
 				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
 				43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */,

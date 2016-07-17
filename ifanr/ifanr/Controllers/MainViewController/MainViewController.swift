@@ -25,10 +25,10 @@ class MainViewController: UIViewController {
         self.addrootViewController()
         
         self.view.addSubview(headerView)
-        self.view.addSubview(self.hamburgButton)
-        self.view.addSubview(self.circleButton)
+//        self.view.addSubview(self.hamburgButton)
+//        self.view.addSubview(self.circleButton)
         
-        self.setUpLayout()
+//        self.setUpLayout()
 
         self.view.addSubview(redLine)
     }
@@ -77,9 +77,9 @@ class MainViewController: UIViewController {
     
     //MARK: --------------------------- Getter and Setter --------------------------
     // 首页
-    let homeViewController = HomeViewController()
+    let homeViewController =  HomeViewController()
     // 快讯
-    let newsFlashController = NewsFlashController()
+    let newsFlashController = IFBaseNavController(rootViewController:NewsFlashController())
     // Appso
     let appSoController = AppSoViewController()
     // 玩物志

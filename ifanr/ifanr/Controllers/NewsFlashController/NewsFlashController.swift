@@ -91,4 +91,9 @@ class NewsFlashController: BasePageController {
         return NewsFlashTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 30
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let urlStr: String = self.dataSource[indexPath.row].link
+        let newsFlashDetailController: NewsFlashDetailController = NewsFlashDetailController(urlStr: urlStr)
+        self.navigationController?.pushViewController(newsFlashDetailController, animated: true)
+    }
  }
