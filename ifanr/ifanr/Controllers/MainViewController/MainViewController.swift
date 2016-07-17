@@ -77,15 +77,15 @@ class MainViewController: UIViewController {
     
     //MARK: --------------------------- Getter and Setter --------------------------
     // 首页
-    let homeViewController =  HomeViewController()
+    let homeViewController = HomeViewController()
     // 快讯
     let newsFlashController = IFBaseNavController(rootViewController:NewsFlashController())
     // Appso
-    let appSoController = AppSoViewController()
+    let appSoController = IFBaseNavController(rootViewController:AppSoViewController())
     // 玩物志
-    let playzhiController = PlayingZhiController()
+    let playzhiController = IFBaseNavController(rootViewController:PlayingZhiController())
     // MindStore
-    let mindStoreController = MindStoreViewController()
+    let mindStoreController = IFBaseNavController(rootViewController:MindStoreViewController())
 
     var scrollreusableDelegate: ScrollViewControllerReusable?
     

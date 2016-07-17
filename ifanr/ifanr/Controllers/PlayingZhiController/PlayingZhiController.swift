@@ -64,4 +64,9 @@ class PlayingZhiController: BasePageController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return PlayingZhiTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 20
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let ifDetailsController = IFDetailsController()
+        self.navigationController?.pushViewController(ifDetailsController, animated: true)
+    }
 }
