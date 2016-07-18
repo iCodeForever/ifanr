@@ -86,8 +86,6 @@ class MainViewController: UIViewController {
     let playzhiController = PlayingZhiController()
     // MindStore
     let mindStoreController = MindStoreViewController()
-
-    var scrollreusableDelegate: ScrollViewControllerReusable?
     
     var viewArray = [UIView]()
     
@@ -162,7 +160,7 @@ extension MainViewController: UIScrollViewDelegate {
 }
 
 // MARK: - 这里传headerView给下拉刷新控件做处理
-extension MainViewController: ScrollViewControllerReusable {
+extension MainViewController: ScrollViewControllerReusableDataSource {
     func titleHeaderView() -> MainHeaderView {
         return self.headerView
     }
