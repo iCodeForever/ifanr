@@ -8,8 +8,8 @@
 
 import UIKit
 import Alamofire
-
-class NewsFlashController: BasePageController {
+//class NewsFlashController: BasePageController {
+class NewsFlashController: UIViewController, ScrollViewControllerReusable {
     
     var dataSource : Array<HomePopularModel> = Array()
 
@@ -17,16 +17,19 @@ class NewsFlashController: BasePageController {
     
     override func viewDidLoad() {
         
-        self.localDataSource = ["buzz_header_background", "tag_happeningnow", "爱范科技", "最新的咨询快报"]
+//        self.localDataSource = ["buzz_header_background", "tag_happeningnow", "爱范科技", "最新的咨询快报"]
         
         super.viewDidLoad()
+        
+        setupTableView()
+        setupPullToRefreshView()
         
         self.getData()
     }
     
     //MARK:-----custom function-----
     
-    internal override func getData() {
+    func getData() {
         Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=buzz&posts_per_page=12&sign=19eb476eb0c1fc74bee104316c626fd3&timestamp=1467296130", parameters: [:])
             .responseJSON { response in
                 
@@ -44,8 +47,15 @@ class NewsFlashController: BasePageController {
         }
     }
     
-    //MARK:-----getter setter-----
-    
+    //MARK: --------------------------- Getter and Setter --------------------------
+    var tableView: UITableView!
+    /// 下拉刷新
+    var pullToRefresh: PullToRefreshView!
+    /// 下拉刷新代理
+    var scrollViewReusable: ScrollViewControllerReusableDataSource!
+    var tableHeaderView: UIView! = {
+        return TableHeaderView(model: TableHeaderModelArray.first!)
+    }()
     
         /*
         // HAPPENING NOW
@@ -69,26 +79,42 @@ class NewsFlashController: BasePageController {
         categoryLabel.layer.borderWidth = 1
         headerView.addSubview(categoryLabel)
         */
-        
+ }
+
+// MARK: - 下拉刷新回调
+extension NewsFlashController {
+    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
+        print("将要下拉")
+    }
     
-    //MARK:-----UITableViewDelegate UITableViewDataSource
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task {
+        return ({
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                NSThread.sleepForTimeInterval(2.0)
+                dispatch_async(dispatch_get_main_queue(), {
+                    pulllToRefreshView.endRefresh()
+                })
+            })
+        })
+    }
+}
+
+
+// MARK: - tableView代理和数据源
+extension NewsFlashController {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = NewsFlashTableViewCell.cellWithTableView(tableView)
         cell.model = self.dataSource[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
-
+        
         return cell
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataSource.count
     }
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return NewsFlashTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 30
     }
-    
- }
+}

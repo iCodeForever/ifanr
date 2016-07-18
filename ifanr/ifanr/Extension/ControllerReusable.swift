@@ -72,8 +72,8 @@ extension ScrollViewControllerReusable where Self: UIViewController {
             tableView.origin = CGPoint.zero
             tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
             tableView.separatorStyle = .None
-            tableView.delegate = self
             tableView.dataSource = self
+            tableView.delegate = self
             tableView.tableHeaderView = tableHeaderView
             tableView.sectionHeaderHeight = tableHeaderView.height
             tableView.tableFooterView = UIView()
@@ -89,7 +89,7 @@ extension ScrollViewControllerReusable where Self: UIViewController {
             pullToRefresh = PullToRefreshView(frame: CGRect(x: 0, y: -sceneHeight, width: self.view.width, height: sceneHeight))
             pullToRefresh.delegate = self
             pullToRefresh.dataSource = self
-            self.tableView.addSubview(pullToRefresh)
+            self.tableView.insertSubview(pullToRefresh, atIndex: 0)
         }
     }
 }

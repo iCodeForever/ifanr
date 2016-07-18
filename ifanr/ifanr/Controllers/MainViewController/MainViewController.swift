@@ -46,7 +46,12 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
+        newsFlashController.scrollViewReusable = self
         homeViewController.scrollViewReusable = self
+        playzhiController.scrollViewReusable = self
+        appSoController.scrollViewReusable = self
+        mindStoreController.scrollViewReusable = self
+        
         self.addChildViewController(newsFlashController)
         self.addChildViewController(homeViewController)
         self.addChildViewController(playzhiController)
@@ -112,7 +117,7 @@ class MainViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        return collectionView;
+        return collectionView
     }()
     
 

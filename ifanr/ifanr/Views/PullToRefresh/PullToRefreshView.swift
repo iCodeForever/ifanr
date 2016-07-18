@@ -10,16 +10,31 @@ import Foundation
 import SnapKit
 
 let sceneHeight: CGFloat = 300
-let happenOffsetY: CGFloat = 80
-/// 下拉刷新回调
+let happenOffsetY: CGFloat = 60
+
+// 异步执行任务
+public typealias Task = () -> Void
+
+/// 下拉刷新数据源
 protocol PullToRefreshDataSource: class {
+    /**
+     顶部标题快讯，首页...
+     */
     func titleHeaderView() -> MainHeaderView
+    /**
+     顶部红线
+     */
     func redLine() -> UIView
+    /**
+     tableView
+     */
     func scrollView() -> UIScrollView
 }
+
+/// 下拉刷新回调
 protocol PullToRefreshDelegate: class {
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView)
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView)
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task
 }
 
 // 控件的刷新状态
@@ -30,13 +45,17 @@ enum RefreshState {
 }
 
 class PullToRefreshView: UIView {
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.blackColor()
         
+        /**
+         添加状态标题
+         */
         self.addSubview(statusLabel)
+        /**
+         添加音符动画
+         */
         self.addSubview(activityView)
     }
     
@@ -47,12 +66,14 @@ class PullToRefreshView: UIView {
     
     override func layoutSubviews() {
         frame = CGRect(x: 0, y: -sceneHeight, width: UIConstant.SCREEN_WIDTH, height: sceneHeight)
-        self.statusLabel.frame = CGRect(x: 0, y: frame.height-25, width: UIConstant.SCREEN_WIDTH, height: 20)
+        self.statusLabel.frame = CGRect(x: 0, y: frame.height-20, width: UIConstant.SCREEN_WIDTH, height: 15)
         self.activityView.center = CGPoint(x: self.frame.size.width / 2, y: self.statusLabel.y - activityView.height )
     }
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
+    
+    //MARK: --------------------------- Public Methods --------------------------
+    func endRefresh() {
+        self.state = RefreshState.Normal
+        self.setupNormalDataAnimation()
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
@@ -62,7 +83,9 @@ class PullToRefreshView: UIView {
     private var redLine: UIView!
     /// 下拉百分比
     private var progressPercentage: CGFloat = 0
+    private var task: Task?
     
+        /// 设置数据源的时候  添加tableView的contentSize,Contentoffset属性监听
     var dataSource: PullToRefreshDataSource? {
         willSet {
             if let newValue = newValue {
@@ -82,7 +105,13 @@ class PullToRefreshView: UIView {
         }
     }
     /// 代理回调
-    weak var delegate: PullToRefreshDelegate?
+    weak var delegate: PullToRefreshDelegate? {
+        didSet {
+            if let delegate = delegate {
+                task = delegate.pullToRefreshViewDidRefresh(self)
+            }
+        }
+    }
     // 上一个状态
     var oldState: RefreshState?
     // 当前状态
@@ -103,7 +132,7 @@ class PullToRefreshView: UIView {
                     UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
                         self.scrollView.contentInset = UIEdgeInsetsZero
                         }, completion: { (_) in
-                            self.setupNormalData()
+                            self.setupNormalDataAnimation()
                     })
                 }
             case RefreshState.Pulling:
@@ -113,30 +142,43 @@ class PullToRefreshView: UIView {
                 self.activityView.hidden = false
                 self.activityView.startAnimation()
                 self.statusLabel.text = "正在刷新..."
-                
-                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
-                dispatch_after(time, dispatch_get_main_queue()) {
-                    self.state = RefreshState.Normal
-                    self.setupNormalData()
-                    if let _ = self.delegate {
-                        self.delegate?.pullToRefreshViewDidRefresh(self)
+                // 将要执行
+                if let delegate = self.delegate {
+                    delegate.pullToRefreshViewWillRefresh(self)
+                    
+                    UIView.animateWithDuration(0.2, animations: {
+                        let top: CGFloat = happenOffsetY
+                        var inset: UIEdgeInsets = self.scrollView.contentInset
+                        inset.top = top
+                        self.scrollView.contentInset = inset
+                        var offset:CGPoint = self.scrollView.contentOffset
+                        offset.y = -top
+                        self.scrollView.contentOffset = offset
+                        }, completion: { (_) in
+                            self.redLine.frame = CGRect(x: self.center.x, y: 0, width: 0, height: 1)
+                    })
+                    
+                    // 执行block
+                    if let task = task {
+                        task()
                     }
                 }
                 
-                UIView.animateWithDuration(0.2, animations: {
-                    let top: CGFloat = happenOffsetY
-                    var inset: UIEdgeInsets = self.scrollView.contentInset
-                    inset.top = top
-                    self.scrollView.contentInset = inset
-                    var offset:CGPoint = self.scrollView.contentOffset
-                    offset.y = -top
-                    self.scrollView.contentOffset = offset
-                    }, completion: { (_) in
-                        self.redLine.frame = CGRect(x: self.center.x, y: 0, width: 0, height: 1)
-                })
+                
+                
+//                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+//                dispatch_after(time, dispatch_get_main_queue()) {
+//                    self.state = RefreshState.Normal
+//                    self.setupNormalDataAnimation()
+//                    if let _ = self.delegate {
+//                        self.delegate?.pullToRefreshViewDidRefresh(self)
+//                    }
+//                }
+                
             }
         }
     }
+    
     
     // 状态标签
     private lazy var statusLabel: UILabel = {
@@ -152,7 +194,7 @@ class PullToRefreshView: UIView {
     /// 菊花
     private lazy var activityView: ActivityIndicatorView = {
         let activityView = ActivityIndicatorView()
-        activityView.bounds = CGRect(origin: CGPointZero, size: CGSize(width: 30, height: 30))
+        activityView.bounds = CGRect(origin: CGPointZero, size: CGSize(width: 25, height: 25))
         activityView.hidden = true
         return activityView
     }()
@@ -171,7 +213,7 @@ extension PullToRefreshView {
             let currentOffsetY : CGFloat = scrollView.contentOffset.y
             
             if (currentOffsetY > 0) {
-                setupNormalData()
+                setupNormalDataAnimation()
                 return
             }
             if fabs(currentOffsetY) > 10 {
@@ -191,7 +233,7 @@ extension PullToRefreshView {
         }
     }
     
-    func setupRedLineAnimation() {
+    private func setupRedLineAnimation() {
         let width = max(1,(1-progressPercentage)*40)
         let height = max(1,fabs(scrollView.contentOffset.y)-10)
         
@@ -200,13 +242,13 @@ extension PullToRefreshView {
         })
     }
     
-    func setupHeaderViewAnimation() {
+    private func setupHeaderViewAnimation() {
         let refreshViewVisibleHeight = max(0, -(self.scrollView.contentOffset.y + scrollView.contentInset.top))
         progressPercentage = min(1, refreshViewVisibleHeight / happenOffsetY)
         headerView.alpha = min(1, max(1-progressPercentage/0.2, 0))
     }
     
-    func setupNormalData() {
+    private func setupNormalDataAnimation() {
         UIView.animateWithDuration(0.1) {
             self.redLine.frame = CGRect(x: self.center.x-20, y: 0, width: 40, height: 1)
             self.headerView.alpha = 1

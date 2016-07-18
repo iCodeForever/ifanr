@@ -19,8 +19,6 @@
 		43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */; };
 		43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439D1D2DE436000D8283 /* AppSoTableViewCell.swift */; };
 		43B443A11D2DE7A7000D8283 /* AppSoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B443A01D2DE7A7000D8283 /* AppSoViewController.swift */; };
-		43D16EC61D30773F00BE54E1 /* AppSoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D16EC51D30773F00BE54E1 /* AppSoModel.swift */; };
-		43D16EC81D30793100BE54E1 /* MindStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D16EC71D30793100BE54E1 /* MindStoreModel.swift */; };
 		43D3D9811D2F37E80069993F /* MindStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3D9801D2F37E80069993F /* MindStoreViewController.swift */; };
 		43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */; };
 		43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */; };
@@ -59,6 +57,10 @@
 		F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */; };
 		F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DE1D34034D00521914 /* MainHeaderView.swift */; };
 		F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B81D001D34DB8C00946931 /* YYFPSLabel.m */; };
+		F1CECBE31D3D3AD300A113A1 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */; };
+		F1CECBE91D3D401700A113A1 /* AppSoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBE51D3D401700A113A1 /* AppSoModel.swift */; };
+		F1CECBEA1D3D401700A113A1 /* MindStoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBE81D3D401700A113A1 /* MindStoreModel.swift */; };
+		F1CECBEC1D3D402E00A113A1 /* TableHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBEB1D3D402E00A113A1 /* TableHeaderModel.swift */; };
 		F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E006391D38D9C600901099 /* PullToRefreshView.swift */; };
 		F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
@@ -94,8 +96,6 @@
 		43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+IF.swift"; sourceTree = "<group>"; };
 		43B4439D1D2DE436000D8283 /* AppSoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSoTableViewCell.swift; sourceTree = "<group>"; };
 		43B443A01D2DE7A7000D8283 /* AppSoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSoViewController.swift; path = AppSoViewController/AppSoViewController.swift; sourceTree = "<group>"; };
-		43D16EC51D30773F00BE54E1 /* AppSoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSoModel.swift; sourceTree = "<group>"; };
-		43D16EC71D30793100BE54E1 /* MindStoreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreModel.swift; sourceTree = "<group>"; };
 		43D3D9801D2F37E80069993F /* MindStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MindStoreViewController.swift; path = MindStoreController/MindStoreViewController.swift; sourceTree = "<group>"; };
 		43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashTableViewCell.swift; sourceTree = "<group>"; };
@@ -144,6 +144,10 @@
 		F1A262DE1D34034D00521914 /* MainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		F1B81CFF1D34DB8C00946931 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		F1B81D001D34DB8C00946931 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
+		F1CECBE51D3D401700A113A1 /* AppSoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSoModel.swift; sourceTree = "<group>"; };
+		F1CECBE81D3D401700A113A1 /* MindStoreModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreModel.swift; sourceTree = "<group>"; };
+		F1CECBEB1D3D402E00A113A1 /* TableHeaderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderModel.swift; sourceTree = "<group>"; };
 		F1E006391D38D9C600901099 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -339,8 +343,8 @@
 				43D3D97F1D2F37870069993F /* MindStoreController */,
 				43B4439F1D2DE774000D8283 /* AppSoController */,
 				4354EA4E1D2ABD92007D419A /* PlayingZhiController */,
-				F170BE501D26B7C500D84EBC /* HomeViewController */,
 				43751CDE1D26CFBB0032BBE3 /* NewsFlashController */,
+				F170BE501D26B7C500D84EBC /* HomeViewController */,
 				F170BE471D269EEC00D84EBC /* MenuController */,
 				F119376B1D24098F00DF143B /* MainViewController */,
 			);
@@ -367,8 +371,9 @@
 		F11937571D24013A00DF143B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				43D16EC51D30773F00BE54E1 /* AppSoModel.swift */,
-				43D16EC71D30793100BE54E1 /* MindStoreModel.swift */,
+				F1CECBE41D3D401700A113A1 /* AppSoModel */,
+				F1CECBE61D3D401700A113A1 /* MainModel */,
+				F1CECBE71D3D401700A113A1 /* MindStoreModel */,
 				F17C51DF1D2BCBAB0077A4C5 /* HomeViewModel */,
 				F17C51E11D2BCBAB0077A4C5 /* MenuModel */,
 			);
@@ -440,6 +445,7 @@
 			children = (
 				F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */,
 				F1A262DE1D34034D00521914 /* MainHeaderView.swift */,
+				F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -514,6 +520,30 @@
 				F1B81D001D34DB8C00946931 /* YYFPSLabel.m */,
 			);
 			path = YYFPSLabel;
+			sourceTree = "<group>";
+		};
+		F1CECBE41D3D401700A113A1 /* AppSoModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1CECBE51D3D401700A113A1 /* AppSoModel.swift */,
+			);
+			path = AppSoModel;
+			sourceTree = "<group>";
+		};
+		F1CECBE61D3D401700A113A1 /* MainModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1CECBEB1D3D402E00A113A1 /* TableHeaderModel.swift */,
+			);
+			path = MainModel;
+			sourceTree = "<group>";
+		};
+		F1CECBE71D3D401700A113A1 /* MindStoreModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1CECBE81D3D401700A113A1 /* MindStoreModel.swift */,
+			);
+			path = MindStoreModel;
 			sourceTree = "<group>";
 		};
 		F1E006381D38D9A500901099 /* PullToRefresh */ = {
@@ -596,7 +626,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 48E3LB8PD7;
+						DevelopmentTeam = 5N8LXT5RPD;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -718,7 +748,6 @@
 				F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */,
 				F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */,
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
-				43D16EC61D30773F00BE54E1 /* AppSoModel.swift in Sources */,
 				F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */,
 				F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,
@@ -727,6 +756,7 @@
 				F17C51DE1D2AB1DE0077A4C5 /* UIFont+ifanr.swift in Sources */,
 				F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */,
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
+				F1CECBEC1D3D402E00A113A1 /* TableHeaderModel.swift in Sources */,
 				435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */,
 				F15349DF1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift in Sources */,
 				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
@@ -743,16 +773,18 @@
 				F15349E31D2DF52F00A11BCB /* HomeLatestTextCell.swift in Sources */,
 				43A32C3E1D31F32B00A74858 /* HomeViewController.swift in Sources */,
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
+				F1CECBE91D3D401700A113A1 /* AppSoModel.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
+				F1CECBEA1D3D401700A113A1 /* MindStoreModel.swift in Sources */,
 				43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */,
 				F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */,
 				43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */,
-				43D16EC81D30793100BE54E1 /* MindStoreModel.swift in Sources */,
 				F15349E51D2EA5D900A11BCB /* HomeLatestDataCell.swift in Sources */,
 				F119376D1D2409A700DF143B /* MainViewController.swift in Sources */,
 				4354EA501D2ABDBC007D419A /* PlayingZhiController.swift in Sources */,
 				43B443A11D2DE7A7000D8283 /* AppSoViewController.swift in Sources */,
 				43A32C3A1D31F2C400A74858 /* MenuHeaaderView.swift in Sources */,
+				F1CECBE31D3D3AD300A113A1 /* TableHeaderView.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
 				43EBEAC31D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift in Sources */,
 				43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */,

@@ -15,9 +15,7 @@ class HomeViewController: UIViewController, ScrollViewControllerReusable {
         
         setupTableView()
         setupPullToRefreshView()
-        
-        tableView.insertSubview(pullToRefresh, atIndex: 0)
-        self.view.addSubview(tableView)
+
         
         IFanrService.shareInstance.getHomeHotData(0, posts_per_page: 5, successHandle: { [unowned self](modelArray) in
             (self.tableHeaderView as! HomeHeaderView).modelArray = modelArray
@@ -84,11 +82,18 @@ class HomeViewController: UIViewController, ScrollViewControllerReusable {
 // MARK: - 下拉刷新回调
 extension HomeViewController {
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
-        
+        print("将要下拉")
     }
     
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
-        print("刷新完成")
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task {
+        return ({
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                NSThread.sleepForTimeInterval(2.0)
+                dispatch_async(dispatch_get_main_queue(), {
+                    pulllToRefreshView.endRefresh()
+                })
+            })
+        })
     }
 }
 
