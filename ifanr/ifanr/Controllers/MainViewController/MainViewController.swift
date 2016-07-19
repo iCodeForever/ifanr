@@ -46,7 +46,12 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
+        newsFlashController.scrollViewReusable = self
         homeViewController.scrollViewReusable = self
+        playzhiController.scrollViewReusable = self
+        appSoController.scrollViewReusable = self
+        mindStoreController.scrollViewReusable = self
+        
         self.addChildViewController(newsFlashController)
         self.addChildViewController(homeViewController)
         self.addChildViewController(playzhiController)
@@ -79,13 +84,13 @@ class MainViewController: UIViewController {
     // 首页
     let homeViewController = HomeViewController()
     // 快讯
-    let newsFlashController = IFBaseNavController(rootViewController:NewsFlashController())
+    let newsFlashController = NewsFlashController()
     // Appso
-    let appSoController = IFBaseNavController(rootViewController:AppSoViewController())
+    let appSoController = AppSoViewController()
     // 玩物志
-    let playzhiController = IFBaseNavController(rootViewController:PlayingZhiController())
+    let playzhiController = PlayingZhiController()
     // MindStore
-    let mindStoreController = IFBaseNavController(rootViewController:MindStoreViewController())
+    let mindStoreController = MindStoreViewController()
 
     var scrollreusableDelegate: ScrollViewControllerReusable?
     
@@ -114,7 +119,7 @@ class MainViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        return collectionView;
+        return collectionView
     }()
     
 
@@ -162,7 +167,7 @@ extension MainViewController: UIScrollViewDelegate {
 }
 
 // MARK: - 这里传headerView给下拉刷新控件做处理
-extension MainViewController: ScrollViewControllerReusable {
+extension MainViewController: ScrollViewControllerReusableDataSource {
     func titleHeaderView() -> MainHeaderView {
         return self.headerView
     }

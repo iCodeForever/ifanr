@@ -8,30 +8,23 @@
 
 import UIKit
 import SnapKit
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, ScrollViewControllerReusable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.insertSubview(pulltorefresh, atIndex: 0)
-        self.view.addSubview(tableView)
+        setupTableView()
+        setupPullToRefreshView()
+
         
         IFanrService.shareInstance.getHomeHotData(0, posts_per_page: 5, successHandle: { [unowned self](modelArray) in
-            self.headerView.modelArray = modelArray
+            (self.tableHeaderView as! HomeHeaderView).modelArray = modelArray
             }, errorHandle: nil)
         
         IFanrService.shareInstance.getHomeLatestData(9, successHandle: { [unowned self](layoutArray) in
             self.latestCellLayout = layoutArray
             self.tableView.reloadData()
             }, errorHandle: nil)
-        
-//        tableView.headerViewPullToRefresh({ [unowned self](contentoffsetY) in
-//            self.pullToRefreshDelegate?.scrollViewPullToRefreshNormal(self.tableView, contentoffsetY: contentoffsetY)
-//            }, pulling: {
-//                self.pullToRefreshDelegate?.scrollViewPullToRefreshPulling(self.tableView)
-//            }) { 
-//                self.pullToRefreshDelegate?.scrollViewPullToRefreshFinish(self.tableView)
-//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,39 +33,72 @@ class HomeViewController: UIViewController {
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
+    
     // 列表数据
     private var latestCellLayout = [HomePopularLayout]()
+    
+    //MARK: --------------------------- ScrollViewControllerReusable --------------------------
+    var tableView: UITableView!
+    /// 下拉刷新
+    var pullToRefresh: PullToRefreshView!
     // 下拉刷新代理
-    weak var scrollViewReusable: ScrollViewControllerReusable?
-    
-    private lazy var tableView: UITableView = {
-        var tableView = UITableView()
-        tableView.backgroundColor = UIColor.whiteColor()
-        tableView.origin = CGPoint.zero
-        tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
-        tableView.sectionHeaderHeight = self.view.width*0.625
-        tableView.tableHeaderView = self.headerView
-        tableView.separatorStyle = .None
-        tableView.delegate = self
-        tableView.dataSource = self
-        return tableView
+    var scrollViewReusable: ScrollViewControllerReusableDataSource!
+    /**
+     tableView HeaderView
+     */
+    var tableHeaderView: UIView! = {
+        return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: UIConstant.SCREEN_WIDTH*0.625+45))
     }()
-    
-    private lazy var headerView: HomeHeaderView = {
-        // tag 高度 65
-        return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width*0.625+45))
-    }()
-    
-    
-    lazy var pulltorefresh: PullToRefreshView = {
-        let pulltorefresh = PullToRefreshView(frame: CGRect(x: 0, y: -sceneHeight, width: self.view.width, height: sceneHeight))
-        pulltorefresh.delegate = self
-        pulltorefresh.dataSource = self
-        return pulltorefresh
-    }()
+//    var tableHeaderView: UIView!
+//
+//    private lazy var tableView: UITableView = {
+//        var tableView = UITableView()
+//        tableView.backgroundColor = UIColor.whiteColor()
+//        tableView.origin = CGPoint.zero
+//        tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
+//        tableView.sectionHeaderHeight = self.view.width*0.625
+//        tableView.tableHeaderView = self.headerView
+//        tableView.separatorStyle = .None
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        return tableView
+//    }()
+//
+//    private lazy var headerView: HomeHeaderView = {
+//        // tag 高度 65
+//        return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width*0.625+45))
+//    }()
+//    
+//    
+//    lazy var pulltorefresh: PullToRefreshView = {
+//        let pulltorefresh = PullToRefreshView(frame: CGRect(x: 0, y: -sceneHeight, width: self.view.width, height: sceneHeight))
+//        pulltorefresh.delegate = self
+//        pulltorefresh.dataSource = self
+//        return pulltorefresh
+//    }()
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+
+// MARK: - 下拉刷新回调
+extension HomeViewController {
+    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
+        print("将要下拉")
+    }
+    
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task {
+        return ({
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                NSThread.sleepForTimeInterval(2.0)
+                dispatch_async(dispatch_get_main_queue(), {
+                    pulllToRefreshView.endRefresh()
+                })
+            })
+        })
+    }
+}
+
+// MARK: - tableView代理
+extension HomeViewController {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return latestCellLayout.count
     }
@@ -107,27 +133,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return latestCellLayout[indexPath.row].cellHeight
-    }
-}
-
-extension HomeViewController: PullToRefreshDataSource, PullToRefreshDelegate {
-    func scrollView() -> UIScrollView {
-        return self.tableView
-    }
-    
-    func titleHeaderView() -> MainHeaderView {
-        return scrollViewReusable!.titleHeaderView()
-    }
-    
-    func redLine() -> UIView {
-        return scrollViewReusable!.redLineView()
-    }
-
-    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
-        
-    }
-    
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
-        print("刷新完成")
     }
 }

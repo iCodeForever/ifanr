@@ -1,6 +1,8 @@
 # 高仿 爱范儿
 - 更新Tips
+    - 更改BasePageController成Protocol, 完善下拉刷新框架（上拉加载更多还在开发中） ----- 2016-07-19    by lyiming
     - 添加玩物志详情界面（BottomToolBar遇到了问题）----- 2016-07-19 by dby
+    - 抽取一个公共类BasePageController， 改用Protocol(初步) ----- 2016-07-18    by lyiming
     - 添加快讯详情界面（缺少分享）----- 2016-07-18 by dby
     - 重新撸了一个下拉刷新（上拉刷新还没做，代码还不太优雅）----- 2016-07-16    by lyiming
     - 修改MindStore界面 ----- 2016.07.14 by dby
