@@ -66,7 +66,7 @@ class PlayingZhiController: BasePageController {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let ifDetailsController = IFDetailsController()
+        let ifDetailsController = IFDetailsController(model: self.dataSource[indexPath.row])
         self.navigationController?.pushViewController(ifDetailsController, animated: true)
     }
 }

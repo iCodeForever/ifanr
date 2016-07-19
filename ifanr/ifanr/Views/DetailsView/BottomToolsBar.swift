@@ -29,7 +29,12 @@ class BottomToolsBar: UIView {
         self.addSubview(self.editCommentTextField)
         self.addSubview(self.redlineView)
         
+        self.backgroundColor = UIColor.whiteColor()
         self.setupLayout()
+        
+//        praiseButton.setVertical(3)
+//        shareButton.setVertical(3)
+//        commentButton.setVertical(3)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,12 +47,20 @@ class BottomToolsBar: UIView {
         let praiseButton: UIButton = UIButton()
         praiseButton.setImage(UIImage(imageLiteral: "ic_comment_bar_like_false"), forState: .Normal)
         praiseButton.setImage(UIImage(imageLiteral: "ic_comment_bar_like_true"), forState: .Selected)
+        praiseButton.setTitle("点赞", forState: .Normal)
+        praiseButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+        praiseButton.imageView?.contentMode = .ScaleAspectFill
+//        praiseButton.backgroundColor = UIColor.redColor()
         return praiseButton
     }()
     /// 分享 button
     private lazy var shareButton: UIButton = {
         let shareButton: UIButton = UIButton()
         shareButton.setImage(UIImage(imageLiteral: "ic_comment_bar_share"), forState: .Normal)
+        shareButton.setTitle("分享", forState: .Normal)
+        shareButton.imageView?.contentMode = .ScaleAspectFill
+        shareButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+//        shareButton.backgroundColor = UIColor.greenColor()
         return shareButton
     }()
     
@@ -55,19 +68,26 @@ class BottomToolsBar: UIView {
     private lazy var commentButton: UIButton = {
         let commentButton: UIButton = UIButton()
         commentButton.setImage(UIImage(imageLiteral: "ic_comment"), forState: .Normal)
+        commentButton.setTitle("评论", forState: .Normal)
+        commentButton.titleLabel?.font  = UIFont.systemFontOfSize(10)
+        commentButton.imageView?.contentMode = .ScaleAspectFill
+//        commentButton.backgroundColor = UIColor.blueColor()
         return commentButton
     }()
     
     /// 编辑评论的框
     private lazy var editCommentTextField: UITextField = {
         let editCommentTextField: UITextField = UITextField()
-        editCommentTextField.placeholder = "您有什么看法呢"
+        editCommentTextField.attributedPlaceholder = NSAttributedString(string: "您有什么看法呢?", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12)] )
+        editCommentTextField.textAlignment = .Center
+//        editCommentTextField.backgroundColor = UIColor.purpleColor()
         return editCommentTextField
     }()
     
     /// 红线
     private lazy var redlineView: UIView = {
         let redlineView: UIView = UIView()
+        redlineView.backgroundColor = UIColor.redColor()
         return redlineView
     }()
     
@@ -75,32 +95,37 @@ class BottomToolsBar: UIView {
     private func setupLayout() {
         self.redlineView.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
-            make.top.bottom.equalTo(self).offset(10)
-            make.width.equalTo(5)
+            make.top.equalTo(self).offset(10)
+            make.bottom.equalTo(self).offset(-10)
+            make.width.equalTo(2)
         }
         
         self.editCommentTextField.snp_makeConstraints { (make) in
             make.left.equalTo(self.redlineView.snp_right).offset(5)
-            make.centerY.equalTo(self)
+            make.centerY.equalTo(self.redlineView)
             make.width.equalTo(100)
+            make.height.equalTo(20)
         }
         
         self.commentButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self).offset(20)
+            make.right.equalTo(self).offset(-20)
             make.centerY.equalTo(self)
-            make.width.equalTo(30)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
         
         self.shareButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.commentButton.snp_left).offset(30)
+            make.right.equalTo(self.commentButton.snp_left).offset(-30)
             make.centerY.equalTo(self)
-            make.width.equalTo(30)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
         
         self.praiseButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.shareButton.snp_left).offset(30)
+            make.right.equalTo(self.shareButton.snp_left).offset(-30)
             make.centerY.equalTo(self)
-            make.width.equalTo(30)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
     }
 }

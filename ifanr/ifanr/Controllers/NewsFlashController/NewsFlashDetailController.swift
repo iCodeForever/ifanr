@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import WebKit
 
-class NewsFlashDetailController: UIViewController, UIWebViewDelegate {
+class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
 
     //MARK:-----Variables-----
     
@@ -23,20 +24,19 @@ class NewsFlashDetailController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(self.webView)
+        self.view.addSubview(self.wkWebView)
         self.view.addSubview(self.bottomBar)
         
         self.setupLayout()
         self.bottomBarSetUpLayout()
         
-        self.webView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
     }
     
     //MARK:-----Getter and Setter-----
-    private lazy var webView: UIWebView = {
-        let webView: UIWebView = UIWebView(frame: self.view.frame)
-        webView.delegate = self
-        return webView
+    private lazy var wkWebView: WKWebView = {
+        let wkWebView: WKWebView = WKWebView(frame: self.view.frame)
+        return wkWebView
     }()
     
     /// 底部的工具栏
@@ -138,7 +138,7 @@ class NewsFlashDetailController: UIViewController, UIWebViewDelegate {
     }
     
     func reloadButtonDidClick() {
-        self.webView.loadHTMLString("", baseURL: nil)
-        self.webView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+        self.wkWebView.loadHTMLString("", baseURL: nil)
+        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
     }
 }

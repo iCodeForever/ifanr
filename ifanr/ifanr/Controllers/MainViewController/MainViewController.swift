@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
         self.view.addSubview(collectionView)
-        self.view.addSubview(fpsLabel)
+//        self.view.addSubview(fpsLabel)
         
         // 添加根控制器
         self.addrootViewController()
