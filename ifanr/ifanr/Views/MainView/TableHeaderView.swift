@@ -13,7 +13,6 @@ class TableHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
-        
         self.addSubview(backgroundImageView)
         self.addSubview(titleLabel)
         self.addSubview(detailTitleLabel)

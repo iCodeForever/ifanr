@@ -1,5 +1,6 @@
 # 高仿 爱范儿
 - 更新Tips
+    - 完成上拉加载更多（参考首页界面），优化修改ScrollViewControllerReusable协议 ----- 2016-07-20    by lyiming
     - 更改BasePageController成Protocol, 完善下拉刷新框架（上拉加载更多还在开发中） ----- 2016-07-19    by lyiming
     - 抽取一个公共类BasePageController， 改用Protocol(初步) ----- 2016-07-18    by lyiming
     - 重新撸了一个下拉刷新（上拉刷新还没做，代码还不太优雅）----- 2016-07-16    by lyiming

@@ -22,7 +22,7 @@ protocol ScrollViewControllerReusableDataSource: ControllerReusable {
 }
 
 
-protocol ScrollViewControllerReusable: ControllerReusable, PullToRefreshDataSource, PullToRefreshDelegate, UITableViewDataSource, UITableViewDelegate {
+protocol ScrollViewControllerReusable: ControllerReusable, PullToRefreshDataSource {
     
     var tableView: UITableView! { get set }
         /// 下拉刷新
@@ -33,7 +33,7 @@ protocol ScrollViewControllerReusable: ControllerReusable, PullToRefreshDataSour
     /**
      tableView HeaderView
      */
-    var tableHeaderView: UIView! { get set }
+
 //    var headerViewTitle: String { get set }
 //    var headerViewImage: UIImage { get set }
 }
@@ -72,11 +72,8 @@ extension ScrollViewControllerReusable where Self: UIViewController {
             tableView.origin = CGPoint.zero
             tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
             tableView.separatorStyle = .None
-            tableView.dataSource = self
-            tableView.delegate = self
-            tableView.tableHeaderView = tableHeaderView
-            tableView.sectionHeaderHeight = tableHeaderView.height
-            tableView.tableFooterView = UIView()
+            tableView.sectionFooterHeight = 50
+            tableView.tableFooterView = pullToRefreshFootView()
             self.view.addSubview(tableView)
         }
     }
@@ -87,9 +84,22 @@ extension ScrollViewControllerReusable where Self: UIViewController {
     func setupPullToRefreshView() {
         if  pullToRefresh == nil {
             pullToRefresh = PullToRefreshView(frame: CGRect(x: 0, y: -sceneHeight, width: self.view.width, height: sceneHeight))
-            pullToRefresh.delegate = self
             pullToRefresh.dataSource = self
             self.tableView.insertSubview(pullToRefresh, atIndex: 0)
         }
+    }
+    
+    private func pullToRefreshFootView() -> UIView {
+        
+        let activityView = ActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 25, height: 25) )
+        activityView.color = UIConstant.UI_COLOR_GrayTheme
+        activityView.center = CGPoint(x: self.view.center.x, y: 25)
+        activityView.startAnimation()
+        
+        let footView = UIView()
+        footView.origin = CGPointZero
+        footView.size = CGSize(width: 50, height: 50)
+        footView.addSubview(activityView)
+        return footView
     }
 }

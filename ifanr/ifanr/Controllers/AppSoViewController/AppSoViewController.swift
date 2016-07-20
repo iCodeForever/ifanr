@@ -9,21 +9,18 @@
 import UIKit
 import Alamofire
 
-//class AppSoViewController: BasePageController {
-class AppSoViewController: UIViewController, ScrollViewControllerReusable {
+class AppSoViewController: BasePageController {
 
     var dataSource : Array<AppSoModel> = Array()
     override func viewDidLoad() {
-        
-//        self.localDataSource = ["appso_header_background", "tag_appsolution", "AppSolution", "智能手机更好用的秘密"]
-        
+
         super.viewDidLoad()
-        
-        setupTableView()
-        setupPullToRefreshView()
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+        pullToRefresh.delegate = self
+        tableView.sectionHeaderHeight = tableHeaderView.height
+        tableView.tableHeaderView = tableHeaderView
         self.getData()
-//        self.tableView.separatorStyle = .None
     }
     
     
@@ -45,66 +42,33 @@ class AppSoViewController: UIViewController, ScrollViewControllerReusable {
         }
     }
     //MARK: --------------------------- Getter and Setter --------------------------
-    var tableView: UITableView!
-    /// 下拉刷新
-    var pullToRefresh: PullToRefreshView!
-    /// 下拉刷新代理
-    var scrollViewReusable: ScrollViewControllerReusableDataSource!
+     /// 这个属性放到ScrollViewControllerReusable协议， 会初始化两次。所以放到这里好了
     var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray[2])
     }()
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.dataSource.count
-//    }
-//    
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        
-//        var cell: UITableViewCell? = nil
-//        let curModel = self.dataSource[indexPath.row];
-//        
-//        debugPrint(curModel.app_icon_url)
-//        
-//        if curModel.app_icon_url != "" {
-//            cell    = AppSoTableViewCell.cellWithTableView(tableView)
-//            (cell as! AppSoTableViewCell).model = curModel
-//        } else {
-//            cell    = PlayingZhiTableViewCell.cellWithTableView(tableView)
-//            (cell as! PlayingZhiTableViewCell).appSoModel = curModel
-//        }
-//        
-//        return cell!
-//    }
-//    
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return AppSoTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 20
-//    }
 }
 
 // MARK: - 下拉刷新回调
-extension AppSoViewController {
+extension AppSoViewController: PullToRefreshDelegate {
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
         print("将要下拉")
     }
     
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task {
-        return ({
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-                NSThread.sleepForTimeInterval(2.0)
-                dispatch_async(dispatch_get_main_queue(), {
-                    pulllToRefreshView.endRefresh()
-                })
-            })
-        })
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+//        return ({
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+//                NSThread.sleepForTimeInterval(2.0)
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    pulllToRefreshView.endRefresh()
+//                })
+//            })
+//        })
     }
 }
 
 
 // MARK: - tableView代理和数据源
-extension AppSoViewController {
+extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell? = nil
         let curModel = self.dataSource[indexPath.row];

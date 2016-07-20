@@ -8,22 +8,21 @@
 
 import UIKit
 import Alamofire
-//class NewsFlashController: BasePageController {
-class NewsFlashController: UIViewController, ScrollViewControllerReusable {
+class NewsFlashController: BasePageController {
     
     var dataSource : Array<HomePopularModel> = Array()
 
     //MARK:-----life cycle-----
     
     override func viewDidLoad() {
-        
-//        self.localDataSource = ["buzz_header_background", "tag_happeningnow", "爱范科技", "最新的咨询快报"]
-        
+    
         super.viewDidLoad()
         
-        setupTableView()
-        setupPullToRefreshView()
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+        pullToRefresh.delegate = self
+        self.tableView.sectionHeaderHeight = tableHeaderView.height
+        self.tableView.tableHeaderView = tableHeaderView
         self.getData()
     }
     
@@ -48,60 +47,33 @@ class NewsFlashController: UIViewController, ScrollViewControllerReusable {
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
-    var tableView: UITableView!
-    /// 下拉刷新
-    var pullToRefresh: PullToRefreshView!
-    /// 下拉刷新代理
-    var scrollViewReusable: ScrollViewControllerReusableDataSource!
-    var tableHeaderView: UIView! = {
+     /// 这个属性放到ScrollViewControllerReusable协议， 会初始化两次。所以放到这里好了
+    private lazy var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray.first!)
     }()
-    
-        /*
-        // HAPPENING NOW
-        let categoryLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        categoryLabel.numberOfLines = 0
-        categoryLabel.textAlignment = .Center
-        categoryLabel.font = UIFont.boldSystemFontOfSize(12)
-        
-        let attrs = NSMutableAttributedString(string: "HAPPENING NOW")
-        // 设置不同颜色
-        attrs.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSMakeRange(10, 3))
-        categoryLabel.attributedText = attrs
-        // 获得合适高度
-        let size = CGSizeMake(320,2000)
-        let labelRect : CGRect = (categoryLabel.text)!.boundingRectWithSize(size, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nil , context: nil);
-        categoryLabel.frame = CGRectMake(UIConstant.SCREEN_WIDTH/2.0 - labelRect.width/2.0 - 15,
-                                         backgroundImageView.bottom + 50 - labelRect.height - 5,
-                                         labelRect.width + 30,
-                                         labelRect.height + 10)
-        categoryLabel.layer.borderColor = UIColor.darkGrayColor().CGColor
-        categoryLabel.layer.borderWidth = 1
-        headerView.addSubview(categoryLabel)
-        */
- }
+}
 
 // MARK: - 下拉刷新回调
-extension NewsFlashController {
+extension NewsFlashController: PullToRefreshDelegate {
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
         print("将要下拉")
     }
     
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task {
-        return ({
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-                NSThread.sleepForTimeInterval(2.0)
-                dispatch_async(dispatch_get_main_queue(), {
-                    pulllToRefreshView.endRefresh()
-                })
-            })
-        })
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+//        return ({
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+//                NSThread.sleepForTimeInterval(2.0)
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    pulllToRefreshView.endRefresh()
+//                })
+//            })
+//        })
     }
 }
 
 
 // MARK: - tableView代理和数据源
-extension NewsFlashController {
+extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = NewsFlashTableViewCell.cellWithTableView(tableView)
         cell.model = self.dataSource[indexPath.row]

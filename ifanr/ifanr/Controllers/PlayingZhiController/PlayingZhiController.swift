@@ -9,21 +9,18 @@
 import UIKit
 import Alamofire
 
-//class PlayingZhiController: BasePageController {
-class PlayingZhiController: UIViewController, ScrollViewControllerReusable {
+class PlayingZhiController: BasePageController {
 
     var dataSource : Array<HomePopularModel> = Array()
     //MARK:-----life cycle-----
     override func viewDidLoad() {
-        
-//        self.localDataSource = ["coolbuy_header_background", "tag_coolbuy", "玩物志", "值得买的未来生活"]
-        
         super.viewDidLoad()
-        setupTableView()
-        setupPullToRefreshView()
         
-//        self.tableView.separatorStyle = .None
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+        pullToRefresh.delegate = self
+        self.tableView.sectionHeaderHeight = tableHeaderView.height
+        self.tableView.tableHeaderView = tableHeaderView
         self.getData()
     }
     
@@ -48,58 +45,34 @@ class PlayingZhiController: UIViewController, ScrollViewControllerReusable {
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
-    var tableView: UITableView!
-    /// 下拉刷新
-    var pullToRefresh: PullToRefreshView!
-    /// 下拉刷新代理
-    var scrollViewReusable: ScrollViewControllerReusableDataSource!
-    var tableHeaderView: UIView! = {
+   /// 这个属性放到ScrollViewControllerReusable协议， 会初始化两次。所以放到这里好了
+    private lazy var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray[1])
     }()
-    
-//    // 复写父类的方法
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        
-//        let cell    = PlayingZhiTableViewCell.cellWithTableView(tableView)
-//        cell.model  = self.dataSource[indexPath.row]
-//        cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
-//        
-//        return cell
-//    }
-//    
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 1
-//    }
-//    
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.dataSource.count
-//    }
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return PlayingZhiTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 20
-//    }
+
 }
 
 // MARK: - 下拉刷新回调
-extension PlayingZhiController {
+extension PlayingZhiController: PullToRefreshDelegate {
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
         print("将要下拉")
     }
     
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task {
-        return ({
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-                NSThread.sleepForTimeInterval(2.0)
-                dispatch_async(dispatch_get_main_queue(), {
-                    pulllToRefreshView.endRefresh()
-                })
-            })
-        })
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+//        return ({
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+//                NSThread.sleepForTimeInterval(2.0)
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    pulllToRefreshView.endRefresh()
+//                })
+//            })
+//        })
     }
 }
 
 
 // MARK: - tableView代理和数据源
-extension PlayingZhiController {
+extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell    = PlayingZhiTableViewCell.cellWithTableView(tableView)
         cell.model  = self.dataSource[indexPath.row]
