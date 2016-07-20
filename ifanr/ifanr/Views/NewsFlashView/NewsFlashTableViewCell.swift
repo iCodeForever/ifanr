@@ -67,13 +67,13 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
         paragphStyle.hyphenationFactor      = 0.0;
         paragphStyle.paragraphSpacingBefore = 0.0;
         
-        let dic = [NSFontAttributeName : UIFont.systemFontOfSize(16),
+        let dic = [NSFontAttributeName : UIFont.customFont_FZLTXIHJW(fontSize: 16),
                    NSParagraphStyleAttributeName: paragphStyle,
                    NSKernAttributeName : 1.0]
         
         
         attrs.addAttribute(NSFontAttributeName,
-                           value: UIFont.systemFontOfSize(16),
+                           value: UIFont.customFont_FZLTXIHJW(fontSize: 16),
                            range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSParagraphStyleAttributeName, value: paragphStyle, range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSKernAttributeName, value: 1.0, range: NSMakeRange(0, (content.characters.count)))
@@ -89,7 +89,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     private lazy var timeLabel : UILabel = {
         //时间
         let timeLabel   = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
-        timeLabel.font  = UIConstant.UI_FONT_13
+        timeLabel.font  = UIFont.customFont_FZLTXIHJW(fontSize: 13)
         timeLabel.textColor = UIColor.lightGrayColor()
         return timeLabel;
         
@@ -104,7 +104,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     
     private lazy var contentLable : UILabel = {
         let contentLable    = UILabel()
-        contentLable.font   = UIConstant.UI_FONT_16
+        contentLable.font   = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         contentLable.numberOfLines = 0
         contentLable.lineBreakMode = .ByWordWrapping
         
@@ -113,7 +113,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     
     private lazy var sourceLabel : UILabel = {
         let sourceLabel     = UILabel()
-        sourceLabel.font    = UIConstant.UI_FONT_12
+        sourceLabel.font    = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         sourceLabel.textColor = UIColor.lightGrayColor()
         return sourceLabel
     }()

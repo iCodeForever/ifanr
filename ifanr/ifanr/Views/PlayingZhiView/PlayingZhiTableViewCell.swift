@@ -63,14 +63,14 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
     // 时间
     private lazy var timeLabel: UILabel = {
         let timeLabel = UILabel()
-        timeLabel.font = UIConstant.UI_FONT_12
+        timeLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         timeLabel.textColor = UIColor.lightGrayColor()
         return timeLabel
     }()
     // 点赞的数目
     private lazy var likeCountLabel: UILabel = {
         let likeCountLabel = UILabel()
-        likeCountLabel.font = UIConstant.UI_FONT_12
+        likeCountLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         likeCountLabel.textColor = UIColor.lightGrayColor()
         return likeCountLabel
     }()
@@ -83,7 +83,7 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
     // 标题，需动态计算高度
     private lazy var titleLabel: UILabel = {
         let titleLabel  = UILabel()
-        titleLabel.font = UIFont.boldSystemFontOfSize(18)
+        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         titleLabel.numberOfLines    = 0
         titleLabel.lineBreakMode    = .ByWordWrapping
         return titleLabel
@@ -93,7 +93,7 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
         let infoLabel = UILabel()
         infoLabel.numberOfLines     = 0
         infoLabel.lineBreakMode     = .ByCharWrapping
-        infoLabel.font      = UIConstant.UI_FONT_12
+        infoLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         infoLabel.textColor = UIColor.lightGrayColor()
         return infoLabel
     }()
@@ -176,13 +176,13 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
         paragphStyle.hyphenationFactor      = 0.0;
         paragphStyle.paragraphSpacingBefore = 0.0;
         
-        let dic = [NSFontAttributeName : UIFont.systemFontOfSize(16),
+        let dic = [NSFontAttributeName : UIFont.customFont_FZLTXIHJW(fontSize: 16),
                    NSParagraphStyleAttributeName: paragphStyle,
                    NSKernAttributeName : 1.0]
         
         
         attrs.addAttribute(NSFontAttributeName,
-                           value: UIFont.boldSystemFontOfSize(18),
+                           value: UIFont.customFont_FZLTXIHJW(fontSize: 16),
                            range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSParagraphStyleAttributeName, value: paragphStyle, range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSKernAttributeName, value: 1.0, range: NSMakeRange(0, (content.characters.count)))

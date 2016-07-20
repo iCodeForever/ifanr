@@ -1,5 +1,6 @@
 # 高仿 爱范儿
 - 更新Tips
+    - 改了字体样式 ----- 2016-07-20    by lyiming
     - 完成上拉加载更多（参考首页界面），优化修改ScrollViewControllerReusable协议 ----- 2016-07-20    by lyiming
     - 更改BasePageController成Protocol, 完善下拉刷新框架（上拉加载更多还在开发中） ----- 2016-07-19    by lyiming
     - 添加玩物志详情界面（BottomToolBar遇到了问题）----- 2016-07-19 by dby

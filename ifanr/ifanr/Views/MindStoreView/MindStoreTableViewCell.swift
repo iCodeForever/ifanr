@@ -63,7 +63,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     // vote label
     private lazy var voteNumberLabel: UILabel = {
         let voteNumberLabel = UILabel()
-        voteNumberLabel.font = UIFont.boldSystemFontOfSize(13)
+        voteNumberLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 13)
         voteNumberLabel.textAlignment = .Center
         voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
                                             green: 173/255.0, blue: 169/255.0, alpha: 1)
@@ -72,7 +72,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     // 标题，需动态计算高度
     private lazy var titleLabel: UILabel = {
         let titleLabel  = UILabel()
-        titleLabel.font = UIFont.boldSystemFontOfSize(18)
+        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         titleLabel.numberOfLines    = 0
         titleLabel.lineBreakMode    = .ByWordWrapping
         return titleLabel
@@ -82,7 +82,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         let tagLineLabel = UILabel()
         tagLineLabel.numberOfLines     = 0
         tagLineLabel.lineBreakMode     = .ByCharWrapping
-        tagLineLabel.font      = UIConstant.UI_FONT_14
+        tagLineLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         tagLineLabel.textColor = UIColor.lightGrayColor()
         return tagLineLabel
     }()
@@ -195,12 +195,12 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         paragphStyle.hyphenationFactor      = 0.0;
         paragphStyle.paragraphSpacingBefore = 0.0;
         
-        let dic = [NSFontAttributeName : UIFont.systemFontOfSize(16),
+        let dic = [NSFontAttributeName : UIFont.customFont_FZLTXIHJW(fontSize: 16),
                    NSParagraphStyleAttributeName: paragphStyle,
                    NSKernAttributeName : 1.0]
         
         attrs.addAttribute(NSFontAttributeName,
-                           value: UIFont.boldSystemFontOfSize(18),
+                           value: UIFont.customFont_FZLTXIHJW(fontSize: 16),
                            range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSParagraphStyleAttributeName, value: paragphStyle, range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSKernAttributeName, value: 1.0, range: NSMakeRange(0, (content.characters.count)))

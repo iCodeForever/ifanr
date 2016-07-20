@@ -49,7 +49,7 @@ class TableHeaderView: UIView {
         /// 副标题
     private lazy var detailTitleLabel: UILabel = {
         let detailTitleLabel    = UILabel(frame: CGRect(x: 20, y: self.titleLabel.bottom, width: self.width, height: 30))
-        detailTitleLabel.font   = UIConstant.UI_FONT_14
+        detailTitleLabel.font   = UIFont.customFont_FZLTZCHJW(fontSize: 14)
         detailTitleLabel.textColor = UIColor.whiteColor()
         return detailTitleLabel
     }()
