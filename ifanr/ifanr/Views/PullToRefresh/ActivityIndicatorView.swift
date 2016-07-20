@@ -11,7 +11,7 @@ import UIKit
 class ActivityIndicatorView: UIView {
     var animating: Bool = false
     // 颜色
-    var DEFAULT_COLOR = UIColor.redColor()
+    var color = UIConstant.UI_COLOR_RedTheme 
     
     /**
      开始动画
@@ -59,7 +59,7 @@ class ActivityIndicatorView: UIView {
         
         // 添加园条
         for i in 0 ..< 7 {
-            let line = createLayer(CGSize(width: lineSize, height: size.height), color: DEFAULT_COLOR)
+            let line = createLayer(CGSize(width: lineSize, height: size.height), color: color)
             let frame = CGRect(x: CGFloat(i)*(margin+lineSize),
                                y: 0,
                                width: lineSize,

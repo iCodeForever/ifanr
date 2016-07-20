@@ -13,7 +13,7 @@ let sceneHeight: CGFloat = 300
 let happenOffsetY: CGFloat = 60
 
 // 异步执行任务
-public typealias Task = () -> Void
+public typealias PullToRefreshTask = () -> Void
 
 /// 下拉刷新数据源
 protocol PullToRefreshDataSource: class {
@@ -34,7 +34,7 @@ protocol PullToRefreshDataSource: class {
 /// 下拉刷新回调
 protocol PullToRefreshDelegate: class {
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView)
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) -> Task
+    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView)
 }
 
 // 控件的刷新状态
@@ -42,6 +42,12 @@ enum RefreshState {
     case  Normal                // 普通状态
     case  Pulling               // 松开就可以进行刷新的状态
     case  Refreshing            // 正在刷新中的状态
+}
+
+enum RefreshType {
+    case None                   //
+    case PullToRefresh          // 下拉刷新
+    case LoadMore               // 上拉加载更多
 }
 
 class PullToRefreshView: UIView {
@@ -83,7 +89,8 @@ class PullToRefreshView: UIView {
     private var redLine: UIView!
     /// 下拉百分比
     private var progressPercentage: CGFloat = 0
-    private var task: Task?
+    /// 执行的代码块
+    private var task: PullToRefreshTask?
     
         /// 设置数据源的时候  添加tableView的contentSize,Contentoffset属性监听
     var dataSource: PullToRefreshDataSource? {
@@ -105,13 +112,7 @@ class PullToRefreshView: UIView {
         }
     }
     /// 代理回调
-    weak var delegate: PullToRefreshDelegate? {
-        didSet {
-            if let delegate = delegate {
-                task = delegate.pullToRefreshViewDidRefresh(self)
-            }
-        }
-    }
+    weak var delegate: PullToRefreshDelegate?
     // 上一个状态
     var oldState: RefreshState?
     // 当前状态
@@ -159,9 +160,10 @@ class PullToRefreshView: UIView {
                     })
                     
                     // 执行block
-                    if let task = task {
-                        task()
-                    }
+                    delegate.pullToRefreshViewDidRefresh(self)
+//                    if let task = task {
+//                        task()
+//                    }
                 }
                 
                 
@@ -203,8 +205,7 @@ class PullToRefreshView: UIView {
 extension PullToRefreshView {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        if let keyPath = keyPath where keyPath == "contentOffset"
-        {
+        if let keyPath = keyPath where keyPath == "contentOffset" {
             // 如果处于刷新状态，直接退出
             guard state != RefreshState.Refreshing else {
                 return
