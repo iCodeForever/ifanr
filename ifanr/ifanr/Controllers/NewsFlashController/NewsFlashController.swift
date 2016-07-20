@@ -9,11 +9,7 @@
 import UIKit
 import Alamofire
 class NewsFlashController: BasePageController {
-    
-    var dataSource : Array<HomePopularModel> = Array()
-
     //MARK:-----life cycle-----
-    
     override func viewDidLoad() {
     
         super.viewDidLoad()
@@ -21,28 +17,33 @@ class NewsFlashController: BasePageController {
         tableView.delegate = self
         tableView.dataSource = self
         pullToRefresh.delegate = self
-        self.tableView.sectionHeaderHeight = tableHeaderView.height
-        self.tableView.tableHeaderView = tableHeaderView
-        self.getData()
+        
+        tableView.sectionHeaderHeight = tableHeaderView.height
+        tableView.tableHeaderView = tableHeaderView
+        
+        getData()
     }
     
     //MARK:-----custom function-----
     
-    func getData() {
-        Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=buzz&posts_per_page=12&sign=19eb476eb0c1fc74bee104316c626fd3&timestamp=1467296130", parameters: [:])
-            .responseJSON { response in
-                
-                if let dataAny = response.result.value {
-                    
-                    let dataDic : NSDictionary = (dataAny as? NSDictionary)!
-                    if dataDic["data"] is NSArray {
-                        let dataArr : NSArray = (dataDic["data"] as? NSArray)!
-                        for item in dataArr {
-                            self.dataSource.append(HomePopularModel(dict: item as! NSDictionary))
-                        }
-                    }
-                    self.tableView.reloadData()
-                }
+    func getData(page: Int = 1) {
+        isRefreshing = true
+        
+        IFanrService.shareInstance.getLatesData(APIConstant.NewsFlash_latest(page), successHandle: { (modelArray) in
+            if page == 1 {
+                self.page = 1
+                self.newsFlashModelArray.removeAll()
+            }
+            // 添加数据
+            modelArray.forEach {
+                self.newsFlashModelArray.append($0)
+            }
+            self.page += 1
+            self.isRefreshing = false
+            self.tableView.reloadData()
+            self.pullToRefresh.endRefresh()
+        }) { (error) in
+            print(error)
         }
     }
     
@@ -51,23 +52,27 @@ class NewsFlashController: BasePageController {
     private lazy var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray.first!)
     }()
+    
+    private var newsFlashModelArray = Array<HomePopularModel>()
 }
 
 // MARK: - 下拉刷新回调
 extension NewsFlashController: PullToRefreshDelegate {
-    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
-        print("将要下拉")
-    }
-    
     func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
-//        return ({
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-//                NSThread.sleepForTimeInterval(2.0)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    pulllToRefreshView.endRefresh()
-//                })
-//            })
-//        })
+        getData()
+    }
+}
+
+// MARK: - 上拉加载更多
+extension NewsFlashController {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        if differY < happenY {
+            if !isRefreshing {
+                // 这里处理上拉加载更多
+                getData(page)
+            }
+        }
     }
 }
 
@@ -76,22 +81,22 @@ extension NewsFlashController: PullToRefreshDelegate {
 extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = NewsFlashTableViewCell.cellWithTableView(tableView)
-        cell.model = self.dataSource[indexPath.row]
+        cell.model = self.newsFlashModelArray[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+        return self.newsFlashModelArray.count
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return NewsFlashTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 30
+        return NewsFlashTableViewCell.estimateCellHeight(self.newsFlashModelArray[indexPath.row].title!) + 30
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let urlStr: String = self.dataSource[indexPath.row].link
+        let urlStr: String = self.newsFlashModelArray[indexPath.row].link
         let newsFlashDetailController: NewsFlashDetailController = NewsFlashDetailController(urlStr: urlStr)
         self.navigationController?.pushViewController(newsFlashDetailController, animated: true)
     }

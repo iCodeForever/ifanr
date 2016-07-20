@@ -19,7 +19,7 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
             
             self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
             self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
-            self.logoImageView.yy_setImageWithURL(NSURL(string: model.image!), options: .AllowBackgroundTask)
+            self.logoImageView.if_setImage(NSURL(string: model.image!))
         }
     }
     
@@ -31,7 +31,7 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
             
             self.titleLabel.attributedText = UILabel.setAttributText(appSoModel.title, lineSpcae: 5.0)
             self.infoLabel.attributedText  = UILabel.setAttributText(appSoModel.excerpt, lineSpcae: 5.0)
-            self.logoImageView.yy_setImageWithURL(NSURL(string: appSoModel.image!), options: .AllowBackgroundTask)
+            self.logoImageView.if_setImage(NSURL(string: appSoModel.image!))
         }
     }
     

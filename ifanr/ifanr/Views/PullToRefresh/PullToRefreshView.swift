@@ -32,7 +32,8 @@ protocol PullToRefreshDataSource: class {
 }
 
 /// 下拉刷新回调
-protocol PullToRefreshDelegate: class {
+@objc protocol PullToRefreshDelegate: class {
+    optional
     func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView)
     func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView)
 }
@@ -145,7 +146,7 @@ class PullToRefreshView: UIView {
                 self.statusLabel.text = "正在刷新..."
                 // 将要执行
                 if let delegate = self.delegate {
-                    delegate.pullToRefreshViewWillRefresh(self)
+                    delegate.pullToRefreshViewWillRefresh?(self)
                     
                     UIView.animateWithDuration(0.2, animations: {
                         let top: CGFloat = happenOffsetY
@@ -160,23 +161,11 @@ class PullToRefreshView: UIView {
                     })
                     
                     // 执行block
-                    delegate.pullToRefreshViewDidRefresh(self)
-//                    if let task = task {
-//                        task()
-//                    }
+                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
+                    dispatch_after(time, dispatch_get_main_queue()) {
+                        delegate.pullToRefreshViewDidRefresh(self)
+                    }
                 }
-                
-                
-                
-//                let time = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
-//                dispatch_after(time, dispatch_get_main_queue()) {
-//                    self.state = RefreshState.Normal
-//                    self.setupNormalDataAnimation()
-//                    if let _ = self.delegate {
-//                        self.delegate?.pullToRefreshViewDidRefresh(self)
-//                    }
-//                }
-                
             }
         }
     }

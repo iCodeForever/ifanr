@@ -111,7 +111,7 @@ public class MoyaProvider<Target: TargetType> {
         
         let performNetworking = { (request: NSURLRequest) in
             if cancellableToken.isCancelled { return }
-            
+            print(request)
             switch stubBehavior {
             case .Never:
                 cancellableToken.innerCancellable = self.sendRequest(target, request: request, completion: completion)

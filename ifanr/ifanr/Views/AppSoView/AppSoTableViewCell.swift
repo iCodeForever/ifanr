@@ -18,7 +18,7 @@ class AppSoTableViewCell: UITableViewCell, Reusable {
             
             self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
             self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
-            self.logoImageView.yy_setImageWithURL(NSURL(string: model.image!), options: .AllowBackgroundTask)
+            self.logoImageView.if_setImage(NSURL(string: model.image!))
             self.appIconImageView.if_setImage(NSURL(string: model.app_icon_url))
         }
     }

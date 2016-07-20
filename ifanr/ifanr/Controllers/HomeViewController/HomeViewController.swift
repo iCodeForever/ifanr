@@ -40,7 +40,8 @@ class HomeViewController: BasePageController {
         
         let group = dispatch_group_create()
         dispatch_group_enter(group)
-        IFanrService.shareInstance.getHomeHotData(0, posts_per_page: 5, successHandle: { [unowned self](modelArray) in
+        
+        IFanrService.shareInstance.getLatesData(APIConstant.Home_hot_features(5), successHandle: { [unowned self](modelArray) in
             self.headerModelArray = modelArray
             dispatch_group_leave(group)
             }, errorHandle: { (error) in
@@ -84,8 +85,7 @@ class HomeViewController: BasePageController {
     private var headerModelArray: [HomePopularModel]?
     
     //MARK: --------------------------- ScrollViewControllerReusable --------------------------
-        /// 记录当前列表页码
-    private var page = 1
+
     /**
      tableView HeaderView
      */
@@ -96,10 +96,6 @@ class HomeViewController: BasePageController {
 
 // MARK: - 下拉刷新回调
 extension HomeViewController: PullToRefreshDelegate {
-    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
-        print("将要下拉")
-    }
-    
     func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
         getNormalData()
     }
@@ -115,9 +111,8 @@ extension HomeViewController {
                 IFanrService.shareInstance.getHomeLatestData(page, successHandle: { (layoutArray) in
                     layoutArray.forEach{
                         self.latestCellLayout.append($0)
-                        
-                        self.isRefreshing = false
                     }
+                    self.isRefreshing = false
                     self.tableView.reloadData()
                     }, errorHandle: { (error) in
                         print(error)

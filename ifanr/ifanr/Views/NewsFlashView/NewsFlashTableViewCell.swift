@@ -42,7 +42,8 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
                                range: NSMakeRange(0, ((model.title)!.characters.count)))
             self.contentLable.attributedText = attrs
             
-            self.sourceLabel.text   = "来源：" + (model.excerpt?.componentsSeparatedByString("/")[2])!
+//            self.sourceLabel.text   = "来源：" + (model.excerpt?.componentsSeparatedByString("/")[2])!
+            self.sourceLabel.text = "来源:"
         }
     }
     

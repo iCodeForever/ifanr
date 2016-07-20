@@ -11,34 +11,38 @@ import Alamofire
 
 class AppSoViewController: BasePageController {
 
-    var dataSource : Array<AppSoModel> = Array()
     override func viewDidLoad() {
 
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         pullToRefresh.delegate = self
+        
         tableView.sectionHeaderHeight = tableHeaderView.height
         tableView.tableHeaderView = tableHeaderView
-        self.getData()
+        
+        getData()
     }
     
     
-    func getData() {
-        Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=2&post_type=app&posts_per_page=12&sign=52eb3928dc47f57a26b00932226eff22&timestamp=1467295827", parameters: [:])
-            .responseJSON { response in
-                
-                if let dataAny = response.result.value {
-                    
-                    let dataDic : NSDictionary = (dataAny as? NSDictionary)!
-                    if dataDic["data"] is NSArray {
-                        let dataArr : NSArray = (dataDic["data"] as? NSArray)!
-                        for item in dataArr {
-                            self.dataSource.append(AppSoModel(dict: item as! NSDictionary))
-                        }
-                    }
-                    self.tableView.reloadData()
-                }
+    func getData(page: Int = 1) {
+        isRefreshing = true
+        
+        IFanrService.shareInstance.getAppSoData(page, successHandle: { (modelArray) in
+            if page == 1 {
+                self.page = 1
+                self.appSoModelArray.removeAll()
+            }
+            // 添加数据
+            modelArray.forEach {
+                self.appSoModelArray.append($0)
+            }
+            self.page += 1
+            self.isRefreshing = false
+            self.tableView.reloadData()
+            self.pullToRefresh.endRefresh()
+        }) { (error) in
+            print(error)
         }
     }
     //MARK: --------------------------- Getter and Setter --------------------------
@@ -46,32 +50,38 @@ class AppSoViewController: BasePageController {
     var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray[2])
     }()
+    
+    var appSoModelArray = Array<AppSoModel>()
 }
 
 // MARK: - 下拉刷新回调
+// MARK: - 下拉刷新回调
 extension AppSoViewController: PullToRefreshDelegate {
-    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
-        print("将要下拉")
-    }
-    
     func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
-//        return ({
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-//                NSThread.sleepForTimeInterval(2.0)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    pulllToRefreshView.endRefresh()
-//                })
-//            })
-//        })
+        getData()
     }
 }
+
+// MARK: - 上拉加载更多
+extension AppSoViewController {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        if differY < happenY {
+            if !isRefreshing {
+                // 这里处理上拉加载更多
+                getData(page)
+            }
+        }
+    }
+}
+
 
 
 // MARK: - tableView代理和数据源
 extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell? = nil
-        let curModel = self.dataSource[indexPath.row];
+        let curModel = self.appSoModelArray[indexPath.row];
         
         debugPrint(curModel.app_icon_url)
         
@@ -87,11 +97,11 @@ extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+        return self.appSoModelArray.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return AppSoTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 20
+        return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].title!) + 20
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        let ifDetailController = IFDetailsController(model: self.dataSource[indexPath.row])

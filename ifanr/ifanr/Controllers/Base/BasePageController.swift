@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class BasePageController: UIViewController, ScrollViewControllerReusable {
-        
+    
     //MARK: --------------------------- life cycle --------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,8 @@ class BasePageController: UIViewController, ScrollViewControllerReusable {
     
     /// 是否正在刷新
     var isRefreshing = false
-    
+    /// 记录当前列表页码
+    var page = 1
     /// 上拉加载更多触发零界点
     var happenY: CGFloat = UIConstant.SCREEN_HEIGHT+20
     var differY: CGFloat = 0

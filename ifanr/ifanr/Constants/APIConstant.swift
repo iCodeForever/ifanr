@@ -9,20 +9,15 @@
 import UIKit
 import Foundation
 import Moya
-
-/// https://www.ifanr.com/api/v3.0/?action=hot_features&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=0&posts_per_page=5&sign=be072a0fc0b7020836bae8777f2fbeca&timestamp=1467296033
-
-/// https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=post%2Cnews%2Cdasheng%2Cdata&posts_per_page=12&sign=be072a0fc0b7020836bae8777f2fbeca&timestamp=1467296033
-                                                                           
+   
 public enum APIConstant {
     /**
      *  首页-热门（5条导航）参数 page, posts_per_page
      *
      *  @param Int    page请求的页数
-     *  @param Int    posts_per_page请求页数的条数
      *
      */
-    case Home_hot_features(Int, Int)
+    case Home_hot_features(Int)
     
     /**
      *  首页-列表 每次请求12条
@@ -31,6 +26,31 @@ public enum APIConstant {
      *
      */
     case Home_latest(Int)
+    
+    /**
+     *  快讯-列表
+     *
+     *  @param Int 分页数
+     */
+    case NewsFlash_latest(Int)
+    
+    /**
+     *  玩物志
+     *
+     *  @param Int 分页数
+     */
+    case PlayingZhi_latest(Int)
+    
+    /**
+     *  AppSo
+     *
+     */
+    case AppSo_latest(Int)
+    
+    /**
+     *  MainStore  从0开始
+     */
+    case MindStore_latest(Int)
 }
 
 extension APIConstant: TargetType {
@@ -52,16 +72,53 @@ extension APIConstant: TargetType {
     private  var timestamp: String {
         return NSDate.getCurrentTimeStamp()
     }
-   
+  
         /// 这个不知什么鬼。首页那里用到
     private var post_type: String {
-        return "post%2Cnews%2Cdasheng%2Cdata".stringByRemovingPercentEncoding!
+        switch self {
+        case .Home_latest(_), .Home_hot_features(_):
+            return "post%2Cnews%2Cdasheng%2Cdata".stringByRemovingPercentEncoding!
+        case .NewsFlash_latest(_):
+            return "buzz"
+        case .PlayingZhi_latest(_):
+            return "coolbuy"
+        case .AppSo_latest(_):
+            return "app"
+        default:
+            return ""
+        }
+    }
+    
+    private var action: String {
+        switch self {
+        case .Home_hot_features(_):
+            return "hot_features"
+        default:
+            return "ifr_m_latest"
+        }
+    }
+    
+    private var posts_per_page: Int {
+        switch self {
+        case .Home_hot_features(_):
+            return 5
+        default:
+            return 12
+        }
     }
     
     //MARK: --------------------------- Path --------------------------
         /// url
+    
     public var baseURL: NSURL {
-        return NSURL(string: "https://www.ifanr.com/api/v3.0/")!
+        switch self {
+            /// https://sso.ifanr.com/api/v1.2/mind/?look_back_days=0&limit=60
+        case .MindStore_latest(_):
+            return NSURL(string: "https://sso.ifanr.com/api/v1.2/mind/")!
+        default:
+            return NSURL(string: "https://www.ifanr.com/api/v3.0/")!
+        }
+        
     }
         /// 路径
     public var path: String {
@@ -76,13 +133,24 @@ extension APIConstant: TargetType {
     public var parameters: [String: AnyObject]? {
         
         switch self {
-    
-        case let .Home_hot_features(page, posts_per_page):
-            return ["action": "hot_features", "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page]
-            
+                    /// 首页热门
+        case let .Home_hot_features(page):
+            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+                    /// 首页列表
         case let .Home_latest(page):
-            return ["action": "ifr_m_latest", "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign,
-                    "timestamp": timestamp, "page": page, "post_type": post_type, "posts_per_page": 12]
+            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+                    /// 快讯列表
+        case let .NewsFlash_latest(page):
+            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+                    /// 玩物志列表
+        case let .PlayingZhi_latest(page):
+            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+                    /// AppSo
+        case let .AppSo_latest(page):
+            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+                    /// MindStore
+        case let .MindStore_latest(page):
+            return ["look_back_days": page, "limit": 60]
         }
     }
     

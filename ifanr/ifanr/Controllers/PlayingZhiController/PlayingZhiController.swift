@@ -11,7 +11,6 @@ import Alamofire
 
 class PlayingZhiController: BasePageController {
 
-    var dataSource : Array<HomePopularModel> = Array()
     //MARK:-----life cycle-----
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,28 +18,32 @@ class PlayingZhiController: BasePageController {
         tableView.delegate = self
         tableView.dataSource = self
         pullToRefresh.delegate = self
-        self.tableView.sectionHeaderHeight = tableHeaderView.height
-        self.tableView.tableHeaderView = tableHeaderView
-        self.getData()
+        tableView.sectionHeaderHeight = tableHeaderView.height
+        tableView.tableHeaderView = tableHeaderView
+        
+        getData()
     }
     
     
     // 复写父类的方法 --- 获得获得
-    func getData() {
-        Alamofire.request(.GET, "https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&excerpt_length=80&page=1&post_type=coolbuy&posts_per_page=12&sign=6e1a1b825a30456e4c68ac0a6e0a2aa7&timestamp=1467295944", parameters: [:])
-            .responseJSON { response in
-                
-                if let dataAny = response.result.value {
-                    
-                    let dataDic : NSDictionary = (dataAny as? NSDictionary)!
-                    if dataDic["data"] is NSArray {
-                        let dataArr : NSArray = (dataDic["data"] as? NSArray)!
-                        for item in dataArr {
-                            self.dataSource.append(HomePopularModel(dict: item as! NSDictionary))
-                        }
-                    }
-                    self.tableView.reloadData()
-                }
+    func getData(page: Int = 1) {
+        isRefreshing = true
+        
+        IFanrService.shareInstance.getLatesData(APIConstant.PlayingZhi_latest(page), successHandle: { (modelArray) in
+            if page == 1 {
+                self.page = 1
+                self.playingZhiModelArray.removeAll()
+            }
+            // 添加数据
+            modelArray.forEach {
+                self.playingZhiModelArray.append($0)
+            }
+            self.page += 1
+            self.isRefreshing = false
+            self.tableView.reloadData()
+            self.pullToRefresh.endRefresh()
+        }) { (error) in
+            print(error)
         }
     }
     
@@ -49,24 +52,28 @@ class PlayingZhiController: BasePageController {
     private lazy var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray[1])
     }()
+    
+    var playingZhiModelArray : Array<HomePopularModel> = Array()
 
 }
 
 // MARK: - 下拉刷新回调
 extension PlayingZhiController: PullToRefreshDelegate {
-    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView) {
-        print("将要下拉")
-    }
-    
     func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
-//        return ({
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-//                NSThread.sleepForTimeInterval(2.0)
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    pulllToRefreshView.endRefresh()
-//                })
-//            })
-//        })
+        getData()
+    }
+}
+
+// MARK: - 上拉加载更多
+extension PlayingZhiController {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        if differY < happenY {
+            if !isRefreshing {
+                // 这里处理上拉加载更多
+                getData(page)
+            }
+        }
     }
 }
 
@@ -75,22 +82,22 @@ extension PlayingZhiController: PullToRefreshDelegate {
 extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell    = PlayingZhiTableViewCell.cellWithTableView(tableView)
-        cell.model  = self.dataSource[indexPath.row]
+        cell.model  = self.playingZhiModelArray[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+        return self.playingZhiModelArray.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return PlayingZhiTableViewCell.estimateCellHeight(self.dataSource[indexPath.row].title!) + 20
+        return PlayingZhiTableViewCell.estimateCellHeight(self.playingZhiModelArray[indexPath.row].title!) + 20
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let ifDetailsController = IFDetailsController(model: self.dataSource[indexPath.row])
+        let ifDetailsController = IFDetailsController(model: self.playingZhiModelArray[indexPath.row])
         self.navigationController?.pushViewController(ifDetailsController, animated: true)
     }
 }
