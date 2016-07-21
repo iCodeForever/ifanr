@@ -17,15 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
-
-//        window?.rootViewController = HomeViewController()
-
-        window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
-//        window?.rootViewController = NewsFlashController()
-//        window?.rootViewController = PlayingZhiController()
-//        window?.rootViewController = AppSoViewController()
-//        window?.rootViewController = MindStoreViewController()
-
+        
+        window?.rootViewController = NewFeatureController()
+//        window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
         return true
     }
     

@@ -1,5 +1,6 @@
 # 高仿 爱范儿
 - 更新Tips
+    - 完成新特性视频介绍页面  ----- 2016-07-22    by lyiming
     - 优化网络请求框架，完成快讯，首页，玩物志，appso,mindstore下拉刷新。发现model太乱了有空再优化 ----- 2016-07-21    by lyiming
     - 改了字体样式 ----- 2016-07-20    by lyiming
     - 完成上拉加载更多（参考首页界面），优化修改ScrollViewControllerReusable协议 ----- 2016-07-20    by lyiming
