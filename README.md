@@ -1,5 +1,6 @@
 # 高仿 爱范儿
 - 更新Tips
+    - "玩物志"详情界面中，添加了headerview，正在开发BottomBar，相关动画效果还有待改进 ----- 2016-07-22 by dby
     - 优化网络请求框架，完成快讯，首页，玩物志，appso,mindstore下拉刷新。发现model太乱了有空再优化 ----- 2016-07-21    by lyiming
     - 改了字体样式 ----- 2016-07-20    by lyiming
     - 完成上拉加载更多（参考首页界面），优化修改ScrollViewControllerReusable协议 ----- 2016-07-20    by lyiming
