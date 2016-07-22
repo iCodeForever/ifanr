@@ -36,6 +36,7 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     //MARK:-----Getter and Setter-----
     private lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView(frame: self.view.frame)
+        wkWebView.navigationDelegate = self
         return wkWebView
     }()
     
@@ -86,8 +87,12 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     
     
     //MARK:-----UIWebView Delegate-----
-    func webViewDidFinishLoad(webView: UIWebView) {
-        
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        self.showProgress()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.hiddenProgress()
     }
     
     //MARK:-----Custom Function-----
@@ -116,12 +121,11 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
             make.top.equalTo(self.bottomBar).offset(15)
             make.width.height.equalTo(15)
         }
-        
     }
     func setupLayout() {
         self.bottomBar.snp_makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(60)
+            make.height.equalTo(40)
         }
     }
     

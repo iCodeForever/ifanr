@@ -18,13 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
 
-//        window?.rootViewController = HomeViewController()
-
         window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
-//        window?.rootViewController = NewsFlashController()
-//        window?.rootViewController = PlayingZhiController()
-//        window?.rootViewController = AppSoViewController()
-//        window?.rootViewController = MindStoreViewController()
 
         return true
     }
