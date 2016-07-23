@@ -10,12 +10,9 @@ import UIKit
 import WebKit
 import SnapKit
 
-class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, UIScrollViewDelegate{
+class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, ToolBarDelegate, UIScrollViewDelegate{
 
-    var model: HomePopularModel?
-    var lastPosition: CGFloat = 0
-    var headerHeightConstraint: Constraint? = nil
-    
+    //MARK:-----life cycle-----
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +22,8 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         
         self.setupLayout()
         
+        self.toolBar.commentButton.showIcon(model?.comments ?? nil)
+        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.like)!), forState: .Normal)
         self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: self.model!.link)!))
     }
     
@@ -34,6 +33,14 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     }
     
     //MARK:-----Getter and Setter-----
+    var lastPosition: CGFloat = 0
+    var headerHeightConstraint: Constraint? = nil
+    var model: HomePopularModel? {
+        didSet {
+            self.toolBar.backgroundColor = UIColor.orangeColor()
+        }
+    }
+    
     private lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView()
         wkWebView.navigationDelegate    = self
@@ -43,6 +50,7 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     private lazy var toolBar: BottomToolsBar = {
         let toolBar: BottomToolsBar = BottomToolsBar()
+        toolBar.delegate = self
         return toolBar
     }()
     
@@ -61,7 +69,7 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         
         self.toolBar.snp_makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         
         self.headerBack.snp_makeConstraints { (make) in
@@ -82,6 +90,27 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     //MARK:-----HeaderViewDelegate-----
     func backButtonDidClick() {
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    //MARK:-----ToolBarDelegate-----
+    func editCommentDidClick() {
+        debugPrint("editCommon")
+    }
+    
+    func praiseButtonDidClick() {
+        if self.toolBar.praiseButton.selected {
+            self.toolBar.praiseButton.selected = false
+        } else {
+            self.toolBar.praiseButton.selected = true
+        }
+    }
+    
+    func shareButtonDidClick() {
+        debugPrint("shareButton")
+    }
+    
+    func commentButtonDidClick() {
+        debugPrint("commonButton")
     }
     
     //MARK:-----UIScrollViewDelegate-----

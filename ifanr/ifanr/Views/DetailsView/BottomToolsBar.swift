@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ToolBarDelegate {
+    func editCommentDidClick()
     func praiseButtonDidClick()
     func shareButtonDidClick()
     func commentButtonDidClick()
@@ -17,8 +18,8 @@ protocol ToolBarDelegate {
 class BottomToolsBar: UIView {
 
     var delegate: ToolBarDelegate?
-    //MARK:-----Life Cycle-----
     
+    //MARK:-----Life Cycle-----
     override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -31,11 +32,6 @@ class BottomToolsBar: UIView {
         
         self.backgroundColor = UIColor.whiteColor()
         self.userInteractionEnabled = true
-        self.setupLayout()
-        
-        praiseButton.setVertical(3)
-        shareButton.setVertical(3)
-        commentButton.setVertical(3)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,91 +39,78 @@ class BottomToolsBar: UIView {
     }
     
     //MARK:-----Getter and Setter-----
-    /// 点赞 button
-    private lazy var praiseButton: UIButton = {
-        let praiseButton: UIButton = UIButton()
-        praiseButton.setImage(UIImage(imageLiteral: "ic_comment_bar_like_false"), forState: .Normal)
-        praiseButton.setImage(UIImage(imageLiteral: "ic_comment_bar_like_true"), forState: .Selected)
-        praiseButton.setTitle("点赞", forState: .Normal)
-        praiseButton.titleLabel?.font = UIFont.customFont_FZLTXIHJW(fontSize: 10)
-        praiseButton.imageView?.contentMode = .ScaleAspectFit
-        praiseButton.backgroundColor = UIColor.redColor()
-        return praiseButton
-    }()
-    /// 分享 button
-    private lazy var shareButton: UIButton = {
-        let shareButton: UIButton = UIButton()
-        shareButton.setImage(UIImage(imageLiteral: "ic_comment_bar_share"), forState: .Normal)
-        shareButton.setTitle("分享", forState: .Normal)
-        shareButton.imageView?.contentMode = .ScaleAspectFill
-        shareButton.titleLabel?.font = UIFont.customFont_FZLTXIHJW(fontSize: 10)
-        shareButton.backgroundColor = UIColor.greenColor()
-        return shareButton
-    }()
-    
-    /// 评论 button
-    private lazy var commentButton: UIButton = {
-        let commentButton: UIButton = UIButton()
-        commentButton.setImage(UIImage(imageLiteral: "ic_comment"), forState: .Normal)
-        commentButton.setTitle("评论", forState: .Normal)
-        commentButton.titleLabel?.font  = UIFont.customFont_FZLTXIHJW(fontSize: 10)
-        commentButton.imageView?.contentMode = .ScaleAspectFill
-        commentButton.backgroundColor = UIColor.blueColor()
-        return commentButton
-    }()
-    
-    /// 编辑评论的框
-    private lazy var editCommentTextField: UITextField = {
-        let editCommentTextField: UITextField = UITextField()
-        editCommentTextField.attributedPlaceholder = NSAttributedString(string: "您有什么看法呢?", attributes: [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 12)] )
-        editCommentTextField.textAlignment = .Center
-        editCommentTextField.contentVerticalAlignment = .Center
-        editCommentTextField.backgroundColor = UIColor.purpleColor()
-        return editCommentTextField
-    }()
-    
     /// 红线
     private lazy var redlineView: UIView = {
-        let redlineView: UIView = UIView()
+        
+        let redlineView: UIView     = UIView(frame: CGRectMake(20, 12.5, 2, 25))
         redlineView.backgroundColor = UIColor.redColor()
         return redlineView
     }()
+    /// 编辑评论的框
+    private lazy var editCommentTextField: UITextField = {
+        let editCommentTextField: UITextField = UITextField(frame: CGRectMake(self.redlineView.x+12, 12.5, 100, 25))
+        editCommentTextField.font = UIFont.customFont_FZLTZCHJW(fontSize: 12.0)
+        editCommentTextField.placeholder = "您有什么看法呢?"
+        editCommentTextField.textAlignment = .Center
+        editCommentTextField.contentVerticalAlignment = .Center
+        editCommentTextField.addTarget(self, action: #selector(editCommentAction), forControlEvents: .TouchUpInside)
+        return editCommentTextField
+    }()
+    /// 点赞 button
+    internal lazy var praiseButton: UIButton = {
+        let praiseButton: UIButton = UIButton(frame: CGRectMake(UIConstant.SCREEN_WIDTH-155, 12.5, 50, 30))
+        praiseButton.setImage(UIImage(imageLiteral: "ic_comment_bar_like_false"), forState: .Normal)
+        praiseButton.setImage(UIImage(imageLiteral: "ic_comment_bar_like_true"), forState: .Selected)
+        praiseButton.setTitle("点赞(11)", forState: .Normal)
+        praiseButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        praiseButton.titleLabel?.font = UIFont.customFont_FZLTXIHJW(fontSize: 9)
+        praiseButton.imageView?.contentMode = .ScaleAspectFit
+        praiseButton.imageEdgeInsets = UIEdgeInsetsMake(-12, 16, 0, 16)
+        praiseButton.titleEdgeInsets = UIEdgeInsetsMake(praiseButton.currentImage!.size.height-9, -praiseButton.currentImage!.size.width, 0, 0)
+        praiseButton.addTarget(self, action: #selector(praiseButtonAction), forControlEvents: .TouchUpInside)
+        return praiseButton
+    }()
+    /// 分享 button
+    internal lazy var shareButton: UIButton = {
+        let shareButton: UIButton = UIButton(frame: CGRectMake(UIConstant.SCREEN_WIDTH-95, 12.5, 30, 30))
+        shareButton.setImage(UIImage(imageLiteral: "ic_comment_bar_share"), forState: .Normal)
+        shareButton.setTitle("分享", forState: .Normal)
+        shareButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        shareButton.imageView?.contentMode = .ScaleAspectFit
+        shareButton.titleLabel?.font = UIFont.customFont_FZLTXIHJW(fontSize: 9)
+        shareButton.imageEdgeInsets = UIEdgeInsetsMake(-16, 7, 0, 7)
+        shareButton.titleEdgeInsets = UIEdgeInsetsMake(shareButton.currentImage!.size.height-12.5, -shareButton.currentImage!.size.width, 0, 0)
+        shareButton.addTarget(self, action: #selector(shareButtonAction), forControlEvents: .TouchUpInside)
+        return shareButton
+    }()
+    /// 评论 button
+    internal lazy var commentButton: UIButton = {
+        let commentButton: UIButton = UIButton(frame: CGRectMake(UIConstant.SCREEN_WIDTH-45, 12.5, 30, 30))
+        commentButton.setImage(UIImage(imageLiteral: "ic_comment"), forState: .Normal)
+        commentButton.setTitle("评论", forState: .Normal)
+        commentButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        commentButton.titleLabel?.font  = UIFont.customFont_FZLTXIHJW(fontSize: 9)
+        commentButton.imageView?.contentMode = .ScaleAspectFit
+        commentButton.imageEdgeInsets = UIEdgeInsetsMake(-12, 6.5, 0, 6.5)
+        commentButton.titleEdgeInsets = UIEdgeInsetsMake(commentButton.currentImage!.size.height-10, -commentButton.currentImage!.size.width, 0, 0)
+        commentButton.addTarget(self, action: #selector(commentButtonAction), forControlEvents: .TouchUpInside)
+        return commentButton
+    }()
     
-    //MARK:-----Custom Function-----
-    private func setupLayout() {
-        self.redlineView.snp_makeConstraints { (make) in
-            make.left.equalTo(self).offset(20)
-            make.top.equalTo(self).offset(5)
-            make.bottom.equalTo(self).offset(-10)
-            make.width.equalTo(2)
-        }
-        
-        self.editCommentTextField.snp_makeConstraints { (make) in
-            make.left.equalTo(self.redlineView.snp_right).offset(5)
-            make.centerY.equalTo(self)
-            make.width.equalTo(100)
-            make.height.equalTo(30)
-        }
-        
-        self.commentButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self).offset(-20)
-            make.centerY.equalTo(self)
-            make.width.equalTo(20)
-            make.height.equalTo(43)
-        }
-        
-        self.shareButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.commentButton.snp_left).offset(-30)
-            make.centerY.equalTo(self)
-            make.width.equalTo(20)
-            make.height.equalTo(43)
-        }
-        
-        self.praiseButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.shareButton.snp_left).offset(-30)
-            make.centerY.equalTo(self)
-            make.width.equalTo(20)
-            make.height.equalTo(43)
-        }
+    //MARK:-----Action-----
+    @objc private func editCommentAction() {
+        self.delegate?.editCommentDidClick()
+    }
+    
+    @objc private func praiseButtonAction() {
+        self.delegate?.praiseButtonDidClick()
+    }
+    
+    @objc private func shareButtonAction() {
+        self.delegate?.shareButtonDidClick()
+    }
+    
+    @objc private func commentButtonAction() {
+        self.delegate?.commentButtonDidClick()
     }
 }

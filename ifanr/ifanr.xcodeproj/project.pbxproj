@@ -28,7 +28,6 @@
 		43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */; };
 		43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */; };
 		43EBEAC31D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EBEAC11D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift */; };
-		43F24FF51D3E70FA00CAF14C /* UIButton+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F24FF41D3E70FA00CAF14C /* UIButton+IF.swift */; };
 		43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */; };
 		578C5CC4EB609089221BD17D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19142DE52BA65CA63302D628 /* Pods.framework */; };
 		699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699874BE1D23C6CA0059A2BE /* AppDelegate.swift */; };
@@ -116,7 +115,6 @@
 		43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEAC11D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingZhiTableViewCell.swift; sourceTree = "<group>"; };
-		43F24FF41D3E70FA00CAF14C /* UIButton+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+IF.swift"; sourceTree = "<group>"; };
 		43F2E6E01D274AE700224B6F /* IFNetWorkTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFNetWorkTool.swift; path = Utils/IFNetWorkTool.swift; sourceTree = "<group>"; };
 		699874BB1D23C6CA0059A2BE /* ifanr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifanr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		699874BE1D23C6CA0059A2BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -408,7 +406,6 @@
 				F17C51DD1D2AB1DE0077A4C5 /* UIFont+ifanr.swift */,
 				F15349DE1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift */,
 				F15349E01D2D7EB900A11BCB /* String+ifanr.swift */,
-				43F24FF41D3E70FA00CAF14C /* UIButton+IF.swift */,
 				432CE4F81D411A1400779050 /* UIViewController+IF.swift */,
 			);
 			path = Extension;
@@ -841,7 +838,6 @@
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F1CECBE91D3D401700A113A1 /* AppSoModel.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
-				43F24FF51D3E70FA00CAF14C /* UIButton+IF.swift in Sources */,
 				F1CECBEA1D3D401700A113A1 /* MindStoreModel.swift in Sources */,
 				43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */,
 				F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */,

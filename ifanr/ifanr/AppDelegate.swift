@@ -18,9 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
 
-//        window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
-        window?.rootViewController = NewFeatureController()
-//        window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
+//        window?.rootViewController = NewFeatureController()
+        window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
         return true
     }
     

@@ -14,39 +14,45 @@ let kBaseSize: CGFloat       = 101.0
 
 extension UIView {
     
-    func showIcon() -> UIView? {
+    func showIcon(num: String?) {
+        if num != nil && getIcon(num!) != nil{
+            self.addSubview(getIcon(num!)!)
+        }
+    }
+    
+    func getIcon(num: String) -> UIView? {
         
         self.dissmissV()
-        let existingActivityView: UIView? = (objc_getAssociatedObject(self, HJVIconKey) as? UIView ?? nil)!;
-        var vIcon: UIImageView? = existingActivityView as? UIImageView ?? nil;
-        var image: UIImage?  = vIcon?.image
+        let existingActivityView: UIView? = objc_getAssociatedObject(self, HJVIconKey) as? UIView ?? nil;
+        var vLabel: UILabel? = existingActivityView as? UILabel ?? nil;
         if existingActivityView == nil {
-            vIcon = UIImageView()
-            vIcon?.backgroundColor = UIColor.clearColor()
-            image = UIImage(imageLiteral: "")
-            self.superview?.addSubview(vIcon!)
-            objc_setAssociatedObject(self, HJVIconKey, vIcon, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            vLabel = UILabel()
+            vLabel?.backgroundColor = UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0)
+            self.superview?.addSubview(vLabel!)
+            objc_setAssociatedObject(self, HJVIconKey, vLabel, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
-        vIcon?.image = image
         
-        let vWidth: CGFloat = (image?.size.width)!
-        let vHeight: CGFloat = (image?.size.height)!
-        vIcon?.frame = CGRect(x: 0, y: 0, width: vWidth, height: vHeight)
+        vLabel?.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        vLabel?.textColor = UIColor.whiteColor()
+        vLabel?.font = UIFont.customFont_FZLTZCHJW(fontSize: 9)
+        vLabel?.layer.cornerRadius = 7.5
+        vLabel?.layer.masksToBounds = true
+        vLabel?.textAlignment = .Center
+        vLabel?.text = num
         
         var center: CGPoint = CGPoint(x: self.width * 0.83, y: self.height * 0.83)
         center = self.convertPoint(center, toView: self.superview)
-        vIcon?.center = center
-        if CGRectGetMaxY((vIcon?.frame)!) > CGRectGetMaxY((self.superview?.frame)!) {
-            vIcon?.center = CGPointMake(CGRectGetWidth((self.superview?.frame)!) - vWidth / 2
-                , CGRectGetWidth((self.superview?.frame)!) - vHeight / 2)
+        vLabel?.center = center
+        if CGRectGetMaxY((vLabel?.frame)!) > CGRectGetMaxY((self.superview?.frame)!) {
+            vLabel?.center = CGPointMake( 15*1.45, 15*0.1)
         }
         
-        return vIcon
+        return vLabel
     }
     
     func dissmissV() {
         
-        let existingActivityView: UIView? = (objc_getAssociatedObject(self, HJVIconKey) as? UIView ?? nil)! ;
+        let existingActivityView: UIView? = objc_getAssociatedObject(self, HJVIconKey) as? UIView ?? nil;
         
         if existingActivityView != nil {
             existingActivityView?.removeFromSuperview()
