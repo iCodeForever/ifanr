@@ -34,7 +34,7 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     //MARK:-----Getter and Setter-----
     var lastPosition: CGFloat = 0
-    var headerHeightConstraint: Constraint? = nil
+    var headerTopConstraint: Constraint? = nil
     var model: HomePopularModel? {
         didSet {
             self.toolBar.backgroundColor = UIColor.orangeColor()
@@ -73,8 +73,9 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         }
         
         self.headerBack.snp_makeConstraints { (make) in
-            make.top.left.right.equalTo(self.view)
-            self.headerHeightConstraint = make.height.equalTo(50).constraint
+            make.left.right.equalTo(self.view)
+            self.headerTopConstraint = make.top.equalTo(self.view).constraint
+            make.height.equalTo(50)
         }
     }
     
@@ -116,17 +117,20 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     //MARK:-----UIScrollViewDelegate-----
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let currentPosition: CGFloat = scrollView.contentOffset.y
-        if currentPosition - self.lastPosition > 10 {
+        if currentPosition - self.lastPosition > 30 && currentPosition > 0 {
+            self.headerTopConstraint?.updateOffset(-50)
             
-            UIView.animateWithDuration(1, animations: {
-                self.headerHeightConstraint?.updateOffset(0)
+            UIView.animateWithDuration(0.3, animations: {
+                self.headerBack.layoutIfNeeded()
             })
+            
             self.lastPosition = currentPosition
             
         } else if self.lastPosition - currentPosition > 10 {
             
-            UIView.animateWithDuration(1, animations: {
-                self.headerHeightConstraint?.updateOffset(50)
+            self.headerTopConstraint?.updateOffset(0)
+            UIView.animateWithDuration(0.3, animations: {
+                self.headerBack.layoutIfNeeded()
             })
             self.lastPosition = currentPosition
         }
