@@ -8,3 +8,9 @@ pod 'SnapKit'
 pod 'Moya'
 
 pod 'YYWebImage'
+
+pod 'ShareSDK3'
+pod 'MOBFoundation'
+pod 'ShareSDK3/ShareSDKPlatforms/QQ'
+pod 'ShareSDK3/ShareSDKPlatforms/SinaWeibo'
+pod 'ShareSDK3/ShareSDKPlatforms/WeChat'

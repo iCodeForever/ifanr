@@ -1,11 +1,18 @@
 PODS:
   - Alamofire (3.3.1)
+  - MOBFoundation (1.5.1)
   - Moya (6.4.0):
     - Moya/Core (= 6.4.0)
   - Moya/Core (6.4.0):
     - Alamofire (~> 3.0)
     - Result (~> 2.0)
   - Result (2.0.0)
+  - ShareSDK3 (3.2.5):
+    - ShareSDK3/ShareSDK (= 3.2.5)
+  - ShareSDK3/ShareSDK (3.2.5)
+  - ShareSDK3/ShareSDKPlatforms/QQ (3.2.5)
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.2.5)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.2.5)
   - SnapKit (0.20.0)
   - SwiftyJSON (2.3.2)
   - YYCache (1.0.3)
@@ -18,15 +25,22 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - MOBFoundation
   - Moya
+  - ShareSDK3
+  - ShareSDK3/ShareSDKPlatforms/QQ
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo
+  - ShareSDK3/ShareSDKPlatforms/WeChat
   - SnapKit
   - SwiftyJSON
   - YYWebImage
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  MOBFoundation: 79efc94db961fe5a08cf32de69166f6a29a3b2b5
   Moya: 4d526954c8afd79820991393d40d7d8af756ceee
   Result: 9e75e1111c774c6ac594e14907b15057053a7959
+  ShareSDK3: ccdd8ec971044703e7722e19c2f3b38fb03775e2
   SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
