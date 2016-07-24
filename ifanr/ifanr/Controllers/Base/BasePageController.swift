@@ -30,7 +30,10 @@ class BasePageController: UIViewController, ScrollViewControllerReusable {
     /// 下拉刷新
     var pullToRefresh: PullToRefreshView!
     /// 下拉刷新代理
-    var scrollViewReusable: ScrollViewControllerReusableDataSource!
+    var scrollViewReusableDataSource: ScrollViewControllerReusableDataSource!
+    var scrollViewReusableDelegate: ScrollViewControllerReusableDelegate!
+    
+    
     
     /// 是否正在刷新
     var isRefreshing = false
@@ -39,14 +42,53 @@ class BasePageController: UIViewController, ScrollViewControllerReusable {
     /// 上拉加载更多触发零界点
     var happenY: CGFloat = UIConstant.SCREEN_HEIGHT+20
     var differY: CGFloat = 0
+
+    /// scrollView方向
+    var direction: ScrollViewDirection! = ScrollViewDirection.None
+    var lastContentOffset: CGFloat = 0
 }
 
 
 extension BasePageController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        // 计算contentsize与offset的差值
         let contentSizeY = scrollView.contentSize.height
         let contentOffsetY = scrollView.contentOffset.y
         
         differY = contentSizeY-contentOffsetY
+        
+        // 判断滚动方向
+        if contentOffsetY > 0 {
+            ChangeScrollViewDirection(contentOffsetY)
+        } 
     }
+    
+    /**
+     判断滚动方向
+     */
+    private func ChangeScrollViewDirection(contentOffsetY: CGFloat) {
+//        print("contentoffsety:\(contentOffsetY)     last: \(lastContentOffset)   dir: \(direction)")
+        
+        if contentOffsetY > lastContentOffset {
+            lastContentOffset = contentOffsetY
+            guard direction != .Down else {
+                return
+            }
+            scrollViewReusableDelegate.ScrollViewControllerDirectionDidChange(.Down)
+            
+            direction = .Down
+            
+        } else if lastContentOffset > contentOffsetY {
+            lastContentOffset = contentOffsetY
+            guard direction != .Up else {
+                return
+            }
+            scrollViewReusableDelegate.ScrollViewControllerDirectionDidChange(.Up)
+            
+            direction = .Up
+        }
+        
+        
+    }
+    
 }

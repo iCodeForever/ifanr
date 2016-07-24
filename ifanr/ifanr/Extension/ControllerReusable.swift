@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum ScrollViewDirection {
+    case None
+    case Down
+    case Up
+}
 
 protocol ControllerReusable: class {
     
@@ -17,8 +22,30 @@ protocol ControllerReusable: class {
  *  这里是用与下拉刷新回调
  */
 protocol ScrollViewControllerReusableDataSource: ControllerReusable {
+    /**
+     导航栏
+     */
     func titleHeaderView() -> MainHeaderView
+    /**
+     下拉刷新红线
+     */
     func redLineView() -> UIView
+    /**
+     *  菜单按钮
+     */
+    func menuButton() -> UIButton
+    
+    /**
+     首页分类按钮
+     */
+    func classifyButton() -> UIButton
+}
+
+protocol ScrollViewControllerReusableDelegate: ControllerReusable {
+    /**
+     scrollview滚动时方向改变是调用
+     */
+    func ScrollViewControllerDirectionDidChange(direction: ScrollViewDirection)
 }
 
 
@@ -28,14 +55,8 @@ protocol ScrollViewControllerReusable: ControllerReusable, PullToRefreshDataSour
         /// 下拉刷新
     var pullToRefresh: PullToRefreshView! { get set }
         /// 下拉刷新代理
-    var scrollViewReusable: ScrollViewControllerReusableDataSource! { get set }
-    
-    /**
-     tableView HeaderView
-     */
-
-//    var headerViewTitle: String { get set }
-//    var headerViewImage: UIImage { get set }
+    var scrollViewReusableDataSource: ScrollViewControllerReusableDataSource! { get set }
+    var scrollViewReusableDelegate: ScrollViewControllerReusableDelegate! { get set }
 }
 
 // MARK: - 返回一些下拉刷新的回调
@@ -44,14 +65,25 @@ extension ScrollViewControllerReusable where Self: UIViewController {
      首页，快讯，玩物志顶部标题
      */
     func titleHeaderView() -> MainHeaderView {
-        return scrollViewReusable.titleHeaderView()
+        return scrollViewReusableDataSource.titleHeaderView()
     }
     
     /**
      红线
      */
     func redLine() -> UIView {
-        return scrollViewReusable.redLineView()
+        return scrollViewReusableDataSource.redLineView()
+    }
+    
+    /**
+     菜单按钮
+     */
+    func menuButton() -> UIButton {
+        return scrollViewReusableDataSource.menuButton()
+    }
+    
+    func classifyButton() -> UIButton {
+        return scrollViewReusableDataSource.classifyButton()
     }
     
     func scrollView() -> UIScrollView {

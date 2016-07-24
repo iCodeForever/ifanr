@@ -13,25 +13,19 @@ class MainHeaderView: UIView, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.blackColor()
-    }
-    
-    override func layoutSubviews() {
         let attributes = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 10)]
         let labelWidth = (textArray.last! as NSString).boundingRectWithSize(CGSize(width: 60, height: self.height), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).width
-//        let x = CGFloat(i)*(UIConstant.SCREEN_WIDTH*0.5-labelWidth*0.5)+UIConstant.SCREEN_WIDTH*0.5
-
         for i in 0..<textArray.count {
             let label = createLable(textArray[i])
             // 计算label大小
             label.frame = CGRect(origin: CGPointZero, size: CGSize(width: labelWidth, height: self.height))
             let x = CGFloat(i)*(UIConstant.SCREEN_WIDTH*0.5-labelWidth*0.5)+UIConstant.SCREEN_WIDTH*0.5
-//            var x = UIConstant.SCREEN_WIDTH*0.5
-//            if i != 0 {
-//                let lastLabel = self.labelArray[i-1]
-//                x = lastLabel.center.x+UIConstant.SCREEN_WIDTH*0.5-labelWidth*0.5
-//            }
             label.center = CGPoint(x: x, y: self.height*0.5)
         }
+    }
+    
+    override func layoutSubviews() {
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -24,16 +24,11 @@ class NewFeatureController: UIViewController {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        print("移除")
     }
     
     func playbackFinished() {
-        self.dismissViewControllerAnimated(false) { [weak self] in
-            if let strongSelf = self {
-                strongSelf.view.window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
-            }
-        }
-        
+        self.dismissViewControllerAnimated(false, completion: nil)
+        self.view.window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
     }
     
     

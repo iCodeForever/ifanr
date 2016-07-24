@@ -38,6 +38,7 @@
 		F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119375B1D24018A00DF143B /* UIView+Frame.swift */; };
 		F119376D1D2409A700DF143B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119376C1D2409A700DF143B /* MainViewController.swift */; };
 		F11937721D240A4E00DF143B /* ifanrVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F11937711D240A4E00DF143B /* ifanrVideo.mp4 */; };
+		F1228DBB1D44B48F0096DA1C /* UIImage+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1228DBA1D44B48F0096DA1C /* UIImage+ifanr.swift */; };
 		F1498D951D24FCBD005BB684 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D941D24FCBD005BB684 /* Constant.swift */; };
 		F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D9A1D25150E005BB684 /* Reusable.swift */; };
 		F14CC2621D37FCFA00C50107 /* ControllerReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */; };
@@ -134,6 +135,7 @@
 		F119376C1D2409A700DF143B /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F119376F1D240A1300DF143B /* DINPro-Medium.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Medium.TTF"; sourceTree = "<group>"; };
 		F11937711D240A4E00DF143B /* ifanrVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ifanrVideo.mp4; sourceTree = "<group>"; };
+		F1228DBA1D44B48F0096DA1C /* UIImage+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ifanr.swift"; sourceTree = "<group>"; };
 		F1498D941D24FCBD005BB684 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		F1498D9A1D25150E005BB684 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerReusable.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				4353790F1D28BD37004A2766 /* NSDate+IF.swift */,
 				F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */,
 				F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */,
+				F1228DBA1D44B48F0096DA1C /* UIImage+ifanr.swift */,
 				43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */,
 				F17C51DD1D2AB1DE0077A4C5 /* UIFont+ifanr.swift */,
 				F15349DE1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift */,
@@ -680,7 +683,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 48E3LB8PD7;
+						DevelopmentTeam = 5N8LXT5RPD;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -809,6 +812,7 @@
 				F17C51E61D2BCBAB0077A4C5 /* MenuTabModel.swift in Sources */,
 				43A32C401D31F34800A74858 /* IFanrService.swift in Sources */,
 				F17C51DE1D2AB1DE0077A4C5 /* UIFont+ifanr.swift in Sources */,
+				F1228DBB1D44B48F0096DA1C /* UIImage+ifanr.swift in Sources */,
 				F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */,
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
 				F1CECBEE1D3E7C6300A113A1 /* LoadMoreView.swift in Sources */,

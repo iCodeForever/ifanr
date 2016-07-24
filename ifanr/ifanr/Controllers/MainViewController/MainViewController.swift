@@ -23,14 +23,19 @@ class MainViewController: UIViewController {
         
         // 添加根控制器
         self.addrootViewController()
-        
+        // 添加标题和红线
         self.view.addSubview(headerView)
-//        self.view.addSubview(self.hamburgButton)
-//        self.view.addSubview(self.circleButton)
-        
-//        self.setUpLayout()
-
         self.view.addSubview(redLine)
+        
+        // 添加两个菜单切换按钮
+        self.view.addSubview(menuBtn)
+        self.view.addSubview(classifyBtn)
+        
+        setUpLayout()
+        
+        collectionView.performBatchUpdates({ [unowned self] in
+            self.collectionView.setContentOffset(CGPoint(x: UIConstant.SCREEN_WIDTH, y: 0), animated: false)
+            }, completion: nil)
     }
     
     /**
@@ -46,11 +51,17 @@ class MainViewController: UIViewController {
      添加跟控制器
      */
     private func addrootViewController() {
-        newsFlashController.scrollViewReusable = self
-        homeViewController.scrollViewReusable = self
-        playzhiController.scrollViewReusable = self
-        appSoController.scrollViewReusable = self
-        mindStoreController.scrollViewReusable = self
+        newsFlashController.scrollViewReusableDataSource = self
+        homeViewController.scrollViewReusableDataSource = self
+        playzhiController.scrollViewReusableDataSource = self
+        appSoController.scrollViewReusableDataSource = self
+        mindStoreController.scrollViewReusableDataSource = self
+        
+        newsFlashController.scrollViewReusableDelegate = self
+        homeViewController.scrollViewReusableDelegate = self
+        playzhiController.scrollViewReusableDelegate = self
+        appSoController.scrollViewReusableDelegate = self
+        mindStoreController.scrollViewReusableDelegate = self
         
         self.addChildViewController(newsFlashController)
         self.addChildViewController(homeViewController)
@@ -67,12 +78,12 @@ class MainViewController: UIViewController {
     
     // 布局
     private func setUpLayout() {
-        self.hamburgButton.snp_makeConstraints { (make) in
+        self.menuBtn.snp_makeConstraints { (make) in
             make.right.equalTo(-15)
             make.top.equalTo(35)
             make.width.height.equalTo(45)
         }
-        self.circleButton.snp_makeConstraints { (make) in
+        self.classifyBtn.snp_makeConstraints { (make) in
             make.left.equalTo(15)
             make.top.equalTo(35)
             make.width.height.equalTo(45)
@@ -91,8 +102,6 @@ class MainViewController: UIViewController {
     let playzhiController = PlayingZhiController()
     // MindStore
     let mindStoreController = MindStoreViewController()
-
-    var scrollreusableDelegate: ScrollViewControllerReusable?
     
     var viewArray = [UIView]()
     
@@ -122,19 +131,19 @@ class MainViewController: UIViewController {
         return collectionView
     }()
     
-
-    private lazy var hamburgButton : UIButton = {
-        let hamburgButton = UIButton()
-        hamburgButton.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
-        
-        return hamburgButton
+        /// 菜单按钮
+    private lazy var menuBtn : UIButton = {
+        let menuBtn = UIButton()
+        menuBtn.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
+        return menuBtn
     }()
     
-    private lazy var circleButton: UIButton = {
-        let circleButton = UIButton()
-        circleButton.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
+        /// 首页分类按钮
+    private lazy var classifyBtn: UIButton = {
+        let classifyBtn = UIButton()
+        classifyBtn.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
         
-        return circleButton
+        return classifyBtn
     }()
 
         /// 顶部红线
@@ -148,6 +157,7 @@ class MainViewController: UIViewController {
 
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewArray.count
     }
@@ -159,10 +169,18 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+// MARK: - 这里处理头部位移差
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
         headerView.x = -scrollView.contentOffset.x/scale
+        
+        // 处理分类按钮淡入淡出动画
+        let contentoffx = scrollView.contentOffset.x
+        let alpha = 1 - fabs((contentoffx-UIConstant.SCREEN_WIDTH) / UIConstant.SCREEN_WIDTH)
+        classifyBtn.alpha = alpha
+        print(alpha)
+        classifyBtn.hidden = alpha <= 0 ?true: false
     }
 }
 
@@ -175,4 +193,44 @@ extension MainViewController: ScrollViewControllerReusableDataSource {
     func redLineView() -> UIView {
         return self.redLine
     }
+    
+    func menuButton() -> UIButton {
+        return self.menuBtn
+    }
+    
+    func classifyButton() -> UIButton {
+        return self.classifyBtn
+    }
+}
+
+extension MainViewController: ScrollViewControllerReusableDelegate {
+    func ScrollViewControllerDirectionDidChange(direction: ScrollViewDirection) {
+        MenuBtnAnimation(direction)
+    }
+    
+    /**
+     菜单按钮动画
+     */
+    private func MenuBtnAnimation(dir: ScrollViewDirection) {
+        // 位移
+        let positionAnim = CABasicAnimation(keyPath: "position.y")
+        positionAnim.fromValue = (dir == ScrollViewDirection.Down ?classifyBtn.y:-classifyBtn.height)
+        // 这里不知为何要加上状态栏20高度
+        positionAnim.toValue = (dir == ScrollViewDirection.Down ?(-classifyBtn.height):classifyBtn.y+20)
+        
+        // alpha
+        let alphaAnim = CABasicAnimation(keyPath: "alpha")
+        alphaAnim.fromValue = (dir == ScrollViewDirection.Down ?0.8:0)
+        alphaAnim.toValue = (dir == ScrollViewDirection.Down ?0:0.8)
+        
+        let group = CAAnimationGroup()
+        group.removedOnCompletion = false
+        group.fillMode = kCAFillModeForwards
+        group.animations = [positionAnim, alphaAnim]
+        group.duration = 0.2
+        
+        classifyBtn.layer.addAnimation(group, forKey: "circleButtonDownAnimation")
+        menuBtn.layer.addAnimation(group, forKey: "hamburgButtonAnimation")
+    }
+
 }

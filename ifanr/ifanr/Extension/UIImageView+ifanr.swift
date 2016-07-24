@@ -9,6 +9,9 @@
 import Foundation
 
 extension UIImageView {
+    /**
+     异步请求网络图片
+     */
     func if_setImage(imageURL: NSURL!) {
         self.yy_setImageWithURL(imageURL, placeholder: UIImage(named: "place_holder_image"), options: [.SetImageWithFadeAnimation, .ProgressiveBlur], completion: nil)
     }

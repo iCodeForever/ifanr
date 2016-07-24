@@ -25,6 +25,15 @@ protocol PullToRefreshDataSource: class {
      顶部红线
      */
     func redLine() -> UIView
+    
+    /**
+     菜单按钮
+     */
+    func menuButton() -> UIButton
+    /**
+     首页分类按钮
+     */
+    func classifyButton() -> UIButton
     /**
      tableView
      */
@@ -88,6 +97,8 @@ class PullToRefreshView: UIView {
     private var scrollView: UIScrollView!
     private var headerView: MainHeaderView!
     private var redLine: UIView!
+    private var menuBtn: UIButton!
+    private var classifyBtn: UIButton!
     /// 下拉百分比
     private var progressPercentage: CGFloat = 0
     /// 执行的代码块
@@ -100,6 +111,8 @@ class PullToRefreshView: UIView {
                 headerView = newValue.titleHeaderView()
                 redLine = newValue.redLine()
                 scrollView = newValue.scrollView()
+                menuBtn = newValue.menuButton()
+                classifyBtn = newValue.classifyButton()
                 scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
                 scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
             }
@@ -236,12 +249,17 @@ extension PullToRefreshView {
         let refreshViewVisibleHeight = max(0, -(self.scrollView.contentOffset.y + scrollView.contentInset.top))
         progressPercentage = min(1, refreshViewVisibleHeight / happenOffsetY)
         headerView.alpha = min(1, max(1-progressPercentage/0.2, 0))
+        menuBtn.alpha = min(1, max(1-progressPercentage/0.2, 0))
+        if !classifyBtn.hidden {
+           classifyBtn.alpha = min(1, max(1-progressPercentage/0.2, 0))
+        }
     }
     
     private func setupNormalDataAnimation() {
         UIView.animateWithDuration(0.1) {
             self.redLine.frame = CGRect(x: self.center.x-20, y: 0, width: 40, height: 1)
             self.headerView.alpha = 1
+            self.menuBtn.alpha = 1
         }
     }
 }

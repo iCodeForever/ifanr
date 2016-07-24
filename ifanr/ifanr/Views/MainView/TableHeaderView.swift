@@ -20,7 +20,7 @@ class TableHeaderView: UIView {
     }
     
     convenience init(model: TableHeaderModel) {
-        self.init(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height:  220 * UIConstant.SCREEN_HEIGHT / UIConstant.IPHONE5_HEIGHT))
+        self.init(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height:  180 * UIConstant.SCREEN_HEIGHT / UIConstant.IPHONE5_HEIGHT))
         self.backgroundImageView.image = model.backImage
         self.titleLabel.text = model.title
         self.detailTitleLabel.text = model.detail
@@ -56,7 +56,7 @@ class TableHeaderView: UIView {
     
         /// 底部图片
     private lazy var tagImageView: UIImageView = {
-        let tagImageView = UIImageView(frame: CGRect(x: 0, y: self.backgroundImageView.bottom + 38, width: UIConstant.SCREEN_WIDTH, height: 25))
+        let tagImageView = UIImageView(frame: CGRect(x: 0, y: self.backgroundImageView.bottom + UIConstant.UI_MARGIN_20, width: UIConstant.SCREEN_WIDTH, height: 25))
         
         tagImageView.contentMode = UIViewContentMode.ScaleAspectFit
         return tagImageView
