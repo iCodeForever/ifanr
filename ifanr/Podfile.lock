@@ -10,8 +10,6 @@ PODS:
   - ShareSDK3 (3.2.5):
     - ShareSDK3/ShareSDK (= 3.2.5)
   - ShareSDK3/ShareSDK (3.2.5)
-  - ShareSDK3/ShareSDKPlatforms/QQ (3.2.5)
-  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.2.5)
   - ShareSDK3/ShareSDKPlatforms/WeChat (3.2.5)
   - SnapKit (0.20.0)
   - SwiftyJSON (2.3.2)
@@ -28,8 +26,6 @@ DEPENDENCIES:
   - MOBFoundation
   - Moya
   - ShareSDK3
-  - ShareSDK3/ShareSDKPlatforms/QQ
-  - ShareSDK3/ShareSDKPlatforms/SinaWeibo
   - ShareSDK3/ShareSDKPlatforms/WeChat
   - SnapKit
   - SwiftyJSON
