@@ -13,7 +13,7 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
 
     //MARK:-----Variables-----
     
-    private var urlStr: String? = ""
+    private var urlStr: String? = nil
     
     convenience init(urlStr: String){
         self.init()
@@ -30,7 +30,7 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
         self.setupLayout()
         self.bottomBarSetUpLayout()
         
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: self.urlStr!)!))
     }
     
     //MARK:-----Getter and Setter-----
@@ -57,6 +57,7 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     private lazy var backButton: UIButton = {
         let backButton: UIButton = UIButton()
         backButton.setImage(UIImage(imageLiteral: "ic_close"), forState: .Normal)
+        backButton.imageView?.contentMode = .ScaleAspectFit
         backButton.addTarget(self, action: #selector(backButtonDidClick), forControlEvents: .TouchUpInside)
         return backButton
     }()
@@ -64,7 +65,8 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     /// 重新加载按钮
     private lazy var reloadButton: UIButton = {
         let reloadButton: UIButton = UIButton()
-        reloadButton.setImage(UIImage(imageLiteral: "ic_close"), forState: .Normal)
+        reloadButton.setImage(UIImage(imageLiteral: "ic_refresh"), forState: .Normal)
+        reloadButton.contentMode = .ScaleAspectFit
         reloadButton.addTarget(self, action: #selector(reloadButtonDidClick), forControlEvents: .TouchUpInside)
         return reloadButton
     }()
@@ -72,7 +74,8 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     /// 跳转到Safari
     private lazy var safariButton: UIButton = {
         let safariButton: UIButton = UIButton()
-        safariButton.setImage(UIImage(imageLiteral: "ic_close"), forState: .Normal)
+        safariButton.setImage(UIImage(imageLiteral: "ic_system_browser"), forState: .Normal)
+        safariButton.imageView?.contentMode = .ScaleAspectFit
         safariButton.addTarget(self, action: #selector(safariButtonDidClick), forControlEvents: .TouchUpInside)
         return safariButton
     }()
@@ -81,6 +84,7 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     private lazy var shareButton: UIButton = {
         let shareButton: UIButton = UIButton()
         shareButton.setImage(UIImage(imageLiteral: "ic_comment_bar_share"), forState: .Normal)
+        shareButton.imageView?.contentMode = .ScaleAspectFit
         shareButton.addTarget(self, action: #selector(shareButtonDidClick), forControlEvents: .TouchUpInside)
         return shareButton
     }()
@@ -100,32 +104,32 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
         
         self.backButton.snp_makeConstraints { (make) in
             make.left.equalTo(self.bottomBar).offset(30)
-            make.top.equalTo(self.bottomBar).offset(15)
+            make.top.equalTo(self.bottomBar).offset(20)
             make.width.height.equalTo(15)
         }
         
         self.shareButton.snp_makeConstraints { (make) in
             make.right.equalTo(self.view).offset(-30)
             make.top.equalTo(self.bottomBar).offset(15)
-            make.width.height.equalTo(15)
+            make.width.height.equalTo(20)
         }
         
         self.safariButton.snp_makeConstraints { (make) in
             make.right.equalTo(self.shareButton.snp_left).offset(-35)
             make.top.equalTo(self.bottomBar).offset(15)
-            make.width.height.equalTo(15)
+            make.width.height.equalTo(20)
         }
         
         self.reloadButton.snp_makeConstraints { (make) in
             make.right.equalTo(self.safariButton.snp_left).offset(-35)
             make.top.equalTo(self.bottomBar).offset(15)
-            make.width.height.equalTo(15)
+            make.width.height.equalTo(18)
         }
     }
     func setupLayout() {
         self.bottomBar.snp_makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(40)
+            make.height.equalTo(45)
         }
     }
     
@@ -144,5 +148,9 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
     func reloadButtonDidClick() {
         self.wkWebView.loadHTMLString("", baseURL: nil)
         self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 }
