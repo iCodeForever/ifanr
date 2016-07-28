@@ -101,7 +101,7 @@ extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].title!) + 20
+        return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].commonModel.title!) + 20
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        let ifDetailController = IFDetailsController(model: self.dataSource[indexPath.row])

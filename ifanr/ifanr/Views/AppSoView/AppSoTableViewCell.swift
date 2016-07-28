@@ -13,12 +13,12 @@ class AppSoTableViewCell: UITableViewCell, Reusable {
     //MARK:-----variables-----
     var model : AppSoModel! {
         didSet {
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
-            self.likeCountLabel.text    = "\(model.like)"
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.commonModel.pubDate)
+            self.likeCountLabel.text    = "\(model.commonModel.like)"
             
-            self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
-            self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
-            self.logoImageView.if_setImage(NSURL(string: model.image!))
+            self.titleLabel.attributedText = UILabel.setAttributText(model.commonModel.title, lineSpcae: 5.0)
+            self.infoLabel.attributedText  = UILabel.setAttributText(model.commonModel.excerpt, lineSpcae: 5.0)
+            self.logoImageView.if_setImage(NSURL(string: model.commonModel.image!))
             self.appIconImageView.if_setImage(NSURL(string: model.app_icon_url))
         }
     }

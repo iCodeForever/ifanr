@@ -39,26 +39,26 @@ class HomeLatestImageCell: UITableViewCell, Reusable {
     var popularLayout: HomePopularLayout! {
         didSet {
             // 设置图片位置
-            linkImageView.if_setImage(NSURL(string: popularLayout.model.image))
+            linkImageView.if_setImage(NSURL(string: popularLayout.model.commonModel.image))
             linkImageView.frame = popularLayout.kHomeCellPicRect
             
             // 设置分类和时间
-            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.category) | \(NSDate.getDate(popularLayout.model.pubDate))")
+            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.commonModel.category) | \(NSDate.getDate(popularLayout.model.commonModel.pubDate))")
             dateAttributeText.addAttribute(NSForegroundColorAttributeName, value: UIConstant.UI_COLOR_RedTheme, range: NSRange(location: 0, length: 2))
             dateLabel.attributedText = dateAttributeText
             dateLabel.frame = popularLayout.kHomeCellDateRect
             
             // 喜欢数
-            likeLabel.text = "\(popularLayout.model.like)"
+            likeLabel.text = "\(popularLayout.model.commonModel.like)"
             likeLabel.frame = popularLayout.kHomeCellLikeRect
             likeImageView.frame = popularLayout.kHomeCellLikeImgRect
             
             // 标题
-            titleLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.title)
+            titleLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.commonModel.title)
             titleLabel.frame = popularLayout.kHomeCellTitleRect
             
             // 引文
-            introduceLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.excerpt)
+            introduceLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.commonModel.excerpt)
             introduceLabel.frame = popularLayout.kHomeCellTextRect
             
             // 底部横线

@@ -21,6 +21,7 @@
 		43A32C3C1D31F30000A74858 /* HomePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C3B1D31F30000A74858 /* HomePageControl.swift */; };
 		43A32C3E1D31F32B00A74858 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C3D1D31F32B00A74858 /* HomeViewController.swift */; };
 		43A32C401D31F34800A74858 /* IFanrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C3F1D31F34800A74858 /* IFanrService.swift */; };
+		43AB24E21D4A60EB008E8A59 /* CommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AB24E11D4A60EB008E8A59 /* CommonModel.swift */; };
 		43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */; };
 		43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439D1D2DE436000D8283 /* AppSoTableViewCell.swift */; };
 		43B443A11D2DE7A7000D8283 /* AppSoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B443A01D2DE7A7000D8283 /* AppSoViewController.swift */; };
@@ -113,6 +114,7 @@
 		43A32C3B1D31F30000A74858 /* HomePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageControl.swift; sourceTree = "<group>"; };
 		43A32C3D1D31F32B00A74858 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		43A32C3F1D31F34800A74858 /* IFanrService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFanrService.swift; sourceTree = "<group>"; };
+		43AB24E11D4A60EB008E8A59 /* CommonModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonModel.swift; sourceTree = "<group>"; };
 		43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+IF.swift"; sourceTree = "<group>"; };
 		43B4439D1D2DE436000D8283 /* AppSoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSoTableViewCell.swift; sourceTree = "<group>"; };
 		43B443A01D2DE7A7000D8283 /* AppSoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSoViewController.swift; path = AppSoViewController/AppSoViewController.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 		F11937571D24013A00DF143B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				43AB24E11D4A60EB008E8A59 /* CommonModel.swift */,
 				F1CECBE41D3D401700A113A1 /* AppSoModel */,
 				F1CECBE61D3D401700A113A1 /* MainModel */,
 				F1CECBE71D3D401700A113A1 /* MindStoreModel */,
@@ -850,6 +853,7 @@
 				F15349D71D2C08B600A11BCB /* HomePopularLayout.swift in Sources */,
 				4399F31F1D3BD42F00820962 /* UIView+icon.swift in Sources */,
 				F17C51E51D2BCBAB0077A4C5 /* HomePopularModel.swift in Sources */,
+				43AB24E21D4A60EB008E8A59 /* CommonModel.swift in Sources */,
 				43070E9F1D3B8D8000B0C2A3 /* IFDetailsController.swift in Sources */,
 				F15349E31D2DF52F00A11BCB /* HomeLatestTextCell.swift in Sources */,
 				432CE4F91D411A1400779050 /* UIViewController+IF.swift in Sources */,

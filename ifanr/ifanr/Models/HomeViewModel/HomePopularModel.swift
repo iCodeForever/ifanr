@@ -18,44 +18,10 @@ enum PostType {
 }
 struct HomePopularModel {
     
-    
-        /// id
-    var ID: Int64!
-        /// 标题
-    var title: String!
-        /// 作者
-    var author: String!
-        /// 时间
-    var pubDate: String!
-        /// 发布时间
-    var post_modified: String!
-        /// 图片
-    var image: String!
-        /// cwb_image_url
-    var cwb_image_url: String!
-        /// 内容
-    var content: String!
-        /// 引文
-    var introduce: String!
-        /// 网页版
-    var link: String!
-        /// 评论数
-    var comments: String!
-        /// 分类
-    var category: String!
-        /// 发布类型(目前发现几种data, post, dasheng) 默认是post类型
-    var post_type: PostType! = .post
-        /// 分类网页
-    var category_link: String!
-        /// tag
-    var tags: String!
-        /// 喜欢数
-    var like: Int64!
-    var is_ad: Int64!
-        /// 摘录
-    var excerpt: String!
-        /// 作者信息，有可能为空
+    var commonModel: CommonModel!
     var authorModel: AuthorInfoModel?
+    
+    var post_type: PostType! = .post
         /// 大声作者
     var dasheng_author: String! = ""
         /// 数读
@@ -63,60 +29,26 @@ struct HomePopularModel {
     var subfix: String! = ""
     
     init(dict: NSDictionary, isCalculate: Bool = false) {
-        self.ID = dict["ID"] as? Int64 ?? 0
-        self.title = dict["title"] as? String ?? ""
-        self.author = dict["author"] as? String ?? ""
-        self.pubDate = dict["pubDate"] as? String ?? ""
-        self.post_modified = dict["post_modified"] as? String ?? ""
-        self.image = dict["image"] as? String ?? ""
-        self.cwb_image_url = dict["cwb_image_url"] as? String ?? ""
-        self.content = dict["content"] as? String ?? ""
-        self.introduce = dict["introduce"] as? String ?? ""
-        self.link = dict["link"] as? String ?? ""
-        self.comments = dict["comments"] as? String ?? ""
-        self.category = dict["category"] as? String ?? ""
+        self.commonModel = CommonModel(dict: dict)
         if let type = dict["post_type"] as? String {
             if type == "post" {
                 self.post_type = .post
             } else if type == "dasheng" {
                 self.post_type = .dasheng
                 self.dasheng_author = dict["dasheng_author"] as? String ?? ""
-                self.category = "大声"
+                self.commonModel.category = "大声"
             } else if type == "data" {
                 self.post_type = .data
-                self.category = "数读"
+                self.commonModel.category = "数读"
                 self.number = dict["number"] as? String ?? ""
                 self.subfix = dict["subfix"] as? String ?? ""
             }
         }
-        self.category_link = dict["category_link"] as? String ?? ""
-        self.tags = dict["tags"] as? String ?? ""
-        self.like = dict["like"] as? Int64 ?? 0
-        self.is_ad = dict["is_ad"] as? Int64 ?? 0
-        self.excerpt = dict["excerpt"] as? String ?? ""
         
         // 作者信息
         let authorDict = dict["author_info"] as! NSDictionary?
         if let authorDic = authorDict {
             self.authorModel = AuthorInfoModel(dict: authorDic)
-        }
-        
-    }
-    
-    /**
-     *  作者信息
-     */
-    struct AuthorInfoModel {
-        var job: String!
-        var name: String!
-        var avatar: String!
-        var description: String!
-        
-        init(dict: NSDictionary) {
-            self.job = dict["job"] as? String ?? ""
-            self.name = dict["name"] as? String ?? ""
-            self.avatar = dict["avatar"] as? String ?? ""
-            self.description = dict["description"] as? String ?? ""
         }
     }
 }
@@ -161,5 +93,4 @@ struct HomePopularModel {
  "status": 1
  }
  
- */
- */
+ */*/

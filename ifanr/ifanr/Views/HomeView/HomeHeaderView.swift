@@ -94,19 +94,19 @@ class HomeHeaderView: UIView {
     private func setScrollViewOfImage() {
         // 获取当前模型数据
         let currentModel = self.modelArray[self.indexOfCurrentImage]
-        self.currentItem.imageURL = currentModel.image
-        self.currentItem.title = currentModel.title
-        self.currentItem.date = "\(currentModel.category) | \(NSDate.getDate(currentModel.pubDate))"
+        self.currentItem.imageURL = currentModel.commonModel.image
+        self.currentItem.title = currentModel.commonModel.title
+        self.currentItem.date = "\(currentModel.commonModel.category) | \(NSDate.getDate(currentModel.commonModel.pubDate))"
         // 获取下一张图片的模型
         let nextImageModel = self.modelArray[self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
-        self.nextItem.imageURL = nextImageModel.image
-        self.nextItem.title = nextImageModel.title
-        self.nextItem.date = "\(nextImageModel.category) | \(NSDate.getDate(nextImageModel.pubDate))"
+        self.nextItem.imageURL = nextImageModel.commonModel.image
+        self.nextItem.title = nextImageModel.commonModel.title
+        self.nextItem.date = "\(nextImageModel.commonModel.category) | \(NSDate.getDate(nextImageModel.commonModel.pubDate))"
         // 获取上衣张图片的模型
         let lastImageModle = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
-        self.lastItem.imageURL = lastImageModle.image
-        self.lastItem.title = lastImageModle.title
-        self.lastItem.date = "\(lastImageModle.category) | \(NSDate.getDate(lastImageModle.pubDate))"
+        self.lastItem.imageURL = lastImageModle.commonModel.image
+        self.lastItem.title = lastImageModle.commonModel.title
+        self.lastItem.date = "\(lastImageModle.commonModel.category) | \(NSDate.getDate(lastImageModle.commonModel.pubDate))"
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------

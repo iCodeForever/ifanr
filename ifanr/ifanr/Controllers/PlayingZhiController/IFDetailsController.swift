@@ -22,9 +22,9 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         
         self.setupLayout()
         
-        self.toolBar.commentButton.showIcon(model?.comments ?? nil)
-        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.like)!), forState: .Normal)
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: self.model!.link)!))
+        self.toolBar.commentButton.showIcon(model?.commonModel.comments ?? nil)
+        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.commonModel.like)!), forState: .Normal)
+        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: (self.model?.commonModel.link)!)!))
     }
     
     convenience init(model: HomePopularModel) {

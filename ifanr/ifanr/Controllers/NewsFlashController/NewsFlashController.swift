@@ -92,15 +92,15 @@ extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return NewsFlashTableViewCell.estimateCellHeight(self.newsFlashModelArray[indexPath.row].title!) + 30
+        return NewsFlashTableViewCell.estimateCellHeight(self.newsFlashModelArray[indexPath.row].commonModel.title!) + 30
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let model: HomePopularModel = self.newsFlashModelArray[indexPath.row];
-        var links: [String] = (model.content.getSuitableString("http(.*?)html"))
+        var links: [String] = (model.commonModel.content.getSuitableString("http(.*?)html"))
         if links.count == 0 {
-            links = (model.content.getSuitableString("http(.*?)htm"))
+            links = (model.commonModel.content.getSuitableString("http(.*?)htm"))
         }
         if links.count != 0 {
             debugPrint("links[0] %@", links[0])

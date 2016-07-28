@@ -32,14 +32,14 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     var model : HomePopularModel! {
         didSet {
             
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.commonModel.pubDate)
             // 设置行间距
-            let attrs = NSMutableAttributedString(string: model.title!)
+            let attrs = NSMutableAttributedString(string: model.commonModel.title!)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 5.0
             attrs.addAttribute(NSParagraphStyleAttributeName,
                                value: paragraphStyle,
-                               range: NSMakeRange(0, ((model.title)!.characters.count)))
+                               range: NSMakeRange(0, ((model.commonModel.title)!.characters.count)))
             self.contentLable.attributedText = attrs
             
 //            self.sourceLabel.text   = "来源：" + (model.excerpt?.componentsSeparatedByString("/")[2])!

@@ -93,7 +93,7 @@ extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return PlayingZhiTableViewCell.estimateCellHeight(self.playingZhiModelArray[indexPath.row].title!) + 20
+        return PlayingZhiTableViewCell.estimateCellHeight(self.playingZhiModelArray[indexPath.row].commonModel.title!) + 20
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
