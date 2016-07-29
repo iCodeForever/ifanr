@@ -10,5 +10,7 @@ pod 'Moya'
 pod 'YYWebImage'
 
 pod 'ShareSDK3'
+
+pod 'ShareSDK3/ShareSDKUI'
 pod 'MOBFoundation'
 pod 'ShareSDK3/ShareSDKPlatforms/WeChat'

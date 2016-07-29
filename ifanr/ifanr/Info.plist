@@ -18,6 +18,36 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx535617f8042959c0</string>
+			</array>
+		</dict>
+	</array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>mqqOpensdkSSoLogin</string>
+        <string>mqzone</string>
+        <string>sinaweibo</string>
+        <string>alipayauth</string>
+        <string>alipay</string>
+        <string>safepay</string>
+        <string>mqq</string>
+        <string>mqqapi</string>
+        <string>mqqopensdkapiV3</string>
+        <string>mqqopensdkapiV2</string>
+        <string>mqqapiwallet</string>
+        <string>mqqwpa</string>
+        <string>mqqbrowser</string>
+        <string>wtloginmqq2</string>
+        <string>weixin</string>
+        <string>wechat</string>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
