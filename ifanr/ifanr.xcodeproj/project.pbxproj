@@ -26,6 +26,7 @@
 		43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */; };
 		43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B4439D1D2DE436000D8283 /* AppSoTableViewCell.swift */; };
 		43B443A11D2DE7A7000D8283 /* AppSoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B443A01D2DE7A7000D8283 /* AppSoViewController.swift */; };
+		43B7278C1D4C4BCD00AF320A /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B7278B1D4C4BCD00AF320A /* ShareView.swift */; };
 		43D3D9811D2F37E80069993F /* MindStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3D9801D2F37E80069993F /* MindStoreViewController.swift */; };
 		43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */; };
 		43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */; };
@@ -120,6 +121,7 @@
 		43B4439B1D2DDD94000D8283 /* UILabel+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+IF.swift"; sourceTree = "<group>"; };
 		43B4439D1D2DE436000D8283 /* AppSoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSoTableViewCell.swift; sourceTree = "<group>"; };
 		43B443A01D2DE7A7000D8283 /* AppSoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSoViewController.swift; path = AppSoViewController/AppSoViewController.swift; sourceTree = "<group>"; };
+		43B7278B1D4C4BCD00AF320A /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareView.swift; path = DetailsView/ShareView.swift; sourceTree = "<group>"; };
 		43D3D9801D2F37E80069993F /* MindStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MindStoreViewController.swift; path = MindStoreController/MindStoreViewController.swift; sourceTree = "<group>"; };
 		43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashTableViewCell.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */,
 				436AF1931D41ACFD00386D9C /* HeaderBackView.swift */,
+				43B7278B1D4C4BCD00AF320A /* ShareView.swift */,
 			);
 			name = DetailsView;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 				F1B7CEA31D4661DD00702313 /* CategoryModel.swift in Sources */,
 				F1B7CEA51D4666FB00702313 /* CategoryViewCell.swift in Sources */,
 				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
+				43B7278C1D4C4BCD00AF320A /* ShareView.swift in Sources */,
 				43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */,
 				F1B7CEA11D464C3400702313 /* CategoryView.swift in Sources */,
 				43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */,

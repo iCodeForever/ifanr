@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import SnapKit
 
-class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, ToolBarDelegate, UIScrollViewDelegate{
+class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, ToolBarDelegate, ShareViewDelegate, UIScrollViewDelegate{
 
     //MARK:-----life cycle-----
     override func viewDidLoad() {
@@ -32,33 +32,17 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         self.model = model
     }
     
-    //MARK:-----Getter and Setter-----
-    var lastPosition: CGFloat = 0
-    var headerTopConstraint: Constraint? = nil
-    var model: HomePopularModel? {
-        didSet {
-            self.toolBar.backgroundColor = UIColor.orangeColor()
+    //MARK:-----Action-----
+    func hiddenShareView() {
+        
+        let window: UIWindow = UIApplication.sharedApplication().keyWindow!
+        for item in window.subviews {
+            if item.tag == 8888 {
+                item.removeFromSuperview()
+            }
         }
     }
-    
-    private lazy var wkWebView: WKWebView = {
-        let wkWebView: WKWebView = WKWebView()
-        wkWebView.navigationDelegate    = self
-        wkWebView.scrollView.delegate   = self
-        return wkWebView
-    }()
-    
-    private lazy var toolBar: BottomToolsBar = {
-        let toolBar: BottomToolsBar = BottomToolsBar()
-        toolBar.delegate = self
-        return toolBar
-    }()
-    
-    private lazy var headerBack: HeaderBackView = {
-        let headerBack: HeaderBackView = HeaderBackView(title: "玩物志")
-        headerBack.delegate = self
-        return headerBack
-    }()
+   
     //MARK:-----Custom Function-----
     
     private func setupLayout() {
@@ -108,33 +92,28 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     func shareButtonDidClick() {
         
+        let shareView: ShareView = ShareView()
+        shareView.delegate = self
+        let window: UIWindow = UIApplication.sharedApplication().keyWindow!
+        let shadowView   = UIView(frame: self.view.frame)
+        shadowView.alpha = 0.5
+        shadowView.backgroundColor = UIColor.blackColor()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hiddenShareView))
+        shadowView.addGestureRecognizer(tapGesture)
         
-//
-//        let shareParames = NSMutableDictionary()
-//        shareParames.SSDKSetupShareParamsByText("分享内容",
-//                                                images: UIImage(named: "ic_article_back"),
-//                                                url   : NSURL(string:"http://mob.com"),
-//                                                title : "分享标题",
-//                                                type  : SSDKContentType.Auto)
-//        
-//        //2.进行分享
-//        ShareSDK.share(SSDKPlatformType.TypeWechat, parameters: shareParames) { (state : SSDKResponseState, userData : [NSObject : AnyObject]!, contentEntity :SSDKContentEntity!, error : NSError!) -> Void in
-//        
-//            switch state{
-//        
-//            case SSDKResponseState.Success:
-//                print("分享成功")
-//                let alert = UIAlertView(title: "分享成功", message: "分享成功", delegate: self, cancelButtonTitle: "取消")
-//                alert.show()
-//            case SSDKResponseState.Fail:
-//                print("分享失败,错误描述:\(error)")
-//            case SSDKResponseState.Cancel:
-//                print("分享取消")
-//                
-//            default:
-//                break
-//            }
-//        }
+        shareView.tag  = 8888
+        shadowView.tag = 8888
+        
+        window.addSubview(shadowView)
+        window.addSubview(shareView)
+        
+        shareView.snp_makeConstraints { (make) in
+            make.bottom.equalTo(window)
+            make.left.right.equalTo(window)
+            make.height.equalTo(170)
+        }
+        
+        shareView.layoutIfNeeded()
     }
     
     func commentButtonDidClick() {
@@ -166,4 +145,45 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    //MARK:-----ShareViewDelegate-----
+    func weixinShareButtonDidClick() {
+        ShareSDKUtil.shareToFriend()
+    }
+    
+    func friendsCircleShareButtonDidClick() {
+        ShareSDKUtil.shareToFriendsCircle()
+    }
+    
+    func shareMoreButtonDidClick() {
+        
+    }
+    
+    //MARK:-----Getter and Setter-----
+    var lastPosition: CGFloat = 0
+    var headerTopConstraint: Constraint? = nil
+    var model: HomePopularModel? {
+        didSet {
+            self.toolBar.backgroundColor = UIColor.orangeColor()
+        }
+    }
+    
+    private lazy var wkWebView: WKWebView = {
+        let wkWebView: WKWebView = WKWebView()
+        wkWebView.navigationDelegate    = self
+        wkWebView.scrollView.delegate   = self
+        return wkWebView
+    }()
+    
+    private lazy var toolBar: BottomToolsBar = {
+        let toolBar: BottomToolsBar = BottomToolsBar()
+        toolBar.delegate = self
+        return toolBar
+    }()
+    
+    private lazy var headerBack: HeaderBackView = {
+        let headerBack: HeaderBackView = HeaderBackView(title: "玩物志")
+        headerBack.delegate = self
+        return headerBack
+    }()
 }
