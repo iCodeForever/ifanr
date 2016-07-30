@@ -34,12 +34,12 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     //MARK:-----Action-----
     func hiddenShareView() {
-        
-        let window: UIWindow = UIApplication.sharedApplication().keyWindow!
-        for item in window.subviews {
-            if item.tag == 8888 {
-                item.removeFromSuperview()
-            }
+        UIView.animateWithDuration(0.3, animations: {
+            self.shadowView.alpha = 0
+            self.shareView.center.y += 170
+            }) { (true) in
+                self.shadowView.removeFromSuperview()
+                self.shareView.removeFromSuperview()
         }
     }
    
@@ -92,32 +92,19 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     func shareButtonDidClick() {
         
-        let shareView: ShareView = ShareView()
-        shareView.delegate = self
         let window: UIWindow = UIApplication.sharedApplication().keyWindow!
-        let shadowView   = UIView(frame: self.view.frame)
-        shadowView.alpha = 0.5
-        shadowView.backgroundColor = UIColor.blackColor()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hiddenShareView))
-        shadowView.addGestureRecognizer(tapGesture)
         
-        shareView.tag  = 8888
-        shadowView.tag = 8888
+        window.addSubview(self.shadowView)
+        window.addSubview(self.shareView)
         
-        window.addSubview(shadowView)
-        window.addSubview(shareView)
-        
-        shareView.snp_makeConstraints { (make) in
-            make.bottom.equalTo(window)
-            make.left.right.equalTo(window)
-            make.height.equalTo(170)
-        }
-        
-        shareView.layoutIfNeeded()
+        UIView.animateWithDuration(0.3, animations: {
+            self.shadowView.alpha = 0.5
+            self.shareView.center.y -= 170
+        })
     }
     
     func commentButtonDidClick() {
-        debugPrint("commonButton")
+        hiddenShareView()
     }
     
     //MARK:-----UIScrollViewDelegate-----
@@ -148,11 +135,17 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     //MARK:-----ShareViewDelegate-----
     func weixinShareButtonDidClick() {
-        ShareSDKUtil.shareToFriend()
+        ShareSDKUtil.shareToFriend((model?.commonModel.excerpt)!,
+                                   shareImageUrl: (model?.commonModel.image)!,
+                                   shareURL: (model?.commonModel.link)!,
+                                   shareTitle: (model?.commonModel.title)!)
     }
     
     func friendsCircleShareButtonDidClick() {
-        ShareSDKUtil.shareToFriendsCircle()
+        ShareSDKUtil.shareToFriendsCircle((model?.commonModel.excerpt)!,
+                                          shareTitle: (model?.commonModel.title)!,
+                                          shareUrl: (model?.commonModel.link)!,
+                                          shareImageUrl: (model?.commonModel.image)!)
     }
     
     func shareMoreButtonDidClick() {
@@ -167,23 +160,40 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
             self.toolBar.backgroundColor = UIColor.orangeColor()
         }
     }
-    
+    /// wkWebView
     private lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView()
         wkWebView.navigationDelegate    = self
         wkWebView.scrollView.delegate   = self
         return wkWebView
     }()
-    
+    /// 底部工具栏
     private lazy var toolBar: BottomToolsBar = {
         let toolBar: BottomToolsBar = BottomToolsBar()
         toolBar.delegate = self
         return toolBar
     }()
-    
+    /// 顶部返回栏
     private lazy var headerBack: HeaderBackView = {
         let headerBack: HeaderBackView = HeaderBackView(title: "玩物志")
         headerBack.delegate = self
         return headerBack
+    }()
+    /// 分享的view
+    private lazy var shareView: ShareView = {
+        let shareView = ShareView(frame: CGRect(x: 0, y: UIConstant.SCREEN_HEIGHT, width: UIConstant.SCREEN_WIDTH, height: UIConstant.SCREEN_HEIGHT))
+        shareView.delegate = self
+        
+        return shareView
+    }()
+    /// mask
+    private lazy var shadowView: UIView = {
+        let shadowView = UIView(frame: self.view.frame)
+        shadowView.alpha = 0
+        shadowView.backgroundColor = UIColor.blackColor()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hiddenShareView))
+        shadowView.addGestureRecognizer(tapGesture)
+        
+        return shadowView
     }()
 }
