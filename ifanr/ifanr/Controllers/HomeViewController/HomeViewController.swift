@@ -132,7 +132,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let cellModel = latestCellLayout[indexPath.row].model
-        
+        print("aa")
         if cellModel.post_type == PostType.dasheng {
             let cell = cell as! HomeLatestTextCell
             cell.popularLayout = latestCellLayout[indexPath.row]

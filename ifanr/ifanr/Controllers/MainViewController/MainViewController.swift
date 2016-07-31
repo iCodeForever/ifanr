@@ -90,6 +90,16 @@ class MainViewController: UIViewController {
         }
     }
     
+    //MARK: --------------------------- Event and Action --------------------------
+    @objc private func classifyBtnDidClick() {
+        let cotegoryView = CategoryView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height*0.8))
+        cotegoryView.alpha = 0
+        self.view.addSubview(cotegoryView)
+        
+        UIView.animateWithDuration(5) {
+            cotegoryView.alpha = 1
+        }
+    }
     
     //MARK: --------------------------- Getter and Setter --------------------------
     // 首页
@@ -142,7 +152,7 @@ class MainViewController: UIViewController {
     private lazy var classifyBtn: UIButton = {
         let classifyBtn = UIButton()
         classifyBtn.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
-        
+        classifyBtn.addTarget(self, action: #selector(MainViewController.classifyBtnDidClick), forControlEvents: .TouchUpInside)
         return classifyBtn
     }()
 
@@ -179,7 +189,7 @@ extension MainViewController: UIScrollViewDelegate {
         let contentoffx = scrollView.contentOffset.x
         let alpha = 1 - fabs((contentoffx-UIConstant.SCREEN_WIDTH) / UIConstant.SCREEN_WIDTH)
         classifyBtn.alpha = alpha
-        print(alpha)
+        // 这里设置hidden是为了处理下拉刷新的判断
         classifyBtn.hidden = alpha <= 0 ?true: false
     }
 }
@@ -220,8 +230,8 @@ extension MainViewController: ScrollViewControllerReusableDelegate {
         
         // alpha
         let alphaAnim = CABasicAnimation(keyPath: "alpha")
-        alphaAnim.fromValue = (dir == ScrollViewDirection.Down ?0.8:0)
-        alphaAnim.toValue = (dir == ScrollViewDirection.Down ?0:0.8)
+        alphaAnim.fromValue = (dir == ScrollViewDirection.Down ?1:0)
+        alphaAnim.toValue = (dir == ScrollViewDirection.Down ?0:1)
         
         let group = CAAnimationGroup()
         group.removedOnCompletion = false

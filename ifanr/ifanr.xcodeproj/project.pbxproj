@@ -64,10 +64,10 @@
 		F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */; };
 		F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DE1D34034D00521914 /* MainHeaderView.swift */; };
 		F1A52F621D413E9500C4DE5E /* NewFeatureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A52F611D413E9500C4DE5E /* NewFeatureController.swift */; };
+		F1B0D5A61D4DA15C0082850B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D5A41D4DA15C0082850B /* CategoryView.swift */; };
+		F1B0D5A71D4DA15C0082850B /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D5A51D4DA15C0082850B /* CategoryViewCell.swift */; };
 		F1B7CE9F1D464BCA00702313 /* ClassifyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B7CE9E1D464BCA00702313 /* ClassifyController.swift */; };
-		F1B7CEA11D464C3400702313 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B7CEA01D464C3400702313 /* CategoryView.swift */; };
 		F1B7CEA31D4661DD00702313 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B7CEA21D4661DD00702313 /* CategoryModel.swift */; };
-		F1B7CEA51D4666FB00702313 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B7CEA41D4666FB00702313 /* CategoryViewCell.swift */; };
 		F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B81D001D34DB8C00946931 /* YYFPSLabel.m */; };
 		F1CECBE31D3D3AD300A113A1 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */; };
 		F1CECBE91D3D401700A113A1 /* AppSoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBE51D3D401700A113A1 /* AppSoModel.swift */; };
@@ -166,10 +166,10 @@
 		F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1A262DE1D34034D00521914 /* MainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		F1A52F611D413E9500C4DE5E /* NewFeatureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeatureController.swift; sourceTree = "<group>"; };
+		F1B0D5A41D4DA15C0082850B /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		F1B0D5A51D4DA15C0082850B /* CategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		F1B7CE9E1D464BCA00702313 /* ClassifyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassifyController.swift; sourceTree = "<group>"; };
-		F1B7CEA01D464C3400702313 /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		F1B7CEA21D4661DD00702313 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
-		F1B7CEA41D4666FB00702313 /* CategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		F1B81CFF1D34DB8C00946931 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		F1B81D001D34DB8C00946931 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
@@ -458,6 +458,7 @@
 		F119375A1D24013A00DF143B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1B0D5A31D4DA15C0082850B /* CategoryView */,
 				43070EA01D3B8DE300B0C2A3 /* DetailsView */,
 				F1E006381D38D9A500901099 /* PullToRefresh */,
 				43EBEABC1D2AB35E00BF7DC3 /* AppSoView */,
@@ -504,8 +505,6 @@
 				F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */,
 				F1A262DE1D34034D00521914 /* MainHeaderView.swift */,
 				F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */,
-				F1B7CEA01D464C3400702313 /* CategoryView.swift */,
-				F1B7CEA41D4666FB00702313 /* CategoryViewCell.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -580,6 +579,15 @@
 				F1A52F611D413E9500C4DE5E /* NewFeatureController.swift */,
 			);
 			path = NewFeatureController;
+			sourceTree = "<group>";
+		};
+		F1B0D5A31D4DA15C0082850B /* CategoryView */ = {
+			isa = PBXGroup;
+			children = (
+				F1B0D5A41D4DA15C0082850B /* CategoryView.swift */,
+				F1B0D5A51D4DA15C0082850B /* CategoryViewCell.swift */,
+			);
+			path = CategoryView;
 			sourceTree = "<group>";
 		};
 		F1B81CFE1D34DB8C00946931 /* YYFPSLabel */ = {
@@ -698,7 +706,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 48E3LB8PD7;
+						DevelopmentTeam = 5N8LXT5RPD;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -821,6 +829,7 @@
 				F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */,
 				F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */,
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
+				F1B0D5A61D4DA15C0082850B /* CategoryView.swift in Sources */,
 				F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */,
 				F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,
@@ -833,14 +842,13 @@
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
 				F1CECBEE1D3E7C6300A113A1 /* LoadMoreView.swift in Sources */,
 				4376F6201D3B4E8C00D64913 /* NewsFlashDetailController.swift in Sources */,
+				F1B0D5A71D4DA15C0082850B /* CategoryViewCell.swift in Sources */,
 				F1CECBEC1D3D402E00A113A1 /* TableHeaderModel.swift in Sources */,
 				435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */,
 				F15349DF1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift in Sources */,
 				F1B7CEA31D4661DD00702313 /* CategoryModel.swift in Sources */,
-				F1B7CEA51D4666FB00702313 /* CategoryViewCell.swift in Sources */,
 				F1498D951D24FCBD005BB684 /* Constant.swift in Sources */,
 				43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */,
-				F1B7CEA11D464C3400702313 /* CategoryView.swift in Sources */,
 				43D3D9831D2F38E40069993F /* MindStoreTableViewCell.swift in Sources */,
 				F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */,
 				43D3D9811D2F37E80069993F /* MindStoreViewController.swift in Sources */,

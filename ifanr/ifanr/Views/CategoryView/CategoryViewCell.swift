@@ -14,6 +14,7 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         super.init(frame: frame)
         
         self.contentView.addSubview(menuImageView)
+        self.contentView.addSubview(coverView)
         self.contentView.addSubview(iconImageView)
         self.contentView.addSubview(titleLabel)
         
@@ -28,14 +29,17 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         menuImageView.snp_makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
+        coverView.snp_makeConstraints { (make) in
+            make.edges.equalTo(self.contentView)
+        }
         
         iconImageView.snp_makeConstraints { (make) in
-            make.right.bottom.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_5)
+            make.right.bottom.equalTo(self.contentView).inset(UIConstant.UI_MARGIN_5)
             make.size.equalTo(15)
         }
         
         titleLabel.snp_makeConstraints { (make) in
-            make.leading.trailing.top.equalTo(self.contentView)
+            make.leading.trailing.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_5)
             make.height.equalTo(20)
         }
     }
@@ -54,6 +58,12 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         return menuImageView
     }()
     
+    // alpa
+    private lazy var coverView: UIView = {
+        let coverView = UIView()
+        coverView.backgroundColor = UIColor(red: 100/255.0, green: 50/255.0, blue: 140/255.0, alpha: 0.8)
+        return coverView
+    }()
     
     // 右下角图片
     private lazy var iconImageView: UIImageView = {
@@ -68,5 +78,22 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         return titleLabel
     }()
-    
 }
+
+class CategoryMenuHeaderView: UICollectionReusableView, Reusable {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        let imageView = UIImageView(image: UIImage(named: "tag_more_columns"))
+        imageView.contentMode = .ScaleAspectFit
+        imageView.frame = CGRect(x: 0, y: 0, width: self.width, height: 25)
+        imageView.center = self.center
+        addSubview(imageView)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+

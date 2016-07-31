@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+/// 文字
 class HomeLatestTextCell: UITableViewCell, Reusable {
     class func cellWithTableView(tableView: UITableView) -> HomeLatestTextCell {
         var cell = tableView.dequeueReusableCell() as HomeLatestTextCell?
