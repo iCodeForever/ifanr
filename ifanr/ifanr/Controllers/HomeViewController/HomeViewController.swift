@@ -161,4 +161,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return latestCellLayout[indexPath.row].cellHeight
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let homePopularModel: HomePopularModel = self.headerModelArray![indexPath.row] {
+            let ifDetailsController = IFDetailsController(model: homePopularModel.commonModel)
+            self.navigationController?.pushViewController(ifDetailsController, animated: true)
+        }
+    }
 }

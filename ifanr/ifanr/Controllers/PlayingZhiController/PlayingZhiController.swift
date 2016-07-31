@@ -97,7 +97,10 @@ extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let ifDetailsController = IFDetailsController(model: self.playingZhiModelArray[indexPath.row])
-        self.navigationController?.pushViewController(ifDetailsController, animated: true)
+        
+        if let homePopularModel: HomePopularModel = self.playingZhiModelArray[indexPath.row] {
+            let ifDetailsController = IFDetailsController(model: homePopularModel.commonModel)
+            self.navigationController?.pushViewController(ifDetailsController, animated: true)
+        }
     }
 }

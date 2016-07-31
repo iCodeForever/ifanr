@@ -14,7 +14,7 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         super.init(frame: frame)
         
         self.contentView.addSubview(menuImageView)
-        self.contentView.addSubview(coverView)
+//        self.contentView.addSubview(coverView)
         self.contentView.addSubview(iconImageView)
         self.contentView.addSubview(titleLabel)
         
@@ -29,9 +29,9 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         menuImageView.snp_makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
-        coverView.snp_makeConstraints { (make) in
-            make.edges.equalTo(self.contentView)
-        }
+//        coverView.snp_makeConstraints { (make) in
+//            make.edges.equalTo(self.contentView)
+//        }
         
         iconImageView.snp_makeConstraints { (make) in
             make.right.bottom.equalTo(self.contentView).inset(UIConstant.UI_MARGIN_5)

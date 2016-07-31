@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
     
     //MARK: --------------------------- Event and Action --------------------------
     @objc private func classifyBtnDidClick() {
-        let cotegoryView = CategoryView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height*0.8))
+        let cotegoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.height))
         cotegoryView.alpha = 0
         self.view.addSubview(cotegoryView)
         
