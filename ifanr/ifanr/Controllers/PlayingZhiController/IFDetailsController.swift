@@ -10,7 +10,11 @@ import UIKit
 import WebKit
 import SnapKit
 
-class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, ToolBarDelegate, ShareViewDelegate, UIScrollViewDelegate{
+class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, ToolBarDelegate, UIScrollViewDelegate,
+shareResuable{
+    
+    var shadowView: UIView?
+    var shareView: ShareView?
 
     //MARK:-----life cycle-----
     override func viewDidLoad() {
@@ -32,17 +36,6 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         self.model = model
     }
     
-    //MARK:-----Action-----
-    func hiddenShareView() {
-        UIView.animateWithDuration(0.3, animations: {
-            self.shadowView.alpha = 0
-            self.shareView.center.y += 170
-            }) { (true) in
-                self.shadowView.removeFromSuperview()
-                self.shareView.removeFromSuperview()
-        }
-    }
-   
     //MARK:-----Custom Function-----
     
     private func setupLayout() {
@@ -91,20 +84,10 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     }
     
     func shareButtonDidClick() {
-        
-        let window: UIWindow = UIApplication.sharedApplication().keyWindow!
-        
-        window.addSubview(self.shadowView)
-        window.addSubview(self.shareView)
-        
-        UIView.animateWithDuration(0.3, animations: {
-            self.shadowView.alpha = 0.5
-            self.shareView.center.y -= 170
-        })
+        self.showShareView()
     }
     
     func commentButtonDidClick() {
-        hiddenShareView()
     }
     
     //MARK:-----UIScrollViewDelegate-----
@@ -135,21 +118,21 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     //MARK:-----ShareViewDelegate-----
     func weixinShareButtonDidClick() {
-        ShareSDKUtil.shareToFriend((model?.excerpt)!,
-                                   shareImageUrl: (model?.image)!,
-                                   shareURL: (model?.link)!,
-                                   shareTitle: (model?.title)!)
+        shareToFriend((model?.excerpt)!,
+                      shareImageUrl: (model?.image)!,
+                           shareURL: (model?.link)!,
+                         shareTitle: (model?.title)!)
     }
     
     func friendsCircleShareButtonDidClick() {
-        ShareSDKUtil.shareToFriendsCircle((model?.excerpt)!,
-                                          shareTitle: (model?.title)!,
-                                          shareUrl: (model?.link)!,
-                                          shareImageUrl: (model?.image)!)
+        shareToFriendsCircle((model?.excerpt)!,
+                             shareTitle: (model?.title)!,
+                               shareUrl: (model?.link)!,
+                          shareImageUrl: (model?.image)!)
     }
     
     func shareMoreButtonDidClick() {
-        
+        hiddenShareView()
     }
     
     //MARK:-----Getter and Setter-----
@@ -174,22 +157,5 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         let headerBack: HeaderBackView = HeaderBackView(title: "玩物志")
         headerBack.delegate = self
         return headerBack
-    }()
-    /// 分享的view
-    private lazy var shareView: ShareView = {
-        let shareView = ShareView(frame: CGRect(x: 0, y: UIConstant.SCREEN_HEIGHT, width: UIConstant.SCREEN_WIDTH, height: UIConstant.SCREEN_HEIGHT))
-        shareView.delegate = self
-        
-        return shareView
-    }()
-    /// mask
-    private lazy var shadowView: UIView = {
-        let shadowView = UIView(frame: self.view.frame)
-        shadowView.alpha = 0
-        shadowView.backgroundColor = UIColor.blackColor()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hiddenShareView))
-        shadowView.addGestureRecognizer(tapGesture)
-        
-        return shadowView
     }()
 }

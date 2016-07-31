@@ -9,15 +9,19 @@
 import UIKit
 import WebKit
 
-class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
+class NewsFlashDetailController: UIViewController, WKNavigationDelegate, shareResuable{
 
     //MARK:-----Variables-----
     
-    private var urlStr: String? = nil
+    var shadowView: UIView?
+    var shareView: ShareView?
+    var urlStr: String?
     
-    convenience init(urlStr: String){
+    private var model: CommonModel?
+    
+    convenience init(model: CommonModel){
         self.init()
-        self.urlStr = urlStr
+        self.model = model
     }
     
     //MARK:-----Life Cycle-----
@@ -30,7 +34,103 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
         self.setupLayout()
         self.bottomBarSetUpLayout()
         
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: self.urlStr!)!))
+        self.loadData()
+    }
+    
+    //MARK:-----Custom Function------
+    // get data
+    func loadData() {
+        var links: [String] = (model!.content.getSuitableString("http(.*?)html"))
+        if links.count == 0 {
+            links = (model!.content.getSuitableString("http(.*?)htm"))
+        }
+        if links.count != 0 {
+            urlStr = links[0]
+            self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+        }
+    }
+    
+    //MARK:-----ShareViewDelegate-----
+    func weixinShareButtonDidClick() {
+        shareToFriend((model?.excerpt)!,
+                      shareImageUrl: (model?.image)!,
+                      shareURL: urlStr!,
+                      shareTitle: (model?.title)!)
+    }
+    
+    func friendsCircleShareButtonDidClick() {
+        shareToFriendsCircle((model?.excerpt)!,
+                             shareTitle: (model?.title)!,
+                             shareUrl: urlStr!,
+                             shareImageUrl: (model?.image)!)
+    }
+    
+    func shareMoreButtonDidClick() {
+        hiddenShareView()
+    }
+    
+    //MARK:-----UIWebView Delegate-----
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        self.showProgress()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.hiddenProgress()
+    }
+    
+    //MARK:-----Custom Function-----
+    func bottomBarSetUpLayout() {
+        
+        self.backButton.snp_makeConstraints { (make) in
+            make.left.equalTo(self.bottomBar).offset(30)
+            make.top.equalTo(self.bottomBar).offset(20)
+            make.width.height.equalTo(15)
+        }
+        
+        self.shareButton.snp_makeConstraints { (make) in
+            make.right.equalTo(self.view).offset(-30)
+            make.top.equalTo(self.bottomBar).offset(15)
+            make.width.height.equalTo(20)
+        }
+        
+        self.safariButton.snp_makeConstraints { (make) in
+            make.right.equalTo(self.shareButton.snp_left).offset(-35)
+            make.top.equalTo(self.bottomBar).offset(15)
+            make.width.height.equalTo(20)
+        }
+        
+        self.reloadButton.snp_makeConstraints { (make) in
+            make.right.equalTo(self.safariButton.snp_left).offset(-35)
+            make.top.equalTo(self.bottomBar).offset(15)
+            make.width.height.equalTo(18)
+        }
+    }
+    func setupLayout() {
+        self.bottomBar.snp_makeConstraints { (make) in
+            make.left.right.bottom.equalTo(self.view)
+            make.height.equalTo(45)
+        }
+    }
+    
+    func backButtonDidClick() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func shareButtonDidClick() {
+        showShareView()
+    }
+    
+    func safariButtonDidClick() {
+        UIApplication.sharedApplication().openURL(NSURL(string: self.urlStr!)!)
+    }
+    
+    func reloadButtonDidClick() {
+        self.wkWebView.loadHTMLString("", baseURL: nil)
+        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     //MARK:-----Getter and Setter-----
@@ -88,69 +188,4 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate {
         shareButton.addTarget(self, action: #selector(shareButtonDidClick), forControlEvents: .TouchUpInside)
         return shareButton
     }()
-    
-    
-    //MARK:-----UIWebView Delegate-----
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        self.showProgress()
-    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        self.hiddenProgress()
-    }
-    
-    //MARK:-----Custom Function-----
-    func bottomBarSetUpLayout() {
-        
-        self.backButton.snp_makeConstraints { (make) in
-            make.left.equalTo(self.bottomBar).offset(30)
-            make.top.equalTo(self.bottomBar).offset(20)
-            make.width.height.equalTo(15)
-        }
-        
-        self.shareButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.view).offset(-30)
-            make.top.equalTo(self.bottomBar).offset(15)
-            make.width.height.equalTo(20)
-        }
-        
-        self.safariButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.shareButton.snp_left).offset(-35)
-            make.top.equalTo(self.bottomBar).offset(15)
-            make.width.height.equalTo(20)
-        }
-        
-        self.reloadButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.safariButton.snp_left).offset(-35)
-            make.top.equalTo(self.bottomBar).offset(15)
-            make.width.height.equalTo(18)
-        }
-    }
-    func setupLayout() {
-        self.bottomBar.snp_makeConstraints { (make) in
-            make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(45)
-        }
-    }
-    
-    func backButtonDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func shareButtonDidClick() {
-        
-    }
-    
-    func safariButtonDidClick() {
-        UIApplication.sharedApplication().openURL(NSURL(string: self.urlStr!)!)
-    }
-    
-    func reloadButtonDidClick() {
-        self.wkWebView.loadHTMLString("", baseURL: nil)
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
 }
