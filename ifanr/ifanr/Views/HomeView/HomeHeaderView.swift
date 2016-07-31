@@ -112,6 +112,7 @@ class HomeHeaderView: UIView {
     //MARK: --------------------------- Getter and Setter --------------------------
     private lazy var contentScrollView: UIScrollView = {
         let contentScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.width, height: self.height-45))
+        contentScrollView.userInteractionEnabled = false
         contentScrollView.bounces = false
         contentScrollView.pagingEnabled = true
         contentScrollView.showsHorizontalScrollIndicator = false
@@ -130,6 +131,10 @@ class HomeHeaderView: UIView {
          *  如果数据源改变，则需要改变scrollView、分页指示器的数量
          */
         didSet {
+            if modelArray.count<=0 {
+                return
+            }
+            contentScrollView.userInteractionEnabled = true
             contentScrollView.scrollEnabled = !(modelArray.count == 1)
             pageControl.numberOfPage = self.modelArray.count
             setScrollViewOfImage()

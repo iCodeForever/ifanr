@@ -10,17 +10,29 @@ import UIKit
 import Foundation
 
 class CategoryView: UIView {
+    
+    typealias CoverBtnCallBack = () -> Void
+    private var callBack: CoverBtnCallBack?
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        addSubview(headerView)
         addSubview(titleLabel)
         addSubview(collectionView)
-        
+        addSubview(coverButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func coverBtnDidClick() {
+        if let callBack = callBack {
+            callBack()
+        }
+    }
+    
+    func coverBtnClick(callBack: CoverBtnCallBack) {
+        self.callBack = callBack
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -57,9 +69,13 @@ class CategoryView: UIView {
     private lazy var coverButton: UIButton = {
         let coverButton = UIButton()
         coverButton.origin = CGPoint(x: 0, y: self.collectionView.frame.maxY)
+        coverButton.size = CGSize(width: self.width, height: self.height-self.collectionView.frame.maxY)
         coverButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
+        coverButton.addTarget(self, action: #selector(CategoryView.coverBtnDidClick), forControlEvents: .TouchDown)
         return coverButton
     }()
+    
+    
 }
 
 extension CategoryView: UICollectionViewDelegate, UICollectionViewDataSource {

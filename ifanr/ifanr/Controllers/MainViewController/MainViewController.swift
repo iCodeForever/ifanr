@@ -95,10 +95,20 @@ class MainViewController: UIViewController {
         let cotegoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.height))
         cotegoryView.alpha = 0
         self.view.addSubview(cotegoryView)
-        
-        UIView.animateWithDuration(5) {
+        UIView.animateWithDuration(0.5) {
             cotegoryView.alpha = 1
+            self.headerView.alpha = 0
         }
+        
+        cotegoryView.coverBtnClick{
+            UIView.animateWithDuration(0.5, animations: {
+                cotegoryView.alpha = 0
+                self.headerView.alpha = 1
+                }, completion: { (com) in
+                        cotegoryView.removeFromSuperview()
+            })
+        }
+        
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
