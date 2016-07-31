@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol ShareViewDelegate {
+public protocol ShareViewDelegate: class {
     func weixinShareButtonDidClick();
     func friendsCircleShareButtonDidClick();
     func shareMoreButtonDidClick();
 }
 
-class ShareView: UIView {
+public class ShareView: UIView {
     
     var delegate: ShareViewDelegate?
     
@@ -36,7 +36,7 @@ class ShareView: UIView {
         self.setupLayout()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

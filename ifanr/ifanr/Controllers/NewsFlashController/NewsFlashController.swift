@@ -98,15 +98,9 @@ extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let model: HomePopularModel = self.newsFlashModelArray[indexPath.row];
-        var links: [String] = (model.commonModel.content.getSuitableString("http(.*?)html"))
-        if links.count == 0 {
-            links = (model.commonModel.content.getSuitableString("http(.*?)htm"))
-        }
-        if links.count != 0 {
-            debugPrint("links[0] %@", links[0])
-            let newsFlashDetailController: NewsFlashDetailController = NewsFlashDetailController(urlStr: links[0])
-            self.navigationController?.pushViewController(newsFlashDetailController, animated: true)
-        }
+        let detailController: NewsFlashDetailController = NewsFlashDetailController(model: model.commonModel)
+        self.navigationController?.pushViewController(detailController, animated: true)
+        
     }
 }
 
