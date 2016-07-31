@@ -10,6 +10,7 @@
 		43070E9F1D3B8D8000B0C2A3 /* IFDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43070E9E1D3B8D8000B0C2A3 /* IFDetailsController.swift */; };
 		43070EA21D3B8E5600B0C2A3 /* BottomToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */; };
 		4323CC8C1D4BC43100D1DFCE /* ShareSDKUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */; };
+		4324F4FE1D4D97FF009F7ED3 /* ShareResuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */; };
 		432CE4F91D411A1400779050 /* UIViewController+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432CE4F81D411A1400779050 /* UIViewController+IF.swift */; };
 		435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353790F1D28BD37004A2766 /* NSDate+IF.swift */; };
 		4354EA501D2ABDBC007D419A /* PlayingZhiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */; };
@@ -105,6 +106,7 @@
 		43070E9E1D3B8D8000B0C2A3 /* IFDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFDetailsController.swift; path = PlayingZhiController/IFDetailsController.swift; sourceTree = "<group>"; };
 		43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomToolsBar.swift; path = DetailsView/BottomToolsBar.swift; sourceTree = "<group>"; };
 		4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareSDKUtil.swift; path = Utils/ShareSDKUtil.swift; sourceTree = "<group>"; };
+		4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareResuable.swift; sourceTree = "<group>"; };
 		432CE4F81D411A1400779050 /* UIViewController+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+IF.swift"; sourceTree = "<group>"; };
 		4353790F1D28BD37004A2766 /* NSDate+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+IF.swift"; sourceTree = "<group>"; };
 		4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingZhiController.swift; path = PlayingZhiController/PlayingZhiController.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				F15349DE1D2D7CF600A11BCB /* NSMutableAttributedString+ifanr.swift */,
 				F15349E01D2D7EB900A11BCB /* String+ifanr.swift */,
 				432CE4F81D411A1400779050 /* UIViewController+IF.swift */,
+				4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */,
 				F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */,
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
+				4324F4FE1D4D97FF009F7ED3 /* ShareResuable.swift in Sources */,
 				F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */,
 				F1B81D011D34DB8C00946931 /* YYFPSLabel.m in Sources */,
 				699874BF1D23C6CA0059A2BE /* AppDelegate.swift in Sources */,

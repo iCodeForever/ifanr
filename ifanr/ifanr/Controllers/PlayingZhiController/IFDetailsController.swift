@@ -22,12 +22,12 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
         
         self.setupLayout()
         
-        self.toolBar.commentButton.showIcon(model?.commonModel.comments ?? nil)
-        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.commonModel.like)!), forState: .Normal)
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: (self.model?.commonModel.link)!)!))
+        self.toolBar.commentButton.showIcon(model?.comments ?? nil)
+        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.like)!), forState: .Normal)
+        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: (self.model?.link)!)!))
     }
     
-    convenience init(model: HomePopularModel) {
+    convenience init(model: CommonModel) {
         self.init()
         self.model = model
     }
@@ -135,17 +135,17 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     
     //MARK:-----ShareViewDelegate-----
     func weixinShareButtonDidClick() {
-        ShareSDKUtil.shareToFriend((model?.commonModel.excerpt)!,
-                                   shareImageUrl: (model?.commonModel.image)!,
-                                   shareURL: (model?.commonModel.link)!,
-                                   shareTitle: (model?.commonModel.title)!)
+        ShareSDKUtil.shareToFriend((model?.excerpt)!,
+                                   shareImageUrl: (model?.image)!,
+                                   shareURL: (model?.link)!,
+                                   shareTitle: (model?.title)!)
     }
     
     func friendsCircleShareButtonDidClick() {
-        ShareSDKUtil.shareToFriendsCircle((model?.commonModel.excerpt)!,
-                                          shareTitle: (model?.commonModel.title)!,
-                                          shareUrl: (model?.commonModel.link)!,
-                                          shareImageUrl: (model?.commonModel.image)!)
+        ShareSDKUtil.shareToFriendsCircle((model?.excerpt)!,
+                                          shareTitle: (model?.title)!,
+                                          shareUrl: (model?.link)!,
+                                          shareImageUrl: (model?.image)!)
     }
     
     func shareMoreButtonDidClick() {
@@ -155,11 +155,7 @@ class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDel
     //MARK:-----Getter and Setter-----
     var lastPosition: CGFloat = 0
     var headerTopConstraint: Constraint? = nil
-    var model: HomePopularModel? {
-        didSet {
-            self.toolBar.backgroundColor = UIColor.orangeColor()
-        }
-    }
+    var model: CommonModel?
     /// wkWebView
     private lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView()
