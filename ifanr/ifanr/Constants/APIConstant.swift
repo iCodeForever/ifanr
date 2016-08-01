@@ -51,6 +51,54 @@ public enum APIConstant {
      *  MainStore  从0开始
      */
     case MindStore_latest(Int)
+    
+///    https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&category_name=video-special&excerpt_length=80&page=1&posts_per_page=12&sign=5a5bc2f2c134026826b92f81e162223c&timestamp=1470050845
+    
+    /**
+     *  分类
+     */
+    case Category(CategoryName,Int)
+}
+
+public enum CategoryName {
+    case Video
+    case ISeed
+    case DaSheng
+    case Shudu
+    case Evaluation
+    case Product
+    case Car
+    case Business
+    case Interview
+    case Picture
+    case List
+    
+    func getName() -> String {
+        switch self {
+        case .Video:
+            return "video-special"
+        case .ISeed:
+            return "iseed"
+        case .DaSheng:
+            return "dasheng"
+        case .Shudu:
+            return "data"
+        case .Evaluation:
+            return "review"
+        case .Product:
+            return "product"
+        case .Car:
+            return "intelligentcar"
+        case .Business:
+            return "business"
+        case .Interview:
+            return "interview"
+        case .Picture:
+            return "tuji"
+        case .List:
+            return "%E6%B8%85%E5%8D%95".stringByRemovingPercentEncoding!
+        }
+    }
 }
 
 extension APIConstant: TargetType {
@@ -84,8 +132,10 @@ extension APIConstant: TargetType {
             return "coolbuy"
         case .AppSo_latest(_):
             return "app"
-        default:
-            return ""
+        case let .Category(type, _):
+            return type.getName()
+            
+        default: return ""
         }
     }
     
@@ -131,7 +181,6 @@ extension APIConstant: TargetType {
     
         /// 请求参数
     public var parameters: [String: AnyObject]? {
-        
         switch self {
                     /// 首页热门
         case let .Home_hot_features(page):
@@ -151,6 +200,13 @@ extension APIConstant: TargetType {
                     /// MindStore
         case let .MindStore_latest(page):
             return ["look_back_days": page, "limit": 60]
+                    /// 分类
+        case let .Category(type,page):
+            if type == CategoryName.DaSheng || type == CategoryName.Shudu || type == CategoryName.Picture {
+                return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+            } else {
+                return ["action": action, "appKey": appKey, "category_name": type.getName(),"excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+            }
         }
     }
     

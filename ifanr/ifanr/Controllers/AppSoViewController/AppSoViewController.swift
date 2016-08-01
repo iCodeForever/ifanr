@@ -28,7 +28,7 @@ class AppSoViewController: BasePageController {
     func getData(page: Int = 1) {
         isRefreshing = true
         
-        IFanrService.shareInstance.getAppSoData(page, successHandle: { (modelArray) in
+        IFanrService.shareInstance.getLatesModel(APIConstant.AppSo_latest(page), successHandle: { (modelArray) in
             if page == 1 {
                 self.page = 1
                 self.appSoModelArray.removeAll()
@@ -51,7 +51,7 @@ class AppSoViewController: BasePageController {
         return TableHeaderView(model: TableHeaderModelArray[2])
     }()
     
-    var appSoModelArray = Array<AppSoModel>()
+    var appSoModelArray = Array<CommonModel>()
 }
 
 // MARK: - 下拉刷新回调
@@ -101,11 +101,11 @@ extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].commonModel.title!) + 20
+        return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].title!) + 20
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let appSoModel: AppSoModel = self.appSoModelArray[indexPath.row] {
-            let ifDetailController = IFDetailsController(model: appSoModel.commonModel)
+        if let appSoModel: CommonModel = self.appSoModelArray[indexPath.row] {
+            let ifDetailController = IFDetailsController(model: appSoModel)
             self.navigationController?.pushViewController(ifDetailController, animated: true)
         }
     }

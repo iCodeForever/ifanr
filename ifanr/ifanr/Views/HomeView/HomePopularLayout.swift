@@ -12,7 +12,7 @@ import Foundation
  *  cell的布局
  */
 struct HomePopularLayout {
-    var model: HomePopularModel!
+    var model: CommonModel!
     // 顶部留白
     let kHomeCellTopMargin = UIConstant.UI_MARGIN_20
     // 左右留白
@@ -51,7 +51,7 @@ struct HomePopularLayout {
     // 总高度
     var cellHeight: CGFloat = 0
     
-    init(model: HomePopularModel) {
+    init(model: CommonModel) {
         self.model = model
         
         if model.post_type == PostType.dasheng {
@@ -87,12 +87,12 @@ struct HomePopularLayout {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5
         let titleAttributes = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 16), NSParagraphStyleAttributeName: paragraphStyle]
-        let titleSize = (model.commonModel.title as NSString).boundingRectWithSize(CGSize(width: cellPicWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: titleAttributes, context: nil).size
+        let titleSize = (model.title as NSString).boundingRectWithSize(CGSize(width: cellPicWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: titleAttributes, context: nil).size
         self.kHomeCellTitleRect = CGRect(x: kHomeCellPadding, y: kHomeCellLikeRect.maxY+kHomeCellPadding, width: titleSize.width, height: titleSize.height)
         
         // 计算引文高度
         let textAttributes = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 12), NSParagraphStyleAttributeName: paragraphStyle]
-        let textSize = (model.commonModel.excerpt as NSString).boundingRectWithSize(CGSize(width: cellPicWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
+        let textSize = (model.excerpt as NSString).boundingRectWithSize(CGSize(width: cellPicWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: textAttributes, context: nil).size
         self.kHomeCellTextRect = CGRect(x: kHomeCellPadding, y: kHomeCellTitleRect.maxY+kHomeCellPadding, width: textSize.width, height: textSize.height)
         
         // 总高度
@@ -121,7 +121,7 @@ struct HomePopularLayout {
         // 引文。先分割出作者和内容
         let excerpAttribute = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 16)]
         let excerpWidth = UIConstant.SCREEN_WIDTH-kHomeCellDateRect.minX-kHomeCellPadding
-        let excerptAndAuthor = model.commonModel.excerpt.componentsSeparatedByString(":")
+        let excerptAndAuthor = model.excerpt.componentsSeparatedByString(":")
         let excerptSize = (excerptAndAuthor.last! as NSString).boundingRectWithSize(CGSize(width: excerpWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: excerpAttribute, context: nil).size
         self.kHomeCellTextRect = CGRect(x: kHomeCellDateRect.minX, y: kHomeCellTopMargin+kHomeCellDateRect.maxY, width: excerptSize.width, height: excerptSize.height)
         
@@ -159,11 +159,11 @@ struct HomePopularLayout {
         paragraphStyle.lineSpacing = 5
         let titleAttributes = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 16), NSParagraphStyleAttributeName: paragraphStyle]
         let titleWidth = UIConstant.SCREEN_WIDTH-kHomeCellDateRect.minX-kHomeCellPadding
-        let titleSize = (model.commonModel.title as NSString).boundingRectWithSize(CGSize(width: titleWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: titleAttributes, context: nil).size
+        let titleSize = (model.title as NSString).boundingRectWithSize(CGSize(width: titleWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: titleAttributes, context: nil).size
         self.kHomeCellTitleRect = CGRect(x: kHomeCellDateRect.minX, y: kHomeCellNumberRect.maxY+kHomeCellTopMargin, width: titleWidth, height:titleSize.height)
         
         // 引文 去除<p></p>
-        let excerpText = model.commonModel.content.stringByReplacingOccurrencesOfString("<p>", withString: "").stringByReplacingOccurrencesOfString("</p>", withString: "")
+        let excerpText = model.content.stringByReplacingOccurrencesOfString("<p>", withString: "").stringByReplacingOccurrencesOfString("</p>", withString: "")
         let excerpAttribute = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 12)]
         let excerpSize = (excerpText as NSString).boundingRectWithSize(CGSize(width: titleWidth, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: excerpAttribute, context: nil).size
         self.kHomeCellTextRect = CGRect(x: kHomeCellDateRect.minX, y: kHomeCellTopMargin+kHomeCellTitleRect.maxY, width: excerpSize.width, height: excerpSize.height)
@@ -175,7 +175,7 @@ struct HomePopularLayout {
      计算时间和分类
      */
     private func calculateDateSize() -> CGSize {
-        let dateString = "\(model.commonModel.category) | \(NSDate.getDate(model.commonModel.pubDate)))"
+        let dateString = "\(model.category) | \(NSDate.getDate(model.pubDate)))"
         let toolBarAttribute = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 12)]
         return (dateString as NSString).boundingRectWithSize(CGSize(width: 200, height: kHomeCellToolBarHeight), options: .UsesLineFragmentOrigin, attributes: toolBarAttribute, context: nil).size
     }
@@ -185,6 +185,6 @@ struct HomePopularLayout {
      */
     private func calculateLikeSize() -> CGSize {
         let likeAttribute = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 12)]
-        return ("\(model.commonModel.like)" as NSString).boundingRectWithSize(CGSize(width: 100, height: kHomeCellToolBarHeight), options: .UsesLineFragmentOrigin, attributes: likeAttribute, context: nil).size
+        return ("\(model.like)" as NSString).boundingRectWithSize(CGSize(width: 100, height: kHomeCellToolBarHeight), options: .UsesLineFragmentOrigin, attributes: likeAttribute, context: nil).size
     }
 }

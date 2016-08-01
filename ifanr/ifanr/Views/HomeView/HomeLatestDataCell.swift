@@ -45,13 +45,13 @@ class HomeLatestDataCell: UITableViewCell, Reusable {
             authorImageView.frame = popularLayout.kHomeCellAuthorImgRect
             
             // 设置分类和时间
-            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.commonModel.category) | \(NSDate.getDate(popularLayout.model.commonModel.pubDate))")
+            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.category) | \(NSDate.getDate(popularLayout.model.pubDate))")
             dateAttributeText.addAttribute(NSForegroundColorAttributeName, value: UIConstant.UI_COLOR_RedTheme, range: NSRange(location: 0, length: 2))
             dateLabel.attributedText = dateAttributeText
             dateLabel.frame = popularLayout.kHomeCellDateRect
             
             // 喜欢数
-            likeLabel.text = "\(popularLayout.model.commonModel.like)"
+            likeLabel.text = "\(popularLayout.model.like)"
             likeLabel.frame = popularLayout.kHomeCellLikeRect
             likeImageView.frame = popularLayout.kHomeCellLikeImgRect
             
@@ -62,11 +62,11 @@ class HomeLatestDataCell: UITableViewCell, Reusable {
             numberLabel.frame = popularLayout.kHomeCellNumberRect
             
             // 标题
-            self.titleLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.commonModel.title)
+            self.titleLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.title)
             self.titleLabel.frame = popularLayout.kHomeCellTitleRect
             
             // 引文
-            introduceLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.commonModel.content.stringByReplacingOccurrencesOfString("<p>", withString: "").stringByReplacingOccurrencesOfString("</p>", withString: ""))
+            introduceLabel.attributedText = NSMutableAttributedString.attribute(popularLayout.model.content.stringByReplacingOccurrencesOfString("<p>", withString: "").stringByReplacingOccurrencesOfString("</p>", withString: ""))
             introduceLabel.frame = popularLayout.kHomeCellTextRect
             
             // 底部横线

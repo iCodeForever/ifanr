@@ -25,6 +25,15 @@ struct AuthorInfoModel {
     }
 }
 
+/**
+ 发布类型： 在计算cell高度是需要分类进行计算（目前只发现这几种）
+ */
+enum PostType {
+    case post
+    case data
+    case dasheng
+}
+
 /*!
  *  @brief 通用的数据模型
  */
@@ -55,8 +64,6 @@ struct CommonModel {
     var comments: String!
     /// 分类
     var category: String!
-    /// 发布类型
-    var post_type: String!
     /// 分类网页
     var category_link: String!
     /// tag
@@ -64,9 +71,33 @@ struct CommonModel {
     /// 喜欢数
     var like: Int!
     var is_ad: Int!
+    /// 作者信息
     var authorInfoModel: AuthorInfoModel!
+    /// 发布类型
+    var post_type: PostType! = .post
+    
+    //MARK: --------------------------- Home --------------------------
+    /// 大声作者
+    var dasheng_author: String! = ""
+    /// 数读
+    var number: String! = ""
+    var subfix: String! = ""
+    
+    //MARK: --------------------------- AppSo --------------------------
+    var app_icon_url: String!
+    
     
     init(dict: NSDictionary) {
+        initCommonData(dict)
+        
+        initHomeData(dict)
+        
+        initAppSoData(dict)
+    }
+}
+
+extension CommonModel {
+    mutating func initCommonData(dict: NSDictionary) {
         self.ID = dict["ID"] as? Int64 ?? 0
         self.title = dict["title"] as? String ?? ""
         self.author = dict["author"] as? String ?? ""
@@ -80,7 +111,6 @@ struct CommonModel {
         self.link = dict["link"] as? String ?? ""
         self.comments = dict["comments"] as? String ?? ""
         self.category = dict["category"] as? String ?? ""
-        self.post_type = dict["post_type"] as? String ?? ""
         self.category_link = dict["category_link"] as? String ?? ""
         self.tags = dict["tags"] as? String ?? ""
         self.like = dict["like"] as? Int ?? 0
@@ -89,5 +119,26 @@ struct CommonModel {
         if let item: NSDictionary = (dict["author_info"] as? NSDictionary) {
             self.authorInfoModel = AuthorInfoModel(dict: item)
         }
+    }
+    
+    mutating func initHomeData(dict: NSDictionary) {
+        if let type = dict["post_type"] as? String {
+            if type == "post" {
+                self.post_type = .post
+            } else if type == "dasheng" {
+                self.post_type = .dasheng
+                self.dasheng_author = dict["dasheng_author"] as? String ?? ""
+                self.category = "大声"
+            } else if type == "data" {
+                self.post_type = .data
+                self.category = "数读"
+                self.number = dict["number"] as? String ?? ""
+                self.subfix = dict["subfix"] as? String ?? ""
+            }
+        }
+    }
+    
+    mutating func initAppSoData(dict: NSDictionary) {
+        self.app_icon_url   = dict["app_icon_url"] as? String ?? ""
     }
 }

@@ -12,7 +12,8 @@ import Foundation
 class CategoryView: UIView {
     
     typealias CoverBtnCallBack = () -> Void
-    private var callBack: CoverBtnCallBack?
+    typealias ItemDidClickCallBack = (collectionView: UICollectionView, indexPath: NSIndexPath) -> Void
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -26,14 +27,13 @@ class CategoryView: UIView {
     }
     
     @objc private func coverBtnDidClick() {
-        if let callBack = callBack {
+        if let callBack = coverbtnClickCallBack {
             callBack()
         }
     }
     
-    func coverBtnClick(callBack: CoverBtnCallBack) {
-        self.callBack = callBack
-    }
+    private var coverbtnClickCallBack: CoverBtnCallBack?
+    private var itemDidClickCallBack: ItemDidClickCallBack?
     
     private lazy var collectionView: UICollectionView = {
         let collectionLayout = UICollectionViewFlowLayout()
@@ -78,6 +78,17 @@ class CategoryView: UIView {
     
 }
 
+extension CategoryView {
+    func coverBtnClick(callBack: CoverBtnCallBack) {
+        self.coverbtnClickCallBack = callBack
+    }
+    
+    func itemDidClick(callBack: ItemDidClickCallBack) {
+        self.itemDidClickCallBack = callBack
+    }
+}
+
+
 extension CategoryView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CategoryModelArray.count
@@ -99,6 +110,12 @@ extension CategoryView: UICollectionViewDelegate, UICollectionViewDataSource {
         let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, indexPath: indexPath) as CategoryMenuHeaderView 
         
         return headerView
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let callBack = itemDidClickCallBack {
+            callBack(collectionView: collectionView, indexPath:  indexPath)
+        }
     }
 }
 

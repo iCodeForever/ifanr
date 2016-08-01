@@ -11,27 +11,27 @@ import UIKit
 class PlayingZhiTableViewCell: UITableViewCell, Reusable {
  
     //MARK:-----variables-----
-    var model : HomePopularModel! {
+    var model : CommonModel! {
         didSet {
             
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.commonModel.pubDate)
-            self.likeCountLabel.text    = "\(model.commonModel.like)"
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
+            self.likeCountLabel.text    = "\(model.like)"
             
-            self.titleLabel.attributedText = UILabel.setAttributText(model.commonModel.title, lineSpcae: 5.0)
-            self.infoLabel.attributedText  = UILabel.setAttributText(model.commonModel.excerpt, lineSpcae: 5.0)
-            self.logoImageView.if_setImage(NSURL(string: model.commonModel.image!))
+            self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
+            self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
+            self.logoImageView.if_setImage(NSURL(string: model.image!))
         }
     }
     
-    var appSoModel: AppSoModel! {
+    var appSoModel: CommonModel! {
         didSet {
             
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(appSoModel.commonModel.pubDate)
-            self.likeCountLabel.text    = "\(appSoModel.commonModel.like)"
+            self.timeLabel.text = NSDate.getCommonExpressionOfDate(appSoModel.pubDate)
+            self.likeCountLabel.text    = "\(appSoModel.like)"
             
-            self.titleLabel.attributedText = UILabel.setAttributText(appSoModel.commonModel.title, lineSpcae: 5.0)
-            self.infoLabel.attributedText  = UILabel.setAttributText(appSoModel.commonModel.excerpt, lineSpcae: 5.0)
-            self.logoImageView.if_setImage(NSURL(string: appSoModel.commonModel.image!))
+            self.titleLabel.attributedText = UILabel.setAttributText(appSoModel.title, lineSpcae: 5.0)
+            self.infoLabel.attributedText  = UILabel.setAttributText(appSoModel.excerpt, lineSpcae: 5.0)
+            self.logoImageView.if_setImage(NSURL(string: appSoModel.image!))
         }
     }
     

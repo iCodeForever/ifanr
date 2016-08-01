@@ -34,6 +34,7 @@ class TableHeaderView: UIView {
         /// 背景图
     private lazy var backgroundImageView: UIImageView = {
         let backgroundImageView   = UIImageView(frame: CGRectMake(0, -1, self.width, 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
+        backgroundImageView.backgroundColor = UIColor.blackColor()
         backgroundImageView.contentMode = .ScaleAspectFit
         return backgroundImageView
     }()

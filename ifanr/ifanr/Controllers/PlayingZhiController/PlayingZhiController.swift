@@ -29,7 +29,7 @@ class PlayingZhiController: BasePageController {
     func getData(page: Int = 1) {
         isRefreshing = true
         
-        IFanrService.shareInstance.getLatesData(APIConstant.PlayingZhi_latest(page), successHandle: { (modelArray) in
+        IFanrService.shareInstance.getLatesModel(APIConstant.PlayingZhi_latest(page), successHandle: { (modelArray) in
             if page == 1 {
                 self.page = 1
                 self.playingZhiModelArray.removeAll()
@@ -53,7 +53,7 @@ class PlayingZhiController: BasePageController {
         return TableHeaderView(model: TableHeaderModelArray[1])
     }()
     
-    var playingZhiModelArray : Array<HomePopularModel> = Array()
+    var playingZhiModelArray : Array<CommonModel> = Array()
 
 }
 
@@ -93,13 +93,13 @@ extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return PlayingZhiTableViewCell.estimateCellHeight(self.playingZhiModelArray[indexPath.row].commonModel.title!) + 20
+        return PlayingZhiTableViewCell.estimateCellHeight(self.playingZhiModelArray[indexPath.row].title!) + 20
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if let homePopularModel: HomePopularModel = self.playingZhiModelArray[indexPath.row] {
-            let ifDetailsController = IFDetailsController(model: homePopularModel.commonModel)
+        if let model: CommonModel = self.playingZhiModelArray[indexPath.row] {
+            let ifDetailsController = IFDetailsController(model: model)
             self.navigationController?.pushViewController(ifDetailsController, animated: true)
         }
     }

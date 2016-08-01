@@ -21,6 +21,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
         
         
+        registerShareSDK()
+        return true
+    }
+    
+    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+        // 获取缓存大小
+        let cache = YYWebImageManager.sharedManager().cache
+        let memoryCache = cache!.memoryCache.totalCost
+        let diskCache = cache!.diskCache.totalCost
+        
+        print("memoryCache: \(memoryCache) -- diskCache: \(diskCache)")
+    }
+}
+
+
+extension AppDelegate {
+    func registerShareSDK() {
         ShareSDK.registerApp("150733cdd42da",
                              activePlatforms: [SSDKPlatformType.TypeWechat.rawValue],
                              onImport: {(platform : SSDKPlatformType) -> Void in
@@ -45,16 +62,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                     
                                 }
         })
-        
-        return true
-    }
-    
-    func applicationDidReceiveMemoryWarning(application: UIApplication) {
-        // 获取缓存大小
-        let cache = YYWebImageManager.sharedManager().cache
-        let memoryCache = cache!.memoryCache.totalCost
-        let diskCache = cache!.diskCache.totalCost
-        
-        print("memoryCache: \(memoryCache) -- diskCache: \(diskCache)")
     }
 }

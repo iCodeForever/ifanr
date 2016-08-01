@@ -24,9 +24,8 @@ class IFanrService {
      - parameter errorHandle:   请求失败回调
      */
     
-    func getHomeLatestData(page: Int, successHandle: (Array<HomePopularLayout> -> Void)?, errorHandle:((Error) -> Void)?) {
-        ifanrProvider.request(APIConstant.Home_latest(page)) { (result) in
-            
+    func getLatestLayout(target: APIConstant, successHandle: (Array<HomePopularLayout> -> Void)?, errorHandle:((Error) -> Void)?) {
+        ifanrProvider.request(target) { (result) in
             switch result {
             case let .Success(response):
                 
@@ -37,12 +36,12 @@ class IFanrService {
                         // 获取Data数组
                         if let content = json["data"] as? Array<AnyObject> {
                             // 放到异步去处理字典转模型，提前计算好cell的高度。
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { 
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                                 let layoutArray = content.map({ (dict) -> HomePopularLayout in
-                                    return HomePopularLayout(model: HomePopularModel(dict: dict as! NSDictionary))
+                                    return HomePopularLayout(model: CommonModel(dict: dict as! NSDictionary))
                                 })
                                 
-                                dispatch_async(dispatch_get_main_queue(), { 
+                                dispatch_async(dispatch_get_main_queue(), {
                                     if let success = successHandle {
                                         success(layoutArray)
                                     }
@@ -76,7 +75,7 @@ class IFanrService {
      - parameter successHandle: 成功回调
      - parameter errorHandle:   失败回调
      */
-    func getLatesData(target: APIConstant, successHandle: (Array<HomePopularModel> -> Void)?, errorHandle:((Error) -> Void)?) {
+    func getLatesModel(target: APIConstant, successHandle: (Array<CommonModel> -> Void)?, errorHandle:((Error) -> Void)?) {
         
         ifanrProvider.request(target) { (result) in
             switch result {
@@ -89,49 +88,8 @@ class IFanrService {
                         if let content = json["data"] as? Array<AnyObject> {
                             // 放到异步去处理字典转模型，提前计算好cell的高度。
                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                let modelArray = content.map({ (dict) -> HomePopularModel in
-                                    return HomePopularModel(dict: dict as! NSDictionary)
-                                })
-                                
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    if let success = successHandle {
-                                        success(modelArray)
-                                    }
-                                })
-                            })
-                        } else {
-                            print("没有数据")
-                        }
-                    } else {
-                        print("没有数据")
-                    }
-                    
-                } catch {
-                    print("出现异常")
-                }
-            case let .Failure(error):
-                if let handle = errorHandle {
-                    handle(error)
-                }
-            }
-        }
-    }
-    
-    func getAppSoData(page: Int, successHandle: (Array<AppSoModel> -> Void)?, errorHandle:((Error) -> Void)?) {
-        
-        ifanrProvider.request(APIConstant.AppSo_latest(page)) { (result) in
-            switch result {
-            case let .Success(response):
-                do {
-                    // 获取json数据
-                    let json = try response.mapJSON() as? Dictionary<String, AnyObject>
-                    if let json = json {
-                        // 获取Data数组
-                        if let content = json["data"] as? Array<AnyObject> {
-                            // 放到异步去处理字典转模型，提前计算好cell的高度。
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                let modelArray = content.map({ (dict) -> AppSoModel in
-                                    return AppSoModel(dict: dict as! NSDictionary)
+                                let modelArray = content.map({ (dict) -> CommonModel in
+                                    return CommonModel(dict: dict as! NSDictionary)
                                 })
                                 
                                 dispatch_async(dispatch_get_main_queue(), {

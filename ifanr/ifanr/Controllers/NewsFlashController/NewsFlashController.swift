@@ -29,7 +29,7 @@ class NewsFlashController: BasePageController {
     func getData(page: Int = 1) {
         isRefreshing = true
         
-        IFanrService.shareInstance.getLatesData(APIConstant.NewsFlash_latest(page), successHandle: { (modelArray) in
+        IFanrService.shareInstance.getLatesModel(APIConstant.NewsFlash_latest(page), successHandle: { (modelArray) in
             if page == 1 {
                 self.page = 1
                 self.newsFlashModelArray.removeAll()
@@ -53,7 +53,7 @@ class NewsFlashController: BasePageController {
         return TableHeaderView(model: TableHeaderModelArray.first!)
     }()
     
-    private var newsFlashModelArray = Array<HomePopularModel>()
+    private var newsFlashModelArray = Array<CommonModel>()
 }
 
 // MARK: - 下拉刷新回调
@@ -92,13 +92,13 @@ extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return NewsFlashTableViewCell.estimateCellHeight(self.newsFlashModelArray[indexPath.row].commonModel.title!) + 30
+        return NewsFlashTableViewCell.estimateCellHeight(self.newsFlashModelArray[indexPath.row].title!) + 30
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let model: HomePopularModel = self.newsFlashModelArray[indexPath.row];
-        let detailController: NewsFlashDetailController = NewsFlashDetailController(model: model.commonModel)
+        let model = self.newsFlashModelArray[indexPath.row];
+        let detailController: NewsFlashDetailController = NewsFlashDetailController(model: model)
         self.navigationController?.pushViewController(detailController, animated: true)
         
     }

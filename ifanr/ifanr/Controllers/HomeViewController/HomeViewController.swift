@@ -41,7 +41,7 @@ class HomeViewController: BasePageController {
         let group = dispatch_group_create()
         dispatch_group_enter(group)
         
-        IFanrService.shareInstance.getLatesData(APIConstant.Home_hot_features(5), successHandle: { [unowned self](modelArray) in
+        IFanrService.shareInstance.getLatesModel(APIConstant.Home_hot_features(5), successHandle: { [unowned self](modelArray) in
             self.headerModelArray = modelArray
             dispatch_group_leave(group)
             }, errorHandle: { (error) in
@@ -51,7 +51,7 @@ class HomeViewController: BasePageController {
         
         page = 1
         dispatch_group_enter(group)
-        IFanrService.shareInstance.getHomeLatestData(page, successHandle: { [unowned self](layoutArray) in
+        IFanrService.shareInstance.getLatestLayout(APIConstant.Home_latest(page), successHandle: { [unowned self](layoutArray) in
             self.latestCellLayout.removeAll()
             layoutArray.forEach {
                 self.latestCellLayout.append($0)
@@ -82,7 +82,7 @@ class HomeViewController: BasePageController {
     
     // 列表数据
     private var latestCellLayout = Array<HomePopularLayout>()
-    private var headerModelArray: [HomePopularModel]?
+    private var headerModelArray: [CommonModel]?
     
     //MARK: --------------------------- ScrollViewControllerReusable --------------------------
 
@@ -108,7 +108,7 @@ extension HomeViewController {
         if differY < happenY {
             if !isRefreshing {
                 // 这里处理上拉加载更多
-                IFanrService.shareInstance.getHomeLatestData(page, successHandle: { (layoutArray) in
+                IFanrService.shareInstance.getLatestLayout(APIConstant.Home_latest(page), successHandle: { (layoutArray) in
                     layoutArray.forEach{
                         self.latestCellLayout.append($0)
                     }
@@ -132,7 +132,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let cellModel = latestCellLayout[indexPath.row].model
-        print("aa")
         if cellModel.post_type == PostType.dasheng {
             let cell = cell as! HomeLatestTextCell
             cell.popularLayout = latestCellLayout[indexPath.row]
@@ -163,8 +162,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let homePopularModel: HomePopularModel = self.headerModelArray![indexPath.row] {
-            let ifDetailsController = IFDetailsController(model: homePopularModel.commonModel)
+        if let model: CommonModel = self.headerModelArray![indexPath.row] {
+            let ifDetailsController = IFDetailsController(model: model)
             self.navigationController?.pushViewController(ifDetailsController, animated: true)
         }
     }

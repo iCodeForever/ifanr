@@ -90,23 +90,39 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func removeCategoryView(categoryView: CategoryView) {
+        UIView.animateWithDuration(0.5, animations: {
+            categoryView.alpha = 0
+            self.headerView.alpha = 1
+            }, completion: { (com) in
+                categoryView.removeFromSuperview()
+        })
+    }
+    
     //MARK: --------------------------- Event and Action --------------------------
     @objc private func classifyBtnDidClick() {
-        let cotegoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.height))
-        cotegoryView.alpha = 0
-        self.view.addSubview(cotegoryView)
+        let categoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.height))
+        categoryView.alpha = 0
+        self.view.addSubview(categoryView)
         UIView.animateWithDuration(0.5) {
-            cotegoryView.alpha = 1
+            categoryView.alpha = 1
             self.headerView.alpha = 0
         }
         
-        cotegoryView.coverBtnClick{
-            UIView.animateWithDuration(0.5, animations: {
-                cotegoryView.alpha = 0
-                self.headerView.alpha = 1
-                }, completion: { (com) in
-                        cotegoryView.removeFromSuperview()
-            })
+        // 点击黑色区域隐藏
+        categoryView.coverBtnClick { [unowned self] in
+            self.removeCategoryView(categoryView)
+            
+        }
+        // 点击item跳转界面
+        categoryView.itemDidClick { [unowned self](collectionView, indexPath) in
+            self.removeCategoryView(categoryView)
+            if indexPath.row == 0 {
+                return
+            }
+            
+            self.navigationController?.pushViewController(CategoryController(categoryModel: CategoryModelArray[indexPath.row]), animated: true)
+            
         }
         
     }
