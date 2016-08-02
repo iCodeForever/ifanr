@@ -83,11 +83,10 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
 class CategoryMenuHeaderView: UICollectionReusableView, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         let imageView = UIImageView(image: UIImage(named: "tag_more_columns"))
         imageView.contentMode = .ScaleAspectFit
         imageView.frame = CGRect(x: 0, y: 0, width: self.width, height: 25)
-        imageView.center = self.center
+        imageView.center = CGPoint(x: self.center.x, y: fabs(self.center.y))
         addSubview(imageView)
         
     }

@@ -29,6 +29,13 @@ class CategoryListHeaderView: UIView {
         }
     }
     
+    var labelAlpha: CGFloat = 1{
+        didSet {
+            self.titleLabel.alpha = labelAlpha
+            self.subTitleLabel.alpha = labelAlpha
+        }
+    }
+    
         /// 背景图
     private lazy var backgroundImage: UIImageView = {
         var backgroundImage = UIImageView()

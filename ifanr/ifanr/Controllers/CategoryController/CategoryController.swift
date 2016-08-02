@@ -15,8 +15,10 @@ class CategoryController: UIViewController {
     }
     convenience init(categoryModel: CategoryModel) {
         self.init()
-
         self.view.addSubview(tableView)
+        self.tableView.insertSubview(CategoryMenuHeaderView(frame: CGRect(x: 0, y: -cellHeaderViewHeight, width: self.view.width, height: cellHeaderViewHeight)), atIndex: 0)
+        self.view.addSubview(headerView)
+        self.view.addSubview(titleLabel)
         self.view.addSubview(backBtn)
         
         self.categoryModel = categoryModel
@@ -27,8 +29,15 @@ class CategoryController: UIViewController {
             make.top.equalTo(self.view).offset(UIConstant.UI_MARGIN_20)
             make.size.equalTo(CGSize(width: 50, height: 20))
         }
-        
+        titleLabel.text = categoryModel.title
+        titleLabel.snp_makeConstraints { (make) in
+            make.left.right.equalTo(self.view)
+            make.centerY.equalTo(backBtn.snp_centerY)
+            make.height.equalTo(20)
+        }
+        headerHappenY = -(headerView.height+cellHeaderViewHeight)
         getData()
+        
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -36,9 +45,11 @@ class CategoryController: UIViewController {
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
+    private var cellHeaderViewHeight: CGFloat = 70.0
+    private var headerHappenY: CGFloat = 0
     private var categoryModel: CategoryModel!
     private var page = 1
-    private var isRefreshing: Bool = false
+    private var isRefreshing: Bool = true
     /// 上拉加载更多触发零界点
     var happenY: CGFloat = UIConstant.SCREEN_HEIGHT+20
     var differY: CGFloat = 0
@@ -52,6 +63,15 @@ class CategoryController: UIViewController {
         return backBtn
     }()
     
+    private lazy var titleLabel: UILabel = {
+        var titleLabel = UILabel()
+        titleLabel.textAlignment = .Center
+        titleLabel.alpha = 0
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 15)
+        return titleLabel
+    }()
+    
     private lazy var headerView: CategoryListHeaderView = {
         // 1440:944
         var headerView = CategoryListHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 200*UIConstant.SCREEN_WIDTH / UIConstant.IPHONE5_HEIGHT))
@@ -59,17 +79,17 @@ class CategoryController: UIViewController {
     }()
     
     private lazy var tableView: UITableView = {
-//        let tableView=  UITableView(frame: self.view.bounds, style: .Plain)
         let tableView = UITableView(frame: self.view.bounds)
         tableView.backgroundColor = UIColor.whiteColor()
         tableView.separatorStyle = .None
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.tableHeaderView = self.headerView
-        tableView.sectionHeaderHeight = 200*UIConstant.SCREEN_WIDTH / UIConstant.IPHONE5_HEIGHT
         tableView.sectionFooterHeight = 50
         tableView.tableFooterView = self.pullToRefreshFootView()
-        self.view.addSubview(tableView)
+        var inset = tableView.contentInset
+        // 50是tag图片高度
+        inset.top = self.headerView.height+self.cellHeaderViewHeight
+        tableView.contentInset = inset
         return tableView
     }()
     
@@ -83,7 +103,6 @@ extension CategoryController {
         activityView.color = UIConstant.UI_COLOR_GrayTheme
         activityView.center = CGPoint(x: self.view.center.x, y: 25)
         activityView.startAnimation()
-        
         let footView = UIView()
         footView.origin = CGPointZero
         footView.size = CGSize(width: 50, height: 50)
@@ -128,7 +147,7 @@ extension CategoryController: UIScrollViewDelegate {
         // 计算contentsize与offset的差值
         let contentSizeY = scrollView.contentSize.height
         let contentOffsetY = scrollView.contentOffset.y
-        
+        let insety = scrollView.contentInset.top
         differY = contentSizeY-contentOffsetY
         
         if differY < happenY {
@@ -137,7 +156,29 @@ extension CategoryController: UIScrollViewDelegate {
                 getData(page)
             }
         }
+        
+        // 处理淡入淡出动画
+        let happenMinContentoffsetY = UIConstant.UI_NAV_HEIGHT+cellHeaderViewHeight
+        if contentOffsetY <= headerHappenY {
+            self.headerView.y = 0
+            self.titleLabel.alpha = 0
+            self.headerView.labelAlpha = 1
+        } else if contentOffsetY >= headerHappenY && contentOffsetY <= -happenMinContentoffsetY {
+            let differ = fabs(headerHappenY) - happenMinContentoffsetY
+            let titleLabelAlpha = (happenMinContentoffsetY-fabs(contentOffsetY))/differ+1
+            print(titleLabelAlpha)
+            UIView.animateWithDuration(0.01, animations: {
+                self.headerView.y = self.headerHappenY-contentOffsetY
+                self.titleLabel.alpha = titleLabelAlpha
+                self.headerView.labelAlpha = 1-titleLabelAlpha
+            })
+        } else {
+            self.titleLabel.alpha = 1
+            self.headerView.labelAlpha = 0
+            self.headerView.y = -(self.headerView.height-UIConstant.UI_NAV_HEIGHT)
+        }
     }
+    
 }
 
 //MARK: --------------------------- UITableViewDelegate, UITableViewDataSource --------------------------
