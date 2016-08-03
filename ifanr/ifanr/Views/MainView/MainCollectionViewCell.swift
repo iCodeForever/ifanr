@@ -12,6 +12,7 @@ class MainCollectionViewCell: UICollectionViewCell, Reusable {
     
     var childVCView: UIView! {
         didSet {
+            childVCView.frame = self.contentView.bounds
             self.contentView.addSubview(childVCView)
         }
     }

@@ -13,6 +13,7 @@ class CategoryController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
     }
+    
     convenience init(categoryModel: CategoryModel) {
         self.init()
         self.view.addSubview(tableView)
