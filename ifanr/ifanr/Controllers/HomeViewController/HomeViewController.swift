@@ -78,6 +78,7 @@ class HomeViewController: BasePageController {
         
     }
     
+    
     //MARK: --------------------------- Getter and Setter --------------------------
     
     // 列表数据
@@ -90,7 +91,7 @@ class HomeViewController: BasePageController {
      tableView HeaderView
      */
     private lazy var tableHeaderView: HomeHeaderView = {
-        return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: UIConstant.SCREEN_WIDTH*0.625+45))
+        return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width*0.625+45))
     }()
 }
 

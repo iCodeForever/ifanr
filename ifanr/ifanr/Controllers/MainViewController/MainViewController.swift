@@ -18,24 +18,25 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
-        self.view.addSubview(collectionView)
-//        self.view.addSubview(fpsLabel)
         
-        // 添加根控制器
-        self.addrootViewController()
+        initRootViewController()
+        
+        self.view.addSubview(menuController.view)
+        self.view.addSubview(scrollView)
+//        self.view.addSubview(fpsLabel)
         // 添加标题和红线
         self.view.addSubview(headerView)
         self.view.addSubview(redLine)
-        
         // 添加两个菜单切换按钮
         self.view.addSubview(menuBtn)
         self.view.addSubview(classifyBtn)
         
         setUpLayout()
         
-        collectionView.performBatchUpdates({ [unowned self] in
-            self.collectionView.setContentOffset(CGPoint(x: UIConstant.SCREEN_WIDTH, y: 0), animated: false)
-            }, completion: nil)
+        // collection刷新时默认跳到首页界面
+//        collectionView.performBatchUpdates({ [unowned self] in
+//            self.collectionView.setContentOffset(CGPoint(x: UIConstant.SCREEN_WIDTH, y: 0), animated: false)
+//            }, completion: nil)
     }
     
     /**
@@ -46,38 +47,9 @@ class MainViewController: UIViewController {
     }
     
     //MARK: --------------------------- Private Methods --------------------------
-
-    /**
-     添加跟控制器
-     */
-    private func addrootViewController() {
-        newsFlashController.scrollViewReusableDataSource = self
-        homeViewController.scrollViewReusableDataSource = self
-        playzhiController.scrollViewReusableDataSource = self
-        appSoController.scrollViewReusableDataSource = self
-        mindStoreController.scrollViewReusableDataSource = self
-        
-        newsFlashController.scrollViewReusableDelegate = self
-        homeViewController.scrollViewReusableDelegate = self
-        playzhiController.scrollViewReusableDelegate = self
-        appSoController.scrollViewReusableDelegate = self
-        mindStoreController.scrollViewReusableDelegate = self
-        
-        self.addChildViewController(newsFlashController)
-        self.addChildViewController(homeViewController)
-        self.addChildViewController(playzhiController)
-        self.addChildViewController(appSoController)
-        self.addChildViewController(mindStoreController)
-    
-        viewArray.append(newsFlashController.view)
-        viewArray.append(homeViewController.view)
-        viewArray.append(playzhiController.view)
-        viewArray.append(appSoController.view)
-        viewArray.append(mindStoreController.view)
-    }
-    
     // 布局
     private func setUpLayout() {
+
         self.menuBtn.snp_makeConstraints { (make) in
             make.right.equalTo(-15)
             make.top.equalTo(35)
@@ -90,6 +62,130 @@ class MainViewController: UIViewController {
         }
     }
     
+    
+    
+    //MARK: --------------------------- Getter and Setter --------------------------
+    // 首页
+    let homeViewController = HomeViewController()
+    // 快讯
+    let newsFlashController = NewsFlashController()
+    // Appso
+    let appSoController = AppSoViewController()
+    // 玩物志
+    let playzhiController = PlayingZhiController()
+    // MindStore
+    let mindStoreController = MindStoreViewController()
+    // 菜单
+    let menuController = MenuViewController()
+    
+    var viewArray = [UIView]()
+    
+    /// 缩放值
+    let scale: CGFloat = 0.4
+    
+        /// fps标签
+    private lazy var fpsLabel: YYFPSLabel = {
+        var fpsLabel: YYFPSLabel = YYFPSLabel(frame: CGRect(x: UIConstant.UI_MARGIN_20, y: self.view.height-40, width: 0, height: 0))
+        fpsLabel.sizeToFit()
+        return fpsLabel
+    }()
+    
+    private lazy var headerView: MainHeaderView = {
+        var headerView: MainHeaderView = MainHeaderView(frame: CGRect(x: 0, y: 0, width: 5*UIConstant.SCREEN_WIDTH, height: 20))
+        return headerView
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        var scrollView = UIScrollView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20))
+        scrollView.pagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
+        return scrollView
+    }()
+    
+//    private lazy var collectionView: UICollectionView = {
+//        var collectionView = UICollectionView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20), collectionViewLayout: MainCollectionViewLayout())
+//        collectionView.registerClass(MainCollectionViewCell.self)
+//        collectionView.pagingEnabled = true
+//        collectionView.showsHorizontalScrollIndicator = false
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
+//        return collectionView
+//    }()
+    
+        /// 菜单按钮
+    private lazy var menuBtn : UIButton = {
+        let menuBtn = UIButton()
+        menuBtn.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
+        menuBtn.addTarget(self, action: #selector(MainViewController.menuBtnDidClick), forControlEvents: .TouchUpInside)
+        return menuBtn
+    }()
+    
+        /// 首页分类按钮
+    private lazy var classifyBtn: UIButton = {
+        let classifyBtn = UIButton()
+        classifyBtn.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
+        classifyBtn.addTarget(self, action: #selector(MainViewController.classifyBtnDidClick), forControlEvents: .TouchUpInside)
+        return classifyBtn
+    }()
+
+        /// 顶部红线
+    private lazy var redLine: UIView = {
+        let redLine = UIView()
+        redLine.frame = CGRect(x: self.view.center.x-20, y: 0, width: 40, height: 1)
+        redLine.backgroundColor = UIConstant.UI_COLOR_RedTheme
+        return redLine
+    }()
+}
+
+// MARK: - 初始化控件
+extension MainViewController {
+    private func initRootViewController() {
+        newsFlashController.scrollViewReusableDataSource = self
+        homeViewController.scrollViewReusableDataSource = self
+        playzhiController.scrollViewReusableDataSource = self
+        appSoController.scrollViewReusableDataSource = self
+        mindStoreController.scrollViewReusableDataSource = self
+        
+        newsFlashController.scrollViewReusableDelegate = self
+        homeViewController.scrollViewReusableDelegate = self
+        playzhiController.scrollViewReusableDelegate = self
+        appSoController.scrollViewReusableDelegate = self
+        mindStoreController.scrollViewReusableDelegate = self
+        
+        menuController.view.frame = self.view.bounds
+        self.addChildViewController(menuController)
+//        self.addChildViewController(newsFlashController)
+//        self.addChildViewController(homeViewController)
+//        self.addChildViewController(playzhiController)
+//        self.addChildViewController(appSoController)
+//        self.addChildViewController(mindStoreController)
+        
+        viewArray.append(newsFlashController.view)
+        viewArray.append(homeViewController.view)
+        viewArray.append(playzhiController.view)
+        viewArray.append(appSoController.view)
+        viewArray.append(mindStoreController.view)
+        
+        for i in 0..<viewArray.count {
+            let view = viewArray[i]
+            view.frame = CGRect(x: CGFloat(i)*self.view.width, y: 0, width: scrollView.width, height: scrollView.height)
+            scrollView.addSubview(view)
+        }
+        scrollView.contentSize = CGSize(width: CGFloat(viewArray.count)*scrollView.width, height: 0)
+        
+        scrollView.setContentOffset(CGPoint(x: scrollView.width, y: 0), animated: false)
+    }
+}
+
+//MARK: --------------------------- Event and Action --------------------------
+// MARK: - 这里处理一些事件处理， 比如菜单和分类的按钮的事件
+extension MainViewController {
+    /**
+     移除分类View
+     
+     - parameter categoryView: <#categoryView description#>
+     */
     private func removeCategoryView(categoryView: CategoryView) {
         UIView.animateWithDuration(0.5, animations: {
             categoryView.alpha = 0
@@ -99,7 +195,9 @@ class MainViewController: UIViewController {
         })
     }
     
-    //MARK: --------------------------- Event and Action --------------------------
+    /**
+     点击分类按钮
+     */
     @objc private func classifyBtnDidClick() {
         let categoryView = CategoryView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.height))
         categoryView.alpha = 0
@@ -124,76 +222,36 @@ class MainViewController: UIViewController {
             self.navigationController?.pushViewController(CategoryController(categoryModel: CategoryModelArray[indexPath.row]), animated: true)
             
         }
-        
     }
     
-    //MARK: --------------------------- Getter and Setter --------------------------
-    // 首页
-    let homeViewController = HomeViewController()
-    // 快讯
-    let newsFlashController = NewsFlashController()
-    // Appso
-    let appSoController = AppSoViewController()
-    // 玩物志
-    let playzhiController = PlayingZhiController()
-    // MindStore
-    let mindStoreController = MindStoreViewController()
-    
-    var viewArray = [UIView]()
-    
-        /// fps标签
-    private lazy var fpsLabel: YYFPSLabel = {
-        var fpsLabel: YYFPSLabel = YYFPSLabel(frame: CGRect(x: UIConstant.UI_MARGIN_20, y: self.view.height-40, width: 0, height: 0))
-        fpsLabel.sizeToFit()
-        return fpsLabel
-    }()
-    
-    private lazy var headerView: MainHeaderView = {
-        var headerView: MainHeaderView = MainHeaderView(frame: CGRect(x: 0, y: 0, width: 5*UIConstant.SCREEN_WIDTH, height: 20))
-        return headerView
-    }()
-    
-    private lazy var collectionView: UICollectionView = {
-        let collectionLayout = UICollectionViewFlowLayout()
-        collectionLayout.scrollDirection = .Horizontal
-        collectionLayout.minimumLineSpacing = 0
-        collectionLayout.itemSize = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
-        var collectionView = UICollectionView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20), collectionViewLayout: collectionLayout)
-        collectionView.registerClass(MainCollectionViewCell.self)
-        collectionView.pagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        return collectionView
-    }()
-    
-        /// 菜单按钮
-    private lazy var menuBtn : UIButton = {
-        let menuBtn = UIButton()
-        menuBtn.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
-        return menuBtn
-    }()
-    
-        /// 首页分类按钮
-    private lazy var classifyBtn: UIButton = {
-        let classifyBtn = UIButton()
-        classifyBtn.setImage(UIImage(imageLiteral: "ic_circle"), forState: .Normal)
-        classifyBtn.addTarget(self, action: #selector(MainViewController.classifyBtnDidClick), forControlEvents: .TouchUpInside)
-        return classifyBtn
-    }()
-
-        /// 顶部红线
-    private lazy var redLine: UIView = {
-        let redLine = UIView()
-        redLine.frame = CGRect(x: self.view.center.x-20, y: 0, width: 40, height: 1)
-        redLine.backgroundColor = UIConstant.UI_COLOR_RedTheme
-        return redLine
-    }()
+    @objc private func menuBtnDidClick() {
+        // 缩放后子控件的宽
+        let scaleWidth = scrollView.width*scale
+        // scorllview中心点变化后的值
+        let transY = scrollView.center.y+scrollView.height*(1-scale)*0.5
+        let scrollViewTransCenter = CGPoint(x: self.scrollView.center.x, y: transY)
+        
+        self.scrollView.pagingEnabled = false
+        self.scrollView.contentSize = CGSize(width: scaleWidth*CGFloat(viewArray.count), height: 0)
+        
+        UIView.animateWithDuration(3) {
+//            self.scrollView.center = CGAffineTransformMakeTranslation(0, transY)
+//            let t = CGAffineTransformMakeScale(1, 0.4)
+            self.scrollView.center = scrollViewTransCenter
+            self.scrollView.transform = CGAffineTransformMakeScale(1, self.scale)
+            
+            for i in 0..<self.viewArray.count {
+                let view = self.viewArray[i]
+                view.transform = CGAffineTransformMakeScale(self.scale, 1)
+                view.center = CGPoint(x: scaleWidth*(CGFloat(i)+0.5), y: view.center.y)
+            }
+        }
+    }
 }
 
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewArray.count
     }
@@ -205,13 +263,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
-// MARK: - 这里处理头部位移差
+// MARK: - 这里处理collectionview左右滑动时的一些动画（头部控件位移差，菜单分类按钮）
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
         headerView.x = -scrollView.contentOffset.x/scale
         
-        // 处理分类按钮淡入淡出动画
+        // 处理分类按钮左右滑动时淡入淡出动画
         let contentoffx = scrollView.contentOffset.x
         let alpha = 1 - fabs((contentoffx-UIConstant.SCREEN_WIDTH) / UIConstant.SCREEN_WIDTH)
         classifyBtn.alpha = alpha
@@ -239,6 +297,7 @@ extension MainViewController: ScrollViewControllerReusableDataSource {
     }
 }
 
+//MARK: ------------ ScrollView上下滚动方向改变时调用，用于处理菜单按钮和分类按钮的动画 -----------
 extension MainViewController: ScrollViewControllerReusableDelegate {
     func ScrollViewControllerDirectionDidChange(direction: ScrollViewDirection) {
         MenuBtnAnimation(direction)

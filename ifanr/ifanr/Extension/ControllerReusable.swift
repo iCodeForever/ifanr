@@ -43,7 +43,7 @@ protocol ScrollViewControllerReusableDataSource: ControllerReusable {
 
 protocol ScrollViewControllerReusableDelegate: ControllerReusable {
     /**
-     scrollview滚动时方向改变是调用
+     scrollview滚动时方向改变时调用
      */
     func ScrollViewControllerDirectionDidChange(direction: ScrollViewDirection)
 }

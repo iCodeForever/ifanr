@@ -24,7 +24,7 @@ class BasePageController: UIViewController, ScrollViewControllerReusable {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    
+  
     //MARK: --------------------------- Getter and Setter --------------------------
     var tableView: UITableView!
     /// 下拉刷新
