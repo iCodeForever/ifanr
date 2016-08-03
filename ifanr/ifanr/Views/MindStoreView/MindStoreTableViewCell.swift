@@ -38,9 +38,13 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
            
             if model.relatedImageModelArr.count == 1 {
                 self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
+                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
             } else if model.relatedImageModelArr.count == 2 {
                 self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
                 self.relatedImg2.if_setImage(NSURL(string: model.relatedImageModelArr[1].link!))
+            } else {
+                self.relatedImg1.image = UIImage(named: "ic_mind_store_comment")
+                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
             }
             
             self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
@@ -50,54 +54,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         }
     }
     
-    //MARK:-----setter or getter-----
-    
-    // vote button
-    private lazy var voteBtn: UIButton = {
-        let voteBtn = UIButton()
-        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
-        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
-        voteBtn.addTarget(self, action: #selector(toVote), forControlEvents: .TouchUpInside)
-        return voteBtn
-    }()
-    // vote label
-    private lazy var voteNumberLabel: UILabel = {
-        let voteNumberLabel = UILabel()
-        voteNumberLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 13)
-        voteNumberLabel.textAlignment = .Center
-        voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
-                                            green: 173/255.0, blue: 169/255.0, alpha: 1)
-        return voteNumberLabel
-    }()
-    // 标题，需动态计算高度
-    private lazy var titleLabel: UILabel = {
-        let titleLabel  = UILabel()
-        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
-        titleLabel.numberOfLines    = 0
-        titleLabel.lineBreakMode    = .ByWordWrapping
-        return titleLabel
-    }()
-    // 粗略信息，动态计算高度
-    private lazy var tagLineLabel: UILabel = {
-        let tagLineLabel = UILabel()
-        tagLineLabel.numberOfLines     = 0
-        tagLineLabel.lineBreakMode     = .ByCharWrapping
-        tagLineLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        tagLineLabel.textColor = UIColor.lightGrayColor()
-        return tagLineLabel
-    }()
-    // related imageview
-    private lazy var relatedImg1: UIImageView = {
-        let relatedImg1 = UIImageView()
-        return relatedImg1
-    }()
-    private lazy var relatedImg2: UIImageView = {
-        let relatedImg2 = UIImageView()
-        return relatedImg2
-    }()
-    
     //MARK:-----custom function-----
-    
     @objc private func toVote(btn: UIButton) {
         if btn.selected {
             btn.selected = false
@@ -161,6 +118,10 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
             make.bottom.equalTo(self.relatedImg1.snp_top).offset(-UIConstant.UI_MARGIN_10)
         }
         
+        // 设置拉伸的优先级，titleLabel默认不拉伸
+        self.titleLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
+        self.tagLineLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
+        
         self.relatedImg1.contentMode    = .ScaleAspectFill
         self.relatedImg1.layer.cornerRadius     = 10
         self.relatedImg1.layer.masksToBounds    = true
@@ -184,10 +145,9 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     }
     
     // 动态label的高度
-    class func estimateLabelHeight (content: String) -> CGFloat {
+    class func estimateLabelHeight (content: String, font: UIFont) -> CGFloat {
         
-        let size    = CGSizeMake(UIConstant.SCREEN_WIDTH - 30 ,2000)
-        let attrs   = NSMutableAttributedString(string: content)
+        let size    = CGSizeMake(UIConstant.SCREEN_WIDTH - 80 ,2000)
         let paragphStyle = NSMutableParagraphStyle()
         
         paragphStyle.lineSpacing = 5.0;
@@ -195,15 +155,9 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         paragphStyle.hyphenationFactor      = 0.0;
         paragphStyle.paragraphSpacingBefore = 0.0;
         
-        let dic = [NSFontAttributeName : UIFont.customFont_FZLTXIHJW(fontSize: 16),
+        let dic = [NSFontAttributeName : font,
                    NSParagraphStyleAttributeName: paragphStyle,
                    NSKernAttributeName : 1.0]
-        
-        attrs.addAttribute(NSFontAttributeName,
-                           value: UIFont.customFont_FZLTXIHJW(fontSize: 16),
-                           range: NSMakeRange(0, (content.characters.count)))
-        attrs.addAttribute(NSParagraphStyleAttributeName, value: paragphStyle, range: NSMakeRange(0, (content.characters.count)))
-        attrs.addAttribute(NSKernAttributeName, value: 1.0, range: NSMakeRange(0, (content.characters.count)))
         
         let labelRect : CGRect = content.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
         
@@ -213,6 +167,53 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     // 动态计算 titleLabel/tagLineLabel 的高度
     class func estimateCellHeight(title : String, tagline: String) -> CGFloat {
         
-        return estimateLabelHeight(title) + estimateLabelHeight(tagline) + 60;
+        return estimateLabelHeight(title, font: UIFont.customFont_FZLTXIHJW(fontSize: 16)) +
+            estimateLabelHeight(tagline, font: UIFont.customFont_FZLTZCHJW(fontSize: 12)) + 80
     }
+    
+    //MARK:-----setter or getter-----
+    
+    // vote button
+    private lazy var voteBtn: UIButton = {
+        let voteBtn = UIButton()
+        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
+        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
+        voteBtn.addTarget(self, action: #selector(toVote), forControlEvents: .TouchUpInside)
+        return voteBtn
+    }()
+    // vote label
+    private lazy var voteNumberLabel: UILabel = {
+        let voteNumberLabel = UILabel()
+        voteNumberLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 13)
+        voteNumberLabel.textAlignment = .Center
+        voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
+                                            green: 173/255.0, blue: 169/255.0, alpha: 1)
+        return voteNumberLabel
+    }()
+    // 标题，需动态计算高度
+    private lazy var titleLabel: UILabel = {
+        let titleLabel  = UILabel()
+        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
+        titleLabel.numberOfLines    = 0
+        titleLabel.lineBreakMode    = .ByWordWrapping
+        return titleLabel
+    }()
+    // 粗略信息，动态计算高度
+    private lazy var tagLineLabel: UILabel = {
+        let tagLineLabel = UILabel()
+        tagLineLabel.numberOfLines     = 0
+        tagLineLabel.lineBreakMode     = .ByCharWrapping
+        tagLineLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
+        tagLineLabel.textColor = UIColor.lightGrayColor()
+        return tagLineLabel
+    }()
+    // related imageview
+    private lazy var relatedImg1: UIImageView = {
+        let relatedImg1 = UIImageView()
+        return relatedImg1
+    }()
+    private lazy var relatedImg2: UIImageView = {
+        let relatedImg2 = UIImageView()
+        return relatedImg2
+    }()
 }

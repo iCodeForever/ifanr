@@ -90,6 +90,6 @@ extension MindStoreViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return MindStoreTableViewCell.estimateCellHeight(self.mindStoreModelArray[indexPath.row].title!, tagline: self.mindStoreModelArray[indexPath.row].tagline) + 20
+        return MindStoreTableViewCell.estimateCellHeight(self.mindStoreModelArray[indexPath.row].title!, tagline: self.mindStoreModelArray[indexPath.row].tagline)
     }
 }
