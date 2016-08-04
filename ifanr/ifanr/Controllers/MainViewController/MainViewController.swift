@@ -159,6 +159,11 @@ extension MainViewController {
         
         menuController.view.frame = self.view.bounds
         self.addChildViewController(menuController)
+        self.addChildViewController(newsFlashController)
+        self.addChildViewController(homeViewController)
+        self.addChildViewController(playzhiController)
+        self.addChildViewController(appSoController)
+        self.addChildViewController(mindStoreController)
         
         viewArray.append(newsFlashController.view)
         viewArray.append(homeViewController.view)
@@ -260,7 +265,7 @@ extension MainViewController {
     private func setupViewCornerRadius() {
         UIView.animateWithDuration(0.1, animations: { [unowned self] in
             self.viewArray.forEach {
-                let maskPath = UIBezierPath(roundedRect: $0.bounds, cornerRadius: self.vcState == .Small ?0:10)
+                let maskPath = UIBezierPath(roundedRect: $0.bounds, cornerRadius: self.vcState == .Small ?0:20)
                 let maskLayer = CAShapeLayer()
                 maskLayer.frame = $0.bounds
                 maskLayer.path = maskPath.CGPath
