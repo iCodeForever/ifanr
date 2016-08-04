@@ -12,12 +12,21 @@
 
 import UIKit
 
+/**
+ 控制器状态， 缩小-放大
+ */
+enum ControllerStatus {
+    case Full
+    case Small
+}
+
 class MainViewController: UIViewController {
     
     //MARK: --------------------------- Life Cycle --------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blackColor()
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         
         initRootViewController()
         
@@ -32,18 +41,16 @@ class MainViewController: UIViewController {
         self.view.addSubview(classifyBtn)
         
         setUpLayout()
-        
-        // collection刷新时默认跳到首页界面
-//        collectionView.performBatchUpdates({ [unowned self] in
-//            self.collectionView.setContentOffset(CGPoint(x: UIConstant.SCREEN_WIDTH, y: 0), animated: false)
-//            }, completion: nil)
     }
     
-    /**
-     隐藏状态栏
-     */
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return statusBarStyle
+    }
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return statusBarHidden
+    }
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Slide
     }
     
     //MARK: --------------------------- Private Methods --------------------------
@@ -66,22 +73,29 @@ class MainViewController: UIViewController {
     
     //MARK: --------------------------- Getter and Setter --------------------------
     // 首页
-    let homeViewController = HomeViewController()
+    private let homeViewController = HomeViewController()
     // 快讯
-    let newsFlashController = NewsFlashController()
+    private let newsFlashController = NewsFlashController()
     // Appso
-    let appSoController = AppSoViewController()
+    private let appSoController = AppSoViewController()
     // 玩物志
-    let playzhiController = PlayingZhiController()
+    private let playzhiController = PlayingZhiController()
     // MindStore
-    let mindStoreController = MindStoreViewController()
+    private let mindStoreController = MindStoreViewController()
     // 菜单
-    let menuController = MenuViewController()
+    private let menuController = MenuViewController()
     
-    var viewArray = [UIView]()
+    private var viewArray = [UIView]()
+    private var coverBtnArray = [UIButton]()
     
     /// 缩放值
-    let scale: CGFloat = 0.4
+    private let scale: CGFloat = 0.4
+    /// 状态栏相关
+    private var statusBarStyle: UIStatusBarStyle = .LightContent
+    private var statusBarHidden: Bool = true
+    /// 默认是填充状态
+    private var vcState = ControllerStatus.Full
+    
     
         /// fps标签
     private lazy var fpsLabel: YYFPSLabel = {
@@ -103,21 +117,11 @@ class MainViewController: UIViewController {
         return scrollView
     }()
     
-//    private lazy var collectionView: UICollectionView = {
-//        var collectionView = UICollectionView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20), collectionViewLayout: MainCollectionViewLayout())
-//        collectionView.registerClass(MainCollectionViewCell.self)
-//        collectionView.pagingEnabled = true
-//        collectionView.showsHorizontalScrollIndicator = false
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-//        return collectionView
-//    }()
-    
         /// 菜单按钮
     private lazy var menuBtn : UIButton = {
         let menuBtn = UIButton()
         menuBtn.setImage(UIImage(imageLiteral:"ic_hamburg"), forState: .Normal)
-        menuBtn.addTarget(self, action: #selector(MainViewController.menuBtnDidClick), forControlEvents: .TouchUpInside)
+        menuBtn.addTarget(self, action: #selector(MainViewController.menuBtnDidClick(_:)), forControlEvents: .TouchUpInside)
         return menuBtn
     }()
     
@@ -155,11 +159,6 @@ extension MainViewController {
         
         menuController.view.frame = self.view.bounds
         self.addChildViewController(menuController)
-//        self.addChildViewController(newsFlashController)
-//        self.addChildViewController(homeViewController)
-//        self.addChildViewController(playzhiController)
-//        self.addChildViewController(appSoController)
-//        self.addChildViewController(mindStoreController)
         
         viewArray.append(newsFlashController.view)
         viewArray.append(homeViewController.view)
@@ -224,28 +223,117 @@ extension MainViewController {
         }
     }
     
-    @objc private func menuBtnDidClick() {
+    @objc private func menuBtnDidClick(clickView: UIView) {
+        vcState = vcState == .Full ?.Small:.Full
+        
+        setupViewHidden()
+        
+        // 设置圆角
+        setupViewCornerRadius()
+        
+        setupViewAnimation(clickView.tag)
+    }
+    
+    /**
+     执行放大收缩动画前需要隐藏和显示一些控件
+     */
+    private func setupViewHidden() {
+        
+        // 设置状态栏
+        statusBarHidden = vcState == .Full ?true:false
+        setNeedsStatusBarAppearanceUpdate()
+        // 设置菜单分类按钮,下拉刷新
+        self.headerView.hidden = vcState == .Full ?false:true
+        self.redLine.hidden =  vcState == .Full ?false:true
+        self.classifyBtn.hidden =  vcState == .Full ?false:true
+        self.menuBtn.hidden =  vcState == .Full ?false:true
+    }
+    
+    /**
+     设置圆角
+     */
+    private func setupViewCornerRadius() {
+        UIView.animateWithDuration(0.1, animations: { [unowned self] in
+            self.viewArray.forEach {
+                let maskPath = UIBezierPath(roundedRect: $0.bounds, cornerRadius: self.vcState == .Full ?0:10)
+                let maskLayer = CAShapeLayer()
+                maskLayer.frame = $0.bounds
+                maskLayer.path = maskPath.CGPath
+                
+                $0.layer.mask = maskLayer
+            }
+        })
+    }
+    
+    /**
+     这里是执行放大收缩的动画操作
+     
+     - parameter tag: 传入点击的view的tag。 如果点击的是menuBtn这个参数相当于作废。
+     */
+    private func setupViewAnimation(tag: Int = 0) {
         // 缩放后子控件的宽
-        let scaleWidth = scrollView.width*scale
+        let scaleWidth = vcState == .Full ?scrollView.width:scrollView.width*scale
+//        let scaleHeight = vcState == .Full ?scrollView.height:scrollView.height*scale
         // scorllview中心点变化后的值
-        let transY = scrollView.center.y+scrollView.height*(1-scale)*0.5
+        let transY = vcState == .Full ?self.view.center.y+UIConstant.UI_MARGIN_20:scrollView.center.y+scrollView.height*(1-scale)*0.5
         let scrollViewTransCenter = CGPoint(x: self.scrollView.center.x, y: transY)
-        
-        self.scrollView.pagingEnabled = false
-        self.scrollView.contentSize = CGSize(width: scaleWidth*CGFloat(viewArray.count), height: 0)
-        
-        UIView.animateWithDuration(3) {
-//            self.scrollView.center = CGAffineTransformMakeTranslation(0, transY)
-//            let t = CGAffineTransformMakeScale(1, 0.4)
+        // contentsize
+        let contentSize = vcState == .Full ?CGSize(width: self.view.width*CGFloat(viewArray.count), height: 0):CGSize(width: (scaleWidth+UIConstant.UI_MARGIN_5)*CGFloat(self.viewArray.count), height: 0)
+        // transform
+        let scrollviewtransform = vcState == .Full ? CGAffineTransformIdentity:CGAffineTransformMakeScale(1, self.scale)
+        let scrollsubviewTransform = vcState == .Full ?CGAffineTransformIdentity:CGAffineTransformMakeScale(self.scale, 1)
+        // 获取点击后scrollview的contentoffset位置
+        let index = vcState == .Full ?tag:Int(scrollView.contentOffset.x/self.view.width)
+        var contentOffx = vcState == .Full ?CGFloat(index)*self.view.width:0.5*UIConstant.UI_MARGIN_5+CGFloat(index)*(scaleWidth+UIConstant.UI_MARGIN_5)
+        contentOffx = contentOffx > contentSize.width-self.view.width ?contentSize.width-self.view.width:contentOffx
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: { [unowned self] in
+            // scroollview动画
             self.scrollView.center = scrollViewTransCenter
-            self.scrollView.transform = CGAffineTransformMakeScale(1, self.scale)
+            self.scrollView.transform = scrollviewtransform
+            self.scrollView.contentSize = contentSize
             
+            self.scrollView.setContentOffset(CGPoint(x: contentOffx,y: 0), animated: false)
+            // 设置srollview子控件的动画
             for i in 0..<self.viewArray.count {
                 let view = self.viewArray[i]
-                view.transform = CGAffineTransformMakeScale(self.scale, 1)
-                view.center = CGPoint(x: scaleWidth*(CGFloat(i)+0.5), y: view.center.y)
+                
+                view.transform = scrollsubviewTransform
+                let centerX = self.vcState == .Full ? scaleWidth*(CGFloat(i)+0.5):(scaleWidth+UIConstant.UI_MARGIN_5)*(CGFloat(i)+0.5)
+                view.center = CGPoint(x: centerX, y: view.center.y)
             }
+            }) {
+                if $0 {
+
+                    // 添加一个按钮
+                    if self.vcState == .Full {
+                        self.coverBtnArray.forEach {
+                            $0.removeFromSuperview()
+                        }
+                    } else {
+                        for i in 0..<self.viewArray.count {
+                            let view = self.viewArray[i]
+                            
+                            let coverBtn = self.createCoverBtn()
+                            coverBtn.tag = i
+                            coverBtn.frame = view.bounds
+                            self.coverBtnArray.append(coverBtn)
+                            view.addSubview(coverBtn)
+                        }
+                    }
+                    // 设置scrollview
+                    self.scrollView.pagingEnabled = self.vcState == .Full ?true:false
+                }
         }
+    }
+    
+    /**
+     创建一个按钮给Scrollview的5个控制器。便于点击之后恢复成填充状态  整个页面的控制器
+     */
+    private func createCoverBtn() -> UIButton {
+        let coverBtn = UIButton()
+        coverBtn.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.02)
+        coverBtn.addTarget(self, action: #selector(MainViewController.menuBtnDidClick(_:)), forControlEvents: .TouchUpInside)
+        return coverBtn
     }
 }
 
@@ -274,7 +362,11 @@ extension MainViewController: UIScrollViewDelegate {
         let alpha = 1 - fabs((contentoffx-UIConstant.SCREEN_WIDTH) / UIConstant.SCREEN_WIDTH)
         classifyBtn.alpha = alpha
         // 这里设置hidden是为了处理下拉刷新的判断
-        classifyBtn.hidden = alpha <= 0 ?true: false
+        if vcState == .Full {
+            classifyBtn.hidden = alpha <= 0 ?true: false
+        } else {
+            classifyBtn.hidden = true
+        }
     }
 }
 
