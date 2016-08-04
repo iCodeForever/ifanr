@@ -224,9 +224,9 @@ extension MainViewController {
     }
     
     @objc private func menuBtnDidClick(clickView: UIView) {
-        vcState = vcState == .Full ?.Small:.Full
         
-        setupViewHidden()
+        
+//        setupViewHidden()
         
         // 设置圆角
         setupViewCornerRadius()
@@ -237,16 +237,21 @@ extension MainViewController {
     /**
      执行放大收缩动画前需要隐藏和显示一些控件
      */
-    private func setupViewHidden() {
+    private func setupViewHidden(tag: Int = 0) {
         
         // 设置状态栏
-        statusBarHidden = vcState == .Full ?true:false
+        statusBarHidden = vcState == .Small ?true:false
         setNeedsStatusBarAppearanceUpdate()
         // 设置菜单分类按钮,下拉刷新
-        self.headerView.hidden = vcState == .Full ?false:true
-        self.redLine.hidden =  vcState == .Full ?false:true
-        self.classifyBtn.hidden =  vcState == .Full ?false:true
-        self.menuBtn.hidden =  vcState == .Full ?false:true
+        self.headerView.hidden = vcState == .Small ?false:true
+        self.redLine.hidden = vcState == .Small ?false:true
+        if tag == 1 {
+            self.classifyBtn.alpha = 1
+            self.classifyBtn.hidden = vcState == .Small ?false:true
+        } else {
+            self.classifyBtn.hidden = true
+        }
+        self.menuBtn.hidden = vcState == .Small ?false:true
     }
     
     /**
@@ -255,7 +260,7 @@ extension MainViewController {
     private func setupViewCornerRadius() {
         UIView.animateWithDuration(0.1, animations: { [unowned self] in
             self.viewArray.forEach {
-                let maskPath = UIBezierPath(roundedRect: $0.bounds, cornerRadius: self.vcState == .Full ?0:10)
+                let maskPath = UIBezierPath(roundedRect: $0.bounds, cornerRadius: self.vcState == .Small ?0:10)
                 let maskLayer = CAShapeLayer()
                 maskLayer.frame = $0.bounds
                 maskLayer.path = maskPath.CGPath
@@ -272,40 +277,46 @@ extension MainViewController {
      */
     private func setupViewAnimation(tag: Int = 0) {
         // 缩放后子控件的宽
-        let scaleWidth = vcState == .Full ?scrollView.width:scrollView.width*scale
-//        let scaleHeight = vcState == .Full ?scrollView.height:scrollView.height*scale
+        let scaleWidth = vcState == .Small ?scrollView.width:scrollView.width*scale
         // scorllview中心点变化后的值
-        let transY = vcState == .Full ?self.view.center.y+UIConstant.UI_MARGIN_20:scrollView.center.y+scrollView.height*(1-scale)*0.5
+        let transY = vcState == .Small ?self.view.center.y+UIConstant.UI_MARGIN_10:scrollView.center.y+scrollView.height*(1-scale)*0.5
         let scrollViewTransCenter = CGPoint(x: self.scrollView.center.x, y: transY)
         // contentsize
-        let contentSize = vcState == .Full ?CGSize(width: self.view.width*CGFloat(viewArray.count), height: 0):CGSize(width: (scaleWidth+UIConstant.UI_MARGIN_5)*CGFloat(self.viewArray.count), height: 0)
+        let contentSize = vcState == .Small ?CGSize(width: self.view.width*CGFloat(viewArray.count), height: 0):CGSize(width: (scaleWidth+UIConstant.UI_MARGIN_5)*CGFloat(self.viewArray.count), height: 0)
         // transform
-        let scrollviewtransform = vcState == .Full ? CGAffineTransformIdentity:CGAffineTransformMakeScale(1, self.scale)
-        let scrollsubviewTransform = vcState == .Full ?CGAffineTransformIdentity:CGAffineTransformMakeScale(self.scale, 1)
+        let scrollviewtransform = vcState == .Small ? CGAffineTransformIdentity:CGAffineTransformMakeScale(1, self.scale)
+        let scrollsubviewTransform = vcState == .Small ?CGAffineTransformIdentity:CGAffineTransformMakeScale(self.scale, 1)
         // 获取点击后scrollview的contentoffset位置
-        let index = vcState == .Full ?tag:Int(scrollView.contentOffset.x/self.view.width)
-        var contentOffx = vcState == .Full ?CGFloat(index)*self.view.width:0.5*UIConstant.UI_MARGIN_5+CGFloat(index)*(scaleWidth+UIConstant.UI_MARGIN_5)
+        let index = vcState == .Small ?tag:Int(scrollView.contentOffset.x/self.view.width)
+        var contentOffx = vcState == .Small ?CGFloat(index)*self.view.width:0.5*UIConstant.UI_MARGIN_5+CGFloat(index)*(scaleWidth+UIConstant.UI_MARGIN_5)
         contentOffx = contentOffx > contentSize.width-self.view.width ?contentSize.width-self.view.width:contentOffx
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: { [unowned self] in
+        // 设置头部空间位移差
+        if vcState == .Small {
+            let headerViewScale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
+            headerView.x = -contentOffx/headerViewScale
+        }
+        
+        UIView.animateWithDuration(0.4, delay: 0, options: .CurveEaseOut, animations: { [unowned self] in
             // scroollview动画
             self.scrollView.center = scrollViewTransCenter
             self.scrollView.transform = scrollviewtransform
             self.scrollView.contentSize = contentSize
             
             self.scrollView.setContentOffset(CGPoint(x: contentOffx,y: 0), animated: false)
+            self.setupViewHidden(tag)
             // 设置srollview子控件的动画
             for i in 0..<self.viewArray.count {
                 let view = self.viewArray[i]
                 
                 view.transform = scrollsubviewTransform
-                let centerX = self.vcState == .Full ? scaleWidth*(CGFloat(i)+0.5):(scaleWidth+UIConstant.UI_MARGIN_5)*(CGFloat(i)+0.5)
+                let centerX = self.vcState == .Small ? scaleWidth*(CGFloat(i)+0.5):(scaleWidth+UIConstant.UI_MARGIN_5)*(CGFloat(i)+0.5)
                 view.center = CGPoint(x: centerX, y: view.center.y)
             }
             }) {
                 if $0 {
 
-                    // 添加一个按钮
-                    if self.vcState == .Full {
+                    // 添加按钮用于点击
+                    if self.vcState == .Small {
                         self.coverBtnArray.forEach {
                             $0.removeFromSuperview()
                         }
@@ -321,7 +332,9 @@ extension MainViewController {
                         }
                     }
                     // 设置scrollview
-                    self.scrollView.pagingEnabled = self.vcState == .Full ?true:false
+                    self.scrollView.pagingEnabled = self.vcState == .Small ?true:false
+                    
+                    self.vcState = self.vcState == .Full ?.Small:.Full
                 }
         }
     }
@@ -354,20 +367,21 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - 这里处理collectionview左右滑动时的一些动画（头部控件位移差，菜单分类按钮）
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let scale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
-        headerView.x = -scrollView.contentOffset.x/scale
         
-        // 处理分类按钮左右滑动时淡入淡出动画
-        let contentoffx = scrollView.contentOffset.x
-        let alpha = 1 - fabs((contentoffx-UIConstant.SCREEN_WIDTH) / UIConstant.SCREEN_WIDTH)
-        classifyBtn.alpha = alpha
         // 这里设置hidden是为了处理下拉刷新的判断
         if vcState == .Full {
+            // 处理分类按钮左右滑动时淡入淡出动画
+            let contentoffx = scrollView.contentOffset.x
+            let alpha = 1 - fabs((contentoffx-UIConstant.SCREEN_WIDTH) / UIConstant.SCREEN_WIDTH)
             classifyBtn.hidden = alpha <= 0 ?true: false
-        } else {
-            classifyBtn.hidden = true
+            classifyBtn.alpha = alpha
+            // 设置头部空间位移差
+            let scale = self.view.width/(self.view.width*0.5-headerView.labelArray.last!.width*0.5)
+            headerView.x = -scrollView.contentOffset.x/scale
+
         }
     }
+    
 }
 
 // MARK: - 这里传headerView给下拉刷新控件做处理
