@@ -40,7 +40,7 @@ class MenuTableViewCell: UITableViewCell, Reusable {
     }
     
     class func cellWithTableView(tableView : UITableView) -> MenuTableViewCell {
-        var cell: MenuTableViewCell? = tableView.dequeueReusableCell() as MenuTableViewCell?
+        var cell = tableView.dequeueReusableCell() as MenuTableViewCell?
         if cell == nil {
             cell = MenuTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
             cell?.selectionStyle = .None
