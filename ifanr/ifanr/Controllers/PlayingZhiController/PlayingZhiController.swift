@@ -99,7 +99,7 @@ extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if let model: CommonModel = self.playingZhiModelArray[indexPath.row] {
-            let ifDetailsController = IFDetailsController(model: model)
+            let ifDetailsController = IFDetailsController(model: model, naviTitle: "玩物志")
             self.navigationController?.pushViewController(ifDetailsController, animated: true)
         }
     }

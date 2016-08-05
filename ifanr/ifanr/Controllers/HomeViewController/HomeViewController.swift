@@ -20,7 +20,10 @@ class HomeViewController: BasePageController {
         pullToRefresh.delegate = self
         tableView.sectionHeaderHeight = tableHeaderView.height
         tableView.tableHeaderView = tableHeaderView
-        
+        tableHeaderView.currentItemDidClick { [unowned self] in
+            let ifDetailsController = IFDetailsController(model: self.headerModelArray![$0], naviTitle: "首页")
+            self.navigationController?.pushViewController(ifDetailsController, animated: true)
+        }
         getNormalData()
     }
     
@@ -94,7 +97,8 @@ class HomeViewController: BasePageController {
      tableView HeaderView
      */
     private lazy var tableHeaderView: HomeHeaderView = {
-        return HomeHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width*0.625+45))
+        let headerView: HomeHeaderView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: self.view.width*0.625+45))
+        return headerView
     }()
 }
 
@@ -166,8 +170,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let model: CommonModel = self.headerModelArray![indexPath.row] {
-            let ifDetailsController = IFDetailsController(model: model)
+        if let model: CommonModel = latestCellLayout[indexPath.row].model {
+            let ifDetailsController = IFDetailsController(model: model, naviTitle: "首页")
             self.navigationController?.pushViewController(ifDetailsController, animated: true)
         }
     }

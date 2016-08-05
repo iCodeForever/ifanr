@@ -167,7 +167,7 @@ extension CategoryController: UIScrollViewDelegate {
         } else if contentOffsetY >= headerHappenY && contentOffsetY <= -happenMinContentoffsetY {
             let differ = fabs(headerHappenY) - happenMinContentoffsetY
             let titleLabelAlpha = (happenMinContentoffsetY-fabs(contentOffsetY))/differ+1
-            print(titleLabelAlpha)
+//            print(titleLabelAlpha)
             UIView.animateWithDuration(0.01, animations: {
                 self.headerView.y = self.headerHappenY-contentOffsetY
                 self.titleLabel.alpha = titleLabelAlpha
@@ -217,5 +217,10 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return latestCellLayout[indexPath.row].cellHeight
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let model = latestCellLayout[indexPath.row].model
+        self.navigationController?.pushViewController(IFDetailsController(model: model, naviTitle: categoryModel.title), animated: true)
     }
 }

@@ -31,9 +31,12 @@ shareResuable{
         self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: (self.model?.link)!)!))
     }
     
-    convenience init(model: CommonModel) {
+    convenience init(model: CommonModel, naviTitle: String) {
         self.init()
         self.model = model
+        self.naviTitle = naviTitle
+        
+        headerBack.title = naviTitle
     }
     
     //MARK:-----Custom Function-----
@@ -136,9 +139,10 @@ shareResuable{
     }
     
     //MARK:-----Getter and Setter-----
-    var lastPosition: CGFloat = 0
-    var headerTopConstraint: Constraint? = nil
-    var model: CommonModel?
+    private var lastPosition: CGFloat = 0
+    private var headerTopConstraint: Constraint? = nil
+    private var model: CommonModel?
+    private var naviTitle: String!
     /// wkWebView
     private lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView()
@@ -154,7 +158,7 @@ shareResuable{
     }()
     /// 顶部返回栏
     private lazy var headerBack: HeaderBackView = {
-        let headerBack: HeaderBackView = HeaderBackView(title: "玩物志")
+        let headerBack: HeaderBackView = HeaderBackView(title: "")
         headerBack.delegate = self
         return headerBack
     }()

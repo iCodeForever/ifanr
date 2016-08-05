@@ -20,6 +20,10 @@ class HomeHeaderView: UIView {
         addSubview(contentScrollView)
         addSubview(pageControl)
         addSubview(tagImageView)
+        
+        // 添加点击事件
+        let tap = UITapGestureRecognizer(target: self, action: #selector(HomeHeaderView.currentItemTap))
+        currentItem.addGestureRecognizer(tap)
     }
     
     convenience init(frame: CGRect, modelArray: [CommonModel]!) {
@@ -38,8 +42,20 @@ class HomeHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: --------------------------- Event or Action --------------------------
+    @objc private func currentItemTap() {
+        if let callBack = callBack {
+            callBack(index: indexOfCurrentImage)
+        }
+    }
+    func currentItemDidClick(callBack: CurrentItemTapCallBack?) {
+        self.callBack = callBack
+    }
     //MARK: --------------------------- Private Methods --------------------------
+    typealias CurrentItemTapCallBack = (index: Int) -> Void
     
+    
+    private var callBack: CurrentItemTapCallBack?
     /// 定时器，定时轮播图片
     private var timer : NSTimer?
     /**

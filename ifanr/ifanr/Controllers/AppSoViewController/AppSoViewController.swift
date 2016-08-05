@@ -105,7 +105,7 @@ extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let appSoModel: CommonModel = self.appSoModelArray[indexPath.row] {
-            let ifDetailController = IFDetailsController(model: appSoModel)
+            let ifDetailController = IFDetailsController(model: appSoModel, naviTitle: "AppSo")
             self.navigationController?.pushViewController(ifDetailController, animated: true)
         }
     }
