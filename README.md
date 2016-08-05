@@ -1,5 +1,38 @@
+<p align="center">
+<a href="#Screenshot">截图</a> -
+<a href="#demos">前言</a> -
+<a href="#installation">UI</a> -
+<a href="#documents">Model</a> -
+<a href="#faq">Networking</a> -
+<a href="#faq">贡献</a> -
+<a href="#contribution">Contribution</a> -
+<a href="#update">更新日志</a>
+</p>
+
+<p align="center">
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/language-swift2-f48041.svg?style=flat"></a>
+<a href="https://developer.apple.com/ios"><img src="https://img.shields.io/badge/platform-iOS8-blue.svg?style=flat"></a>
+<a href="https://https://github.com/iCodeForever/ifanr/blob/develop/LICENSE"><img src="http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat"></a>
+</p>
+
 # 高仿 爱范儿
-- 更新Tips
+
+## 截图
+
+## 前言
+
+## UI
+
+## Model
+
+## Networking
+
+## 贡献
+如果你需要帮助或者遇到Bug，请[创建issue](https://github.com/iCodeForever/ifanr/issues/new)
+## contribution
+[dby](https://github.com/dby), [lyimin](https://github.com/lyimin)
+## 更新日志
+- 
     - 优化一些细节问题   ----- 2016-08-05 by lyiming
     - 完成设置界面  ----- 2016-08-05 by lyiming
     - 优化菜单按钮的动画   ----- 2016-08-04 by lyiming
