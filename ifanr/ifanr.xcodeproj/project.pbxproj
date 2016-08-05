@@ -265,13 +265,6 @@
 			name = CommentModel;
 			sourceTree = "<group>";
 		};
-		4337ABDF1D5395F70045B6BA /* CommentController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = CommentController;
-			sourceTree = "<group>";
-		};
 		4354EA4E1D2ABD92007D419A /* PlayingZhiController */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,7 +423,6 @@
 			isa = PBXGroup;
 			children = (
 				4376F6211D3B5C6C00D64913 /* Base */,
-				4337ABDF1D5395F70045B6BA /* CommentController */,
 				F1A52F601D413E8800C4DE5E /* NewFeatureController */,
 				43D3D97F1D2F37870069993F /* MindStoreController */,
 				43B4439F1D2DE774000D8283 /* AppSoController */,

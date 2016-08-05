@@ -88,6 +88,8 @@ shareResuable{
     }
     
     func commentButtonDidClick() {
+        let ifDetailCommentVC = IFDetailCommentVC()
+        self.navigationController?.pushViewController(ifDetailCommentVC, animated: true)
     }
     
     //MARK:-----UIScrollViewDelegate-----

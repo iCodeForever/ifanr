@@ -58,6 +58,11 @@ public enum APIConstant {
      *  分类
      */
     case Category(CategoryName,Int)
+    
+    /**
+     *  获得评论
+     */
+    case Comments_latest(Int)
 }
 
 public enum CategoryName {
@@ -143,6 +148,8 @@ extension APIConstant: TargetType {
         switch self {
         case .Home_hot_features(_):
             return "hot_features"
+        case .Comments_latest(_):
+            return "ifr_m_get_mobile_comments"
         default:
             return "ifr_m_latest"
         }
@@ -200,6 +207,9 @@ extension APIConstant: TargetType {
                     /// MindStore
         case let .MindStore_latest(page):
             return ["look_back_days": page, "limit": 60]
+                    /// 详情页评论
+        case .Comments_latest(_):
+            return ["action":action, "appKey": appKey, "post_id": "696091","sign": sign, "timestamp": timestamp]
                     /// 分类
         case let .Category(type,page):
             if type == CategoryName.DaSheng || type == CategoryName.Shudu || type == CategoryName.Picture {
