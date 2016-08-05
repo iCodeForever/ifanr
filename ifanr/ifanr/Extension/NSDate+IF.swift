@@ -43,7 +43,10 @@ extension NSDate {
         
         var resStr = ""
         let timeInterval = (NSDate.getTimeIntervalFromNow(dateString) * -1)/60/60
-        if timeInterval < 24 {
+        if timeInterval < 1 {
+            resStr = "\(Int(timeInterval*60)) 分钟前"
+        }
+        else if timeInterval < 24 {
             resStr = "\(Int(timeInterval)) 小时前"
         } else if timeInterval < 48 {
             let range = NSRange(location: 10, length: 6)

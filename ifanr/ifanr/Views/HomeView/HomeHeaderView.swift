@@ -96,17 +96,17 @@ class HomeHeaderView: UIView {
         let currentModel = self.modelArray[self.indexOfCurrentImage]
         self.currentItem.imageURL = currentModel.image
         self.currentItem.title = currentModel.title
-        self.currentItem.date = "\(currentModel.category) | \(NSDate.getDate(currentModel.pubDate))"
+        self.currentItem.date = "\(currentModel.category) | \(NSDate.getCommonExpressionOfDate(currentModel.pubDate))"
         // 获取下一张图片的模型
         let nextImageModel = self.modelArray[self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
         self.nextItem.imageURL = nextImageModel.image
         self.nextItem.title = nextImageModel.title
-        self.nextItem.date = "\(nextImageModel.category) | \(NSDate.getDate(nextImageModel.pubDate))"
+        self.nextItem.date = "\(nextImageModel.category) | \(NSDate.getCommonExpressionOfDate(nextImageModel.pubDate))"
         // 获取上衣张图片的模型
-        let lastImageModle = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
-        self.lastItem.imageURL = lastImageModle.image
-        self.lastItem.title = lastImageModle.title
-        self.lastItem.date = "\(lastImageModle.category) | \(NSDate.getDate(lastImageModle.pubDate))"
+        let lastImageModel = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
+        self.lastItem.imageURL = lastImageModel.image
+        self.lastItem.title = lastImageModel.title
+        self.lastItem.date = "\(lastImageModel.category) | \(NSDate.getCommonExpressionOfDate(lastImageModel.pubDate)))"
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------

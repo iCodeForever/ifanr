@@ -28,7 +28,7 @@ class CategoryController: UIViewController {
         backBtn.snp_makeConstraints { (make) in
             make.left.equalTo(self.view)
             make.top.equalTo(self.view).offset(UIConstant.UI_MARGIN_20)
-            make.size.equalTo(CGSize(width: 50, height: 20))
+            make.size.equalTo(CGSize(width: 50, height: 15))
         }
         titleLabel.text = categoryModel.title
         titleLabel.snp_makeConstraints { (make) in

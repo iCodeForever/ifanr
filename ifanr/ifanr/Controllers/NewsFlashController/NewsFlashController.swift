@@ -44,6 +44,8 @@ class NewsFlashController: BasePageController {
             self.pullToRefresh.endRefresh()
         }) { (error) in
             print(error)
+            
+            self.pullToRefresh.endRefresh()
         }
     }
     
@@ -99,7 +101,8 @@ extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
         
         let model = self.newsFlashModelArray[indexPath.row];
         let detailController: NewsFlashDetailController = NewsFlashDetailController(model: model)
-        self.navigationController?.pushViewController(detailController, animated: true)
+//        self.navigationController?.pushViewController(detailController, animated: true)
+        self.presentViewController(detailController, animated: true, completion: nil)
         
     }
 }

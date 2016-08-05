@@ -13,6 +13,7 @@ class CategoryListHeaderView: UIView {
         super.init(frame: frame)
         
         addSubview(backgroundImage)
+        addSubview(coverView)
         addSubview(titleLabel)
         addSubview(subTitleLabel)
     }
@@ -24,6 +25,7 @@ class CategoryListHeaderView: UIView {
     var model: CategoryModel! {
         didSet {
             backgroundImage.image = model.listImage
+            coverView.backgroundColor = model.coverColor
             titleLabel.text = model.title
             subTitleLabel.text = model.subTitle
         }
@@ -55,7 +57,13 @@ class CategoryListHeaderView: UIView {
         titleLable.font = UIFont.customFont_FZLTZCHJW(fontSize: 20)
         return titleLable
     }()
-    
+        // alpa
+    private lazy var coverView: UIView = {
+        let coverView = UIView()
+        coverView.origin = CGPointZero
+        coverView.size = self.size
+        return coverView
+    }()
         /// 子标题
     private lazy var subTitleLabel: UILabel = {
         var subTitleLabel = UILabel()

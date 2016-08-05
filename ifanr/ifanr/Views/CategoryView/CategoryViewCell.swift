@@ -14,7 +14,7 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         super.init(frame: frame)
         
         self.contentView.addSubview(menuImageView)
-//        self.contentView.addSubview(coverView)
+        self.contentView.addSubview(coverView)
         self.contentView.addSubview(iconImageView)
         self.contentView.addSubview(titleLabel)
         
@@ -29,9 +29,9 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         menuImageView.snp_makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
-//        coverView.snp_makeConstraints { (make) in
-//            make.edges.equalTo(self.contentView)
-//        }
+        coverView.snp_makeConstraints { (make) in
+            make.edges.equalTo(self.contentView)
+        }
         
         iconImageView.snp_makeConstraints { (make) in
             make.right.bottom.equalTo(self.contentView).inset(UIConstant.UI_MARGIN_5)
@@ -48,6 +48,7 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         didSet {
             self.menuImageView.image = model.backgroundImage
             self.iconImageView.image = model.icon
+            self.coverView.backgroundColor = model.coverColor
             self.titleLabel.text = model.title
         }
     }
@@ -61,7 +62,6 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
     // alpa
     private lazy var coverView: UIView = {
         let coverView = UIView()
-        coverView.backgroundColor = UIColor(red: 100/255.0, green: 50/255.0, blue: 140/255.0, alpha: 0.8)
         return coverView
     }()
     

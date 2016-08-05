@@ -46,6 +46,7 @@ class HomeViewController: BasePageController {
             dispatch_group_leave(group)
             }, errorHandle: { (error) in
                 print(error)
+                self.pullToRefresh.endRefresh()
                 self.hotDataError = error
         })
         
@@ -59,6 +60,7 @@ class HomeViewController: BasePageController {
             dispatch_group_leave(group)
             }, errorHandle: { (error) in
                 print(error)
+                self.pullToRefresh.endRefresh()
                 self.latestDataError = error
         })
         
@@ -70,6 +72,7 @@ class HomeViewController: BasePageController {
                 self.page+=1
             } else {
                 // 这里处理网络出现问题
+                self.pullToRefresh.endRefresh()
             }
             
             self.isRefreshing = false
