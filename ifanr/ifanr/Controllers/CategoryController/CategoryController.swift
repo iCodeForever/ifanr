@@ -148,7 +148,7 @@ extension CategoryController: UIScrollViewDelegate {
         // 计算contentsize与offset的差值
         let contentSizeY = scrollView.contentSize.height
         let contentOffsetY = scrollView.contentOffset.y
-        let insety = scrollView.contentInset.top
+//        let insety = scrollView.contentInset.top
         differY = contentSizeY-contentOffsetY
         
         if differY < happenY {

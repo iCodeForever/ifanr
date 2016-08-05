@@ -82,6 +82,8 @@
 		F1CECBEE1D3E7C6300A113A1 /* LoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBED1D3E7C6300A113A1 /* LoadMoreView.swift */; };
 		F1CECBF31D3E9EDA00A113A1 /* BasePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBF11D3E9EDA00A113A1 /* BasePageController.swift */; };
 		F1CECBF41D3E9EDA00A113A1 /* IFBaseNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CECBF21D3E9EDA00A113A1 /* IFBaseNavController.swift */; };
+		F1D89BB31D54345B00B9C852 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D89BB21D54345B00B9C852 /* SettingModel.swift */; };
+		F1D89BB51D543F1400B9C852 /* SettingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D89BB41D543F1400B9C852 /* SettingHeaderView.swift */; };
 		F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E006391D38D9C600901099 /* PullToRefreshView.swift */; };
 		F1E0063D1D3955D300901099 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
@@ -190,6 +192,8 @@
 		F1CECBED1D3E7C6300A113A1 /* LoadMoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreView.swift; sourceTree = "<group>"; };
 		F1CECBF11D3E9EDA00A113A1 /* BasePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageController.swift; sourceTree = "<group>"; };
 		F1CECBF21D3E9EDA00A113A1 /* IFBaseNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFBaseNavController.swift; sourceTree = "<group>"; };
+		F1D89BB21D54345B00B9C852 /* SettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		F1D89BB41D543F1400B9C852 /* SettingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingHeaderView.swift; sourceTree = "<group>"; };
 		F1E006391D38D9C600901099 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -443,6 +447,7 @@
 		F11937571D24013A00DF143B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F1D89BB11D54344B00B9C852 /* SettingModel */,
 				43AB24E11D4A60EB008E8A59 /* CommonModel.swift */,
 				F1CECBE61D3D401700A113A1 /* MainModel */,
 				F1CECBE71D3D401700A113A1 /* MindStoreModel */,
@@ -537,6 +542,7 @@
 			isa = PBXGroup;
 			children = (
 				F15CF7E61D5392E300997F3F /* SettingViewCell.swift */,
+				F1D89BB41D543F1400B9C852 /* SettingHeaderView.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -646,6 +652,14 @@
 				F1CECBE81D3D401700A113A1 /* MindStoreModel.swift */,
 			);
 			path = MindStoreModel;
+			sourceTree = "<group>";
+		};
+		F1D89BB11D54344B00B9C852 /* SettingModel */ = {
+			isa = PBXGroup;
+			children = (
+				F1D89BB21D54345B00B9C852 /* SettingModel.swift */,
+			);
+			path = SettingModel;
 			sourceTree = "<group>";
 		};
 		F1E006381D38D9A500901099 /* PullToRefresh */ = {
@@ -898,6 +912,7 @@
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
 				F1CECBEA1D3D401700A113A1 /* MindStoreModel.swift in Sources */,
+				F1D89BB51D543F1400B9C852 /* SettingHeaderView.swift in Sources */,
 				43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */,
 				F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */,
 				43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */,
@@ -914,6 +929,7 @@
 				F1B479F71D4F1EB000ED0191 /* CategoryListHeaderView.swift in Sources */,
 				43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */,
 				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,
+				F1D89BB31D54345B00B9C852 /* SettingModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

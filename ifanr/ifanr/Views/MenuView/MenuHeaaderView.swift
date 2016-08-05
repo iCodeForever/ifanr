@@ -9,7 +9,13 @@
 import UIKit
 import SnapKit
 
+protocol MenuHeaderViewDelegate {
+    func searchBtnDidClick(headerView: MenuHeaaderView, searchBtn: UIButton)
+    func settingBtnDidClick(headerView: MenuHeaaderView, settingBtn: UIButton)
+}
+
 class MenuHeaaderView: UIView {
+    var delegate: MenuHeaderViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,6 +52,14 @@ class MenuHeaaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc private func searchBtnDidClick() {
+        delegate?.searchBtnDidClick(self, searchBtn: searchBtn)
+    }
+    
+    @objc private func settingBtnDidClick() {
+        delegate?.settingBtnDidClick(self, settingBtn: settingBtn)
+    }
+    
     //MARK: --------------------------- Getter and Setter --------------------------
     
     private lazy var logoImageView: UIImageView = {
@@ -57,6 +71,7 @@ class MenuHeaaderView: UIView {
     /// 搜索按钮
     private lazy var searchBtn: UIButton = {
         var searchBtn: UIButton = UIButton()
+        searchBtn.addTarget(self, action: #selector(MenuHeaaderView.searchBtnDidClick), forControlEvents: .TouchUpInside)
         searchBtn.setImage(UIImage(named: "ic_search"), forState: .Normal)
         return searchBtn
     }()
@@ -64,6 +79,7 @@ class MenuHeaaderView: UIView {
     /// 设置按钮
     private lazy var settingBtn: UIButton = {
         var settingBtn: UIButton = UIButton()
+        settingBtn.addTarget(self, action: #selector(MenuHeaaderView.settingBtnDidClick), forControlEvents: .TouchUpInside)
         settingBtn.setImage(UIImage(named: "ic_setting"), forState: .Normal)
         return settingBtn
     }()
