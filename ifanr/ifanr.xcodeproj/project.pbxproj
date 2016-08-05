@@ -12,6 +12,10 @@
 		4323CC8C1D4BC43100D1DFCE /* ShareSDKUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */; };
 		4324F4FE1D4D97FF009F7ED3 /* ShareResuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */; };
 		432CE4F91D411A1400779050 /* UIViewController+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432CE4F81D411A1400779050 /* UIViewController+IF.swift */; };
+		4337ABDE1D5392960045B6BA /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABDD1D5392960045B6BA /* CommentModel.swift */; };
+		4337ABE11D539C4F0045B6BA /* MindStoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE01D539C4F0045B6BA /* MindStoreDataModel.swift */; };
+		4337ABE31D53A70E0045B6BA /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE21D53A70E0045B6BA /* CommentHeaderView.swift */; };
+		4337ABE51D53A7540045B6BA /* IFDetailCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE41D53A7540045B6BA /* IFDetailCommentVC.swift */; };
 		435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353790F1D28BD37004A2766 /* NSDate+IF.swift */; };
 		4354EA501D2ABDBC007D419A /* PlayingZhiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */; };
 		436AF1941D41ACFD00386D9C /* HeaderBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF1931D41ACFD00386D9C /* HeaderBackView.swift */; };
@@ -112,6 +116,10 @@
 		4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareSDKUtil.swift; path = Utils/ShareSDKUtil.swift; sourceTree = "<group>"; };
 		4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareResuable.swift; sourceTree = "<group>"; };
 		432CE4F81D411A1400779050 /* UIViewController+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+IF.swift"; sourceTree = "<group>"; };
+		4337ABDD1D5392960045B6BA /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentModel.swift; path = CommentModel/CommentModel.swift; sourceTree = "<group>"; };
+		4337ABE01D539C4F0045B6BA /* MindStoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MindStoreDataModel.swift; path = CommentModel/MindStoreDataModel.swift; sourceTree = "<group>"; };
+		4337ABE21D53A70E0045B6BA /* CommentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentHeaderView.swift; path = DetailsView/CommentHeaderView.swift; sourceTree = "<group>"; };
+		4337ABE41D53A7540045B6BA /* IFDetailCommentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFDetailCommentVC.swift; path = PlayingZhiController/IFDetailCommentVC.swift; sourceTree = "<group>"; };
 		4353790F1D28BD37004A2766 /* NSDate+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+IF.swift"; sourceTree = "<group>"; };
 		4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingZhiController.swift; path = PlayingZhiController/PlayingZhiController.swift; sourceTree = "<group>"; };
 		436AF1931D41ACFD00386D9C /* HeaderBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderBackView.swift; path = DetailsView/HeaderBackView.swift; sourceTree = "<group>"; };
@@ -247,8 +255,25 @@
 				43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */,
 				436AF1931D41ACFD00386D9C /* HeaderBackView.swift */,
 				43B7278B1D4C4BCD00AF320A /* ShareView.swift */,
+				4337ABE21D53A70E0045B6BA /* CommentHeaderView.swift */,
 			);
 			name = DetailsView;
+			sourceTree = "<group>";
+		};
+		4337ABDC1D5392670045B6BA /* CommentModel */ = {
+			isa = PBXGroup;
+			children = (
+				4337ABDD1D5392960045B6BA /* CommentModel.swift */,
+				4337ABE01D539C4F0045B6BA /* MindStoreDataModel.swift */,
+			);
+			name = CommentModel;
+			sourceTree = "<group>";
+		};
+		4337ABDF1D5395F70045B6BA /* CommentController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CommentController;
 			sourceTree = "<group>";
 		};
 		4354EA4E1D2ABD92007D419A /* PlayingZhiController */ = {
@@ -256,6 +281,7 @@
 			children = (
 				4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */,
 				43070E9E1D3B8D8000B0C2A3 /* IFDetailsController.swift */,
+				4337ABE41D53A7540045B6BA /* IFDetailCommentVC.swift */,
 			);
 			name = PlayingZhiController;
 			sourceTree = "<group>";
@@ -408,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				4376F6211D3B5C6C00D64913 /* Base */,
+				4337ABDF1D5395F70045B6BA /* CommentController */,
 				F1A52F601D413E8800C4DE5E /* NewFeatureController */,
 				43D3D97F1D2F37870069993F /* MindStoreController */,
 				43B4439F1D2DE774000D8283 /* AppSoController */,
@@ -449,6 +476,7 @@
 			children = (
 				F1D89BB11D54344B00B9C852 /* SettingModel */,
 				43AB24E11D4A60EB008E8A59 /* CommonModel.swift */,
+				4337ABDC1D5392670045B6BA /* CommentModel */,
 				F1CECBE61D3D401700A113A1 /* MainModel */,
 				F1CECBE71D3D401700A113A1 /* MindStoreModel */,
 				F17C51E11D2BCBAB0077A4C5 /* MenuModel */,
@@ -743,7 +771,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5N8LXT5RPD;
+						DevelopmentTeam = 48E3LB8PD7;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -860,6 +888,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4337ABE51D53A7540045B6BA /* IFDetailCommentVC.swift in Sources */,
 				F170BE551D27E9B300D84EBC /* HomeHeaderView.swift in Sources */,
 				F1A06AA91D28F91200563FA1 /* Request+ifanr.swift in Sources */,
 				F1CECBF41D3E9EDA00A113A1 /* IFBaseNavController.swift in Sources */,
@@ -875,6 +904,7 @@
 				F17C51E61D2BCBAB0077A4C5 /* MenuTabModel.swift in Sources */,
 				F15CF7E71D5392E300997F3F /* SettingViewCell.swift in Sources */,
 				F14486E21D522981003E9462 /* MainCollectionViewLayout.swift in Sources */,
+				4337ABE31D53A70E0045B6BA /* CommentHeaderView.swift in Sources */,
 				F15CF7E41D538C9100997F3F /* SettingViewController.swift in Sources */,
 				43A32C401D31F34800A74858 /* IFanrService.swift in Sources */,
 				F17C51DE1D2AB1DE0077A4C5 /* UIFont+ifanr.swift in Sources */,
@@ -923,10 +953,12 @@
 				4354EA501D2ABDBC007D419A /* PlayingZhiController.swift in Sources */,
 				43B443A11D2DE7A7000D8283 /* AppSoViewController.swift in Sources */,
 				43A32C3A1D31F2C400A74858 /* MenuHeaaderView.swift in Sources */,
+				4337ABDE1D5392960045B6BA /* CommentModel.swift in Sources */,
 				F1CECBE31D3D3AD300A113A1 /* TableHeaderView.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
 				43EBEAC31D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift in Sources */,
 				F1B479F71D4F1EB000ED0191 /* CategoryListHeaderView.swift in Sources */,
+				4337ABE11D539C4F0045B6BA /* MindStoreDataModel.swift in Sources */,
 				43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */,
 				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,
 				F1D89BB31D54345B00B9C852 /* SettingModel.swift in Sources */,
