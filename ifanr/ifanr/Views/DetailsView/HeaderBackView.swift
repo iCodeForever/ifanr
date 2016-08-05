@@ -14,7 +14,7 @@ protocol HeaderViewDelegate {
 
 class HeaderBackView: UIView {
     
-    private var title: String?
+    
     var delegate: HeaderViewDelegate?
     
     convenience init(title: String) {
@@ -26,6 +26,12 @@ class HeaderBackView: UIView {
         
         self.backgroundColor = UIColor.whiteColor()
         self.setupLayout()
+    }
+    
+    var title: String! = "" {
+        didSet {
+            self.titleLabel.text = title
+        }
     }
     
     //MARK:-----Setter and Getter-----

@@ -32,7 +32,9 @@ class MenuViewController: UIViewController {
     private lazy var mainTableView : UITableView = {
         var mainTabView : UITableView = UITableView(frame: self.view.bounds)
         mainTabView.backgroundColor = UIColor.clearColor()
-        mainTabView.tableHeaderView = MenuHeaaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: 100))
+        let headerView = MenuHeaaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: 100))
+        headerView.delegate = self
+        mainTabView.tableHeaderView = headerView
         mainTabView.separatorStyle = .None
         mainTabView.rowHeight   = 80
         mainTabView.sectionHeaderHeight = 100
@@ -53,5 +55,14 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = MenuTableViewCell.cellWithTableView(tableView)
         cell.model = MenuTabItems[indexPath.row]
         return cell
+    }
+}
+
+extension MenuViewController: MenuHeaderViewDelegate {
+    func searchBtnDidClick(headerView: MenuHeaaderView, searchBtn: UIButton) {
+        
+    }
+    func settingBtnDidClick(headerView: MenuHeaaderView, settingBtn: UIButton) {
+        self.navigationController?.pushViewController(SettingViewController(), animated: true)
     }
 }

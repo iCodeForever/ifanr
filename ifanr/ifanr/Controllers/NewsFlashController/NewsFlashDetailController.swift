@@ -113,7 +113,8 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate, shareRe
     }
     
     func backButtonDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+//        self.navigationController?.popViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func shareButtonDidClick() {

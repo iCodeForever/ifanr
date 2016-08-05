@@ -20,6 +20,10 @@ class HomeHeaderView: UIView {
         addSubview(contentScrollView)
         addSubview(pageControl)
         addSubview(tagImageView)
+        
+        // 添加点击事件
+        let tap = UITapGestureRecognizer(target: self, action: #selector(HomeHeaderView.currentItemTap))
+        currentItem.addGestureRecognizer(tap)
     }
     
     convenience init(frame: CGRect, modelArray: [CommonModel]!) {
@@ -38,8 +42,20 @@ class HomeHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: --------------------------- Event or Action --------------------------
+    @objc private func currentItemTap() {
+        if let callBack = callBack {
+            callBack(index: indexOfCurrentImage)
+        }
+    }
+    func currentItemDidClick(callBack: CurrentItemTapCallBack?) {
+        self.callBack = callBack
+    }
     //MARK: --------------------------- Private Methods --------------------------
+    typealias CurrentItemTapCallBack = (index: Int) -> Void
     
+    
+    private var callBack: CurrentItemTapCallBack?
     /// 定时器，定时轮播图片
     private var timer : NSTimer?
     /**
@@ -96,17 +112,17 @@ class HomeHeaderView: UIView {
         let currentModel = self.modelArray[self.indexOfCurrentImage]
         self.currentItem.imageURL = currentModel.image
         self.currentItem.title = currentModel.title
-        self.currentItem.date = "\(currentModel.category) | \(NSDate.getDate(currentModel.pubDate))"
+        self.currentItem.date = "\(currentModel.category) | \(NSDate.getCommonExpressionOfDate(currentModel.pubDate))"
         // 获取下一张图片的模型
         let nextImageModel = self.modelArray[self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
         self.nextItem.imageURL = nextImageModel.image
         self.nextItem.title = nextImageModel.title
-        self.nextItem.date = "\(nextImageModel.category) | \(NSDate.getDate(nextImageModel.pubDate))"
+        self.nextItem.date = "\(nextImageModel.category) | \(NSDate.getCommonExpressionOfDate(nextImageModel.pubDate))"
         // 获取上衣张图片的模型
-        let lastImageModle = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
-        self.lastItem.imageURL = lastImageModle.image
-        self.lastItem.title = lastImageModle.title
-        self.lastItem.date = "\(lastImageModle.category) | \(NSDate.getDate(lastImageModle.pubDate))"
+        let lastImageModel = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
+        self.lastItem.imageURL = lastImageModel.image
+        self.lastItem.title = lastImageModel.title
+        self.lastItem.date = "\(lastImageModel.category) | \(NSDate.getCommonExpressionOfDate(lastImageModel.pubDate)))"
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------

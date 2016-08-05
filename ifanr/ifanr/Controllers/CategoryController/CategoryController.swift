@@ -28,7 +28,7 @@ class CategoryController: UIViewController {
         backBtn.snp_makeConstraints { (make) in
             make.left.equalTo(self.view)
             make.top.equalTo(self.view).offset(UIConstant.UI_MARGIN_20)
-            make.size.equalTo(CGSize(width: 50, height: 20))
+            make.size.equalTo(CGSize(width: 50, height: 15))
         }
         titleLabel.text = categoryModel.title
         titleLabel.snp_makeConstraints { (make) in
@@ -148,7 +148,7 @@ extension CategoryController: UIScrollViewDelegate {
         // 计算contentsize与offset的差值
         let contentSizeY = scrollView.contentSize.height
         let contentOffsetY = scrollView.contentOffset.y
-        let insety = scrollView.contentInset.top
+//        let insety = scrollView.contentInset.top
         differY = contentSizeY-contentOffsetY
         
         if differY < happenY {
@@ -167,7 +167,7 @@ extension CategoryController: UIScrollViewDelegate {
         } else if contentOffsetY >= headerHappenY && contentOffsetY <= -happenMinContentoffsetY {
             let differ = fabs(headerHappenY) - happenMinContentoffsetY
             let titleLabelAlpha = (happenMinContentoffsetY-fabs(contentOffsetY))/differ+1
-            print(titleLabelAlpha)
+//            print(titleLabelAlpha)
             UIView.animateWithDuration(0.01, animations: {
                 self.headerView.y = self.headerHappenY-contentOffsetY
                 self.titleLabel.alpha = titleLabelAlpha
@@ -217,5 +217,10 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return latestCellLayout[indexPath.row].cellHeight
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let model = latestCellLayout[indexPath.row].model
+        self.navigationController?.pushViewController(IFDetailsController(model: model, naviTitle: categoryModel.title), animated: true)
     }
 }
