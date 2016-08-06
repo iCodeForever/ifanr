@@ -38,6 +38,23 @@ class BottomToolsBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK:-----Action-----
+    @objc private func editCommentAction() {
+        self.delegate?.editCommentDidClick()
+    }
+    
+    @objc private func praiseButtonAction() {
+        self.delegate?.praiseButtonDidClick()
+    }
+    
+    @objc private func shareButtonAction() {
+        self.delegate?.shareButtonDidClick()
+    }
+    
+    @objc private func commentButtonAction() {
+        self.delegate?.commentButtonDidClick()
+    }
+    
     //MARK:-----Getter and Setter-----
     /// 红线
     private lazy var redlineView: UIView = {
@@ -96,21 +113,4 @@ class BottomToolsBar: UIView {
         commentButton.addTarget(self, action: #selector(commentButtonAction), forControlEvents: .TouchUpInside)
         return commentButton
     }()
-    
-    //MARK:-----Action-----
-    @objc private func editCommentAction() {
-        self.delegate?.editCommentDidClick()
-    }
-    
-    @objc private func praiseButtonAction() {
-        self.delegate?.praiseButtonDidClick()
-    }
-    
-    @objc private func shareButtonAction() {
-        self.delegate?.shareButtonDidClick()
-    }
-    
-    @objc private func commentButtonAction() {
-        self.delegate?.commentButtonDidClick()
-    }
 }

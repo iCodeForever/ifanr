@@ -62,7 +62,7 @@ public enum APIConstant {
     /**
      *  获得评论
      */
-    case Comments_latest(Int)
+    case Comments_latest(String)
 }
 
 public enum CategoryName {
@@ -208,8 +208,8 @@ extension APIConstant: TargetType {
         case let .MindStore_latest(page):
             return ["look_back_days": page, "limit": 60]
                     /// 详情页评论
-        case .Comments_latest(_):
-            return ["action":action, "appKey": appKey, "post_id": "696091","sign": sign, "timestamp": timestamp]
+        case let .Comments_latest(id):
+            return ["action":action, "appKey": appKey, "post_id":id ,"sign": sign, "timestamp": timestamp]
                     /// 分类
         case let .Category(type,page):
             if type == CategoryName.DaSheng || type == CategoryName.Shudu || type == CategoryName.Picture {

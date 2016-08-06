@@ -157,8 +157,8 @@ class IFanrService {
         }
     }
     
-    func getCommentData(page: Int, successHandel: (Array<CommentModel> -> Void)?, errorHandle:((Error) -> Void)?) {
-        ifanrProvider.request(APIConstant.Comments_latest(page)) { (result) in
+    func getCommentData(id: String, successHandel: (Array<CommentModel> -> Void)?, errorHandle:((Error) -> Void)?) {
+        ifanrProvider.request(APIConstant.Comments_latest(id)) { (result) in
             switch result {
             case let .Success(response):
                 do {
@@ -166,18 +166,24 @@ class IFanrService {
                     let json = try response.mapJSON() as? Dictionary<String, AnyObject>
                     if  let json = json {
                         //获取Data数组
-                        if let content = json["data"] as? Array<AnyObject> {
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                let modelArray = content.map({ (dict) -> CommentModel in
-                                    return CommentModel(dict: dict as! NSDictionary)
-                                })
+                        if let content = json["data"] as? Dictionary<String, AnyObject> {
+                            
+                            if let alls = (content["all"] as? Array<AnyObject>) {
                                 
-                                dispatch_async(dispatch_get_main_queue(), { 
-                                    if let success = successHandel {
-                                        success(modelArray)
-                                    }
+                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                    let allsArray = alls.map({ (dict) -> CommentModel in
+                                        return CommentModel(dict: dict as! NSDictionary)
+                                    })
+                                    
+                                    
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        if let success = successHandel {
+                                            success(allsArray)
+                                        }
+                                    })
                                 })
-                            })
+                            }
                         } else {
                             print("没有数据")
                         }

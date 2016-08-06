@@ -91,7 +91,7 @@ shareResuable{
     }
     
     func commentButtonDidClick() {
-        let ifDetailCommentVC = IFDetailCommentVC()
+        let ifDetailCommentVC = IFDetailCommentVC(id: "\(model?.ID)")
         self.navigationController?.pushViewController(ifDetailCommentVC, animated: true)
     }
     

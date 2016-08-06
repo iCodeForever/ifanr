@@ -14,8 +14,12 @@ protocol HeaderViewDelegate {
 
 class HeaderBackView: UIView {
     
-    
     var delegate: HeaderViewDelegate?
+    var title: String! = "" {
+        didSet {
+            self.titleLabel.text = title
+        }
+    }
     
     convenience init(title: String) {
         self.init()
@@ -27,28 +31,6 @@ class HeaderBackView: UIView {
         self.backgroundColor = UIColor.whiteColor()
         self.setupLayout()
     }
-    
-    var title: String! = "" {
-        didSet {
-            self.titleLabel.text = title
-        }
-    }
-    
-    //MARK:-----Setter and Getter-----
-    private lazy var backButton: UIButton = {
-        let backButton: UIButton = UIButton()
-        backButton.setImage(UIImage(imageLiteral: "ic_article_back"), forState: .Normal)
-        backButton.imageView?.contentMode = .ScaleAspectFill
-        backButton.addTarget(self, action: #selector(goback), forControlEvents: .TouchUpInside)
-        return backButton
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let titleLabel: UILabel = UILabel()
-        titleLabel.text = self.title
-        titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 14)
-        return titleLabel
-    }()
     
     //MARK:-----Action Event-----
     @objc private func goback() {
@@ -71,4 +53,20 @@ class HeaderBackView: UIView {
             make.width.equalTo(100)
         }
     }
+    
+    //MARK:-----Setter and Getter-----
+    private lazy var backButton: UIButton = {
+        let backButton: UIButton = UIButton()
+        backButton.setImage(UIImage(imageLiteral: "ic_article_back"), forState: .Normal)
+        backButton.imageView?.contentMode = .ScaleAspectFill
+        backButton.addTarget(self, action: #selector(goback), forControlEvents: .TouchUpInside)
+        return backButton
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let titleLabel: UILabel = UILabel()
+        titleLabel.text = self.title
+        titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 14)
+        return titleLabel
+    }()
 }
