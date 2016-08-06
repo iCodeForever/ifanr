@@ -9,10 +9,9 @@
 import UIKit
 import WebKit
 
-class NewsFlashDetailController: UIViewController, WKNavigationDelegate, shareResuable{
+class NewsFlashDetailController: UIViewController {
 
     //MARK:-----Variables-----
-    
     var shadowView: UIView?
     var shareView: ShareView?
     var urlStr: String?
@@ -50,35 +49,7 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate, shareRe
         }
     }
     
-    //MARK:-----ShareViewDelegate-----
-    func weixinShareButtonDidClick() {
-        shareToFriend((model?.excerpt)!,
-                      shareImageUrl: (model?.image)!,
-                      shareURL: urlStr!,
-                      shareTitle: (model?.title)!)
-    }
-    
-    func friendsCircleShareButtonDidClick() {
-        shareToFriendsCircle((model?.excerpt)!,
-                             shareTitle: (model?.title)!,
-                             shareUrl: urlStr!,
-                             shareImageUrl: (model?.image)!)
-    }
-    
-    func shareMoreButtonDidClick() {
-        hiddenShareView()
-    }
-    
-    //MARK:-----UIWebView Delegate-----
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        self.showProgress()
-    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        self.hiddenProgress()
-    }
-    
-    //MARK:-----Custom Function-----
+    //MARK:-----Private Function-----
     func bottomBarSetUpLayout() {
         
         self.backButton.snp_makeConstraints { (make) in
@@ -113,7 +84,6 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate, shareRe
     }
     
     func backButtonDidClick() {
-//        self.navigationController?.popViewControllerAnimated(true)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -189,4 +159,38 @@ class NewsFlashDetailController: UIViewController, WKNavigationDelegate, shareRe
         shareButton.addTarget(self, action: #selector(shareButtonDidClick), forControlEvents: .TouchUpInside)
         return shareButton
     }()
+}
+
+//MARK:-----ShareViewDelegate-----
+extension NewsFlashDetailController: ShareViewDelegate, shareResuable {
+    
+    func weixinShareButtonDidClick() {
+        shareToFriend((model?.excerpt)!,
+                      shareImageUrl: (model?.image)!,
+                      shareURL: urlStr!,
+                      shareTitle: (model?.title)!)
+    }
+    
+    func friendsCircleShareButtonDidClick() {
+        shareToFriendsCircle((model?.excerpt)!,
+                             shareTitle: (model?.title)!,
+                             shareUrl: urlStr!,
+                             shareImageUrl: (model?.image)!)
+    }
+    
+    func shareMoreButtonDidClick() {
+        hiddenShareView()
+    }
+}
+
+//MARK:-----UIWebView Delegate-----
+extension NewsFlashDetailController: WKNavigationDelegate {
+    
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        self.showProgress()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.hiddenProgress()
+    }
 }
