@@ -21,7 +21,6 @@ class CommentTableViewCell: UITableViewCell, Reusable {
     }
     
     //MARK:-----Variables-----
-    
     var model: CommentModel? {
         didSet{
             self.contentLabel.attributedText = UILabel.setAttributText(model?.comment_content, lineSpcae: 5.0)
@@ -34,6 +33,13 @@ class CommentTableViewCell: UITableViewCell, Reusable {
             }
             if let url = model?.avatar {
                 self.avatarImageView.if_setImage(NSURL(string: url))
+            }
+            
+            print(model?.comment_parent)
+            if model?.comment_parent != "0" {
+                self.setupLayout(true)
+            } else {
+                self.setupLayout(false)
             }
         }
     }
@@ -50,8 +56,6 @@ class CommentTableViewCell: UITableViewCell, Reusable {
         self.contentView.addSubview(self.trampleNumLabel)
         self.contentView.addSubview(self.trampleButton)
         self.contentView.addSubview(self.contentLabel)
-        
-        self.setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -101,8 +105,8 @@ class CommentTableViewCell: UITableViewCell, Reusable {
     }
     
     //设置布局
-    private func setupLayout() {
-        if model?.comment_parent != "" {
+    private func setupLayout(isBig: Bool) {
+        if isBig {
             self.avatarImageView.snp_makeConstraints { (make) in
                 make.top.equalTo(self.contentView).offset(15)
                 make.left.equalTo(self.contentView).offset(20)
@@ -111,7 +115,7 @@ class CommentTableViewCell: UITableViewCell, Reusable {
         } else {
             self.avatarImageView.snp_makeConstraints { (make) in
                 make.top.equalTo(self.contentView).offset(15)
-                make.left.equalTo(self.contentView).offset(50)
+                make.left.equalTo(self.contentView).offset(40)
                 make.width.height.equalTo(40)
             }
         }
@@ -190,7 +194,7 @@ class CommentTableViewCell: UITableViewCell, Reusable {
     }()
     
     private lazy var trampleNumLabel: UILabel = {
-        let trampleNumLabel = UILabel()
+        let trampleNumLabel  = UILabel()
         trampleNumLabel.font = UIFont.systemFontOfSize(12)
         return trampleNumLabel
     }()
@@ -204,8 +208,10 @@ class CommentTableViewCell: UITableViewCell, Reusable {
     }()
     
     private lazy var contentLabel: UILabel = {
-        let contentLabel = UILabel()
+        let contentLabel  = UILabel()
         contentLabel.font = UIFont.systemFontOfSize(13)
+        contentLabel.numberOfLines = 0
+        contentLabel.lineBreakMode = .ByWordWrapping
         return contentLabel
     }()
 }

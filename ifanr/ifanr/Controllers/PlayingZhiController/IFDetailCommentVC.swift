@@ -16,7 +16,6 @@ class IFDetailCommentVC: UIViewController {
     convenience init(id: String!) {
         self.init()
         self.post_id = id
-        self.post_id = "696091" //暂时写死
     }
     
     //MARK:-----Life Cycle-----
@@ -29,7 +28,6 @@ class IFDetailCommentVC: UIViewController {
         self.setupLayout()
         getData()
     }
-    
     
     //MARK:-----Private Function-----
     private func getData() {

@@ -129,7 +129,7 @@ extension IFDetailsController: ToolBarDelegate {
     }
     
     func commentButtonDidClick() {
-        let ifDetailCommentVC = IFDetailCommentVC(id: "\(model?.ID)")
+        let ifDetailCommentVC = IFDetailCommentVC(id: model?.ID)
         self.navigationController?.pushViewController(ifDetailCommentVC, animated: true)
     }
 }

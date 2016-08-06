@@ -24,7 +24,6 @@ class PlayingZhiController: BasePageController {
         getData()
     }
     
-    
     // 复写父类的方法 --- 获得获得
     func getData(page: Int = 1) {
         isRefreshing = true
@@ -76,7 +75,6 @@ extension PlayingZhiController {
         }
     }
 }
-
 
 // MARK: - tableView代理和数据源
 extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
