@@ -55,7 +55,7 @@ class BottomToolsBar: UIView {
         self.delegate?.commentButtonDidClick()
     }
     
-    //MARK:-----Getter and Setter-----
+    //MARK:-----Getter Setter-----
     /// 红线
     private lazy var redlineView: UIView = {
         

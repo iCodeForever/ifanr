@@ -10,8 +10,8 @@ import UIKit
 
 protocol CommentHeaderDelegate {
     func goBackButtonDidClick();
-    func timeSortedButtonDidClick();
-    func heatSortedButtonDidClick();
+    func timeSortedButtonDidClick(sender: UIButton);
+    func heatSortedButtonDidClick(sender: UIButton);
 }
 
 class CommentHeaderView: UIView {
@@ -43,11 +43,11 @@ class CommentHeaderView: UIView {
     @objc private func goBackButtonAction() {
         self.delegate?.goBackButtonDidClick()
     }
-    @objc private func timeSortedButtonAction() {
-        self.delegate?.timeSortedButtonDidClick()
+    @objc private func timeSortedButtonAction(sender: UIButton) {
+        self.delegate?.timeSortedButtonDidClick(sender)
     }
-    @objc private func heatSortedButtonAction() {
-        self.delegate?.heatSortedButtonDidClick()
+    @objc private func heatSortedButtonAction(sender: UIButton) {
+        self.delegate?.heatSortedButtonDidClick(sender)
     }
     
     //MARK:-----Private Function-----
@@ -59,7 +59,7 @@ class CommentHeaderView: UIView {
         self.bottomView.snp_makeConstraints { (make) in
             make.left.right.equalTo(self)
             make.top.equalTo(self.topView.snp_bottom)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
         }
         
         /// topView layout
@@ -114,6 +114,7 @@ class CommentHeaderView: UIView {
     private lazy var goBackButton: UIButton = {
         let goBackButton: UIButton = UIButton()
         goBackButton.setImage(UIImage(named: "ic_back"), forState: .Normal)
+        goBackButton.addTarget(self, action: #selector(goBackButtonAction), forControlEvents: .TouchUpInside)
         goBackButton.contentMode = .ScaleAspectFill
         return goBackButton
     }()
@@ -135,7 +136,7 @@ class CommentHeaderView: UIView {
     }()
     
     /// bottomView
-    private lazy var bottomView: UIView = {
+    lazy var bottomView: UIView = {
         let bottomView: UIView = UIView()
         bottomView.backgroundColor = UIColor.whiteColor()
         return bottomView
@@ -156,7 +157,7 @@ class CommentHeaderView: UIView {
         timeSortedButton.setTitle("时间", forState: .Normal)
         timeSortedButton.titleLabel?.font = UIFont.systemFontOfSize(14)
         timeSortedButton.titleLabel?.textAlignment
-        timeSortedButton.setTitleColor(UIColor.redColor(), forState: .Selected)
+        timeSortedButton.setTitleColor(UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0), forState: .Selected)
         timeSortedButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         timeSortedButton.addTarget(self, action: #selector(timeSortedButtonAction), forControlEvents: .TouchUpInside)
         return timeSortedButton
@@ -175,7 +176,7 @@ class CommentHeaderView: UIView {
         heatSortedButton.titleLabel?.font = UIFont.systemFontOfSize(14)
         heatSortedButton.titleLabel?.textAlignment
         heatSortedButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        heatSortedButton.setTitleColor(UIColor.redColor(), forState: .Selected)
+        heatSortedButton.setTitleColor(UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0), forState: .Selected)
         heatSortedButton.addTarget(self, action: #selector(heatSortedButtonAction), forControlEvents: .TouchUpInside)
         return heatSortedButton
     }()

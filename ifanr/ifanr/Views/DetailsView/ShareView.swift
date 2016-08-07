@@ -40,7 +40,7 @@ public class ShareView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //Mark:-----Custom Function-----
+    //Mark:-----Private Function-----
     func setupLayout() {
         logoShareImageView.snp_makeConstraints { (make) in
             make.top.left.equalTo(self).offset(20)
@@ -104,7 +104,7 @@ public class ShareView: UIView {
         self.delegate?.shareMoreButtonDidClick()
     }
     
-    //MARK:-----Setter and Getter-----
+    //MARK:-----Setter Getter-----
     /// 微信朋友
     private lazy var weixinShareButton: UIButton = {
         let weixinShareButton = UIButton()

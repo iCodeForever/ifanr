@@ -1,23 +1,23 @@
 //
-//  commentCell.swift
+//  SmallCommentTableViewCell.swift
 //  ifanr
 //
-//  Created by sys on 16/8/6.
+//  Created by sys on 16/8/7.
 //  Copyright © 2016年 ifanrOrg. All rights reserved.
 //
 
 import UIKit
 
-class CommentTableViewCell: UITableViewCell, Reusable {
-
+class SmallCommentTableViewCell: UITableViewCell, Reusable {
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
     //MARK:-----Variables-----
@@ -35,7 +35,7 @@ class CommentTableViewCell: UITableViewCell, Reusable {
                 self.avatarImageView.if_setImage(NSURL(string: url))
             }
             
-            self.setupLayout(true)
+            self.setupLayout(false)
         }
     }
     
@@ -68,13 +68,13 @@ class CommentTableViewCell: UITableViewCell, Reusable {
             btn.selected = true
         }
     }
-
+    
     //MARK:-----Private Function-----
-    class func cellWithTableView(tableView : UITableView) -> CommentTableViewCell {
+    class func cellWithTableView(tableView : UITableView) -> SmallCommentTableViewCell {
         
-        var cell: CommentTableViewCell? = tableView.dequeueReusableCell() as CommentTableViewCell?
+        var cell: SmallCommentTableViewCell? = tableView.dequeueReusableCell() as SmallCommentTableViewCell?
         if cell == nil {
-            cell = CommentTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
+            cell = SmallCommentTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
             cell?.selectionStyle = .None
         }
         return cell!
@@ -96,7 +96,7 @@ class CommentTableViewCell: UITableViewCell, Reusable {
         
         let labelRect : CGRect = content.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
         
-        return labelRect.height + 80
+        return labelRect.height + 80;
     }
     
     //设置布局
@@ -209,4 +209,5 @@ class CommentTableViewCell: UITableViewCell, Reusable {
         contentLabel.lineBreakMode = .ByWordWrapping
         return contentLabel
     }()
+    
 }
