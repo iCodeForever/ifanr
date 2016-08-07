@@ -167,7 +167,7 @@ extension NewsFlashDetailController: ShareViewDelegate, shareResuable {
     func weixinShareButtonDidClick() {
         shareToFriend((model?.excerpt)!,
                       shareImageUrl: (model?.image)!,
-                      shareURL: urlStr!,
+                      shareUrl: urlStr!,
                       shareTitle: (model?.title)!)
     }
     

@@ -1,1 +1,0 @@
-../../../../ShareSDK3/ShareSDK/Support/Optional/ShareSDKExtension.framework/Headers/SSEBaseUser.h

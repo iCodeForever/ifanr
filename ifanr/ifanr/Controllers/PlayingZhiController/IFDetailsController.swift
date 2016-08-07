@@ -93,7 +93,7 @@ extension IFDetailsController: ShareViewDelegate, shareResuable {
     func weixinShareButtonDidClick() {
         shareToFriend((model?.excerpt)!,
                       shareImageUrl: (model?.image)!,
-                      shareURL: (model?.link)!,
+                      shareUrl: (model?.link)!,
                       shareTitle: (model?.title)!)
     }
     
