@@ -52,8 +52,6 @@ public enum APIConstant {
      */
     case MindStore_latest(Int)
     
-///    https://www.ifanr.com/api/v3.0/?action=ifr_m_latest&appkey=sg5673g77yk72455af4sd55ea&category_name=video-special&excerpt_length=80&page=1&posts_per_page=12&sign=5a5bc2f2c134026826b92f81e162223c&timestamp=1470050845
-    
     /**
      *  分类
      */
@@ -202,6 +200,7 @@ extension APIConstant: TargetType {
             return ["look_back_days": page, "limit": 60]
                     /// 分类
         case let .Category(type,page):
+            // 大声， 数读，图记不需要传category_name参数，不然请求不到，所以这里处理了一下
             if type == CategoryName.DaSheng || type == CategoryName.Shudu || type == CategoryName.Picture {
                 return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
             } else {

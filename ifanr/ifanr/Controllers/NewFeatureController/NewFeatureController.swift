@@ -21,6 +21,9 @@ class NewFeatureController: UIViewController {
         
         self.player.play()
     }
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

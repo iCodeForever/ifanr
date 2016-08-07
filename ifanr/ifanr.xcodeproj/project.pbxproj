@@ -69,6 +69,7 @@
 		F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F170BE561D27F12F00D84EBC /* HomeHeaderItem.swift */; };
 		F17C51DE1D2AB1DE0077A4C5 /* UIFont+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17C51DD1D2AB1DE0077A4C5 /* UIFont+ifanr.swift */; };
 		F17C51E61D2BCBAB0077A4C5 /* MenuTabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17C51E21D2BCBAB0077A4C5 /* MenuTabModel.swift */; };
+		F187E7401D55E65100A71649 /* MindStoreDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187E73F1D55E65100A71649 /* MindStoreDetailController.swift */; };
 		F1A06AA91D28F91200563FA1 /* Request+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */; };
 		F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */; };
 		F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */; };
@@ -183,6 +184,7 @@
 		F170BE561D27F12F00D84EBC /* HomeHeaderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderItem.swift; sourceTree = "<group>"; };
 		F17C51DD1D2AB1DE0077A4C5 /* UIFont+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+ifanr.swift"; sourceTree = "<group>"; };
 		F17C51E21D2BCBAB0077A4C5 /* MenuTabModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTabModel.swift; sourceTree = "<group>"; };
+		F187E73F1D55E65100A71649 /* MindStoreDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MindStoreDetailController.swift; path = MindStoreController/MindStoreDetailController.swift; sourceTree = "<group>"; };
 		F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+ifanr.swift"; sourceTree = "<group>"; };
 		F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ifanr.swift"; sourceTree = "<group>"; };
 		F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				43D3D9801D2F37E80069993F /* MindStoreViewController.swift */,
+				F187E73F1D55E65100A71649 /* MindStoreDetailController.swift */,
 			);
 			name = MindStoreController;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
 				F1CECBEE1D3E7C6300A113A1 /* LoadMoreView.swift in Sources */,
 				4376F6201D3B4E8C00D64913 /* NewsFlashDetailController.swift in Sources */,
+				F187E7401D55E65100A71649 /* MindStoreDetailController.swift in Sources */,
 				F1B0D5A71D4DA15C0082850B /* CategoryViewCell.swift in Sources */,
 				F1CECBEC1D3D402E00A113A1 /* TableHeaderModel.swift in Sources */,
 				435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */,
