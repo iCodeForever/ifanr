@@ -29,10 +29,10 @@ extension NSDate {
         }
         
         let formatter : NSDateFormatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.MediumStyle
-        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        formatter.dateStyle  = NSDateFormatterStyle.MediumStyle
+        formatter.dateStyle  = NSDateFormatterStyle.ShortStyle
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        formatter.timeZone = NSTimeZone(name: "Asia/Beijing")
+        formatter.timeZone   = NSTimeZone(name: "Asia/Beijing")
         
         let dateBefore = formatter.dateFromString(dateString)
         
@@ -45,8 +45,7 @@ extension NSDate {
         let timeInterval = (NSDate.getTimeIntervalFromNow(dateString) * -1)/60/60
         if timeInterval < 1 {
             resStr = "\(Int(timeInterval*60)) 分钟前"
-        }
-        else if timeInterval < 24 {
+        } else if timeInterval < 24 {
             resStr = "\(Int(timeInterval)) 小时前"
         } else if timeInterval < 48 {
             let range = NSRange(location: 10, length: 6)
@@ -89,5 +88,23 @@ extension NSDate {
     class func getCurrentTimeStamp() -> String {
         let timeStamp : String = "\(Int64(floor(NSDate().timeIntervalSince1970 * 1000)))"
         return timeStamp
+    }
+    
+    /*
+     * 比较两个时间
+     */
+    class func isEarlier(dateStr1: String!, dateStr2: String!) -> Bool {
+        
+        let dateFormatter : NSDateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let date1 = dateFormatter.dateFromString(dateStr1)
+        let date2 = dateFormatter.dateFromString(dateStr2)
+        
+        if date1?.compare(date2!) == NSComparisonResult.OrderedAscending {
+            return true
+        } else {
+            return false
+        }
     }
 }

@@ -10,8 +10,7 @@ import UIKit
 import WebKit
 import SnapKit
 
-class IFDetailsController: UIViewController, WKNavigationDelegate, HeaderViewDelegate, ToolBarDelegate, UIScrollViewDelegate,
-shareResuable{
+class IFDetailsController: UIViewController{
     
     var shadowView: UIView?
     var shareView: ShareView?
@@ -40,7 +39,6 @@ shareResuable{
     }
     
     //MARK:-----Custom Function-----
-    
     private func setupLayout() {
         self.wkWebView.snp_makeConstraints { (make) in
             make.left.right.top.equalTo(self.view);
@@ -59,83 +57,8 @@ shareResuable{
         }
     }
     
-    //MARK:-----WebView Delegate-----
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        self.showProgress()
-    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        self.hiddenProgress()
-    }
-    
-    //MARK:-----HeaderViewDelegate-----
-    func backButtonDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    //MARK:-----ToolBarDelegate-----
-    func editCommentDidClick() {
-        debugPrint("editCommon")
-    }
-    
-    func praiseButtonDidClick() {
-        if self.toolBar.praiseButton.selected {
-            self.toolBar.praiseButton.selected = false
-        } else {
-            self.toolBar.praiseButton.selected = true
-        }
-    }
-    
-    func shareButtonDidClick() {
-        self.showShareView()
-    }
-    
-    func commentButtonDidClick() {
-    }
-    
-    //MARK:-----UIScrollViewDelegate-----
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let currentPosition: CGFloat = scrollView.contentOffset.y
-        if currentPosition - self.lastPosition > 30 && currentPosition > 0 {
-            self.headerTopConstraint?.updateOffset(-50)
-            
-            UIView.animateWithDuration(0.3, animations: {
-                self.headerBack.layoutIfNeeded()
-            })
-            
-            self.lastPosition = currentPosition
-            
-        } else if self.lastPosition - currentPosition > 10 {
-            
-            self.headerTopConstraint?.updateOffset(0)
-            UIView.animateWithDuration(0.3, animations: {
-                self.headerBack.layoutIfNeeded()
-            })
-            self.lastPosition = currentPosition
-        }
-    }
-    
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-    
-    //MARK:-----ShareViewDelegate-----
-    func weixinShareButtonDidClick() {
-        shareToFriend((model?.excerpt)!,
-                      shareImageUrl: (model?.image)!,
-                           shareURL: (model?.link)!,
-                         shareTitle: (model?.title)!)
-    }
-    
-    func friendsCircleShareButtonDidClick() {
-        shareToFriendsCircle((model?.excerpt)!,
-                             shareTitle: (model?.title)!,
-                               shareUrl: (model?.link)!,
-                          shareImageUrl: (model?.image)!)
-    }
-    
-    func shareMoreButtonDidClick() {
-        hiddenShareView()
     }
     
     //MARK:-----Getter and Setter-----
@@ -162,4 +85,91 @@ shareResuable{
         headerBack.delegate = self
         return headerBack
     }()
+}
+
+//MARK:-----ShareViewDelegate-----
+extension IFDetailsController: ShareViewDelegate, shareResuable {
+    
+    func weixinShareButtonDidClick() {
+        shareToFriend((model?.excerpt)!,
+                      shareImageUrl: (model?.image)!,
+                      shareUrl: (model?.link)!,
+                      shareTitle: (model?.title)!)
+    }
+    
+    func friendsCircleShareButtonDidClick() {
+        shareToFriendsCircle((model?.excerpt)!,
+                             shareTitle: (model?.title)!,
+                             shareUrl: (model?.link)!,
+                             shareImageUrl: (model?.image)!)
+    }
+    
+    func shareMoreButtonDidClick() {
+        hiddenShareView()
+    }
+}
+
+//MARK:-----ToolBarDelegate-----
+extension IFDetailsController: ToolBarDelegate {
+    
+    func editCommentDidClick() {
+        debugPrint("editCommon")
+    }
+    
+    func praiseButtonDidClick() {
+        if self.toolBar.praiseButton.selected {
+            self.toolBar.praiseButton.selected = false
+        } else {
+            self.toolBar.praiseButton.selected = true
+        }
+    }
+    
+    func shareButtonDidClick() {
+        self.showShareView()
+    }
+    
+    func commentButtonDidClick() {
+        let ifDetailCommentVC = IFDetailCommentVC(id: model?.ID)
+        self.navigationController?.pushViewController(ifDetailCommentVC, animated: true)
+    }
+}
+
+//MARK:-----WebViewDelegate UIScrollViewDelegate-----
+extension IFDetailsController: WKNavigationDelegate, UIScrollViewDelegate {
+    
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        self.showProgress()
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        self.hiddenProgress()
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let currentPosition: CGFloat = scrollView.contentOffset.y
+        if currentPosition - self.lastPosition > 30 && currentPosition > 0 {
+            self.headerTopConstraint?.updateOffset(-50)
+            
+            UIView.animateWithDuration(0.3, animations: {
+                self.headerBack.layoutIfNeeded()
+            })
+            
+            self.lastPosition = currentPosition
+            
+        } else if self.lastPosition - currentPosition > 10 {
+            
+            self.headerTopConstraint?.updateOffset(0)
+            UIView.animateWithDuration(0.3, animations: {
+                self.headerBack.layoutIfNeeded()
+            })
+            self.lastPosition = currentPosition
+        }
+    }
+}
+
+//MARK:-----HeaderViewDelegate-----
+extension IFDetailsController: HeaderViewDelegate {
+    func backButtonDidClick() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 }

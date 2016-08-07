@@ -32,7 +32,9 @@
 ## contribution
 [dby](https://github.com/dby), [lyimin](https://github.com/lyimin)
 ## 更新日志
-- 
+    - 修改详情页面的评论模块,调整代码 ----- 2016-08-07 by dby
+    - 将ShareSdk替换成MonkeyKing，修改分享代码 ----- 2016-08-07 by dby
+    - 初步完成详情页面的评论模块，有几处细节需要完善 -----2016-08-06 by dby
     - 优化一些细节问题   ----- 2016-08-05 by lyiming
     - 完成设置界面  ----- 2016-08-05 by lyiming
     - 优化菜单按钮的动画   ----- 2016-08-04 by lyiming

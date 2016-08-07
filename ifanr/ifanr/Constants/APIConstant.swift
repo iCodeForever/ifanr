@@ -56,6 +56,11 @@ public enum APIConstant {
      *  分类
      */
     case Category(CategoryName,Int)
+    
+    /**
+     *  获得评论
+     */
+    case Comments_latest(String)
 }
 
 public enum CategoryName {
@@ -141,6 +146,8 @@ extension APIConstant: TargetType {
         switch self {
         case .Home_hot_features(_):
             return "hot_features"
+        case .Comments_latest(_):
+            return "ifr_m_get_mobile_comments"
         default:
             return "ifr_m_latest"
         }
@@ -198,6 +205,9 @@ extension APIConstant: TargetType {
                     /// MindStore
         case let .MindStore_latest(page):
             return ["look_back_days": page, "limit": 60]
+                    /// 详情页评论
+        case let .Comments_latest(id):
+            return ["action":action, "appKey": appKey, "post_id":id ,"sign": sign, "timestamp": timestamp]
                     /// 分类
         case let .Category(type,page):
             // 大声， 数读，图记不需要传category_name参数，不然请求不到，所以这里处理了一下

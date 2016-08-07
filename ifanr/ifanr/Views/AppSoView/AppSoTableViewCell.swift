@@ -10,7 +10,7 @@ import UIKit
 
 class AppSoTableViewCell: UITableViewCell, Reusable {
 
-    //MARK:-----variables-----
+    //MARK:-----Variables-----
     var model : CommonModel! {
         didSet {
             self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
@@ -23,7 +23,7 @@ class AppSoTableViewCell: UITableViewCell, Reusable {
         }
     }
     
-    //MARK:-----init-----
+    //MARK:-----Init-----
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -43,62 +43,7 @@ class AppSoTableViewCell: UITableViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK:-----setter or getter-----
-    // 封面
-    private lazy var logoImageView: UIImageView = {
-        let logoImageView = UIImageView()
-        return logoImageView
-    }()
-    // app logo
-    private lazy var appIconImageView: UIImageView = {
-        let appIconImageView = UIImageView()
-        return appIconImageView
-    }()
-    // 时间
-    private lazy var timeLabel: UILabel = {
-        let timeLabel   = UILabel()
-        timeLabel.font  = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        timeLabel.textColor = UIColor.lightGrayColor()
-        return timeLabel
-    }()
-    // 点赞的数目
-    private lazy var likeCountLabel: UILabel = {
-        let likeCountLabel  = UILabel()
-        likeCountLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        likeCountLabel.textColor = UIColor.lightGrayColor()
-        return likeCountLabel
-    }()
-    // 点赞左侧的心
-    private lazy var heartImgView: UIImageView = {
-        let heartImgView    = UIImageView()
-        heartImgView.image  = UIImage(imageLiteral: "heart_selected_false")
-        return heartImgView
-    }()
-    // 标题，需动态计算高度
-    private lazy var titleLabel: UILabel = {
-        let titleLabel  = UILabel()
-        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
-        titleLabel.numberOfLines    = 0
-        titleLabel.lineBreakMode    = .ByWordWrapping
-        return titleLabel
-    }()
-    // 粗略信息，固定两行
-    private lazy var infoLabel: UILabel = {
-        let infoLabel = UILabel()
-        infoLabel.numberOfLines     = 0
-        infoLabel.lineBreakMode     = .ByCharWrapping
-        infoLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        infoLabel.textColor = UIColor.lightGrayColor()
-        return infoLabel
-    }()
-    // 小黄线
-    private lazy var separateLineView: UIView = {
-        let separateLineView = UIView()
-        separateLineView.backgroundColor = UIColor.brownColor()
-        return separateLineView
-    }()
-    
-    //MARK:-----custom function-----
+    //MARK:-----Private Function-----
     //布局
     private func setupLayout() -> Void {
         //
@@ -198,4 +143,59 @@ class AppSoTableViewCell: UITableViewCell, Reusable {
         // 50为其他控件的高度
         return labelRect.height + 280;
     }
+    
+    //MARK:-----Setter Getter-----
+    // 封面
+    private lazy var logoImageView: UIImageView = {
+        let logoImageView = UIImageView()
+        return logoImageView
+    }()
+    // app logo
+    private lazy var appIconImageView: UIImageView = {
+        let appIconImageView = UIImageView()
+        return appIconImageView
+    }()
+    // 时间
+    private lazy var timeLabel: UILabel = {
+        let timeLabel   = UILabel()
+        timeLabel.font  = UIFont.customFont_FZLTXIHJW(fontSize: 12)
+        timeLabel.textColor = UIColor.lightGrayColor()
+        return timeLabel
+    }()
+    // 点赞的数目
+    private lazy var likeCountLabel: UILabel = {
+        let likeCountLabel  = UILabel()
+        likeCountLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
+        likeCountLabel.textColor = UIColor.lightGrayColor()
+        return likeCountLabel
+    }()
+    // 点赞左侧的心
+    private lazy var heartImgView: UIImageView = {
+        let heartImgView    = UIImageView()
+        heartImgView.image  = UIImage(imageLiteral: "heart_selected_false")
+        return heartImgView
+    }()
+    // 标题，需动态计算高度
+    private lazy var titleLabel: UILabel = {
+        let titleLabel  = UILabel()
+        titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
+        titleLabel.numberOfLines    = 0
+        titleLabel.lineBreakMode    = .ByWordWrapping
+        return titleLabel
+    }()
+    // 粗略信息，固定两行
+    private lazy var infoLabel: UILabel = {
+        let infoLabel = UILabel()
+        infoLabel.numberOfLines     = 0
+        infoLabel.lineBreakMode     = .ByCharWrapping
+        infoLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
+        infoLabel.textColor = UIColor.lightGrayColor()
+        return infoLabel
+    }()
+    // 小黄线
+    private lazy var separateLineView: UIView = {
+        let separateLineView = UIView()
+        separateLineView.backgroundColor = UIColor.brownColor()
+        return separateLineView
+    }()
 }

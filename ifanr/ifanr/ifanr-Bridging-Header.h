@@ -9,7 +9,7 @@
 #import <YYWebImage/YYWebImage.h>
 #import "YYFPSLabel.h"
 
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKConnector/ShareSDKConnector.h>
+//#import <ShareSDK/ShareSDK.h>
+//#import <ShareSDKConnector/ShareSDKConnector.h>
 //微信SDK头文件
-#import "WXApi.h"
+//#import "WXApi.h"

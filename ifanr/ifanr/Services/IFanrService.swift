@@ -156,4 +156,48 @@ class IFanrService {
             }
         }
     }
+    
+    func getCommentData(id: String, successHandel: (Array<CommentModel> -> Void)?, errorHandle:((Error) -> Void)?) {
+        ifanrProvider.request(APIConstant.Comments_latest(id)) { (result) in
+            switch result {
+            case let .Success(response):
+                do {
+                    // 获取JSON数据
+                    let json = try response.mapJSON() as? Dictionary<String, AnyObject>
+                    if  let json = json {
+                        //获取Data数组
+                        if let content = json["data"] as? Dictionary<String, AnyObject> {
+                            
+                            if let alls = (content["all"] as? Array<AnyObject>) {
+                                
+                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                    let allsArray = alls.map({ (dict) -> CommentModel in
+                                        return CommentModel(dict: dict as! NSDictionary)
+                                    })
+                                    
+                                    
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        if let success = successHandel {
+                                            success(allsArray)
+                                        }
+                                    })
+                                })
+                            }
+                        } else {
+                            print("没有数据")
+                        }
+                    } else {
+                        print("没有数据")
+                    }
+                } catch {
+                    print("出现异常")
+                }
+            case let .Failure(error):
+                if let handle = errorHandle {
+                    handle(error)
+                }
+            }
+        }
+    }
 }

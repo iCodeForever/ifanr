@@ -1,0 +1,6 @@
+framework module MonkeyKing {
+  umbrella header "MonkeyKing-umbrella.h"
+
+  export *
+  module * { export * }
+}

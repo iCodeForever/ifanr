@@ -10,7 +10,7 @@ import UIKit
 
 class MindStoreTableViewCell: UITableViewCell, Reusable {
 
-    //MARK:-----init-----
+    //MARK:-----Init-----
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -30,7 +30,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: variables
+    //MARK:-----Variables-----
     var model : MindStoreModel! {
         didSet {
             self.titleLabel.attributedText      = UILabel.setAttributText(model.title, lineSpcae: 5.0)
@@ -54,7 +54,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         }
     }
     
-    //MARK:-----custom function-----
+    //MARK:-----Action-----
     @objc private func toVote(btn: UIButton) {
         if btn.selected {
             btn.selected = false
@@ -70,7 +70,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         }
     }
     
-    //布局
+    //MARK:-----Private Function-----
     private func setupLayout() -> Void {
         //
         // voteBtn - - -  - - - -
@@ -171,8 +171,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
             estimateLabelHeight(tagline, font: UIFont.customFont_FZLTZCHJW(fontSize: 12)) + 80
     }
     
-    //MARK:-----setter or getter-----
-    
+    //MARK:-----Setter Getter-----
     // vote button
     private lazy var voteBtn: UIButton = {
         let voteBtn = UIButton()

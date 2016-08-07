@@ -8,6 +8,7 @@
 
 import UIKit
 import YYWebImage
+import MonkeyKing
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
         
         
-        registerShareSDK()
+//        registerShareSDK()
+        MonkeyKing.registerAccount(.WeChat(appID: "wx535617f8042959c0", appKey: "df8037d4b45d95f86b7969a463a7c662"))
         return true
     }
     
@@ -38,30 +40,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate {
-    func registerShareSDK() {
-        ShareSDK.registerApp("150733cdd42da",
-                             activePlatforms: [SSDKPlatformType.TypeWechat.rawValue],
-                             onImport: {(platform : SSDKPlatformType) -> Void in
-                                
-                                switch platform{
-                                case SSDKPlatformType.TypeWechat:
-                                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
-                                    break
-                                default:
-                                    break
-                                }
-            },
-                             onConfiguration: {(platform : SSDKPlatformType,appInfo : NSMutableDictionary!) -> Void in
-                                switch platform {
-                                    
-                                case SSDKPlatformType.TypeWechat:
-                                    appInfo.SSDKSetupWeChatByAppId("wx535617f8042959c0", appSecret: "df8037d4b45d95f86b7969a463a7c662")
-                                    break
-                                    
-                                default:
-                                    break
-                                    
-                                }
-        })
-    }
+//    func registerShareSDK() {
+    
+//        ShareSDK.registerApp("150733cdd42da",
+//                             activePlatforms: [SSDKPlatformType.TypeWechat.rawValue],
+//                             onImport: {(platform : SSDKPlatformType) -> Void in
+//                                
+//                                switch platform{
+//                                case SSDKPlatformType.TypeWechat:
+//                                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+//                                    break
+//                                default:
+//                                    break
+//                                }
+//            },
+//                             onConfiguration: {(platform : SSDKPlatformType,appInfo : NSMutableDictionary!) -> Void in
+//                                switch platform {
+//                                    
+//                                case SSDKPlatformType.TypeWechat:
+//                                    appInfo.SSDKSetupWeChatByAppId("wx535617f8042959c0", appSecret: "df8037d4b45d95f86b7969a463a7c662")
+//                                    break
+//                                    
+//                                default:
+//                                    break
+//                                    
+//                                }
+//        })
+//    }
 }

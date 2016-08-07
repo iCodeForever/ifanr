@@ -39,7 +39,7 @@ enum PostType {
  */
 struct CommonModel {
     /// id
-    var ID: Int64!
+    var ID: String!
     /// 标题
     var title: String!
     /// 作者
@@ -86,7 +86,6 @@ struct CommonModel {
     //MARK: --------------------------- AppSo --------------------------
     var app_icon_url: String!
     
-    
     init(dict: NSDictionary) {
         initCommonData(dict)
         
@@ -98,7 +97,8 @@ struct CommonModel {
 
 extension CommonModel {
     mutating func initCommonData(dict: NSDictionary) {
-        self.ID = dict["ID"] as? Int64 ?? 0
+        let idStr: NSInteger = dict["ID"] as? NSInteger ?? 0
+        self.ID = "\(idStr)"
         self.title = dict["title"] as? String ?? ""
         self.author = dict["author"] as? String ?? ""
         self.pubDate = dict["pubDate"] as? String ?? ""

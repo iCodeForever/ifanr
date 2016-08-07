@@ -11,7 +11,6 @@ import UIKit
 class NewsFlashTableViewCell: UITableViewCell, Reusable {
     
     //MARK:-----init-----
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -28,7 +27,6 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     }
     
     //MARK:-----
-    
     var model : CommonModel! {
         didSet {
             
@@ -47,6 +45,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
         }
     }
     
+    //MARK:-----Private Function----
     class func cellWithTableView(tableView : UITableView) -> NewsFlashTableViewCell {
         var cell: NewsFlashTableViewCell? = tableView.dequeueReusableCell() as NewsFlashTableViewCell?
         if cell == nil {
@@ -85,8 +84,39 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
         return labelRect.height + 50;
     }
     
-    //MARK:-----getter or setter-----
+    func setUpLayout() {
+        
+        self.pointView.snp_makeConstraints { (make) in
+            make.left.equalTo(self).offset(UIConstant.UI_MARGIN_12)
+            make.top.equalTo(self).offset(20)
+            make.height.width.equalTo(8)
+        }
+        
+        self.timeLabel.snp_makeConstraints { (make) in
+            make.left.equalTo(pointView.snp_right).offset(UIConstant.UI_MARGIN_12)
+            make.right.equalTo(self).offset(32)
+            make.centerY.equalTo(self.pointView)
+            make.height.equalTo(20)
+        }
+        
+        self.contentLable.snp_makeConstraints { (make) in
+            make.left.equalTo(self).offset(32)
+            make.right.equalTo(self).offset(-32)
+            make.top.equalTo(self.timeLabel.snp_bottom).offset(5)
+            make.bottom.equalTo(self.sourceLabel.snp_top).offset(-5)
+        }
+        
+        self.sourceLabel.snp_makeConstraints { (make) in
+            make.left.right.equalTo(self).offset(32)
+            make.bottom.equalTo(self).offset(-15)
+            make.height.equalTo(20)
+        }
+        
+        self.pointView.layer.cornerRadius = 4
+        self.pointView.backgroundColor = UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0)
+    }
     
+    //MARK:-----Getter Setter-----
     private lazy var timeLabel : UILabel = {
         //时间
         let timeLabel   = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
@@ -118,37 +148,4 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
         sourceLabel.textColor = UIColor.lightGrayColor()
         return sourceLabel
     }()
-    
-    //MARK:-----Private Function----
-    func setUpLayout() -> Void {
-        
-        self.pointView.snp_makeConstraints { (make) in
-            make.left.equalTo(self).offset(UIConstant.UI_MARGIN_12)
-            make.top.equalTo(self).offset(20)
-            make.height.width.equalTo(8)
-        }
-        
-        self.timeLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(pointView.snp_right).offset(UIConstant.UI_MARGIN_12)
-            make.right.equalTo(self).offset(32)
-            make.centerY.equalTo(self.pointView)
-            make.height.equalTo(20)
-        }
-        
-        self.contentLable.snp_makeConstraints { (make) in
-            make.left.equalTo(self).offset(32)
-            make.right.equalTo(self).offset(-32)
-            make.top.equalTo(self.timeLabel.snp_bottom).offset(5)
-            make.bottom.equalTo(self.sourceLabel.snp_top).offset(-5)
-        }
-        
-        self.sourceLabel.snp_makeConstraints { (make) in
-            make.left.right.equalTo(self).offset(32)
-            make.bottom.equalTo(self).offset(-15)
-            make.height.equalTo(20)
-        }
-        
-        self.pointView.layer.cornerRadius = 4
-        self.pointView.backgroundColor = UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0)
-    }
 }
