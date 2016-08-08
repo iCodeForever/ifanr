@@ -16,7 +16,7 @@ install_framework()
     local source="$1"
   fi
 
-  local destination="${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
+  local destination="${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
 
   if [ -L "${source}" ]; then
       echo "Symlinked..."
@@ -59,8 +59,8 @@ code_sign_if_enabled() {
   if [ -n "${EXPANDED_CODE_SIGN_IDENTITY}" -a "${CODE_SIGNING_REQUIRED}" != "NO" -a "${CODE_SIGNING_ALLOWED}" != "NO" ]; then
     # Use the current code_sign_identitiy
     echo "Code Signing $1 with Identity ${EXPANDED_CODE_SIGN_IDENTITY_NAME}"
-    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements \"$1\""
-    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} ${OTHER_CODE_SIGN_FLAGS} --preserve-metadata=identifier,entitlements "$1"
+    echo "/usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements \"$1\""
+    /usr/bin/codesign --force --sign ${EXPANDED_CODE_SIGN_IDENTITY} --preserve-metadata=identifier,entitlements "$1"
   fi
 }
 
@@ -84,24 +84,24 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MonkeyKing/MonkeyKing.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYCache/YYCache.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYImage/YYImage.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYWebImage/YYWebImage.framework"
+  install_framework "Pods-ifanr/Alamofire.framework"
+  install_framework "Pods-ifanr/MonkeyKing.framework"
+  install_framework "Pods-ifanr/Moya.framework"
+  install_framework "Pods-ifanr/Result.framework"
+  install_framework "Pods-ifanr/SnapKit.framework"
+  install_framework "Pods-ifanr/SwiftyJSON.framework"
+  install_framework "Pods-ifanr/YYCache.framework"
+  install_framework "Pods-ifanr/YYImage.framework"
+  install_framework "Pods-ifanr/YYWebImage.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/MonkeyKing/MonkeyKing.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Moya/Moya.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Result/Result.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SnapKit/SnapKit.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/SwiftyJSON/SwiftyJSON.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYCache/YYCache.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYImage/YYImage.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYWebImage/YYWebImage.framework"
+  install_framework "Pods-ifanr/Alamofire.framework"
+  install_framework "Pods-ifanr/MonkeyKing.framework"
+  install_framework "Pods-ifanr/Moya.framework"
+  install_framework "Pods-ifanr/Result.framework"
+  install_framework "Pods-ifanr/SnapKit.framework"
+  install_framework "Pods-ifanr/SwiftyJSON.framework"
+  install_framework "Pods-ifanr/YYCache.framework"
+  install_framework "Pods-ifanr/YYImage.framework"
+  install_framework "Pods-ifanr/YYWebImage.framework"
 fi

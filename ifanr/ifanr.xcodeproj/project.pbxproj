@@ -730,6 +730,7 @@
 				699874B91D23C6CA0059A2BE /* Resources */,
 				E8BBF36FD1D0198D51A295A1 /* [CP] Embed Pods Frameworks */,
 				0D4521982A71F425CE56F521 /* [CP] Copy Pods Resources */,
+				26A2C46F9DCCD226C5DEDAF7 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -788,7 +789,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 48E3LB8PD7;
+						DevelopmentTeam = 5N8LXT5RPD;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -866,6 +867,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ifanr/Pods-ifanr-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		26A2C46F9DCCD226C5DEDAF7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ifanr/Pods-ifanr-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3F6DED635ED552DAEB9737F /* [CP] Check Pods Manifest.lock */ = {
@@ -1147,6 +1163,7 @@
 		};
 		699874E71D23C6CA0059A2BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ifanrTests/Info.plist;
@@ -1159,6 +1176,7 @@
 		};
 		699874E81D23C6CA0059A2BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ifanrTests/Info.plist;
@@ -1171,6 +1189,7 @@
 		};
 		699874EA1D23C6CA0059A2BE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ifanrUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1183,6 +1202,7 @@
 		};
 		699874EB1D23C6CA0059A2BE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ifanrUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

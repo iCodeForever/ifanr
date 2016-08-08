@@ -31,10 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidReceiveMemoryWarning(application: UIApplication) {
         // 获取缓存大小
         let cache = YYWebImageManager.sharedManager().cache
-        let memoryCache = cache!.memoryCache.totalCost
-        let diskCache = cache!.diskCache.totalCost
+//        let memoryCache = cache!.memoryCache.totalCost
+//        let diskCache = cache!.diskCache.totalCost
         
-        print("memoryCache: \(memoryCache) -- diskCache: \(diskCache)")
+        // 清空缓存
+        cache?.memoryCache.removeAllObjects()
+        cache?.diskCache.removeAllObjects()
     }
 }
 

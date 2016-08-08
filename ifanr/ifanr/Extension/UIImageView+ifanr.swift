@@ -15,4 +15,8 @@ extension UIImageView {
     func if_setImage(imageURL: NSURL!) {
         self.yy_setImageWithURL(imageURL, placeholder: UIImage(named: "place_holder_image"), options: [.SetImageWithFadeAnimation, .ProgressiveBlur], completion: nil)
     }
+    
+    func if_setAvatarImage(url: NSURL!) {
+        self.yy_setImageWithURL(url, placeholder: UIImage(named: "place_holder_image"), options: [.SetImageWithFadeAnimation, .ProgressiveBlur], completion: nil)
+    }
 }

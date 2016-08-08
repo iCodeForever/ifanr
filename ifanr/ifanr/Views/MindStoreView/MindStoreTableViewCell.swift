@@ -36,16 +36,18 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
             self.titleLabel.attributedText      = UILabel.setAttributText(model.title, lineSpcae: 5.0)
             self.tagLineLabel.attributedText    = UILabel.setAttributText(model.tagline, lineSpcae: 5.0);
            
-            if model.relatedImageModelArr.count == 1 {
-                self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
-                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
-            } else if model.relatedImageModelArr.count == 2 {
-                self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
-                self.relatedImg2.if_setImage(NSURL(string: model.relatedImageModelArr[1].link!))
-            } else {
-                self.relatedImg1.image = UIImage(named: "ic_mind_store_comment")
-                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
-            }
+//            if model.relatedImageModelArr.count == 1 {
+//                self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
+//                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
+//            } else if model.relatedImageModelArr.count == 2 {
+//                self.relatedImg1.if_setImage(NSURL(string: model.relatedImageModelArr[0].link!))
+//                self.relatedImg2.if_setImage(NSURL(string: model.relatedImageModelArr[1].link!))
+//            } else {
+//                self.relatedImg1.image = UIImage(named: "ic_mind_store_comment")
+//                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
+//            }
+            self.relatedImg1.if_setAvatarImage(NSURL(string: model.createdByModel.avatar_url))
+            self.relatedImg2.image = UIImage(named: "mind_store_comment_background")
             
             self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
             self.voteNumberLabel.text = "\(model.vote_user_count)"
@@ -128,9 +130,9 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.relatedImg1.clipsToBounds  = true
         
         self.relatedImg2.contentMode    = .ScaleAspectFill
-        self.relatedImg2.clipsToBounds  = true
-        self.relatedImg2.layer.cornerRadius = 10
-        self.relatedImg2.layer.masksToBounds = true
+//        self.relatedImg2.clipsToBounds  = true
+//        self.relatedImg2.layer.cornerRadius = 10
+//        self.relatedImg2.layer.masksToBounds = true
         
     }
     
