@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class NewsFlashDetailController: UIViewController {
+class IFSafariController: UIViewController {
 
     //MARK:-----Variables-----
     var shadowView: UIView?
@@ -162,7 +162,7 @@ class NewsFlashDetailController: UIViewController {
 }
 
 //MARK:-----ShareViewDelegate-----
-extension NewsFlashDetailController: ShareViewDelegate, shareResuable {
+extension IFSafariController: ShareViewDelegate, shareResuable {
     
     func weixinShareButtonDidClick() {
         shareToFriend((model?.excerpt)!,
@@ -184,7 +184,7 @@ extension NewsFlashDetailController: ShareViewDelegate, shareResuable {
 }
 
 //MARK:-----UIWebView Delegate-----
-extension NewsFlashDetailController: WKNavigationDelegate {
+extension IFSafariController: WKNavigationDelegate {
     
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         self.showProgress()
