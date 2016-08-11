@@ -1,11 +1,11 @@
 <p align="center">
-<a href="#Screenshot">截图</a> -
-<a href="#Lib">第三方库</a> -
+<a href="#截图">截图</a> -
+<a href="#第三方库">第三方库</a> -
 <a href="#UI">UI</a> -
 <a href="#Networking">Networking</a> -
 <a href="#Contribution">Contribution</a> -
-<a href="#Update">后续更新</a> -
-<a href="#Log">更新日志</a>
+<a href="#后续更新">后续更新</a> -
+<a href="#更新日志">更新日志</a>
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@ UI采用纯代码编写+![SnapKit](https://github.com/SnapKit/SnapKit)屏幕适�
 
 网络请求是采用![Alamofire](https://github.com/Alamofire/Alamofire)+![Moya](https://github.com/Moya/Moya),只需要创建一个`enum`去实现`Moya`的`TargetType`协议，然后配置`URL`和`parameters`等即可完成网络请求。详情可以看![APIConstant.swift](https://github.com/iCodeForever/ifanr/blob/master/ifanr/ifanr/Constants/APIConstant.swift)
 
-## contribution
+## Contribution
 
 - [dby](https://github.com/dby) 邮箱：1052856576@qq.com, [lyimin](https://github.com/lyimin) 邮箱：1142343535@qq.com
 - 如果你需要帮助或者遇到Bug，请[创建issue](https://github.com/iCodeForever/ifanr/issues/new)
