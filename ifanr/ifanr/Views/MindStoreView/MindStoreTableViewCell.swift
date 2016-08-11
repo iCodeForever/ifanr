@@ -129,7 +129,7 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         self.relatedImg1.layer.masksToBounds    = true
         self.relatedImg1.clipsToBounds  = true
         
-        self.relatedImg2.contentMode    = .ScaleAspectFill
+        self.relatedImg2.contentMode    = .ScaleAspectFit
 //        self.relatedImg2.clipsToBounds  = true
 //        self.relatedImg2.layer.cornerRadius = 10
 //        self.relatedImg2.layer.masksToBounds = true

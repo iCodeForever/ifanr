@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43070E9F1D3B8D8000B0C2A3 /* IFDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43070E9E1D3B8D8000B0C2A3 /* IFDetailsController.swift */; };
 		43070EA21D3B8E5600B0C2A3 /* BottomToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */; };
 		4323CC8C1D4BC43100D1DFCE /* ShareSDKUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */; };
 		4324F4FE1D4D97FF009F7ED3 /* ShareResuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */; };
 		432CE4F91D411A1400779050 /* UIViewController+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432CE4F81D411A1400779050 /* UIViewController+IF.swift */; };
 		4337ABDE1D5392960045B6BA /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABDD1D5392960045B6BA /* CommentModel.swift */; };
-		4337ABE11D539C4F0045B6BA /* MindStoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE01D539C4F0045B6BA /* MindStoreDataModel.swift */; };
+		4337ABE11D539C4F0045B6BA /* MindStoreCommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE01D539C4F0045B6BA /* MindStoreCommentModel.swift */; };
 		4337ABE31D53A70E0045B6BA /* CommentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE21D53A70E0045B6BA /* CommentHeaderView.swift */; };
-		4337ABE51D53A7540045B6BA /* IFDetailCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337ABE41D53A7540045B6BA /* IFDetailCommentVC.swift */; };
 		435379101D28BD37004A2766 /* NSDate+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353790F1D28BD37004A2766 /* NSDate+IF.swift */; };
 		4354EA501D2ABDBC007D419A /* PlayingZhiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */; };
 		43652EB51D576BEE00FF1378 /* SmallCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43652EB41D576BEE00FF1378 /* SmallCommentTableViewCell.swift */; };
@@ -23,7 +21,6 @@
 		436AF1941D41ACFD00386D9C /* HeaderBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436AF1931D41ACFD00386D9C /* HeaderBackView.swift */; };
 		43751CE01D26CFBB0032BBE3 /* NewsFlashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */; };
 		43751CE81D26D0820032BBE3 /* 爱范儿API.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */; };
-		4376F6201D3B4E8C00D64913 /* NewsFlashDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4376F61F1D3B4E8C00D64913 /* NewsFlashDetailController.swift */; };
 		4399F31F1D3BD42F00820962 /* UIView+icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4399F31E1D3BD42F00820962 /* UIView+icon.swift */; };
 		43A32C3A1D31F2C400A74858 /* MenuHeaaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C391D31F2C400A74858 /* MenuHeaaderView.swift */; };
 		43A32C3C1D31F30000A74858 /* HomePageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A32C3B1D31F30000A74858 /* HomePageControl.swift */; };
@@ -46,13 +43,17 @@
 		699874D41D23C6CA0059A2BE /* ifanrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699874D31D23C6CA0059A2BE /* ifanrTests.swift */; };
 		699874DF1D23C6CA0059A2BE /* ifanrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699874DE1D23C6CA0059A2BE /* ifanrUITests.swift */; };
 		EC6EFEF19DAD716ADE932327 /* Pods_ifanr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B07879CCAC673D632BB2B36D /* Pods_ifanr.framework */; };
+		F105F6561D5886B7009C0EE2 /* MindStoreVoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F6551D5886B7009C0EE2 /* MindStoreVoteModel.swift */; };
+		F105F65A1D5896F9009C0EE2 /* MindStoreVotedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F6591D5896F9009C0EE2 /* MindStoreVotedView.swift */; };
+		F105F65F1D5C10B1009C0EE2 /* IFDetailCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F65C1D5C10B1009C0EE2 /* IFDetailCommentVC.swift */; };
+		F105F6601D5C10B1009C0EE2 /* IFDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F65D1D5C10B1009C0EE2 /* IFDetailsController.swift */; };
+		F105F6611D5C10B1009C0EE2 /* IFSafariController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F65E1D5C10B1009C0EE2 /* IFSafariController.swift */; };
 		F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119375B1D24018A00DF143B /* UIView+Frame.swift */; };
 		F119376D1D2409A700DF143B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F119376C1D2409A700DF143B /* MainViewController.swift */; };
 		F11937721D240A4E00DF143B /* ifanrVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F11937711D240A4E00DF143B /* ifanrVideo.mp4 */; };
 		F1228DBB1D44B48F0096DA1C /* UIImage+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1228DBA1D44B48F0096DA1C /* UIImage+ifanr.swift */; };
 		F12D109A1D4FAD4B003C1A8D /* HomePopularLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D10991D4FAD4B003C1A8D /* HomePopularLayout.swift */; };
 		F12D109C1D4FC9AD003C1A8D /* UITableView+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D109B1D4FC9AD003C1A8D /* UITableView+ifanr.swift */; };
-		F14486E21D522981003E9462 /* MainCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14486E11D522981003E9462 /* MainCollectionViewLayout.swift */; };
 		F1498D951D24FCBD005BB684 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D941D24FCBD005BB684 /* Constant.swift */; };
 		F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1498D9A1D25150E005BB684 /* Reusable.swift */; };
 		F14CC2621D37FCFA00C50107 /* ControllerReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */; };
@@ -75,7 +76,6 @@
 		F187E7401D55E65100A71649 /* MindStoreDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187E73F1D55E65100A71649 /* MindStoreDetailController.swift */; };
 		F1A06AA91D28F91200563FA1 /* Request+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */; };
 		F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */; };
-		F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */; };
 		F1A262DF1D34034D00521914 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A262DE1D34034D00521914 /* MainHeaderView.swift */; };
 		F1A52F621D413E9500C4DE5E /* NewFeatureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A52F611D413E9500C4DE5E /* NewFeatureController.swift */; };
 		F1B0D5A61D4DA15C0082850B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B0D5A41D4DA15C0082850B /* CategoryView.swift */; };
@@ -116,15 +116,13 @@
 
 /* Begin PBXFileReference section */
 		19142DE52BA65CA63302D628 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		43070E9E1D3B8D8000B0C2A3 /* IFDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFDetailsController.swift; path = PlayingZhiController/IFDetailsController.swift; sourceTree = "<group>"; };
 		43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomToolsBar.swift; path = DetailsView/BottomToolsBar.swift; sourceTree = "<group>"; };
 		4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareSDKUtil.swift; path = Utils/ShareSDKUtil.swift; sourceTree = "<group>"; };
 		4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareResuable.swift; sourceTree = "<group>"; };
 		432CE4F81D411A1400779050 /* UIViewController+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+IF.swift"; sourceTree = "<group>"; };
 		4337ABDD1D5392960045B6BA /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentModel.swift; path = CommentModel/CommentModel.swift; sourceTree = "<group>"; };
-		4337ABE01D539C4F0045B6BA /* MindStoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MindStoreDataModel.swift; path = CommentModel/MindStoreDataModel.swift; sourceTree = "<group>"; };
+		4337ABE01D539C4F0045B6BA /* MindStoreCommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreCommentModel.swift; sourceTree = "<group>"; };
 		4337ABE21D53A70E0045B6BA /* CommentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentHeaderView.swift; path = DetailsView/CommentHeaderView.swift; sourceTree = "<group>"; };
-		4337ABE41D53A7540045B6BA /* IFDetailCommentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IFDetailCommentVC.swift; path = PlayingZhiController/IFDetailCommentVC.swift; sourceTree = "<group>"; };
 		4353790F1D28BD37004A2766 /* NSDate+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+IF.swift"; sourceTree = "<group>"; };
 		4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingZhiController.swift; path = PlayingZhiController/PlayingZhiController.swift; sourceTree = "<group>"; };
 		43652EB41D576BEE00FF1378 /* SmallCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SmallCommentTableViewCell.swift; path = DetailsView/SmallCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		436AF1931D41ACFD00386D9C /* HeaderBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderBackView.swift; path = DetailsView/HeaderBackView.swift; sourceTree = "<group>"; };
 		43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashController.swift; sourceTree = "<group>"; };
 		43751CE71D26D0820032BBE3 /* 爱范儿API.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "爱范儿API.rtf"; sourceTree = "<group>"; };
-		4376F61F1D3B4E8C00D64913 /* NewsFlashDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashDetailController.swift; sourceTree = "<group>"; };
 		4399F31E1D3BD42F00820962 /* UIView+icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+icon.swift"; sourceTree = "<group>"; };
 		43A32C391D31F2C400A74858 /* MenuHeaaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHeaaderView.swift; sourceTree = "<group>"; };
 		43A32C3B1D31F30000A74858 /* HomePageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageControl.swift; sourceTree = "<group>"; };
@@ -163,6 +160,11 @@
 		7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ifanr.release.xcconfig"; path = "Pods/Target Support Files/Pods-ifanr/Pods-ifanr.release.xcconfig"; sourceTree = "<group>"; };
 		B07879CCAC673D632BB2B36D /* Pods_ifanr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ifanr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ifanr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ifanr/Pods-ifanr.debug.xcconfig"; sourceTree = "<group>"; };
+		F105F6551D5886B7009C0EE2 /* MindStoreVoteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreVoteModel.swift; sourceTree = "<group>"; };
+		F105F6591D5896F9009C0EE2 /* MindStoreVotedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreVotedView.swift; sourceTree = "<group>"; };
+		F105F65C1D5C10B1009C0EE2 /* IFDetailCommentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFDetailCommentVC.swift; sourceTree = "<group>"; };
+		F105F65D1D5C10B1009C0EE2 /* IFDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFDetailsController.swift; sourceTree = "<group>"; };
+		F105F65E1D5C10B1009C0EE2 /* IFSafariController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFSafariController.swift; sourceTree = "<group>"; };
 		F119375B1D24018A00DF143B /* UIView+Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		F119376A1D24092500DF143B /* ifanr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ifanr-Bridging-Header.h"; sourceTree = "<group>"; };
 		F119376C1D2409A700DF143B /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -171,7 +173,6 @@
 		F1228DBA1D44B48F0096DA1C /* UIImage+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ifanr.swift"; sourceTree = "<group>"; };
 		F12D10991D4FAD4B003C1A8D /* HomePopularLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePopularLayout.swift; sourceTree = "<group>"; };
 		F12D109B1D4FC9AD003C1A8D /* UITableView+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+ifanr.swift"; sourceTree = "<group>"; };
-		F14486E11D522981003E9462 /* MainCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewLayout.swift; sourceTree = "<group>"; };
 		F1498D941D24FCBD005BB684 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		F1498D9A1D25150E005BB684 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		F14CC2611D37FCFA00C50107 /* ControllerReusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerReusable.swift; sourceTree = "<group>"; };
@@ -194,7 +195,6 @@
 		F187E73F1D55E65100A71649 /* MindStoreDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MindStoreDetailController.swift; path = MindStoreController/MindStoreDetailController.swift; sourceTree = "<group>"; };
 		F1A06AA81D28F91200563FA1 /* Request+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+ifanr.swift"; sourceTree = "<group>"; };
 		F1A06AAC1D29228A00563FA1 /* UIImageView+ifanr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ifanr.swift"; sourceTree = "<group>"; };
-		F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		F1A262DE1D34034D00521914 /* MainHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		F1A52F611D413E9500C4DE5E /* NewFeatureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewFeatureController.swift; sourceTree = "<group>"; };
 		F1B0D5A41D4DA15C0082850B /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -270,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				4337ABDD1D5392960045B6BA /* CommentModel.swift */,
-				4337ABE01D539C4F0045B6BA /* MindStoreDataModel.swift */,
 			);
 			name = CommentModel;
 			sourceTree = "<group>";
@@ -279,8 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				4354EA4F1D2ABDBC007D419A /* PlayingZhiController.swift */,
-				43070E9E1D3B8D8000B0C2A3 /* IFDetailsController.swift */,
-				4337ABE41D53A7540045B6BA /* IFDetailCommentVC.swift */,
 			);
 			name = PlayingZhiController;
 			sourceTree = "<group>";
@@ -289,7 +286,6 @@
 			isa = PBXGroup;
 			children = (
 				43751CDF1D26CFBB0032BBE3 /* NewsFlashController.swift */,
-				4376F61F1D3B4E8C00D64913 /* NewsFlashDetailController.swift */,
 			);
 			path = NewsFlashController;
 			sourceTree = "<group>";
@@ -332,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				43D3D9821D2F38E40069993F /* MindStoreTableViewCell.swift */,
+				F105F6591D5896F9009C0EE2 /* MindStoreVotedView.swift */,
 			);
 			path = MindStoreView;
 			sourceTree = "<group>";
@@ -430,6 +427,16 @@
 			path = ifanrUITests;
 			sourceTree = "<group>";
 		};
+		F105F65B1D5C10B1009C0EE2 /* DetailController */ = {
+			isa = PBXGroup;
+			children = (
+				F105F65C1D5C10B1009C0EE2 /* IFDetailCommentVC.swift */,
+				F105F65D1D5C10B1009C0EE2 /* IFDetailsController.swift */,
+				F105F65E1D5C10B1009C0EE2 /* IFSafariController.swift */,
+			);
+			path = DetailController;
+			sourceTree = "<group>";
+		};
 		F11937541D24013A00DF143B /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,6 +461,7 @@
 				F1B479F11D4F159A00ED0191 /* CategoryController */,
 				F15CF7E21D538C8100997F3F /* SettingController */,
 				F1D89BB61D544AFE00B9C852 /* SearchController */,
+				F105F65B1D5C10B1009C0EE2 /* DetailController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -559,8 +567,6 @@
 		F1498D911D24FA88005BB684 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				F14486E11D522981003E9462 /* MainCollectionViewLayout.swift */,
-				F1A262DC1D33AAD200521914 /* MainCollectionViewCell.swift */,
 				F1A262DE1D34034D00521914 /* MainHeaderView.swift */,
 				F1CECBE21D3D3AD300A113A1 /* TableHeaderView.swift */,
 			);
@@ -687,6 +693,8 @@
 			isa = PBXGroup;
 			children = (
 				F1CECBE81D3D401700A113A1 /* MindStoreModel.swift */,
+				4337ABE01D539C4F0045B6BA /* MindStoreCommentModel.swift */,
+				F105F6551D5886B7009C0EE2 /* MindStoreVoteModel.swift */,
 			);
 			path = MindStoreModel;
 			sourceTree = "<group>";
@@ -921,13 +929,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4337ABE51D53A7540045B6BA /* IFDetailCommentVC.swift in Sources */,
 				F170BE551D27E9B300D84EBC /* HomeHeaderView.swift in Sources */,
 				F1A06AA91D28F91200563FA1 /* Request+ifanr.swift in Sources */,
 				F1CECBF41D3E9EDA00A113A1 /* IFBaseNavController.swift in Sources */,
 				F170BE571D27F12F00D84EBC /* HomeHeaderItem.swift in Sources */,
 				F1E0063A1D38D9C600901099 /* PullToRefreshView.swift in Sources */,
 				F1B479F31D4F15B400ED0191 /* CategoryController.swift in Sources */,
+				F105F65F1D5C10B1009C0EE2 /* IFDetailCommentVC.swift in Sources */,
 				F170BE491D269F0000D84EBC /* MenuViewController.swift in Sources */,
 				43652EB51D576BEE00FF1378 /* SmallCommentTableViewCell.swift in Sources */,
 				F1B0D5A61D4DA15C0082850B /* CategoryView.swift in Sources */,
@@ -938,16 +946,13 @@
 				F17C51E61D2BCBAB0077A4C5 /* MenuTabModel.swift in Sources */,
 				F15CF7E71D5392E300997F3F /* SettingViewCell.swift in Sources */,
 				F1D89BB81D544B2600B9C852 /* SearchViewController.swift in Sources */,
-				F14486E21D522981003E9462 /* MainCollectionViewLayout.swift in Sources */,
 				4337ABE31D53A70E0045B6BA /* CommentHeaderView.swift in Sources */,
 				F15CF7E41D538C9100997F3F /* SettingViewController.swift in Sources */,
 				43A32C401D31F34800A74858 /* IFanrService.swift in Sources */,
 				F17C51DE1D2AB1DE0077A4C5 /* UIFont+ifanr.swift in Sources */,
 				F1228DBB1D44B48F0096DA1C /* UIImage+ifanr.swift in Sources */,
-				F1A262DD1D33AAD200521914 /* MainCollectionViewCell.swift in Sources */,
 				F170BE461D26388B00D84EBC /* APIConstant.swift in Sources */,
 				F1CECBEE1D3E7C6300A113A1 /* LoadMoreView.swift in Sources */,
-				4376F6201D3B4E8C00D64913 /* NewsFlashDetailController.swift in Sources */,
 				F187E7401D55E65100A71649 /* MindStoreDetailController.swift in Sources */,
 				F1B0D5A71D4DA15C0082850B /* CategoryViewCell.swift in Sources */,
 				F1CECBEC1D3D402E00A113A1 /* TableHeaderModel.swift in Sources */,
@@ -971,17 +976,19 @@
 				43070EA21D3B8E5600B0C2A3 /* BottomToolsBar.swift in Sources */,
 				4399F31F1D3BD42F00820962 /* UIView+icon.swift in Sources */,
 				43652EB71D5774FA00FF1378 /* CommentsCellResuable.swift in Sources */,
+				F105F6601D5C10B1009C0EE2 /* IFDetailsController.swift in Sources */,
 				43AB24E21D4A60EB008E8A59 /* CommonModel.swift in Sources */,
-				43070E9F1D3B8D8000B0C2A3 /* IFDetailsController.swift in Sources */,
 				F15349E31D2DF52F00A11BCB /* HomeLatestTextCell.swift in Sources */,
 				432CE4F91D411A1400779050 /* UIViewController+IF.swift in Sources */,
 				F1CECBF31D3E9EDA00A113A1 /* BasePageController.swift in Sources */,
+				F105F6561D5886B7009C0EE2 /* MindStoreVoteModel.swift in Sources */,
 				43A32C3E1D31F32B00A74858 /* HomeViewController.swift in Sources */,
 				F1498D9B1D25150E005BB684 /* Reusable.swift in Sources */,
 				F119375C1D24018A00DF143B /* UIView+Frame.swift in Sources */,
 				F1CECBEA1D3D401700A113A1 /* MindStoreModel.swift in Sources */,
 				F1D89BB51D543F1400B9C852 /* SettingHeaderView.swift in Sources */,
 				43B4439E1D2DE436000D8283 /* AppSoTableViewCell.swift in Sources */,
+				F105F6611D5C10B1009C0EE2 /* IFSafariController.swift in Sources */,
 				F1A06AAD1D29228A00563FA1 /* UIImageView+ifanr.swift in Sources */,
 				43B4439C1D2DDD94000D8283 /* UILabel+IF.swift in Sources */,
 				436AF1941D41ACFD00386D9C /* HeaderBackView.swift in Sources */,
@@ -994,9 +1001,10 @@
 				4337ABDE1D5392960045B6BA /* CommentModel.swift in Sources */,
 				F1CECBE31D3D3AD300A113A1 /* TableHeaderView.swift in Sources */,
 				F170BE4E1D269F7D00D84EBC /* MenuTableViewCell.swift in Sources */,
+				F105F65A1D5896F9009C0EE2 /* MindStoreVotedView.swift in Sources */,
 				43EBEAC31D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift in Sources */,
 				F1B479F71D4F1EB000ED0191 /* CategoryListHeaderView.swift in Sources */,
-				4337ABE11D539C4F0045B6BA /* MindStoreDataModel.swift in Sources */,
+				4337ABE11D539C4F0045B6BA /* MindStoreCommentModel.swift in Sources */,
 				43EBEAC21D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift in Sources */,
 				43F2E6E11D274AE700224B6F /* IFNetWorkTool.swift in Sources */,
 				F1D89BB31D54345B00B9C852 /* SettingModel.swift in Sources */,

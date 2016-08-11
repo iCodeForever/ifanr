@@ -53,6 +53,16 @@ public enum APIConstant {
     case MindStore_latest(Int)
     
     /**
+     *  MindStore详情页的头像  id
+     */
+    case MindStore_Detail_Vote(String)
+    
+    /**
+     *  MindStore详情页的评论  id offset
+     */
+    case MindStore_Detail_Comments(String, Int)
+    
+    /**
      *  分类
      */
     case Category(CategoryName,Int)
@@ -63,6 +73,21 @@ public enum APIConstant {
     case Comments_latest(String)
 }
 
+/**
+ 分类类型
+ 
+ - Video:      视频
+ - ISeed:      ISeed
+ - DaSheng:    大声
+ - Shudu:      数读
+ - Evaluation: 评测
+ - Product:    参评
+ - Car:        汽车
+ - Business:   商业
+ - Interview:  访谈
+ - Picture:    图记
+ - List:       清单
+ */
 public enum CategoryName {
     case Video
     case ISeed
@@ -76,6 +101,9 @@ public enum CategoryName {
     case Picture
     case List
     
+    /**
+     获取分类名字
+     */
     func getName() -> String {
         switch self {
         case .Video:
@@ -168,7 +196,7 @@ extension APIConstant: TargetType {
     public var baseURL: NSURL {
         switch self {
             /// https://sso.ifanr.com/api/v1.2/mind/?look_back_days=0&limit=60
-        case .MindStore_latest(_):
+        case .MindStore_latest(_), .MindStore_Detail_Vote(_), .MindStore_Detail_Comments(_,_):
             return NSURL(string: "https://sso.ifanr.com/api/v1.2/mind/")!
         default:
             return NSURL(string: "https://www.ifanr.com/api/v3.0/")!
@@ -177,7 +205,16 @@ extension APIConstant: TargetType {
     }
         /// 路径
     public var path: String {
-        return ""
+        
+        switch self {
+        case let .MindStore_Detail_Vote(id):
+            return "vote/\(id)"
+            
+        case .MindStore_Detail_Comments(_,_):
+            return "comment/"
+        default:
+            return ""
+        }
     }
         /// 请求方法
     public var method: Moya.Method {
@@ -216,6 +253,12 @@ extension APIConstant: TargetType {
             } else {
                 return ["action": action, "appKey": appKey, "category_name": type.getName(),"excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
             }
+                    /// 分类评论
+        case let .MindStore_Detail_Comments(id, offset):
+            return ["mind": id, "limit": 12, "offset": offset]
+            
+        default:
+            return nil
         }
     }
     

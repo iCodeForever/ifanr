@@ -100,7 +100,7 @@ extension NewsFlashController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let model = self.newsFlashModelArray[indexPath.row];
-        let detailController: NewsFlashDetailController = NewsFlashDetailController(model: model)
+        let detailController: IFSafariController = IFSafariController(model: model)
 //        self.navigationController?.pushViewController(detailController, animated: true)
         self.presentViewController(detailController, animated: true, completion: nil)
         

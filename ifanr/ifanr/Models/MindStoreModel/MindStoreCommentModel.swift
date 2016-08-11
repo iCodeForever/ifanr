@@ -28,8 +28,8 @@ struct CreateBy {
     }
 }
 
-struct ChildCommentModel {
-    
+struct MindStoreCommentModel {
+    var children_display = [MindStoreCommentModel]()
     var content: String!
     var created_at: String!
     var created_by: CreateBy!
@@ -47,6 +47,10 @@ struct ChildCommentModel {
     var voted: Bool!
     
     init(dict:NSDictionary) {
+        let array: Array<NSDictionary> = dict["children_display"] as! Array<NSDictionary>
+        self.children_display = array.map({ (dict) -> MindStoreCommentModel in
+            MindStoreCommentModel(dict: dict)
+        })
         self.content = dict["content"] as? String ?? ""
         self.created_at = dict["content"] as? String ?? ""
         self.id = dict["content"] as? Int64 ?? 0

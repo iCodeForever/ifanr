@@ -127,7 +127,7 @@ class HomeLatestDataCell: UITableViewCell, Reusable {
         var introduceLabel = UILabel()
         introduceLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         introduceLabel.numberOfLines = 0
-        introduceLabel.textColor = UIConstant.UI_COLOR_RedTheme
+        introduceLabel.textColor = UIConstant.UI_COLOR_GrayTheme
         return introduceLabel
     }()
     

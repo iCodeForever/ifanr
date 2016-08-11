@@ -175,8 +175,6 @@ class IFanrService {
                                         return CommentModel(dict: dict as! NSDictionary)
                                     })
                                     
-                                    
-                                    
                                     dispatch_async(dispatch_get_main_queue(), {
                                         if let success = successHandel {
                                             success(allsArray)
@@ -190,6 +188,86 @@ class IFanrService {
                     } else {
                         print("没有数据")
                     }
+                } catch {
+                    print("出现异常")
+                }
+            case let .Failure(error):
+                if let handle = errorHandle {
+                    handle(error)
+                }
+            }
+        }
+    }
+    
+    func getMindStoreVotedData(id: String, successHandle: (Array<MindStoreVoteModel> -> Void)?, errorHandle:((Error) -> Void)?) {
+        ifanrProvider.request(APIConstant.MindStore_Detail_Vote(id)) { (result) in
+            switch result {
+            case let .Success(response):
+                do {
+                    // 获取json数据
+                    let json = try response.mapJSON() as? Dictionary<String, AnyObject>
+                    if let json = json {
+                        // 获取Data数组
+                        if let content = json["voted_user"] as? Array<AnyObject> {
+                            // 放到异步去处理字典转模型，提前计算好cell的高度。
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                let modelArray = content.map({ (dict) -> MindStoreVoteModel in
+                                    return MindStoreVoteModel(dict: dict as! NSDictionary)
+                                })
+                                
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    if let success = successHandle {
+                                        success(modelArray)
+                                    }
+                                })
+                            })
+                        } else {
+                            print("没有数据")
+                        }
+                    } else {
+                        print("没有数据")
+                    }
+                    
+                } catch {
+                    print("出现异常")
+                }
+            case let .Failure(error):
+                if let handle = errorHandle {
+                    handle(error)
+                }
+            }
+        }
+    }
+    
+    func getMindStoreCommentData(target: APIConstant, successHandle: (Array<MindStoreCommentModel> -> Void)?, errorHandle:((Error) -> Void)?) {
+        ifanrProvider.request(target) { (result) in
+            switch result {
+            case let .Success(response):
+                do {
+                    // 获取json数据
+                    let json = try response.mapJSON() as? Dictionary<String, AnyObject>
+                    if let json = json {
+                        // 获取Data数组
+                        if let content = json["objects"] as? Array<AnyObject> {
+                            // 放到异步去处理字典转模型，提前计算好cell的高度。
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                                let modelArray = content.map({ (dict) -> MindStoreCommentModel in
+                                    return MindStoreCommentModel(dict: dict as! NSDictionary)
+                                })
+                                
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    if let success = successHandle {
+                                        success(modelArray)
+                                    }
+                                })
+                            })
+                        } else {
+                            print("没有数据")
+                        }
+                    } else {
+                        print("没有数据")
+                    }
+                    
                 } catch {
                     print("出现异常")
                 }

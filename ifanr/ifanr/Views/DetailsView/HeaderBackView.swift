@@ -24,12 +24,14 @@ class HeaderBackView: UIView {
     convenience init(title: String) {
         self.init()
         self.title = title
+        backgroundColor = UIColor.clearColor()
         
-        self.addSubview(self.backButton)
-        self.addSubview(self.titleLabel)
+        addSubview(blurView)
         
-        self.backgroundColor = UIColor.whiteColor()
-        self.setupLayout()
+        addSubview(backButton)
+        addSubview(titleLabel)
+        
+        setupLayout()
     }
     
     //MARK:-----Action Event-----
@@ -39,6 +41,10 @@ class HeaderBackView: UIView {
     
     //MARK:-----Custom Function-----
     private func setupLayout() {
+        blurView.snp_makeConstraints { (make) in
+            make.edges.equalTo(self)
+        }
+        
         backButton.snp_makeConstraints { (make) in
             make.left.equalTo(self).offset(15)
             make.centerY.equalTo(self)
@@ -52,6 +58,7 @@ class HeaderBackView: UIView {
             make.height.equalTo(40)
             make.width.equalTo(100)
         }
+        
     }
     
     //MARK:-----Setter and Getter-----
@@ -68,5 +75,11 @@ class HeaderBackView: UIView {
         titleLabel.text = self.title
         titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 14)
         return titleLabel
+    }()
+    
+    private lazy var blurView: UIVisualEffectView = {
+        let blurEffect : UIBlurEffect = UIBlurEffect(style: .Light)
+        let blurView : UIVisualEffectView = UIVisualEffectView(effect: blurEffect)
+        return blurView
     }()
 }

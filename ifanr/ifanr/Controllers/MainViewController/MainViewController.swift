@@ -355,20 +355,6 @@ extension MainViewController {
     }
 }
 
-
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewArray.count
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(indexPath) as MainCollectionViewCell
-        cell.childVCView = viewArray[indexPath.row]
-        return cell
-    }
-}
-
 // MARK: - 这里处理collectionview左右滑动时的一些动画（头部控件位移差，菜单分类按钮）
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
