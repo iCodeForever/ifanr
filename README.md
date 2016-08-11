@@ -18,6 +18,22 @@
 
 ## 截图
 
+
+![1.gif](https://github.com/iCodeForever/ifanr/blob/master/ifanr/ifanr/Resources/1.gif)
+
+
+![2.gif](https://github.com/iCodeForever/ifanr/blob/master/ifanr/ifanr/Resources/2.gif)
+
+
+![3.gif](https://github.com/iCodeForever/ifanr/blob/master/ifanr/ifanr/Resources/3.gif)
+
+
+![4.gif](https://github.com/iCodeForever/ifanr/blob/master/ifanr/ifanr/Resources/4.gif)
+
+
+![5.gif](https://github.com/iCodeForever/ifanr/blob/master/ifanr/ifanr/Resources/5.gif)
+
+
 ## 第三方库
 
 - ![Alamofire](https://github.com/Alamofire/Alamofire)      网络请求
