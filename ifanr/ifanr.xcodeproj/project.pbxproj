@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		43070EA21D3B8E5600B0C2A3 /* BottomToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */; };
+		43090D4A1D5F527F00B3D9A3 /* Initable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43090D491D5F527F00B3D9A3 /* Initable.swift */; };
 		4323CC8C1D4BC43100D1DFCE /* ShareSDKUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */; };
 		4324F4FE1D4D97FF009F7ED3 /* ShareResuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */; };
 		432CE4F91D411A1400779050 /* UIViewController+IF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432CE4F81D411A1400779050 /* UIViewController+IF.swift */; };
@@ -115,6 +116,7 @@
 /* Begin PBXFileReference section */
 		19142DE52BA65CA63302D628 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomToolsBar.swift; path = DetailsView/BottomToolsBar.swift; sourceTree = "<group>"; };
+		43090D491D5F527F00B3D9A3 /* Initable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Initable.swift; sourceTree = "<group>"; };
 		4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareSDKUtil.swift; path = Utils/ShareSDKUtil.swift; sourceTree = "<group>"; };
 		4324F4FD1D4D97FF009F7ED3 /* ShareResuable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareResuable.swift; sourceTree = "<group>"; };
 		432CE4F81D411A1400779050 /* UIViewController+IF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+IF.swift"; sourceTree = "<group>"; };
@@ -485,8 +487,9 @@
 		F11937571D24013A00DF143B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F1D89BB11D54344B00B9C852 /* SettingModel */,
+				43090D491D5F527F00B3D9A3 /* Initable.swift */,
 				43AB24E11D4A60EB008E8A59 /* CommonModel.swift */,
+				F1D89BB11D54344B00B9C852 /* SettingModel */,
 				4337ABDC1D5392670045B6BA /* CommentModel */,
 				F1CECBE61D3D401700A113A1 /* MainModel */,
 				F1CECBE71D3D401700A113A1 /* MindStoreModel */,
@@ -791,7 +794,7 @@
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5N8LXT5RPD;
+						DevelopmentTeam = 48E3LB8PD7;
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -968,6 +971,7 @@
 				F15349E11D2D7EB900A11BCB /* String+ifanr.swift in Sources */,
 				43070EA21D3B8E5600B0C2A3 /* BottomToolsBar.swift in Sources */,
 				4399F31F1D3BD42F00820962 /* UIView+icon.swift in Sources */,
+				43090D4A1D5F527F00B3D9A3 /* Initable.swift in Sources */,
 				43652EB71D5774FA00FF1378 /* CommentsCellResuable.swift in Sources */,
 				F105F6601D5C10B1009C0EE2 /* IFDetailsController.swift in Sources */,
 				43AB24E21D4A60EB008E8A59 /* CommonModel.swift in Sources */,

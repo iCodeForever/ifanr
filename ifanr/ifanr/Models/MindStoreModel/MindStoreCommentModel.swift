@@ -28,7 +28,7 @@ struct CreateBy {
     }
 }
 
-struct MindStoreCommentModel {
+struct MindStoreCommentModel: Initable {
     var children_display = [MindStoreCommentModel]()
     var content: String!
     var created_at: String!

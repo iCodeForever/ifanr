@@ -31,8 +31,10 @@ class IFDetailCommentVC: UIViewController {
     
     //MARK:-----Private Function-----
     private func getData() {
-        IFanrService.shareInstance.getCommentData(self.post_id, successHandel: { (modelArray) in
-            
+        
+        
+        let type: CommentModel? = CommentModel(dict: [:])
+        IFanrService.shareInstance.getData(APIConstant.Comments_latest(self.post_id), t: type, keys: ["data", "all"], successHandle: { (modelArray) in
             // 添加数据
             modelArray.forEach {
                 self.ifDetailCommentsModelArray.append($0)
@@ -42,6 +44,18 @@ class IFDetailCommentVC: UIViewController {
         }) { (error) in
             print(error)
         }
+        
+//        IFanrService.shareInstance.getCommentData(self.post_id, successHandel: { (modelArray) in
+//            
+//            // 添加数据
+//            modelArray.forEach {
+//                self.ifDetailCommentsModelArray.append($0)
+//            }
+//            self.tableView.reloadData()
+//            
+//        }) { (error) in
+//            print(error)
+//        }
     }
     
     private func setupLayout() {

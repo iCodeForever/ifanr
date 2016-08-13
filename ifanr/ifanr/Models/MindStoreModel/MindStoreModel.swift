@@ -26,7 +26,7 @@ struct RelatedImageModel {
     var title: String!
 }
 
-struct MindStoreModel {
+struct MindStoreModel: Initable {
     var id: Int64!
     var comment_count: String!
     var comment_order: String!
@@ -66,14 +66,16 @@ struct MindStoreModel {
         self.vote_user_count = dict["vote_user_count"] as? NSNumber ?? 0
         self.voted = dict["voted"] as? Int64 ?? 0
         
-        self.createdByModel.avatar_url  = dict["created_by"]!["avatar_url"] as? String ?? ""
-        self.createdByModel.company     = dict["created_by"]!["company"] as? String ?? ""
-        self.createdByModel.email       = dict["created_by"]!["email"] as? String ?? ""
-        self.createdByModel.id          = dict["created_by"]!["id"] as? String ?? ""
-        self.createdByModel.lime_home_url = dict["created_by"]!["lime_home_url"] as? String ?? ""
-        self.createdByModel.nickname = dict["created_by"]!["nickname"] as? String ?? ""
-        self.createdByModel.position = dict["created_by"]!["position"] as? String ?? ""
-        self.createdByModel.wechat_screenname = dict["created_by"]!["wechat_screenname"] as? String ?? ""
+        if let createByDic = dict["created_by"] {
+            self.createdByModel.avatar_url  = createByDic["avatar_url"] as? String ?? ""
+            self.createdByModel.company     = createByDic["company"] as? String ?? ""
+            self.createdByModel.email       = createByDic["email"] as? String ?? ""
+            self.createdByModel.id          = createByDic["id"] as? String ?? ""
+            self.createdByModel.lime_home_url = createByDic["lime_home_url"] as? String ?? ""
+            self.createdByModel.nickname = createByDic["nickname"] as? String ?? ""
+            self.createdByModel.position = createByDic["position"] as? String ?? ""
+            self.createdByModel.wechat_screenname = createByDic["wechat_screenname"] as? String ?? ""
+        }
         
         if let tmp = dict["related_image"] {
             for item in (tmp as? NSArray)! {

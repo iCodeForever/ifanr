@@ -27,8 +27,10 @@ class MindStoreViewController: BasePageController {
     func getData(page: Int = 0) {
         isRefreshing = true
         
-        IFanrService.shareInstance.getMindStoreData(page, successHandle: { (modelArray) in
-            if page == 0 {
+        
+        let type: MindStoreModel? = MindStoreModel(dict: [:])
+        IFanrService.shareInstance.getData(APIConstant.MindStore_latest(page), t: type, keys: ["objects"], successHandle: { (modelArray) in
+             if page == 0 {
                 self.page = 0
                 self.mindStoreModelArray.removeAll()
             }
@@ -42,7 +44,24 @@ class MindStoreViewController: BasePageController {
             self.pullToRefresh.endRefresh()
         }) { (error) in
             print(error)
-        }
+        }    
+        
+//        IFanrService.shareInstance.getMindStoreData(page, successHandle: { (modelArray) in
+//            if page == 0 {
+//                self.page = 0
+//                self.mindStoreModelArray.removeAll()
+//            }
+//            // 添加数据
+//            modelArray.forEach {
+//                self.mindStoreModelArray.append($0)
+//            }
+//            self.page += 1
+//            self.isRefreshing = false
+//            self.tableView.reloadData()
+//            self.pullToRefresh.endRefresh()
+//        }) { (error) in
+//            print(error)
+//        }
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------

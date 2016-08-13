@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CommentModel {
+struct CommentModel: Initable {
     
     var comment_id: String!
     var comment_author: String!

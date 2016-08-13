@@ -26,7 +26,7 @@ struct VotedUser {
     }
 }
 
-struct MindStoreVoteModel {
+struct MindStoreVoteModel: Initable {
     var id: Int64!
     var resource_uri: String!
     var share_count: Int64!
@@ -39,12 +39,11 @@ struct MindStoreVoteModel {
         self.share_count = dict["share_count"] as? Int64 ?? 0
         self.voted = dict["voted"] as? Bool ?? false
         
-        let votedUserArray = dict["voted_user"] as! Array<NSDictionary>
-        
-        self.votedUserArray = votedUserArray.map { (dict) -> VotedUser in
-            return VotedUser(dict: dict)
+        if let votedUserArray = dict["voted_user"] as? Array<NSDictionary> {
+            self.votedUserArray = votedUserArray.map { (dict) -> VotedUser in
+                return VotedUser(dict: dict)
+            }
         }
-        
     }
 }
 /*

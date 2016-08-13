@@ -37,7 +37,7 @@ enum PostType {
 /*!
  *  @brief 通用的数据模型
  */
-struct CommonModel {
+struct CommonModel: Initable {
     /// id
     var ID: String!
     /// 标题

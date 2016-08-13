@@ -29,7 +29,9 @@ class NewsFlashController: BasePageController {
     func getData(page: Int = 1) {
         isRefreshing = true
         
-        IFanrService.shareInstance.getLatesModel(APIConstant.NewsFlash_latest(page), successHandle: { (modelArray) in
+        let type: CommonModel? = CommonModel(dict: [:])
+        IFanrService.shareInstance.getData(APIConstant.NewsFlash_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
+        
             if page == 1 {
                 self.page = 1
                 self.newsFlashModelArray.removeAll()
@@ -47,6 +49,25 @@ class NewsFlashController: BasePageController {
             
             self.pullToRefresh.endRefresh()
         }
+        
+//        IFanrService.shareInstance.getLatesModel(APIConstant.NewsFlash_latest(page), successHandle: { (modelArray) in
+//            if page == 1 {
+//                self.page = 1
+//                self.newsFlashModelArray.removeAll()
+//            }
+//            // 添加数据
+//            modelArray.forEach {
+//                self.newsFlashModelArray.append($0)
+//            }
+//            self.page += 1
+//            self.isRefreshing = false
+//            self.tableView.reloadData()
+//            self.pullToRefresh.endRefresh()
+//        }) { (error) in
+//            print(error)
+//            
+//            self.pullToRefresh.endRefresh()
+//        }
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------

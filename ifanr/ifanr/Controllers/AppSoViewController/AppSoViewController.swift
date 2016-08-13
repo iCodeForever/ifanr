@@ -28,7 +28,9 @@ class AppSoViewController: BasePageController {
     func getData(page: Int = 1) {
         isRefreshing = true
         
-        IFanrService.shareInstance.getLatesModel(APIConstant.AppSo_latest(page), successHandle: { (modelArray) in
+        let type: CommonModel? = CommonModel(dict: [:])
+        IFanrService.shareInstance.getData(APIConstant.AppSo_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
+            
             if page == 1 {
                 self.page = 1
                 self.appSoModelArray.removeAll()
@@ -41,9 +43,26 @@ class AppSoViewController: BasePageController {
             self.isRefreshing = false
             self.tableView.reloadData()
             self.pullToRefresh.endRefresh()
-        }) { (error) in
-            print(error)
+            
+            }) { (error) in
         }
+        
+//        IFanrService.shareInstance.getLatesModel(APIConstant.AppSo_latest(page), successHandle: { (modelArray) in
+//            if page == 1 {
+//                self.page = 1
+//                self.appSoModelArray.removeAll()
+//            }
+//            // 添加数据
+//            modelArray.forEach {
+//                self.appSoModelArray.append($0)
+//            }
+//            self.page += 1
+//            self.isRefreshing = false
+//            self.tableView.reloadData()
+//            self.pullToRefresh.endRefresh()
+//        }) { (error) in
+//            print(error)
+//        }
     }
     //MARK: --------------------------- Getter and Setter --------------------------
      /// 这个属性放到ScrollViewControllerReusable协议， 会初始化两次。所以放到这里好了

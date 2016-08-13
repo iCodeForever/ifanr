@@ -11,7 +11,7 @@ import Foundation
 /**
  *  cell的布局
  */
-struct HomePopularLayout {
+struct HomePopularLayout: Initable {
     var model: CommonModel!
     // 顶部留白
     let kHomeCellTopMargin = UIConstant.UI_MARGIN_20
@@ -50,6 +50,10 @@ struct HomePopularLayout {
     var kHomeCellTextRect: CGRect = CGRectZero
     // 总高度
     var cellHeight: CGFloat = 0
+    
+    init(dict: NSDictionary) {
+        
+    }
     
     init(model: CommonModel) {
         self.model = model

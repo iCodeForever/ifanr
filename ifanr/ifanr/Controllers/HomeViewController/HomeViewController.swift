@@ -44,7 +44,8 @@ class HomeViewController: BasePageController {
         let group = dispatch_group_create()
         dispatch_group_enter(group)
         
-        IFanrService.shareInstance.getLatesModel(APIConstant.Home_hot_features(5), successHandle: { [unowned self](modelArray) in
+        let type: CommonModel? = CommonModel(dict: [:])
+        IFanrService.shareInstance.getData(APIConstant.NewsFlash_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
             self.headerModelArray = modelArray
             dispatch_group_leave(group)
             }, errorHandle: { (error) in
@@ -52,9 +53,19 @@ class HomeViewController: BasePageController {
                 self.pullToRefresh.endRefresh()
                 self.hotDataError = error
         })
+            
+//        IFanrService.shareInstance.getLatesModel(APIConstant.Home_hot_features(5), successHandle: { [unowned self](modelArray) in
+//            self.headerModelArray = modelArray
+//            dispatch_group_leave(group)
+//            }, errorHandle: { (error) in
+//                print(error)
+//                self.pullToRefresh.endRefresh()
+//                self.hotDataError = error
+//        })
         
         page = 1
         dispatch_group_enter(group)
+        
         IFanrService.shareInstance.getLatestLayout(APIConstant.Home_latest(page), successHandle: { [unowned self](layoutArray) in
             self.latestCellLayout.removeAll()
             layoutArray.forEach {
