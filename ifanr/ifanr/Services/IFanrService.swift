@@ -68,9 +68,24 @@ class IFanrService {
     
     /*!
      - parameter t: 这个参数并无意义，只为 推算出 T的类型
-     - note: 此函数仍然有 冗余代码、无效参数，需要再次调整
+     - note: 此函数仍然有 无效参数，略有瑕疵
      */
     func getData<T : Initable>(target: APIConstant, t: T?, keys: Array<String>, successHandle: (Array<T> -> Void)?, errorHandle:((Error) -> Void)?) {
+        
+        //异步处理数据
+        func dealWithData(content: Array<AnyObject>) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                let modelArray = content.map({ (dict) -> T in
+                    return T(dict: dict as! NSDictionary)
+                })
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    if let success = successHandle {
+                        success(modelArray)
+                    }
+                })
+            })
+        }
         
         ifanrProvider.request(target) { (result) in
             switch result {
@@ -83,34 +98,14 @@ class IFanrService {
                         if keys.count == 1 {
                             if let content = json[keys[0]] as? Array<AnyObject> {
                                 // 放到异步去处理字典转模型，提前计算好cell的高度。
-                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                    let modelArray = content.map({ (dict) -> T in
-                                            return T(dict: dict as! NSDictionary)
-                                    })
-                                    
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                        if let success = successHandle {
-                                            success(modelArray)
-                                        }
-                                    })
-                                })
+                                dealWithData(content)
                             } else {
                                 print("没有数据")
                             }
                         } else if keys.count == 2 {
                             if let content = json[keys[0]] as? Dictionary<String, AnyObject> {
                                 if let alls = (content[keys[1]] as? Array<AnyObject>) {
-                                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                                        let allsArray = alls.map({ (dict) -> T in
-                                            return T(dict: dict as! NSDictionary)
-                                        })
-                                        
-                                        dispatch_async(dispatch_get_main_queue(), {
-                                            if let success = successHandle {
-                                                success(allsArray)
-                                            }
-                                        })
-                                    })
+                                    dealWithData(alls)
                                 }
                             } else {
                                 print("没有数据")
