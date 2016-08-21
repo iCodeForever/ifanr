@@ -54,7 +54,7 @@ UI采用纯代码编写+![SnapKit](https://github.com/SnapKit/SnapKit)屏幕适�
 
 ## Contribution
 
-- [dby](https://github.com/dby) 邮箱：1052856576@qq.com, [lyimin](https://github.com/lyimin) 邮箱：1142343535@qq.com
+- [lyimin](https://github.com/lyimin) 邮箱：1142343535@qq.com, [dby](https://github.com/dby) 邮箱：1052856576@qq.com
 - 如果你需要帮助或者遇到Bug，请[创建issue](https://github.com/iCodeForever/ifanr/issues/new)
 
 ## 后续更新
