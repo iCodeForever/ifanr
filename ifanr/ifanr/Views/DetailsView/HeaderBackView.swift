@@ -24,7 +24,7 @@ class HeaderBackView: UIView {
     convenience init(title: String) {
         self.init()
         self.title = title
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         
         addSubview(blurView)
         
@@ -35,12 +35,12 @@ class HeaderBackView: UIView {
     }
     
     //MARK:-----Action Event-----
-    @objc private func goback() {
+    @objc fileprivate func goback() {
         self.delegate?.backButtonDidClick()
     }
     
     //MARK:-----Custom Function-----
-    private func setupLayout() {
+    fileprivate func setupLayout() {
         blurView.snp_makeConstraints { (make) in
             make.edges.equalTo(self)
         }
@@ -62,23 +62,23 @@ class HeaderBackView: UIView {
     }
     
     //MARK:-----Setter and Getter-----
-    private lazy var backButton: UIButton = {
+    fileprivate lazy var backButton: UIButton = {
         let backButton: UIButton = UIButton()
-        backButton.setImage(UIImage(imageLiteral: "ic_article_back"), forState: .Normal)
-        backButton.imageView?.contentMode = .ScaleAspectFill
-        backButton.addTarget(self, action: #selector(goback), forControlEvents: .TouchUpInside)
+        backButton.setImage(UIImage(named: "ic_article_back"), for: UIControlState())
+        backButton.imageView?.contentMode = .scaleAspectFill
+        backButton.addTarget(self, action: #selector(goback), for: .touchUpInside)
         return backButton
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel: UILabel = UILabel()
         titleLabel.text = self.title
         titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 14)
         return titleLabel
     }()
     
-    private lazy var blurView: UIVisualEffectView = {
-        let blurEffect : UIBlurEffect = UIBlurEffect(style: .Light)
+    fileprivate lazy var blurView: UIVisualEffectView = {
+        let blurEffect : UIBlurEffect = UIBlurEffect(style: .light)
         let blurView : UIVisualEffectView = UIVisualEffectView(effect: blurEffect)
         return blurView
     }()

@@ -24,12 +24,12 @@ class MindStoreViewController: BasePageController {
     }
     
     //MARK: --------------------------- Private Methods --------------------------
-    func getData(page: Int = 0) {
+    func getData(_ page: Int = 0) {
         isRefreshing = true
         
         
         let type: MindStoreModel? = MindStoreModel(dict: [:])
-        IFanrService.shareInstance.getData(APIConstant.MindStore_latest(page), t: type, keys: ["objects"], successHandle: { (modelArray) in
+        IFanrService.shareInstance.getData(APIConstant.mindStore_latest(page), t: type, keys: ["objects"], successHandle: { (modelArray) in
              if page == 0 {
                 self.page = 0
                 self.mindStoreModelArray.removeAll()
@@ -75,14 +75,14 @@ class MindStoreViewController: BasePageController {
 
 // MARK: - 下拉刷新回调
 extension MindStoreViewController: PullToRefreshDelegate {
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+    func pullToRefreshViewDidRefresh(_ pulllToRefreshView: PullToRefreshView) {
         getData()
     }
 }
 
 // MARK: - 上拉加载更多
 extension MindStoreViewController {
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         if differY < happenY {
             if !isRefreshing {
@@ -96,7 +96,7 @@ extension MindStoreViewController {
 
 // MARK: - tableView代理和数据源
 extension MindStoreViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell    = MindStoreTableViewCell.cellWithTableView(tableView)
         cell.model  = self.mindStoreModelArray[indexPath.row]
         
@@ -104,15 +104,15 @@ extension MindStoreViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.mindStoreModelArray.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return MindStoreTableViewCell.estimateCellHeight(self.mindStoreModelArray[indexPath.row].title!, tagline: self.mindStoreModelArray[indexPath.row].tagline)
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(MindStoreDetailController(headerModel: self.mindStoreModelArray[indexPath.row]), animated: true)
     }
 }

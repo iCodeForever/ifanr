@@ -12,7 +12,7 @@ import Foundation
 class CategoryView: UIView {
     
     typealias CoverBtnCallBack = () -> Void
-    typealias ItemDidClickCallBack = (collectionView: UICollectionView, indexPath: NSIndexPath) -> Void
+    typealias ItemDidClickCallBack = (_ collectionView: UICollectionView, _ indexPath: IndexPath) -> Void
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,19 +26,19 @@ class CategoryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func coverBtnDidClick() {
+    @objc fileprivate func coverBtnDidClick() {
         if let callBack = coverbtnClickCallBack {
             callBack()
         }
     }
     
-    private var coverbtnClickCallBack: CoverBtnCallBack?
-    private var itemDidClickCallBack: ItemDidClickCallBack?
+    fileprivate var coverbtnClickCallBack: CoverBtnCallBack?
+    fileprivate var itemDidClickCallBack: ItemDidClickCallBack?
     
-    private lazy var collectionView: UICollectionView = {
+    fileprivate lazy var collectionView: UICollectionView = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.headerReferenceSize = CGSize(width: self.width, height: 70)
-        collectionLayout.scrollDirection = .Vertical
+        collectionLayout.scrollDirection = .vertical
         collectionLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         // 100:81
         let itemWidth = (UIConstant.SCREEN_WIDTH-4*UIConstant.UI_MARGIN_10)/3
@@ -46,7 +46,7 @@ class CategoryView: UIView {
         collectionLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         var collectionView = UICollectionView(frame: CGRect(x: 0, y: UIConstant.UI_MARGIN_20, width: self.width, height: self.height*0.8), collectionViewLayout: collectionLayout)
         collectionView.bounces = true
-        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView.backgroundColor = UIColor.white
         collectionView.registerClass(CategoryViewCell.self)
         collectionView.registerClass(CategoryMenuHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
         collectionView.showsVerticalScrollIndicator = false
@@ -55,23 +55,23 @@ class CategoryView: UIView {
         return collectionView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 10)
-        titleLabel.origin = CGPointZero
+        titleLabel.origin = CGPoint.zero
         titleLabel.size = CGSize(width: self.width, height: 20)
         titleLabel.text = "更多栏目"
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
         return titleLabel
     }()
     
-    private lazy var coverButton: UIButton = {
+    fileprivate lazy var coverButton: UIButton = {
         let coverButton = UIButton()
         coverButton.origin = CGPoint(x: 0, y: self.collectionView.frame.maxY)
         coverButton.size = CGSize(width: self.width, height: self.height-self.collectionView.frame.maxY)
-        coverButton.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-        coverButton.addTarget(self, action: #selector(CategoryView.coverBtnDidClick), forControlEvents: .TouchDown)
+        coverButton.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        coverButton.addTarget(self, action: #selector(CategoryView.coverBtnDidClick), for: .touchDown)
         return coverButton
     }()
     
@@ -79,42 +79,42 @@ class CategoryView: UIView {
 }
 
 extension CategoryView {
-    func coverBtnClick(callBack: CoverBtnCallBack) {
+    func coverBtnClick(_ callBack: @escaping CoverBtnCallBack) {
         self.coverbtnClickCallBack = callBack
     }
     
-    func itemDidClick(callBack: ItemDidClickCallBack) {
+    func itemDidClick(_ callBack: @escaping ItemDidClickCallBack) {
         self.itemDidClickCallBack = callBack
     }
 }
 
 
 extension CategoryView: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CategoryModelArray.count
     }
     
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! CategoryViewCell
         cell.model = CategoryModelArray[indexPath.row]
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(indexPath) as CategoryViewCell
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, indexPath: indexPath) as CategoryMenuHeaderView 
         
         return headerView
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let callBack = itemDidClickCallBack {
-            callBack(collectionView: collectionView, indexPath:  indexPath)
+            callBack(collectionView, indexPath)
         }
     }
 }

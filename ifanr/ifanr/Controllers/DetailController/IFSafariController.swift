@@ -16,7 +16,7 @@ class IFSafariController: UIViewController {
     var shareView: ShareView?
     var urlStr: String?
     
-    private var model: CommonModel?
+    fileprivate var model: CommonModel?
     
     convenience init(model: CommonModel){
         self.init()
@@ -45,7 +45,7 @@ class IFSafariController: UIViewController {
         }
         if links.count != 0 {
             urlStr = links[0]
-            self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+            self.wkWebView.load(URLRequest(url: URL(string: urlStr!)!))
         }
     }
     
@@ -84,7 +84,7 @@ class IFSafariController: UIViewController {
     }
     
     func backButtonDidClick() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func shareButtonDidClick() {
@@ -92,30 +92,30 @@ class IFSafariController: UIViewController {
     }
     
     func safariButtonDidClick() {
-        UIApplication.sharedApplication().openURL(NSURL(string: self.urlStr!)!)
+        UIApplication.shared.openURL(URL(string: self.urlStr!)!)
     }
     
     func reloadButtonDidClick() {
         self.wkWebView.loadHTMLString("", baseURL: nil)
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: urlStr!)!))
+        self.wkWebView.load(URLRequest(url: URL(string: urlStr!)!))
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     //MARK:-----Getter and Setter-----
-    private lazy var wkWebView: WKWebView = {
+    fileprivate lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView(frame: self.view.frame)
         wkWebView.navigationDelegate = self
         return wkWebView
     }()
     
     /// 底部的工具栏
-    private lazy var bottomBar: UIView = {
+    fileprivate lazy var bottomBar: UIView = {
         let bottomBar: UIView = UIView()
         
-        bottomBar.backgroundColor = UIColor.blackColor()
+        bottomBar.backgroundColor = UIColor.black
         bottomBar.addSubview(self.backButton)
         bottomBar.addSubview(self.reloadButton)
         bottomBar.addSubview(self.shareButton)
@@ -125,38 +125,38 @@ class IFSafariController: UIViewController {
     }()
     
     /// 返回按钮
-    private lazy var backButton: UIButton = {
+    fileprivate lazy var backButton: UIButton = {
         let backButton: UIButton = UIButton()
-        backButton.setImage(UIImage(imageLiteral: "ic_close"), forState: .Normal)
-        backButton.imageView?.contentMode = .ScaleAspectFit
-        backButton.addTarget(self, action: #selector(backButtonDidClick), forControlEvents: .TouchUpInside)
+        backButton.setImage(UIImage(named: "ic_close"), for: UIControlState())
+        backButton.imageView?.contentMode = .scaleAspectFit
+        backButton.addTarget(self, action: #selector(backButtonDidClick), for: .touchUpInside)
         return backButton
     }()
     
     /// 重新加载按钮
-    private lazy var reloadButton: UIButton = {
+    fileprivate lazy var reloadButton: UIButton = {
         let reloadButton: UIButton = UIButton()
-        reloadButton.setImage(UIImage(imageLiteral: "ic_refresh"), forState: .Normal)
-        reloadButton.contentMode = .ScaleAspectFit
-        reloadButton.addTarget(self, action: #selector(reloadButtonDidClick), forControlEvents: .TouchUpInside)
+        reloadButton.setImage(UIImage(named: "ic_refresh"), for: UIControlState())
+        reloadButton.contentMode = .scaleAspectFit
+        reloadButton.addTarget(self, action: #selector(reloadButtonDidClick), for: .touchUpInside)
         return reloadButton
     }()
     
     /// 跳转到Safari
-    private lazy var safariButton: UIButton = {
+    fileprivate lazy var safariButton: UIButton = {
         let safariButton: UIButton = UIButton()
-        safariButton.setImage(UIImage(imageLiteral: "ic_system_browser"), forState: .Normal)
-        safariButton.imageView?.contentMode = .ScaleAspectFit
-        safariButton.addTarget(self, action: #selector(safariButtonDidClick), forControlEvents: .TouchUpInside)
+        safariButton.setImage(UIImage(named: "ic_system_browser"), for: UIControlState())
+        safariButton.imageView?.contentMode = .scaleAspectFit
+        safariButton.addTarget(self, action: #selector(safariButtonDidClick), for: .touchUpInside)
         return safariButton
     }()
     
     /// 分享按钮
-    private lazy var shareButton: UIButton = {
+    fileprivate lazy var shareButton: UIButton = {
         let shareButton: UIButton = UIButton()
-        shareButton.setImage(UIImage(imageLiteral: "ic_comment_bar_share"), forState: .Normal)
-        shareButton.imageView?.contentMode = .ScaleAspectFit
-        shareButton.addTarget(self, action: #selector(shareButtonDidClick), forControlEvents: .TouchUpInside)
+        shareButton.setImage(UIImage(named: "ic_comment_bar_share"), for: UIControlState())
+        shareButton.imageView?.contentMode = .scaleAspectFit
+        shareButton.addTarget(self, action: #selector(shareButtonDidClick), for: .touchUpInside)
         return shareButton
     }()
 }
@@ -186,11 +186,11 @@ extension IFSafariController: ShareViewDelegate, shareResuable {
 //MARK:-----UIWebView Delegate-----
 extension IFSafariController: WKNavigationDelegate {
     
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         self.showProgress()
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.hiddenProgress()
     }
 }

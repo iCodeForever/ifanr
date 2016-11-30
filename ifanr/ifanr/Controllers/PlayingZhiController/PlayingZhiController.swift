@@ -25,11 +25,11 @@ class PlayingZhiController: BasePageController {
     }
     
     // 复写父类的方法 --- 获得获得
-    func getData(page: Int = 1) {
+    func getData(_ page: Int = 1) {
         isRefreshing = true
         
         let type: CommonModel? = CommonModel(dict: [:])
-        IFanrService.shareInstance.getData(APIConstant.NewsFlash_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
+        IFanrService.shareInstance.getData(APIConstant.newsFlash_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
             if page == 1 {
                 self.page = 1
                 self.playingZhiModelArray.removeAll()
@@ -66,7 +66,7 @@ class PlayingZhiController: BasePageController {
     
     //MARK: --------------------------- Getter and Setter --------------------------
    /// 这个属性放到ScrollViewControllerReusable协议， 会初始化两次。所以放到这里好了
-    private lazy var tableHeaderView: UIView! = {
+    fileprivate lazy var tableHeaderView: UIView! = {
         return TableHeaderView(model: TableHeaderModelArray[1])
     }()
     
@@ -76,14 +76,14 @@ class PlayingZhiController: BasePageController {
 
 // MARK: - 下拉刷新回调
 extension PlayingZhiController: PullToRefreshDelegate {
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+    func pullToRefreshViewDidRefresh(_ pulllToRefreshView: PullToRefreshView) {
         getData()
     }
 }
 
 // MARK: - 上拉加载更多
 extension PlayingZhiController {
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         if differY < happenY {
             if !isRefreshing {
@@ -96,7 +96,7 @@ extension PlayingZhiController {
 
 // MARK: - tableView代理和数据源
 extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell    = PlayingZhiTableViewCell.cellWithTableView(tableView)
         cell.model  = self.playingZhiModelArray[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsMake(0, 32, 0, 0)
@@ -104,15 +104,15 @@ extension PlayingZhiController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.playingZhiModelArray.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return PlayingZhiTableViewCell.estimateCellHeight(self.playingZhiModelArray[indexPath.row].title!) + 20
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let model: CommonModel = self.playingZhiModelArray[indexPath.row] {
             let ifDetailsController = IFDetailsController(model: model, naviTitle: "玩物志")

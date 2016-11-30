@@ -14,13 +14,13 @@ let kBaseSize: CGFloat       = 101.0
 
 extension UIView {
     
-    func showIcon(num: String?) {
+    func showIcon(_ num: String?) {
         if num != nil && getIcon(num!) != nil{
             self.addSubview(getIcon(num!)!)
         }
     }
     
-    func getIcon(num: String) -> UIView? {
+    func getIcon(_ num: String) -> UIView? {
         
         self.dissmissV()
         let existingActivityView: UIView? = objc_getAssociatedObject(self, HJVIconKey) as? UIView ?? nil;
@@ -33,18 +33,18 @@ extension UIView {
         }
         
         vLabel?.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-        vLabel?.textColor = UIColor.whiteColor()
+        vLabel?.textColor = UIColor.white
         vLabel?.font = UIFont.customFont_FZLTZCHJW(fontSize: 9)
         vLabel?.layer.cornerRadius = 7.5
         vLabel?.layer.masksToBounds = true
-        vLabel?.textAlignment = .Center
+        vLabel?.textAlignment = .center
         vLabel?.text = num
         
         var center: CGPoint = CGPoint(x: self.width * 0.83, y: self.height * 0.83)
-        center = self.convertPoint(center, toView: self.superview)
+        center = self.convert(center, to: self.superview)
         vLabel?.center = center
-        if CGRectGetMaxY((vLabel?.frame)!) > CGRectGetMaxY((self.superview?.frame)!) {
-            vLabel?.center = CGPointMake( 15*1.45, 15*0.1)
+        if (vLabel?.frame)!.maxY > (self.superview?.frame)!.maxY {
+            vLabel?.center = CGPoint( x: 15*1.45, y: 15*0.1)
         }
         
         return vLabel
@@ -60,11 +60,11 @@ extension UIView {
         }
     }
     
-    func uxy_roundedRectWith(radius: CGFloat, corners: UIRectCorner) -> UIView{
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSizeMake(radius, radius));
+    func uxy_roundedRectWith(_ radius: CGFloat, corners: UIRectCorner) -> UIView{
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius));
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.CGPath
+        maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
         
         return self

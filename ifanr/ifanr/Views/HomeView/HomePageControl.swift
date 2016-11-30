@@ -30,23 +30,23 @@ class HomePageControl: UIView {
     /**
      创建一个Label
      */
-    private func setupPageLabel() -> UILabel {
+    fileprivate func setupPageLabel() -> UILabel {
         let inactiveLabel = UILabel()
-        inactiveLabel.textAlignment = .Center
-        inactiveLabel.backgroundColor = UIColor.clearColor()
-        inactiveLabel.textColor = UIColor.blackColor()
+        inactiveLabel.textAlignment = .center
+        inactiveLabel.backgroundColor = UIColor.clear
+        inactiveLabel.textColor = UIColor.black
         inactiveLabel.font = UIConstant.UI_FONT_12
         inactiveLabel.alpha = 0.8
-        inactiveLabel.layer.borderColor = UIColor(red: 225/255.0, green: 225/255.0, blue: 225/255.0, alpha: 1).CGColor
+        inactiveLabel.layer.borderColor = UIColor(red: 225/255.0, green: 225/255.0, blue: 225/255.0, alpha: 1).cgColor
         inactiveLabel.layer.borderWidth = 1
         return inactiveLabel
     }
     
-    private func setupPage(index: Int) {
+    fileprivate func setupPage(_ index: Int) {
         // 改变上一个page
         if let lastPage = lastPageLabel {
             lastPage.text = ""
-            lastPage.backgroundColor = UIColor.clearColor()
+            lastPage.backgroundColor = UIColor.clear
         }
         
         // 改变当前page
@@ -85,7 +85,7 @@ class HomePageControl: UIView {
         }
     }
     
-    private var pageArray: [UILabel]! = []
+    fileprivate var pageArray: [UILabel]! = []
 }
 
 

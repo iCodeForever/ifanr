@@ -22,7 +22,7 @@ class ActivityIndicatorView: UIView {
         }
         self.layer.speed = 1
         self.animating = true
-        hidden = false
+        isHidden = false
     }
     
     /**
@@ -31,7 +31,7 @@ class ActivityIndicatorView: UIView {
     func stopAnimation() {
         self.layer.sublayers = nil
         self.animating = false
-        hidden = true
+        isHidden = true
     }
     
     func setUpAnimationInLayer() {
@@ -55,7 +55,7 @@ class ActivityIndicatorView: UIView {
         animation.values = [1, 0.3, 1]
         animation.duration = duration
         animation.repeatCount = HUGE
-        animation.removedOnCompletion = false
+        animation.isRemovedOnCompletion = false
         
         // 添加园条
         for i in 0 ..< 7 {
@@ -67,7 +67,7 @@ class ActivityIndicatorView: UIView {
             
             animation.beginTime = beginTime + beginTimes[i]
             line.frame = frame
-            line.addAnimation(animation, forKey: "animation")
+            line.add(animation, forKey: "animation")
             layer.addSublayer(line)
         }
     }
@@ -75,14 +75,14 @@ class ActivityIndicatorView: UIView {
     /**
      创建圆条
      */
-    func createLayer(size: CGSize, color: UIColor) -> CALayer{
+    func createLayer(_ size: CGSize, color: UIColor) -> CALayer{
         let layer: CAShapeLayer = CAShapeLayer()
         let path: UIBezierPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: size.width, height: size.height),
                                               cornerRadius: size.width / 2)
-        layer.fillColor = color.CGColor
+        layer.fillColor = color.cgColor
         
-        layer.path = path.CGPath
-        layer.frame = CGRectMake(0, 0, size.width, size.height)
+        layer.path = path.cgPath
+        layer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         
         return layer
     }

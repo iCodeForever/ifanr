@@ -12,13 +12,13 @@ import Foundation
 class MainHeaderView: UIView, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.blackColor()
+        self.backgroundColor = UIColor.black
         let attributes = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 10)]
-        let labelWidth = (textArray.last! as NSString).boundingRectWithSize(CGSize(width: 60, height: self.height), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).width
+        let labelWidth = (textArray.last! as NSString).boundingRect(with: CGSize(width: 60, height: self.height), options: .usesLineFragmentOrigin, attributes: attributes, context: nil).width
         for i in 0..<textArray.count {
             let label = createLable(textArray[i])
             // 计算label大小
-            label.frame = CGRect(origin: CGPointZero, size: CGSize(width: labelWidth, height: self.height))
+            label.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: labelWidth, height: self.height))
             let x = CGFloat(i)*(UIConstant.SCREEN_WIDTH*0.5-labelWidth*0.5)+UIConstant.SCREEN_WIDTH*0.5
             label.center = CGPoint(x: x, y: self.height*0.5)
         }
@@ -37,12 +37,12 @@ class MainHeaderView: UIView, Reusable {
     /**
      创建Label
      */
-    private func createLable(text: String) -> UILabel {
+    fileprivate func createLable(_ text: String) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.white
         label.font = UIFont.customFont_FZLTXIHJW(fontSize: 10)
-        label.textAlignment = .Center
+        label.textAlignment = .center
         labelArray.append(label)
         self.addSubview(label)
         return label

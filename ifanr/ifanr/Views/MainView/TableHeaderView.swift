@@ -12,7 +12,7 @@ class TableHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.addSubview(backgroundImageView)
         self.addSubview(titleLabel)
         self.addSubview(detailTitleLabel)
@@ -32,34 +32,34 @@ class TableHeaderView: UIView {
     }
     
         /// 背景图
-    private lazy var backgroundImageView: UIImageView = {
-        let backgroundImageView   = UIImageView(frame: CGRectMake(0, -1, self.width, 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
-        backgroundImageView.backgroundColor = UIColor.blackColor()
-        backgroundImageView.contentMode = .ScaleAspectFit
+    fileprivate lazy var backgroundImageView: UIImageView = {
+        let backgroundImageView   = UIImageView(frame: CGRect(x: 0, y: -1, width: self.width, height: 120 * UIConstant.SCREEN_HEIGHT/UIConstant.IPHONE5_HEIGHT))
+        backgroundImageView.backgroundColor = UIColor.black
+        backgroundImageView.contentMode = .scaleAspectFit
         return backgroundImageView
     }()
     
         /// 标题
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel  = UILabel(frame: CGRect(x: 20, y: 10, width: self.width, height: 40))
         titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 22)
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textColor = UIColor.white
         return titleLabel
     }()
     
         /// 副标题
-    private lazy var detailTitleLabel: UILabel = {
+    fileprivate lazy var detailTitleLabel: UILabel = {
         let detailTitleLabel    = UILabel(frame: CGRect(x: 20, y: self.titleLabel.bottom, width: self.width, height: 30))
         detailTitleLabel.font   = UIFont.customFont_FZLTZCHJW(fontSize: 14)
-        detailTitleLabel.textColor = UIColor.whiteColor()
+        detailTitleLabel.textColor = UIColor.white
         return detailTitleLabel
     }()
     
         /// 底部图片
-    private lazy var tagImageView: UIImageView = {
+    fileprivate lazy var tagImageView: UIImageView = {
         let tagImageView = UIImageView(frame: CGRect(x: 0, y: self.backgroundImageView.bottom + UIConstant.UI_MARGIN_20, width: UIConstant.SCREEN_WIDTH, height: 25))
         
-        tagImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        tagImageView.contentMode = UIViewContentMode.scaleAspectFit
         return tagImageView
     }()
 }

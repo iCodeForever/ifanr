@@ -9,9 +9,9 @@
 import Foundation
 
 enum ScrollViewDirection {
-    case None
-    case Down
-    case Up
+    case none
+    case down
+    case up
 }
 
 protocol ControllerReusable: class {
@@ -45,7 +45,7 @@ protocol ScrollViewControllerReusableDelegate: ControllerReusable {
     /**
      scrollview滚动时方向改变时调用
      */
-    func ScrollViewControllerDirectionDidChange(direction: ScrollViewDirection)
+    func ScrollViewControllerDirectionDidChange(_ direction: ScrollViewDirection)
 }
 
 
@@ -100,10 +100,10 @@ extension ScrollViewControllerReusable where Self: UIViewController {
     func setupTableView() {
         if tableView == nil {
             tableView = UITableView()
-            tableView.backgroundColor = UIColor.whiteColor()
+            tableView.backgroundColor = UIColor.white
             tableView.origin = CGPoint.zero
             tableView.size = CGSize(width: self.view.width, height: self.view.height-UIConstant.UI_MARGIN_20)
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
             tableView.sectionFooterHeight = 50
             tableView.tableFooterView = pullToRefreshFootView()
             self.view.addSubview(tableView)
@@ -117,11 +117,11 @@ extension ScrollViewControllerReusable where Self: UIViewController {
         if  pullToRefresh == nil {
             pullToRefresh = PullToRefreshView(frame: CGRect(x: 0, y: -sceneHeight, width: self.view.width, height: sceneHeight))
             pullToRefresh.dataSource = self
-            self.tableView.insertSubview(pullToRefresh, atIndex: 0)
+            self.tableView.insertSubview(pullToRefresh, at: 0)
         }
     }
     
-    private func pullToRefreshFootView() -> UIView {
+    fileprivate func pullToRefreshFootView() -> UIView {
         
         let activityView = ActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 25, height: 25) )
         activityView.color = UIConstant.UI_COLOR_GrayTheme
@@ -129,7 +129,7 @@ extension ScrollViewControllerReusable where Self: UIViewController {
         activityView.startAnimation()
         
         let footView = UIView()
-        footView.origin = CGPointZero
+        footView.origin = CGPoint.zero
         footView.size = CGSize(width: 50, height: 50)
         footView.addSubview(activityView)
         return footView

@@ -21,21 +21,21 @@ class MenuViewController: UIViewController {
     //MARK: --------------------------- Getter and Setter --------------------------
     
     /// 背景图
-    private lazy var backgroundImageView : UIImageView = {
+    fileprivate lazy var backgroundImageView : UIImageView = {
         var backgroundImageView = UIImageView(frame: self.view.bounds)
-        backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.image = UIImage(named: "profile_background")
         return backgroundImageView
     }()
     
     /// tableview
-    private lazy var mainTableView : UITableView = {
+    fileprivate lazy var mainTableView : UITableView = {
         var mainTabView : UITableView = UITableView(frame: self.view.bounds)
-        mainTabView.backgroundColor = UIColor.clearColor()
+        mainTabView.backgroundColor = UIColor.clear
         let headerView = MenuHeaaderView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: 100))
         headerView.delegate = self
         mainTabView.tableHeaderView = headerView
-        mainTabView.separatorStyle = .None
+        mainTabView.separatorStyle = .none
         mainTabView.rowHeight   = 80
         mainTabView.sectionHeaderHeight = 100
         mainTabView.dataSource  = self
@@ -46,12 +46,12 @@ class MenuViewController: UIViewController {
 
 extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MenuTabItems.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MenuTableViewCell.cellWithTableView(tableView)
         cell.model = MenuTabItems[indexPath.row]
         return cell
@@ -59,10 +59,10 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension MenuViewController: MenuHeaderViewDelegate {
-    func searchBtnDidClick(headerView: MenuHeaaderView, searchBtn: UIButton) {
+    func searchBtnDidClick(_ headerView: MenuHeaaderView, searchBtn: UIButton) {
         
     }
-    func settingBtnDidClick(headerView: MenuHeaaderView, settingBtn: UIButton) {
+    func settingBtnDidClick(_ headerView: MenuHeaaderView, settingBtn: UIButton) {
         self.navigationController?.pushViewController(SettingViewController(), animated: true)
     }
 }

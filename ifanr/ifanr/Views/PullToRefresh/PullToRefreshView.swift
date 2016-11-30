@@ -42,28 +42,28 @@ protocol PullToRefreshDataSource: class {
 
 /// 下拉刷新回调
 @objc protocol PullToRefreshDelegate: class {
-    optional
-    func pullToRefreshViewWillRefresh(pullToRefreshView: PullToRefreshView)
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView)
+    @objc optional
+    func pullToRefreshViewWillRefresh(_ pullToRefreshView: PullToRefreshView)
+    func pullToRefreshViewDidRefresh(_ pulllToRefreshView: PullToRefreshView)
 }
 
 // 控件的刷新状态
 enum RefreshState {
-    case  Normal                // 普通状态
-    case  Pulling               // 松开就可以进行刷新的状态
-    case  Refreshing            // 正在刷新中的状态
+    case  normal                // 普通状态
+    case  pulling               // 松开就可以进行刷新的状态
+    case  refreshing            // 正在刷新中的状态
 }
 
 enum RefreshType {
-    case None                   //
-    case PullToRefresh          // 下拉刷新
-    case LoadMore               // 上拉加载更多
+    case none                   //
+    case pullToRefresh          // 下拉刷新
+    case loadMore               // 上拉加载更多
 }
 
 class PullToRefreshView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.blackColor()
+        self.backgroundColor = UIColor.black
         
         /**
          添加状态标题
@@ -88,21 +88,21 @@ class PullToRefreshView: UIView {
     
     //MARK: --------------------------- Public Methods --------------------------
     func endRefresh() {
-        self.state = RefreshState.Normal
+        self.state = RefreshState.normal
         self.setupNormalDataAnimation()
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
     /// 滚动器
-    private var scrollView: UIScrollView!
-    private var headerView: MainHeaderView!
-    private var redLine: UIView!
-    private var menuBtn: UIButton!
-    private var classifyBtn: UIButton!
+    fileprivate var scrollView: UIScrollView!
+    fileprivate var headerView: MainHeaderView!
+    fileprivate var redLine: UIView!
+    fileprivate var menuBtn: UIButton!
+    fileprivate var classifyBtn: UIButton!
     /// 下拉百分比
-    private var progressPercentage: CGFloat = 0
+    fileprivate var progressPercentage: CGFloat = 0
     /// 执行的代码块
-    private var task: PullToRefreshTask?
+    fileprivate var task: PullToRefreshTask?
     
         /// 设置数据源的时候  添加tableView的contentSize,Contentoffset属性监听
     var dataSource: PullToRefreshDataSource? {
@@ -113,8 +113,8 @@ class PullToRefreshView: UIView {
                 scrollView = newValue.scrollView()
                 menuBtn = newValue.menuButton()
                 classifyBtn = newValue.classifyButton()
-                scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
-                scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+                scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
+                scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
             }
         }
         
@@ -130,38 +130,38 @@ class PullToRefreshView: UIView {
     // 上一个状态
     var oldState: RefreshState?
     // 当前状态
-    var state: RefreshState = RefreshState.Normal {
+    var state: RefreshState = RefreshState.normal {
         willSet {
             oldState = state
         }
         didSet {
             
             switch state {
-            case RefreshState.Normal:
+            case RefreshState.normal:
                 self.statusLabel.text = "下拉即可刷新"
                 
-                if RefreshState.Refreshing == oldState {
-                    self.activityView.hidden = true
-                    self.redLine.hidden = false
+                if RefreshState.refreshing == oldState {
+                    self.activityView.isHidden = true
+                    self.redLine.isHidden = false
                     
-                    UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
-                        self.scrollView.contentInset = UIEdgeInsetsZero
+                    UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveLinear, animations: {
+                        self.scrollView.contentInset = UIEdgeInsets.zero
                         }, completion: { (_) in
                             self.setupNormalDataAnimation()
                     })
                 }
-            case RefreshState.Pulling:
+            case RefreshState.pulling:
                 self.statusLabel.text = "释放即可刷新"
-            case RefreshState.Refreshing:
-                self.redLine.hidden = true
-                self.activityView.hidden = false
+            case RefreshState.refreshing:
+                self.redLine.isHidden = true
+                self.activityView.isHidden = false
                 self.activityView.startAnimation()
                 self.statusLabel.text = "正在刷新..."
                 // 将要执行
                 if let delegate = self.delegate {
                     delegate.pullToRefreshViewWillRefresh?(self)
                     
-                    UIView.animateWithDuration(0.2, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         let top: CGFloat = happenOffsetY
                         var inset: UIEdgeInsets = self.scrollView.contentInset
                         inset.top = top
@@ -174,8 +174,8 @@ class PullToRefreshView: UIView {
                     })
                     
                     // 执行block
-                    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
-                    dispatch_after(time, dispatch_get_main_queue()) {
+                    let time = DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    DispatchQueue.main.asyncAfter(deadline: time) {
                         delegate.pullToRefreshViewDidRefresh(self)
                     }
                 }
@@ -185,31 +185,31 @@ class PullToRefreshView: UIView {
     
     
     // 状态标签
-    private lazy var statusLabel: UILabel = {
+    fileprivate lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 10)
-        statusLabel.textColor = UIColor.whiteColor()
+        statusLabel.textColor = UIColor.white
         statusLabel.text = "下拉即可刷新"
-        statusLabel.backgroundColor =  UIColor.clearColor()
-        statusLabel.textAlignment = NSTextAlignment.Center
+        statusLabel.backgroundColor =  UIColor.clear
+        statusLabel.textAlignment = NSTextAlignment.center
         return statusLabel
     }()
     
     /// 菊花
-    private lazy var activityView: ActivityIndicatorView = {
+    fileprivate lazy var activityView: ActivityIndicatorView = {
         let activityView = ActivityIndicatorView()
-        activityView.bounds = CGRect(origin: CGPointZero, size: CGSize(width: 25, height: 25))
-        activityView.hidden = true
+        activityView.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: 25, height: 25))
+        activityView.isHidden = true
         return activityView
     }()
 }
 
 extension PullToRefreshView {
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if let keyPath = keyPath where keyPath == "contentOffset" {
+        if let keyPath = keyPath, keyPath == "contentOffset" {
             // 如果处于刷新状态，直接退出
-            guard state != RefreshState.Refreshing else {
+            guard state != RefreshState.refreshing else {
                 return
             }
             // 拿到当前contentoffset的y值
@@ -224,42 +224,42 @@ extension PullToRefreshView {
             }
             setupHeaderViewAnimation()
                 
-            if scrollView.dragging {
-                if fabs(currentOffsetY) > happenOffsetY && self.state == RefreshState.Normal {
-                    state = RefreshState.Pulling
-                } else if fabs(currentOffsetY) <= happenOffsetY && self.state == RefreshState.Pulling {
-                    state = RefreshState.Normal
+            if scrollView.isDragging {
+                if fabs(currentOffsetY) > happenOffsetY && self.state == RefreshState.normal {
+                    state = RefreshState.pulling
+                } else if fabs(currentOffsetY) <= happenOffsetY && self.state == RefreshState.pulling {
+                    state = RefreshState.normal
                 }
-            } else if self.state == RefreshState.Pulling {
-                state = RefreshState.Refreshing
+            } else if self.state == RefreshState.pulling {
+                state = RefreshState.refreshing
             }
         }
     }
     
-    private func setupRedLineAnimation() {
+    fileprivate func setupRedLineAnimation() {
         let width = max(1,(1-progressPercentage)*40)
         let height = max(1,fabs(scrollView.contentOffset.y)-10)
         
-        UIView.animateWithDuration(0.01, animations: {
+        UIView.animate(withDuration: 0.01, animations: {
             self.redLine.frame = CGRect(x: self.center.x-width*0.5, y: 0, width: width, height: height)
         })
     }
     
-    private func setupHeaderViewAnimation() {
+    fileprivate func setupHeaderViewAnimation() {
         let refreshViewVisibleHeight = max(0, -(self.scrollView.contentOffset.y + scrollView.contentInset.top))
         progressPercentage = min(1, refreshViewVisibleHeight / happenOffsetY)
         headerView.alpha = min(1, max(1-progressPercentage/0.2, 0))
         menuBtn.alpha = min(1, max(1-progressPercentage/0.2, 0))
-        if !classifyBtn.hidden {
+        if !classifyBtn.isHidden {
            classifyBtn.alpha = min(1, max(1-progressPercentage/0.2, 0))
         }
     }
     
-    private func setupNormalDataAnimation() {
-        UIView.animateWithDuration(0.1) {
+    fileprivate func setupNormalDataAnimation() {
+        UIView.animate(withDuration: 0.1, animations: {
             self.redLine.frame = CGRect(x: self.center.x-20, y: 0, width: 40, height: 1)
             self.headerView.alpha = 1
             self.menuBtn.alpha = 1
-        }
+        }) 
     }
 }

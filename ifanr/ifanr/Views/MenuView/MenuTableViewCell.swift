@@ -13,7 +13,7 @@ class MenuTableViewCell: UITableViewCell, Reusable {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         // 添加控件
         self.contentView.addSubview(iconView)
         self.contentView.addSubview(titleLabel)
@@ -39,11 +39,11 @@ class MenuTableViewCell: UITableViewCell, Reusable {
         }
     }
     
-    class func cellWithTableView(tableView : UITableView) -> MenuTableViewCell {
+    class func cellWithTableView(_ tableView : UITableView) -> MenuTableViewCell {
         var cell = tableView.dequeueReusableCell() as MenuTableViewCell?
         if cell == nil {
-            cell = MenuTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
-            cell?.selectionStyle = .None
+            cell = MenuTableViewCell(style: .default, reuseIdentifier: self.reuseIdentifier)
+            cell?.selectionStyle = .none
         }
         return cell!
     }
@@ -55,14 +55,14 @@ class MenuTableViewCell: UITableViewCell, Reusable {
     
     //MARK: --------------------------- Getter and Setter --------------------------
     /// 图标
-    private lazy var iconView: UIImageView = {
+    fileprivate lazy var iconView: UIImageView = {
         var iconView = UIImageView()
-        iconView.contentMode = .ScaleAspectFit
+        iconView.contentMode = .scaleAspectFit
         return iconView
     }()
     
     /// 标题
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         var titleLabel = UILabel()
         titleLabel.font = UIConstant.UI_FONT_16
         titleLabel.textColor = UIConstant.UI_COLOR_GrayTheme

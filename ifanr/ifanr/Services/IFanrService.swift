@@ -12,8 +12,8 @@ import Moya
 class IFanrService {
         /// 单例对象
     static let shareInstance = IFanrService()
-    lazy var ifanrProvider = MoyaProvider<APIConstant>()
-    private init() {}
+    lazy var ifanrProvider: MoyaProvider<APIConstant> = MoyaProvider<APIConstant>()
+    fileprivate init() {}
     
     //MARK: --------------------------- Public Methods --------------------------
     /**
@@ -23,11 +23,10 @@ class IFanrService {
      - parameter successHandle: 请求成功回调
      - parameter errorHandle:   请求失败回调
      */
-    
-    func getLatestLayout(target: APIConstant, successHandle: (Array<HomePopularLayout> -> Void)?, errorHandle:((Error) -> Void)?) {
+    func getLatestLayout(_ target: APIConstant, successHandle: ((Array<HomePopularLayout>) -> Void)?, errorHandle:((Swift.Error) -> Void)?) {
         ifanrProvider.request(target) { (result) in
             switch result {
-            case let .Success(response):
+            case let .success(response):
                 
                 do {
                     // 获取json数据
@@ -36,17 +35,18 @@ class IFanrService {
                         // 获取Data数组
                         if let content = json["data"] as? Array<AnyObject> {
                             // 放到异步去处理字典转模型，提前计算好cell的高度。
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            DispatchQueue.global().async {
                                 let layoutArray = content.map({ (dict) -> HomePopularLayout in
                                     return HomePopularLayout(model: CommonModel(dict: dict as! NSDictionary))
                                 })
                                 
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async {
                                     if let success = successHandle {
                                         success(layoutArray)
                                     }
-                                })
-                            })
+                                }
+                            }
+                            
                         } else {
                             print("没有数据")
                         }
@@ -57,7 +57,7 @@ class IFanrService {
                     print("出现异常")
                 }
                 
-            case let .Failure(error):
+            case let .failure(error):
                 // 错误回调
                 if let handle = errorHandle {
                     handle(error)
@@ -70,16 +70,16 @@ class IFanrService {
      - parameter t: 这个参数并无意义，只为 推算出 T的类型
      - note: 此函数仍然有 无效参数，略有瑕疵
      */
-    func getData<T : Initable>(target: APIConstant, t: T?, keys: Array<String>, successHandle: (Array<T> -> Void)?, errorHandle:((Error) -> Void)?) {
+    func getData<T : Initable>(_ target: APIConstant, t: T?, keys: Array<String>, successHandle: ((Array<T>) -> Void)?, errorHandle:((Swift.Error) -> Void)?) {
         
         //异步处理数据
-        func dealWithData(content: Array<AnyObject>) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        func dealWithData(_ content: Array<AnyObject>) {
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 let modelArray = content.map({ (dict) -> T in
                     return T(dict: dict as! NSDictionary)
                 })
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     if let success = successHandle {
                         success(modelArray)
                     }
@@ -89,7 +89,7 @@ class IFanrService {
         
         ifanrProvider.request(target) { (result) in
             switch result {
-            case let .Success(response):
+            case let .success(response):
                 do {
                     // 获取json数据
                     let json = try response.mapJSON() as? Dictionary<String, AnyObject>
@@ -119,7 +119,7 @@ class IFanrService {
                     print("出现异常")
                 }
                 
-            case let .Failure(error):
+            case let .failure(error):
                 if let handle = errorHandle {
                     handle(error)
                 }

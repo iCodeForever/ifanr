@@ -66,7 +66,7 @@ struct MindStoreModel: Initable {
         self.vote_user_count = dict["vote_user_count"] as? NSNumber ?? 0
         self.voted = dict["voted"] as? Int64 ?? 0
         
-        if let createByDic = dict["created_by"] {
+        if let createByDic = dict["created_by"] as? NSDictionary {
             self.createdByModel.avatar_url  = createByDic["avatar_url"] as? String ?? ""
             self.createdByModel.company     = createByDic["company"] as? String ?? ""
             self.createdByModel.email       = createByDic["email"] as? String ?? ""

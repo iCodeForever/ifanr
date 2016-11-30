@@ -14,7 +14,7 @@ public protocol ShareViewDelegate: class {
     func shareMoreButtonDidClick();
 }
 
-public class ShareView: UIView {
+open class ShareView: UIView {
     
     var delegate: ShareViewDelegate?
     
@@ -106,73 +106,73 @@ public class ShareView: UIView {
     
     //MARK:-----Setter Getter-----
     /// 微信朋友
-    private lazy var weixinShareButton: UIButton = {
+    fileprivate lazy var weixinShareButton: UIButton = {
         let weixinShareButton = UIButton()
-        weixinShareButton.setImage(UIImage(named: "share_wechat"), forState: .Normal)
-        weixinShareButton.setTitle("微信朋友", forState: .Normal)
-        weixinShareButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        weixinShareButton.imageView?.contentMode = .ScaleAspectFit
-        weixinShareButton.addTarget(self, action: #selector(weixinShareAction), forControlEvents: .TouchUpInside)
+        weixinShareButton.setImage(UIImage(named: "share_wechat"), for: UIControlState())
+        weixinShareButton.setTitle("微信朋友", for: UIControlState())
+        weixinShareButton.setTitleColor(UIColor.black, for: UIControlState())
+        weixinShareButton.imageView?.contentMode = .scaleAspectFit
+        weixinShareButton.addTarget(self, action: #selector(weixinShareAction), for: .touchUpInside)
         
         return weixinShareButton
     }()
-    private lazy var weixinShareLabel: UILabel = {
+    fileprivate lazy var weixinShareLabel: UILabel = {
         let weixinShareLabel = UILabel()
         weixinShareLabel.text = "微信朋友"
-        weixinShareLabel.textAlignment = .Center
+        weixinShareLabel.textAlignment = .center
         weixinShareLabel.textColor = UIColor(red: 82/255.0, green: 78/255.0, blue: 80/255.0, alpha: 1.0)
-        weixinShareLabel.font = UIFont.systemFontOfSize(13)
+        weixinShareLabel.font = UIFont.systemFont(ofSize: 13)
         
         return weixinShareLabel
     }()
     /// 朋友圈
-    private lazy var friendsCircleShareButton: UIButton = {
+    fileprivate lazy var friendsCircleShareButton: UIButton = {
         let friendsCircleShareButton = UIButton()
-        friendsCircleShareButton.setImage(UIImage(named: "share_wechat_moment"), forState: .Normal)
-        friendsCircleShareButton.setTitle("朋友圈", forState: .Normal)
-        friendsCircleShareButton.addTarget(self, action: #selector(friendsCircleShareAction), forControlEvents: .TouchUpInside)
+        friendsCircleShareButton.setImage(UIImage(named: "share_wechat_moment"), for: UIControlState())
+        friendsCircleShareButton.setTitle("朋友圈", for: UIControlState())
+        friendsCircleShareButton.addTarget(self, action: #selector(friendsCircleShareAction), for: .touchUpInside)
         
         return friendsCircleShareButton
     }()
-    private lazy var friendsCircleShareLabel: UILabel = {
+    fileprivate lazy var friendsCircleShareLabel: UILabel = {
         let friendsCircleShareLabel = UILabel()
         friendsCircleShareLabel.text = "朋友圈"
         friendsCircleShareLabel.textColor = UIColor(red: 82/255.0, green: 78/255.0, blue: 80/255.0, alpha: 1.0)
-        friendsCircleShareLabel.textAlignment = .Center
-        friendsCircleShareLabel.font = UIFont.systemFontOfSize(13)
+        friendsCircleShareLabel.textAlignment = .center
+        friendsCircleShareLabel.font = UIFont.systemFont(ofSize: 13)
         
         return friendsCircleShareLabel
     }()
     /// 分享更多
-    private lazy var shareMoreButton: UIButton = {
+    fileprivate lazy var shareMoreButton: UIButton = {
         let shareMoreButton = UIButton()
-        shareMoreButton.setImage(UIImage(named: "share_more"), forState: .Normal)
-        shareMoreButton.setTitle("更多", forState: .Normal)
-        shareMoreButton.addTarget(self, action: #selector(shareMoreAction), forControlEvents: .TouchUpInside)
+        shareMoreButton.setImage(UIImage(named: "share_more"), for: UIControlState())
+        shareMoreButton.setTitle("更多", for: UIControlState())
+        shareMoreButton.addTarget(self, action: #selector(shareMoreAction), for: .touchUpInside)
         
         return shareMoreButton
     }()
-    private lazy var shareMoreLabel: UILabel = {
+    fileprivate lazy var shareMoreLabel: UILabel = {
         let shareMoreLabel = UILabel()
         shareMoreLabel.text = "更多"
-        shareMoreLabel.textAlignment = .Center
+        shareMoreLabel.textAlignment = .center
         shareMoreLabel.textColor = UIColor(red: 82/255.0, green: 78/255.0, blue: 80/255.0, alpha: 1.0)
-        shareMoreLabel.font = UIFont.systemFontOfSize(13)
+        shareMoreLabel.font = UIFont.systemFont(ofSize: 13)
         
         return shareMoreLabel
     }()
     /// logo
-    private lazy var logoShareImageView: UIImageView = {
+    fileprivate lazy var logoShareImageView: UIImageView = {
         let logoShareImageView = UIImageView()
         logoShareImageView.image = UIImage(named: "ic_dialog_share")
         
         return logoShareImageView
     }()
     /// titleLabel
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.text = "分享文章给朋友:"
-        titleLabel.font = UIFont.systemFontOfSize(14.0)
+        titleLabel.font = UIFont.systemFont(ofSize: 14.0)
         titleLabel.textColor = UIColor(red: 124/255.0, green: 129/255.0, blue: 142/255.0, alpha: 1.0)
         
         return titleLabel

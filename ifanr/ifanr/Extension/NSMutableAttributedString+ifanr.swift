@@ -12,7 +12,7 @@ extension NSMutableAttributedString {
     /**
      全部设置行间距 5
      */
-    class func attribute(text: String) -> NSMutableAttributedString {
+    class func attribute(_ text: String) -> NSMutableAttributedString {
         let attribute = NSMutableAttributedString(string: text)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 5

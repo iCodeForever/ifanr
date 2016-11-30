@@ -12,7 +12,7 @@ extension UIViewController {
     
     func showProgress () {
         let progressView = UIActivityIndicatorView()
-        progressView.activityIndicatorViewStyle = .Gray
+        progressView.activityIndicatorViewStyle = .gray
         progressView.hidesWhenStopped = true
         progressView.tag = 500
         self.view.addSubview(progressView)

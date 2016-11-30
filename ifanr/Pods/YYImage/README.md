@@ -19,9 +19,9 @@ Features
 - Display/encode/decode still image with these types:<br/>&nbsp;&nbsp;&nbsp;&nbsp;WebP, PNG, GIF, JPEG, JP2, TIFF, BMP, ICO, ICNS.
 - Baseline/progressive/interlaced image decode with these types:<br/>&nbsp;&nbsp;&nbsp;&nbsp;PNG, GIF, JPEG, BMP.
 - Display frame based image animation and sprite sheet animation.
+- Dynamic memory buffer for lower memory usage.
 - Fully compatible with UIImage and UIImageView class.
 - Extendable protocol for custom image animation.
-- Dynamic memory buffer for lower memory usage.
 - Fully documented.
 
 Usage
@@ -85,7 +85,7 @@ Usage
 ###Image decoder
 		
 	// Decode single frame:
-	NSData *data = [NSData dataWithContentOfFile:@"/tmp/image.webp"];
+	NSData *data = [NSData dataWithContentsOfFile:@"/tmp/image.webp"];
 	YYImageDecoder *decoder = [YYImageDecoder decoderWithData:data scale:2.0];
 	UIImage image = [decoder frameAtIndex:0 decodeForDisplay:YES].image;
 	
@@ -161,11 +161,21 @@ Installation
 4. Import `YYImage.h`.
 5. Notice: if you want to support WebP format, you may add `Vendor/WebP.framework`(static library) to your Xcode project.
 
+FAQ
+==============
+_Q: Why I can't display WebP image?_
+
+A: Make sure you added the `WebP.framework` in your project. You may call `YYImageWebPAvailable()` to check whether the WebP subspec is installed correctly.
+
+_Q: Why I can't play APNG animation?_
+
+A: You should disable the `Compress PNG Files` and `Remove Text Metadata From PNG Files` in your project's build settings. Or you can rename your APNG file's extension name with `apng`.
 
 Documentation
 ==============
 Full API documentation is available on [CocoaDocs](http://cocoadocs.org/docsets/YYImage/).<br/>
 You can also install documentation locally using [appledoc](https://github.com/tomaz/appledoc).
+
 
 
 Requirements
@@ -197,9 +207,9 @@ YYImage: 功能强大的 iOS 图像框架。<br/>
 - 支持以下类型图片的渐进式/逐行扫描/隔行扫描解码:<br/>
   &nbsp;&nbsp;&nbsp;&nbsp;PNG, GIF, JPEG, BMP。
 - 支持多张图片构成的帧动画播放，支持单张图片的 sprite sheet 动画。
+- 高效的动态内存缓存管理，以保证高性能低内存的动画播放。
 - 完全兼容 UIImage 和 UIImageView，使用方便。
 - 保留可扩展的接口，以支持自定义动画。
-- 高效的动态内存缓存管理，以保证高性能低内存的动画播放。
 - 每个类和方法都有完善的文档注释。
 
 
@@ -265,7 +275,7 @@ YYImage: 功能强大的 iOS 图像框架。<br/>
 ###图片解码
 		
 	// 解码单帧图片:
-	NSData *data = [NSData dataWithContentOfFile:@"/tmp/image.webp"];
+	NSData *data = [NSData dataWithContentsOfFile:@"/tmp/image.webp"];
 	YYImageDecoder *decoder = [YYImageDecoder decoderWithData:data scale:2.0];
 	UIImage image = [decoder frameAtIndex:0 decodeForDisplay:YES].image;
 	
@@ -340,6 +350,16 @@ YYImage: 功能强大的 iOS 图像框架。<br/>
 	* libz
 4. 导入 `YYImage.h`。
 5. 注意：如果你需要支持 WebP，可以将 `Vendor/WebP.framework`(静态库) 加入你的工程。
+
+常见问题
+==============
+_Q: 为什么我不能显示 WebP 图片？_
+
+A: 确保 `WebP.framework` 已经被添加到你的工程内了。你可以调用 `YYImageWebPAvailable()` 来检查一下 WebP 组件是否被正确安装。
+
+_Q: 为什么我不能播放 APNG 动画？_
+
+A: 你应该禁用 Build Settings 中的 `Compress PNG Files` 和 `Remove Text Metadata From PNG Files`. 或者你也可以把 APNG 文件的扩展名改为`apng`.
 
 文档
 ==============

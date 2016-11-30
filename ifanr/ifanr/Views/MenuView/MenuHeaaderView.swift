@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 
 protocol MenuHeaderViewDelegate {
-    func searchBtnDidClick(headerView: MenuHeaaderView, searchBtn: UIButton)
-    func settingBtnDidClick(headerView: MenuHeaaderView, settingBtn: UIButton)
+    func searchBtnDidClick(_ headerView: MenuHeaaderView, searchBtn: UIButton)
+    func settingBtnDidClick(_ headerView: MenuHeaaderView, settingBtn: UIButton)
 }
 
 class MenuHeaaderView: UIView {
@@ -52,35 +52,35 @@ class MenuHeaaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func searchBtnDidClick() {
+    @objc fileprivate func searchBtnDidClick() {
         delegate?.searchBtnDidClick(self, searchBtn: searchBtn)
     }
     
-    @objc private func settingBtnDidClick() {
+    @objc fileprivate func settingBtnDidClick() {
         delegate?.settingBtnDidClick(self, settingBtn: settingBtn)
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
     
-    private lazy var logoImageView: UIImageView = {
+    fileprivate lazy var logoImageView: UIImageView = {
         var logoImageView : UIImageView = UIImageView(image: UIImage(named: "ic_profile_logo"))
-        logoImageView.contentMode = .ScaleAspectFit
+        logoImageView.contentMode = .scaleAspectFit
         return logoImageView
     }()
     
     /// 搜索按钮
-    private lazy var searchBtn: UIButton = {
+    fileprivate lazy var searchBtn: UIButton = {
         var searchBtn: UIButton = UIButton()
-        searchBtn.addTarget(self, action: #selector(MenuHeaaderView.searchBtnDidClick), forControlEvents: .TouchUpInside)
-        searchBtn.setImage(UIImage(named: "ic_search"), forState: .Normal)
+        searchBtn.addTarget(self, action: #selector(MenuHeaaderView.searchBtnDidClick), for: .touchUpInside)
+        searchBtn.setImage(UIImage(named: "ic_search"), for: UIControlState())
         return searchBtn
     }()
     
     /// 设置按钮
-    private lazy var settingBtn: UIButton = {
+    fileprivate lazy var settingBtn: UIButton = {
         var settingBtn: UIButton = UIButton()
-        settingBtn.addTarget(self, action: #selector(MenuHeaaderView.settingBtnDidClick), forControlEvents: .TouchUpInside)
-        settingBtn.setImage(UIImage(named: "ic_setting"), forState: .Normal)
+        settingBtn.addTarget(self, action: #selector(MenuHeaaderView.settingBtnDidClick), for: .touchUpInside)
+        settingBtn.setImage(UIImage(named: "ic_setting"), for: UIControlState())
         return settingBtn
     }()
 

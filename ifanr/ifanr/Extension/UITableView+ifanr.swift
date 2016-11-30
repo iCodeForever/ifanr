@@ -9,13 +9,13 @@
 import UIKit
 
 extension UITableView {
-    func reloadData(completion:()->()) {
-        UIView.animateWithDuration(0, animations: { 
+    func reloadData(_ completion:@escaping ()->()) {
+        UIView.animate(withDuration: 0, animations: { 
             self.reloadData()
-            }) { _ in
-                self.hidden = true
+            }, completion: { _ in
+                self.isHidden = true
                 completion()
-                self.hidden = false
-        }
+                self.isHidden = false
+        }) 
     }
 }

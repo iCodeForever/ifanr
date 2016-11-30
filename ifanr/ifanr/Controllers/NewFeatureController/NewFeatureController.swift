@@ -13,7 +13,7 @@ class NewFeatureController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // 监听播放完成
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewFeatureController.playbackFinished), name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewFeatureController.playbackFinished), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         
         let playerLayer = AVPlayerLayer(player: self.player)
         playerLayer.frame = self.view.bounds
@@ -21,28 +21,28 @@ class NewFeatureController: UIViewController {
         
         self.player.play()
     }
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func playbackFinished() {
-        self.dismissViewControllerAnimated(false, completion: nil)
+        self.dismiss(animated: false, completion: nil)
         self.view.window?.rootViewController = IFBaseNavController(rootViewController: MainViewController())
     }
     
     
-    private lazy var player: AVPlayer = {
+    fileprivate lazy var player: AVPlayer = {
         let player = AVPlayer(playerItem: self.playerItem)
         return player
     }()
     
-    private lazy var playerItem: AVPlayerItem = {
-        let path = NSBundle.mainBundle().pathForResource("ifanrVideo", ofType: "mp4")
-        let playerItem = AVPlayerItem(URL: NSURL(fileURLWithPath: path!))
+    fileprivate lazy var playerItem: AVPlayerItem = {
+        let path = Bundle.main.path(forResource: "ifanrVideo", ofType: "mp4")
+        let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path!))
         return playerItem
     }()
     
