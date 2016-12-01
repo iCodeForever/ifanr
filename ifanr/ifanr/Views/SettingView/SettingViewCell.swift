@@ -144,7 +144,7 @@ class SettingViewCell: UITableViewCell, Reusable {
 
 extension SettingViewCell {
     fileprivate func setupTitleLayout() {
-        self.titleLabel.snp_makeConstraints { (make) in
+        self.titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_10)
@@ -153,7 +153,7 @@ extension SettingViewCell {
     }
     
     fileprivate func setupDetailTitleLayout() {
-        self.detailLabel.snp_makeConstraints { (make) in
+        self.detailLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.bottom.equalTo(self).inset(UIConstant.UI_MARGIN_10)
@@ -162,7 +162,7 @@ extension SettingViewCell {
     }
     
     fileprivate func setupLineView() {
-        self.lineView.snp_makeConstraints { (make) in
+        self.lineView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.height.equalTo(1)
@@ -171,14 +171,14 @@ extension SettingViewCell {
     }
     
     fileprivate func setupSwitchLayout() {
-        switchView.snp_makeConstraints { (make) in
+        switchView.snp.makeConstraints { (make) in
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
-            make.centerY.equalTo(self.snp_centerY)
+            make.centerY.equalTo(self.snp.centerY)
             make.size.equalTo(CGSize(width: 49, height: 31))
         }
     }
     fileprivate func setupImageLayout() {
-        startView.snp_makeConstraints { (make) in
+        startView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.bottom.equalTo(self).inset(UIConstant.UI_MARGIN_10)

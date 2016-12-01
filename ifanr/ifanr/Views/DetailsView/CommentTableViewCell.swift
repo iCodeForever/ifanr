@@ -102,50 +102,50 @@ class CommentTableViewCell: UITableViewCell, Reusable {
     //设置布局
     internal func setupLayout(_ isBig: Bool) {
         if isBig {
-            self.avatarImageView.snp_makeConstraints { (make) in
+            self.avatarImageView.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView).offset(15)
                 make.left.equalTo(self.contentView).offset(20)
                 make.width.height.equalTo(40)
             }
         } else {
-            self.avatarImageView.snp_makeConstraints { (make) in
+            self.avatarImageView.snp.makeConstraints { (make) in
                 make.top.equalTo(self.contentView).offset(15)
                 make.left.equalTo(self.contentView).offset(45)
                 make.width.height.equalTo(40)
             }
         }
-        self.nameLabel.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.avatarImageView.snp_centerY).offset(-1)
-            make.left.equalTo(self.avatarImageView.snp_right).offset(10)
+        self.nameLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.avatarImageView.snp.centerY).offset(-1)
+            make.left.equalTo(self.avatarImageView.snp.right).offset(10)
         }
-        self.timeLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.avatarImageView.snp_centerY).offset(1)
-            make.left.equalTo(self.avatarImageView.snp_right).offset(10)
+        self.timeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.avatarImageView.snp.centerY).offset(1)
+            make.left.equalTo(self.avatarImageView.snp.right).offset(10)
         }
-        self.trampleNumLabel.snp_makeConstraints { (make) in
+        self.trampleNumLabel.snp.makeConstraints { (make) in
             make.right.equalTo(self.contentView)
             make.centerY.equalTo(self.avatarImageView)
             make.width.equalTo(20)
             make.height.equalTo(30)
         }
-        self.trampleButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.trampleNumLabel.snp_left).offset(-2)
+        self.trampleButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.trampleNumLabel.snp.left).offset(-2)
             make.centerY.equalTo(self.avatarImageView)
             make.width.height.equalTo(8)
         }
-        self.praiseNumLabel.snp_makeConstraints { (make) in
+        self.praiseNumLabel.snp.makeConstraints { (make) in
             make.right.equalTo(self.trampleButton).offset(-15)
             make.centerY.equalTo(self.avatarImageView)
             make.width.equalTo(20)
             make.height.equalTo(30)
         }
-        self.praiseButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.praiseNumLabel.snp_left).offset(-2)
+        self.praiseButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.praiseNumLabel.snp.left).offset(-2)
             make.centerY.equalTo(self.avatarImageView)
             make.width.height.equalTo(8)
         }
-        self.contentLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.avatarImageView.snp_bottom).offset(20)
+        self.contentLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.avatarImageView.snp.bottom).offset(20)
             make.left.equalTo(self.avatarImageView)
             make.right.equalTo(self.contentView).offset(-15)
             make.bottom.equalTo(self.contentView).offset(-10)

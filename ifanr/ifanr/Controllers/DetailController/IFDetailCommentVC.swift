@@ -83,13 +83,13 @@ class IFDetailCommentVC: UIViewController {
     }
     
     fileprivate func setupLayout() {
-        self.headerView.snp_makeConstraints { (make) in
+        self.headerView.snp.makeConstraints { (make) in
             make.left.top.right.equalTo(self.view)
             make.height.equalTo(84)
         }
-        self.tableView.snp_makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { (make) in
             make.left.bottom.right.equalTo(self.view)
-            make.top.equalTo(self.headerView.snp_bottom)
+            make.top.equalTo(self.headerView.snp.bottom)
         }
     }
     
@@ -123,7 +123,7 @@ extension IFDetailCommentVC: CommentHeaderDelegate{
     }
     
     func goBackButtonDidClick() {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func timeSortedButtonDidClick(_ sender: UIButton) {

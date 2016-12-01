@@ -26,19 +26,19 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
     }
     
     fileprivate func setLayout() {
-        menuImageView.snp_makeConstraints { (make) in
+        menuImageView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
-        coverView.snp_makeConstraints { (make) in
+        coverView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
         
-        iconImageView.snp_makeConstraints { (make) in
+        iconImageView.snp.makeConstraints { (make) in
             make.right.bottom.equalTo(self.contentView).inset(UIConstant.UI_MARGIN_5)
             make.size.equalTo(15)
         }
         
-        titleLabel.snp_makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_5)
             make.height.equalTo(20)
         }

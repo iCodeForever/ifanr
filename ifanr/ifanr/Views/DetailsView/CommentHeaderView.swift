@@ -52,51 +52,51 @@ class CommentHeaderView: UIView {
     
     //MARK:-----Private Function-----
     fileprivate func setupLayout() {
-        self.topView.snp_makeConstraints { (make) in
+        self.topView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self)
             make.height.equalTo(44)
         }
-        self.bottomView.snp_makeConstraints { (make) in
+        self.bottomView.snp.makeConstraints { (make) in
             make.left.right.equalTo(self)
-            make.top.equalTo(self.topView.snp_bottom)
+            make.top.equalTo(self.topView.snp.bottom)
             make.height.equalTo(40)
         }
         
         /// topView layout
-        self.goBackContainer.snp_makeConstraints { (make) in
+        self.goBackContainer.snp.makeConstraints { (make) in
             make.top.bottom.left.equalTo(self)
             make.width.equalTo(44)
         }
-        self.goBackButton.snp_makeConstraints { (make) in
+        self.goBackButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.topView).offset(15)
             make.top.equalTo(self.topView).offset(14.5)
             make.width.equalTo(17)
             make.height.equalTo(15)
         }
-        self.titleLabel.snp_makeConstraints { (make) in
+        self.titleLabel.snp.makeConstraints { (make) in
             make.centerX.centerY.equalTo(self.topView)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
         
         /// bottomView layout
-        self.hintLabel.snp_makeConstraints { (make) in
+        self.hintLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.bottomView).offset(15)
             make.centerY.equalTo(self.bottomView)
         }
-        self.timeSortedButton.snp_makeConstraints { (make) in
-            make.left.equalTo(self.hintLabel.snp_right).offset(5)
+        self.timeSortedButton.snp.makeConstraints { (make) in
+            make.left.equalTo(self.hintLabel.snp.right).offset(5)
             make.centerY.equalTo(self.bottomView)
             make.height.width.equalTo(40)
         }
-        self.line.snp_makeConstraints { (make) in
-            make.left.equalTo(self.timeSortedButton.snp_right).offset(3)
+        self.line.snp.makeConstraints { (make) in
+            make.left.equalTo(self.timeSortedButton.snp.right).offset(3)
             make.top.equalTo(self.bottomView).offset(9)
             make.bottom.equalTo(self.bottomView).offset(-9)
             make.width.equalTo(1)
         }
-        self.heatSortedButton.snp_makeConstraints { (make) in
-            make.left.equalTo(self.line.snp_right).offset(3)
+        self.heatSortedButton.snp.makeConstraints { (make) in
+            make.left.equalTo(self.line.snp.right).offset(3)
             make.centerY.equalTo(self.bottomView)
             make.height.width.equalTo(40)
         }
@@ -156,7 +156,7 @@ class CommentHeaderView: UIView {
         let timeSortedButton: UIButton = UIButton()
         timeSortedButton.setTitle("时间", for: UIControlState())
         timeSortedButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        timeSortedButton.titleLabel?.textAlignment
+        //timeSortedButton.titleLabel?.textAlignment
         timeSortedButton.setTitleColor(UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0), for: .selected)
         timeSortedButton.setTitleColor(UIColor.lightGray, for: UIControlState())
         timeSortedButton.addTarget(self, action: #selector(timeSortedButtonAction), for: .touchUpInside)
@@ -174,7 +174,7 @@ class CommentHeaderView: UIView {
         let heatSortedButton = UIButton()
         heatSortedButton.setTitle("热度", for: UIControlState())
         heatSortedButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        heatSortedButton.titleLabel?.textAlignment
+        //heatSortedButton.titleLabel?.textAlignment
         heatSortedButton.setTitleColor(UIColor.lightGray, for: UIControlState())
         heatSortedButton.setTitleColor(UIColor(red: 211/255.0, green: 55/255.0, blue: 38/255.0, alpha: 1.0), for: .selected)
         heatSortedButton.addTarget(self, action: #selector(heatSortedButtonAction), for: .touchUpInside)

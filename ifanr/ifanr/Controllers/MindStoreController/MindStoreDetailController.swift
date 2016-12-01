@@ -74,11 +74,11 @@ class MindStoreDetailController: UIViewController {
     }
 
     fileprivate func setupLayout() {
-        headerBack.snp_makeConstraints { (make) in
+        headerBack.snp.makeConstraints { (make) in
             make.left.top.right.equalTo(self.view)
             make.height.equalTo(50)
         }
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
     }
@@ -131,7 +131,7 @@ extension MindStoreDetailController {
 
 extension MindStoreDetailController: HeaderViewDelegate {
     func backButtonDidClick() {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 

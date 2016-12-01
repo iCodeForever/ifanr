@@ -40,17 +40,17 @@ class IFDetailsController: UIViewController{
     
     //MARK:-----Custom Function-----
     fileprivate func setupLayout() {
-        self.wkWebView.snp_makeConstraints { (make) in
+        self.wkWebView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view);
             make.bottom.equalTo(self.view)
         }
         
-        self.toolBar.snp_makeConstraints { (make) in
+        self.toolBar.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
             make.height.equalTo(50)
         }
         
-        self.headerBack.snp_makeConstraints { (make) in
+        self.headerBack.snp.makeConstraints { (make) in
             make.left.right.equalTo(self.view)
             self.headerTopConstraint = make.top.equalTo(self.view).constraint
             make.height.equalTo(50)
@@ -148,7 +148,7 @@ extension IFDetailsController: WKNavigationDelegate, UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPosition: CGFloat = scrollView.contentOffset.y
         if currentPosition - self.lastPosition > 30 && currentPosition > 0 {
-            self.headerTopConstraint?.updateOffset(amount: -50)
+            self.headerTopConstraint?.update(offset: -50)
             
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerBack.layoutIfNeeded()
@@ -157,8 +157,7 @@ extension IFDetailsController: WKNavigationDelegate, UIScrollViewDelegate {
             self.lastPosition = currentPosition
             
         } else if self.lastPosition - currentPosition > 10 {
-            
-            self.headerTopConstraint?.updateOffset(amount: 0)
+            self.headerTopConstraint?.update(offset: 0)
             UIView.animate(withDuration: 0.3, animations: {
                 self.headerBack.layoutIfNeeded()
             })
@@ -170,6 +169,6 @@ extension IFDetailsController: WKNavigationDelegate, UIScrollViewDelegate {
 //MARK:-----HeaderViewDelegate-----
 extension IFDetailsController: HeaderViewDelegate {
     func backButtonDidClick() {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }

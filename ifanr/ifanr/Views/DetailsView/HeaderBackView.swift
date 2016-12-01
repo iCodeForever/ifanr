@@ -41,19 +41,19 @@ class HeaderBackView: UIView {
     
     //MARK:-----Custom Function-----
     fileprivate func setupLayout() {
-        blurView.snp_makeConstraints { (make) in
+        blurView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
         }
         
-        backButton.snp_makeConstraints { (make) in
+        backButton.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(15)
             make.centerY.equalTo(self)
             make.width.equalTo(20)
             make.height.equalTo(15)
         }
         
-        titleLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.backButton.snp_right).offset(10)
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.backButton.snp.right).offset(10)
             make.centerY.equalTo(self)
             make.height.equalTo(40)
             make.width.equalTo(100)

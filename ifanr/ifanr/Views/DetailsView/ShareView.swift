@@ -42,49 +42,49 @@ open class ShareView: UIView {
     
     //Mark:-----Private Function-----
     func setupLayout() {
-        logoShareImageView.snp_makeConstraints { (make) in
+        logoShareImageView.snp.makeConstraints { (make) in
             make.top.left.equalTo(self).offset(20)
             make.height.width.equalTo(13)
         }
-        titleLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(logoShareImageView.snp_right).offset(10)
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(logoShareImageView.snp.right).offset(10)
             make.width.equalTo(150)
             make.height.equalTo(30)
             make.centerY.equalTo(logoShareImageView)
         }
-        weixinShareButton.snp_makeConstraints { (make) in
-            make.top.equalTo(logoShareImageView.snp_bottom).offset(30)
+        weixinShareButton.snp.makeConstraints { (make) in
+            make.top.equalTo(logoShareImageView.snp.bottom).offset(30)
             make.left.equalTo(self).offset(30)
             make.width.equalTo(50)
             make.height.equalTo(50)
         }
         
-        friendsCircleShareButton.snp_makeConstraints { (make) in
-            make.top.equalTo(logoShareImageView.snp_bottom).offset(30)
+        friendsCircleShareButton.snp.makeConstraints { (make) in
+            make.top.equalTo(logoShareImageView.snp.bottom).offset(30)
             make.centerX.equalTo(self)
             make.width.height.equalTo(50)
         }
         
-        shareMoreButton.snp_makeConstraints { (make) in
-            make.top.equalTo(logoShareImageView.snp_bottom).offset(30)
+        shareMoreButton.snp.makeConstraints { (make) in
+            make.top.equalTo(logoShareImageView.snp.bottom).offset(30)
             make.right.equalTo(self).offset(-30)
             make.width.height.equalTo(50)
         }
         
-        weixinShareLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(weixinShareButton.snp_bottom).offset(10)
+        weixinShareLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(weixinShareButton.snp.bottom).offset(10)
             make.centerX.equalTo(weixinShareButton)
             make.width.equalTo(150)
         }
         
-        friendsCircleShareLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(friendsCircleShareButton.snp_bottom).offset(10)
+        friendsCircleShareLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(friendsCircleShareButton.snp.bottom).offset(10)
             make.centerX.equalTo(friendsCircleShareButton)
             make.width.equalTo(150)
         }
         
-        shareMoreLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(shareMoreButton.snp_bottom).offset(10)
+        shareMoreLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(shareMoreButton.snp.bottom).offset(10)
             make.centerX.equalTo(shareMoreButton)
             make.width.equalTo(150)
         }

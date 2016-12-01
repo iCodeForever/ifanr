@@ -86,27 +86,27 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     
     func setUpLayout() {
         
-        self.pointView.snp_makeConstraints { (make) in
+        self.pointView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_12)
             make.top.equalTo(self).offset(20)
             make.height.width.equalTo(8)
         }
         
-        self.timeLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(pointView.snp_right).offset(UIConstant.UI_MARGIN_12)
+        self.timeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(pointView.snp.right).offset(UIConstant.UI_MARGIN_12)
             make.right.equalTo(self).offset(32)
             make.centerY.equalTo(self.pointView)
             make.height.equalTo(20)
         }
         
-        self.contentLable.snp_makeConstraints { (make) in
+        self.contentLable.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(32)
             make.right.equalTo(self).offset(-32)
-            make.top.equalTo(self.timeLabel.snp_bottom).offset(5)
-            make.bottom.equalTo(self.sourceLabel.snp_top).offset(-5)
+            make.top.equalTo(self.timeLabel.snp.bottom).offset(5)
+            make.bottom.equalTo(self.sourceLabel.snp.top).offset(-5)
         }
         
-        self.sourceLabel.snp_makeConstraints { (make) in
+        self.sourceLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self).offset(32)
             make.bottom.equalTo(self).offset(-15)
             make.height.equalTo(20)

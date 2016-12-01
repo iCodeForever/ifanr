@@ -19,14 +19,14 @@ class MenuTableViewCell: UITableViewCell, Reusable {
         self.contentView.addSubview(titleLabel)
         
         // 添加约束
-        iconView.snp_makeConstraints { (make) in
+        iconView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize(width: 25, height: 25))
-            make.centerY.equalTo(self.contentView.snp_centerY)
+            make.centerY.equalTo(self.contentView.snp.centerY)
             make.left.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_20)
         }
         
-        titleLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.iconView.snp_right).offset(30)
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.iconView.snp.right).offset(30)
             make.top.bottom.right.equalTo(self.contentView)
         }
     }

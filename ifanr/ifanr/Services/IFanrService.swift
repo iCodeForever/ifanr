@@ -74,7 +74,7 @@ class IFanrService {
         
         //异步处理数据
         func dealWithData(_ content: Array<AnyObject>) {
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 let modelArray = content.map({ (dict) -> T in
                     return T(dict: dict as! NSDictionary)
                 })

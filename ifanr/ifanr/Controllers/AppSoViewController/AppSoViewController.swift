@@ -94,8 +94,6 @@ extension AppSoViewController {
     }
 }
 
-
-
 // MARK: - tableView代理和数据源
 extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -123,9 +121,8 @@ extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
         return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].title!) + 20
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let appSoModel: CommonModel = self.appSoModelArray[indexPath.row] {
-            let ifDetailController = IFDetailsController(model: appSoModel, naviTitle: "AppSo")
-            self.navigationController?.pushViewController(ifDetailController, animated: true)
-        }
+        let appSoModel: CommonModel = self.appSoModelArray[indexPath.row]
+        let ifDetailController = IFDetailsController(model: appSoModel, naviTitle: "AppSo")
+        self.navigationController?.pushViewController(ifDetailController, animated: true)
     }
 }

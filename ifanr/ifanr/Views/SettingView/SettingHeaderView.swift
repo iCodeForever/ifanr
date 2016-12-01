@@ -17,15 +17,15 @@ class SettingHeaderView: UIView {
         addSubview(backBtn)
         addSubview(titleLabel)
         
-        backBtn.snp_makeConstraints { (make) in
+        backBtn.snp.makeConstraints { (make) in
             make.left.equalTo(self)
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.size.equalTo(CGSize(width: 50, height: 15))
         }
         
-        titleLabel.snp_makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self)
-            make.centerY.equalTo(backBtn.snp_centerY)
+            make.centerY.equalTo(backBtn.snp.centerY)
             make.height.equalTo(20)
         }
     }

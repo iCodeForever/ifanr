@@ -25,23 +25,23 @@ class MenuHeaaderView: UIView {
         addSubview(settingBtn)
         
         // 适配  宽高187/48  30
-        logoImageView.snp_makeConstraints { [unowned self](make) in
+        logoImageView.snp.makeConstraints { [unowned self](make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.height.equalTo(30)
             make.width.equalTo(187/48*30)
-            make.centerY.equalTo(self.snp_centerY)
+            make.centerY.equalTo(self.snp.centerY)
         }
         
         // 设置按钮
-        settingBtn.snp_makeConstraints { (make) in
+        settingBtn.snp.makeConstraints { (make) in
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.centerY.equalTo(self.logoImageView)
             make.size.equalTo(CGSize(width: 20, height: 20))
         }
         
         // 搜索按钮
-        searchBtn.snp_makeConstraints { (make) in
-            make.right.equalTo(self.settingBtn.snp_left).offset(-30)
+        searchBtn.snp.makeConstraints { (make) in
+            make.right.equalTo(self.settingBtn.snp.left).offset(-30)
             make.top.equalTo(self.settingBtn)
             make.size.equalTo(settingBtn)
         }

@@ -25,15 +25,15 @@ class CategoryController: UIViewController {
         self.categoryModel = categoryModel
         headerView.model = categoryModel
         
-        backBtn.snp_makeConstraints { (make) in
+        backBtn.snp.makeConstraints { (make) in
             make.left.equalTo(self.view)
             make.top.equalTo(self.view).offset(UIConstant.UI_MARGIN_20)
             make.size.equalTo(CGSize(width: 50, height: 15))
         }
         titleLabel.text = categoryModel.title
-        titleLabel.snp_makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self.view)
-            make.centerY.equalTo(backBtn.snp_centerY)
+            make.centerY.equalTo(backBtn.snp.centerY)
             make.height.equalTo(20)
         }
         headerHappenY = -(headerView.height+cellHeaderViewHeight)
@@ -138,7 +138,7 @@ extension CategoryController {
 //MARK: --------------------------- Event and Action --------------------------
 extension CategoryController {
     @objc fileprivate func backBtnDidClick() {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 

@@ -22,7 +22,7 @@ class SettingViewController: UIViewController {
         view.addSubview(headerView)
         view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
             make.height.equalTo(self.view.height-UIConstant.UI_NAV_HEIGHT)
         }

@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
-        UIApplication.shared.setStatusBarHidden(true, with: .none)
+        //UIApplication.shared.setStatusBarHidden(true, with: .none)
         
         initRootViewController()
         
@@ -57,12 +57,12 @@ class MainViewController: UIViewController {
     // 布局
     fileprivate func setUpLayout() {
 
-        self.menuBtn.snp_makeConstraints { (make) in
+        self.menuBtn.snp.makeConstraints { (make) in
             make.right.equalTo(-15)
             make.top.equalTo(35)
             make.width.height.equalTo(45)
         }
-        self.classifyBtn.snp_makeConstraints { (make) in
+        self.classifyBtn.snp.makeConstraints { (make) in
             make.left.equalTo(15)
             make.top.equalTo(35)
             make.width.height.equalTo(45)

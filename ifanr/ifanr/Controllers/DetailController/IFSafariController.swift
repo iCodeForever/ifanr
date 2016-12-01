@@ -52,32 +52,32 @@ class IFSafariController: UIViewController {
     //MARK:-----Private Function-----
     func bottomBarSetUpLayout() {
         
-        self.backButton.snp_makeConstraints { (make) in
+        self.backButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.bottomBar).offset(30)
             make.top.equalTo(self.bottomBar).offset(20)
             make.width.height.equalTo(15)
         }
         
-        self.shareButton.snp_makeConstraints { (make) in
+        self.shareButton.snp.makeConstraints { (make) in
             make.right.equalTo(self.view).offset(-30)
             make.top.equalTo(self.bottomBar).offset(15)
             make.width.height.equalTo(20)
         }
         
-        self.safariButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.shareButton.snp_left).offset(-35)
+        self.safariButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.shareButton.snp.left).offset(-35)
             make.top.equalTo(self.bottomBar).offset(15)
             make.width.height.equalTo(20)
         }
         
-        self.reloadButton.snp_makeConstraints { (make) in
-            make.right.equalTo(self.safariButton.snp_left).offset(-35)
+        self.reloadButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.safariButton.snp.left).offset(-35)
             make.top.equalTo(self.bottomBar).offset(15)
             make.width.height.equalTo(18)
         }
     }
     func setupLayout() {
-        self.bottomBar.snp_makeConstraints { (make) in
+        self.bottomBar.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
             make.height.equalTo(45)
         }

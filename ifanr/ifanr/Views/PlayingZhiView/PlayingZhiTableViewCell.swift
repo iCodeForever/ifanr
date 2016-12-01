@@ -57,45 +57,45 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
     //MARK:-----Private Function-----
     //布局
     fileprivate func setupLayout() -> Void {
-        self.logoImageView.snp_makeConstraints { (make) in
+        self.logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
             make.height.equalTo(170).priority(1000)
         }
-        self.timeLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.logoImageView.snp_bottom).offset(UIConstant.UI_MARGIN_10)
+        self.timeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.logoImageView.snp.bottom).offset(UIConstant.UI_MARGIN_10)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.width.equalTo(100)
             make.height.equalTo(20)
         }
-        self.likeCountLabel.snp_makeConstraints { (make) in
+        self.likeCountLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.timeLabel)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
             make.width.height.equalTo(20)
         }
-        self.heartImgView.snp_makeConstraints { (make) in
-            make.right.equalTo(self.likeCountLabel.snp_left).offset(-UIConstant.UI_MARGIN_5)
+        self.heartImgView.snp.makeConstraints { (make) in
+            make.right.equalTo(self.likeCountLabel.snp.left).offset(-UIConstant.UI_MARGIN_5)
             make.centerY.equalTo(self.timeLabel)
             make.width.height.equalTo(10)
         }
-        self.separateLineView.snp_makeConstraints { (make) in
+        self.separateLineView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_5)
             make.centerX.equalTo(self)
             make.width.equalTo(20)
             make.height.equalTo(2)
         }
-        self.infoLabel.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.separateLineView.snp_top).offset(-UIConstant.UI_MARGIN_10)
+        self.infoLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.separateLineView.snp.top).offset(-UIConstant.UI_MARGIN_10)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
             make.height.equalTo(50)
         }
-        self.titleLabel.snp_makeConstraints { (make) in
+        self.titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
-            make.bottom.equalTo(self.infoLabel.snp_top)
-            make.top.equalTo(self.likeCountLabel.snp_bottom)
+            make.bottom.equalTo(self.infoLabel.snp.top)
+            make.top.equalTo(self.likeCountLabel.snp.bottom)
         }
         
         self.logoImageView.contentMode      = .scaleAspectFill
