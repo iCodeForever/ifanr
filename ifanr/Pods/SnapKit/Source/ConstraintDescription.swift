@@ -1,7 +1,7 @@
 //
 //  SnapKit
 //
-//  Copyright (c) 2011-2015 SnapKit Team - https://github.com/SnapKit
+//  Copyright (c) 2011-Present SnapKit Team - https://github.com/SnapKit
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,12 @@
 //  THE SOFTWARE.
 
 #if os(iOS) || os(tvOS)
-import UIKit
+    import UIKit
 #else
-import AppKit
+    import AppKit
 #endif
 
+<<<<<<< HEAD
 /**
     Used to expose the final API of a `ConstraintDescription` which allows getting a constraint from it
  */
@@ -568,63 +569,45 @@ internal class ConstraintDescription: ConstraintDescriptionExtendable, Constrain
     private func addConstraint(attributes: ConstraintAttributes) -> ConstraintDescription {
         if self.relation == nil {
             self.fromItem.attributes += attributes
+=======
+
+public class ConstraintDescription {
+    
+    internal let view: ConstraintView
+    internal var attributes: ConstraintAttributes
+    internal var relation: ConstraintRelation? = nil
+    internal var sourceLocation: (String, UInt)? = nil
+    internal var label: String? = nil
+    internal var related: ConstraintItem? = nil
+    internal var multiplier: ConstraintMultiplierTarget = 1.0
+    internal var constant: ConstraintConstantTarget = 0.0
+    internal var priority: ConstraintPriorityTarget = 1000.0
+    internal lazy var constraint: Constraint? = {
+        guard let relation = self.relation,
+              let related = self.related,
+              let sourceLocation = self.sourceLocation else {
+            return nil
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         }
-        return self
+        let from = ConstraintItem(target: self.view, attributes: self.attributes)
+        
+        return Constraint(
+            from: from,
+            to: related,
+            relation: relation,
+            sourceLocation: sourceLocation,
+            label: self.label,
+            multiplier: self.multiplier,
+            constant: self.constant,
+            priority: self.priority
+        )
+    }()
+    
+    // MARK: Initialization
+    
+    internal init(view: ConstraintView, attributes: ConstraintAttributes) {
+        self.view = view
+        self.attributes = attributes
     }
     
-    private func constrainTo(other: ConstraintItem, relation: ConstraintRelation) -> ConstraintDescription {
-        if other.attributes != ConstraintAttributes.None {
-            let toLayoutAttributes = other.attributes.layoutAttributes
-            if toLayoutAttributes.count > 1 {
-                let fromLayoutAttributes = self.fromItem.attributes.layoutAttributes
-                if toLayoutAttributes != fromLayoutAttributes {
-                    NSException(name: "Invalid Constraint", reason: "Cannot constrain to multiple non identical attributes", userInfo: nil).raise()
-                    return self
-                }
-                other.attributes = ConstraintAttributes.None
-            }
-        }
-        self.toItem = other
-        self.relation = relation
-        return self
-    }
-    
-    private func constrainTo(other: View, relation: ConstraintRelation) -> ConstraintDescription {
-        return constrainTo(ConstraintItem(object: other, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    @available(iOS 7.0, *)
-    private func constrainTo(other: LayoutSupport, relation: ConstraintRelation) -> ConstraintDescription {
-        return constrainTo(ConstraintItem(object: other, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    @available(iOS 9.0, OSX 10.11, *)
-    private func constrainTo(other: NSLayoutAnchor, relation: ConstraintRelation) -> ConstraintDescription {
-        return constrainTo(ConstraintItem(object: other, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    private func constrainTo(other: Float, relation: ConstraintRelation) -> ConstraintDescription {
-        self.constant = other
-        return constrainTo(ConstraintItem(object: nil, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    private func constrainTo(other: Double, relation: ConstraintRelation) -> ConstraintDescription {
-        self.constant = other
-        return constrainTo(ConstraintItem(object: nil, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    private func constrainTo(other: CGSize, relation: ConstraintRelation) -> ConstraintDescription {
-        self.constant = other
-        return constrainTo(ConstraintItem(object: nil, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    private func constrainTo(other: CGPoint, relation: ConstraintRelation) -> ConstraintDescription {
-        self.constant = other
-        return constrainTo(ConstraintItem(object: nil, attributes: ConstraintAttributes.None), relation: relation)
-    }
-    
-    private func constrainTo(other: EdgeInsets, relation: ConstraintRelation) -> ConstraintDescription {
-        self.constant = other
-        return constrainTo(ConstraintItem(object: nil, attributes: ConstraintAttributes.None), relation: relation)
-    }
 }

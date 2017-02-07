@@ -10,7 +10,7 @@ import Foundation
 
 extension UILabel {
 
-    class func setAttributText(content: String?, lineSpcae: CGFloat) -> NSAttributedString {
+    class func setAttributText(_ content: String?, lineSpcae: CGFloat) -> NSAttributedString {
         let attrs = NSMutableAttributedString(string: content!)
         let paragraphStyle = NSMutableParagraphStyle()
         

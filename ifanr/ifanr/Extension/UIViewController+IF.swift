@@ -12,12 +12,12 @@ extension UIViewController {
     
     func showProgress () {
         let progressView = UIActivityIndicatorView()
-        progressView.activityIndicatorViewStyle = .Gray
+        progressView.activityIndicatorViewStyle = .gray
         progressView.hidesWhenStopped = true
         progressView.tag = 500
         self.view.addSubview(progressView)
         
-        progressView.snp_makeConstraints { (make) in
+        progressView.snp.makeConstraints { (make) in
             make.center.equalTo(self.view)
             make.height.width.equalTo(20)
         }

@@ -11,11 +11,11 @@ import Foundation
 
 /// 文字
 class HomeLatestTextCell: UITableViewCell, Reusable {
-    class func cellWithTableView(tableView: UITableView) -> HomeLatestTextCell {
+    class func cellWithTableView(_ tableView: UITableView) -> HomeLatestTextCell {
         var cell = tableView.dequeueReusableCell() as HomeLatestTextCell?
         
         if cell == nil {
-            cell = HomeLatestTextCell(style: .Default, reuseIdentifier: HomeLatestTextCell.reuseIdentifier)
+            cell = HomeLatestTextCell(style: .default, reuseIdentifier: HomeLatestTextCell.reuseIdentifier)
         }
         return cell!
     }
@@ -23,7 +23,7 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.selectionStyle = .None
+        self.selectionStyle = .none
         
         self.contentView.addSubview(authorImageView)
         self.contentView.addSubview(dateLabel)
@@ -45,7 +45,7 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
             authorImageView.frame = popularLayout.kHomeCellAuthorImgRect
             
             // 设置分类和时间
-            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.category) | \(NSDate.getCommonExpressionOfDate(popularLayout.model.pubDate))")
+            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.category) | \(Date.getCommonExpressionOfDate(popularLayout.model.pubDate))")
             dateAttributeText.addAttribute(NSForegroundColorAttributeName, value: UIConstant.UI_COLOR_RedTheme, range: NSRange(location: 0, length: 2))
             dateLabel.attributedText = dateAttributeText
             dateLabel.frame = popularLayout.kHomeCellDateRect
@@ -70,15 +70,15 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
     
     //MARK: --------------------------- Getter and Setter --------------------------
         /// 作者图片
-    private lazy var authorImageView: UIImageView = {
+    fileprivate lazy var authorImageView: UIImageView = {
         var authorImageView = UIImageView()
         authorImageView.image = UIImage(named: "ic_shudu")
-        authorImageView.contentMode = .ScaleAspectFit
+        authorImageView.contentMode = .scaleAspectFit
         return authorImageView
     }()
     
     /// 分类 和 时间
-    private lazy var dateLabel: UILabel = {
+    fileprivate lazy var dateLabel: UILabel = {
         var dateLabel = UILabel()
         dateLabel.textColor = UIConstant.UI_COLOR_GrayTheme
         dateLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
@@ -86,21 +86,21 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
     }()
     
     /// 喜欢数
-    private lazy var likeLabel: UILabel = {
+    fileprivate lazy var likeLabel: UILabel = {
         var likeLabel = UILabel()
         likeLabel.textColor = UIConstant.UI_COLOR_GrayTheme
         likeLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         return likeLabel
     }()
     
-    private lazy var likeImageView: UIImageView = {
+    fileprivate lazy var likeImageView: UIImageView = {
         var likeImage = UIImageView(image: UIImage(named: "heart_selected_false"))
-        likeImage.contentMode = .ScaleAspectFit
+        likeImage.contentMode = .scaleAspectFit
         return likeImage
     }()
     
     /// 引文
-    private lazy var introduceLabel: UILabel = {
+    fileprivate lazy var introduceLabel: UILabel = {
         var introduceLabel = UILabel()
         introduceLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         introduceLabel.numberOfLines = 0
@@ -109,18 +109,18 @@ class HomeLatestTextCell: UITableViewCell, Reusable {
     }()
     
     /// 作者
-    private lazy var authorLabel: UILabel = {
+    fileprivate lazy var authorLabel: UILabel = {
         var authorLabel = UILabel()
-        authorLabel.textAlignment = .Center
+        authorLabel.textAlignment = .center
         authorLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         authorLabel.textColor = UIConstant.UI_COLOR_GrayTheme
         return authorLabel
     }()
     
     /// 底部分割线
-    private lazy var cellBottomLine: CALayer = {
+    fileprivate lazy var cellBottomLine: CALayer = {
         var cellBottomLine = CALayer()
-        cellBottomLine.backgroundColor = UIConstant.UI_COLOR_GrayTheme.CGColor
+        cellBottomLine.backgroundColor = UIConstant.UI_COLOR_GrayTheme.cgColor
         return cellBottomLine
     }()
 }

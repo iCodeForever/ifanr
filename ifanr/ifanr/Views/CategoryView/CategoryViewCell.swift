@@ -25,20 +25,20 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setLayout() {
-        menuImageView.snp_makeConstraints { (make) in
+    fileprivate func setLayout() {
+        menuImageView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
-        coverView.snp_makeConstraints { (make) in
+        coverView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.contentView)
         }
         
-        iconImageView.snp_makeConstraints { (make) in
+        iconImageView.snp.makeConstraints { (make) in
             make.right.bottom.equalTo(self.contentView).inset(UIConstant.UI_MARGIN_5)
             make.size.equalTo(15)
         }
         
-        titleLabel.snp_makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_5)
             make.height.equalTo(20)
         }
@@ -54,27 +54,27 @@ class CategoryViewCell: UICollectionViewCell, Reusable {
     }
     
     // 背景图
-    private lazy var menuImageView: UIImageView = {
+    fileprivate lazy var menuImageView: UIImageView = {
         let menuImageView = UIImageView()
         return menuImageView
     }()
     
     // alpa
-    private lazy var coverView: UIView = {
+    fileprivate lazy var coverView: UIView = {
         let coverView = UIView()
         return coverView
     }()
     
     // 右下角图片
-    private lazy var iconImageView: UIImageView = {
+    fileprivate lazy var iconImageView: UIImageView = {
         let iconImageView = UIImageView()
         return iconImageView
     }()
     
     // 标题
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         return titleLabel
     }()
@@ -84,7 +84,7 @@ class CategoryMenuHeaderView: UICollectionReusableView, Reusable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         let imageView = UIImageView(image: UIImage(named: "tag_more_columns"))
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         imageView.frame = CGRect(x: 0, y: 0, width: self.width, height: 25)
         imageView.center = CGPoint(x: self.center.x, y: fabs(self.center.y))
         addSubview(imageView)

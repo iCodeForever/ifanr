@@ -70,7 +70,7 @@ struct MindStoreCommentModel: Initable {
             }
         }
         
-        if let parent = dict["parent"] {
+        if let parent = dict["parent"] as? NSDictionary {
             if let item: NSDictionary = (parent["created_by"] as? NSDictionary) {
                 self.parentCreateBy = CreateBy(dict: item)
             }

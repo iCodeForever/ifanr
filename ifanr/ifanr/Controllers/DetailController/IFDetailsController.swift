@@ -26,8 +26,8 @@ class IFDetailsController: UIViewController{
         self.setupLayout()
         
         self.toolBar.commentButton.showIcon(model?.comments ?? nil)
-        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.like)!), forState: .Normal)
-        self.wkWebView.loadRequest(NSURLRequest(URL: NSURL(string: (self.model?.link)!)!))
+        self.toolBar.praiseButton.setTitle(String(format:"点赞(%d)",(model?.like)!), for: UIControlState())
+        self.wkWebView.load(URLRequest(url: URL(string: (self.model?.link)!)!))
     }
     
     convenience init(model: CommonModel, naviTitle: String) {
@@ -39,48 +39,48 @@ class IFDetailsController: UIViewController{
     }
     
     //MARK:-----Custom Function-----
-    private func setupLayout() {
-        self.wkWebView.snp_makeConstraints { (make) in
+    fileprivate func setupLayout() {
+        self.wkWebView.snp.makeConstraints { (make) in
             make.left.right.top.equalTo(self.view);
             make.bottom.equalTo(self.view)
         }
         
-        self.toolBar.snp_makeConstraints { (make) in
+        self.toolBar.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
             make.height.equalTo(50)
         }
         
-        self.headerBack.snp_makeConstraints { (make) in
+        self.headerBack.snp.makeConstraints { (make) in
             make.left.right.equalTo(self.view)
             self.headerTopConstraint = make.top.equalTo(self.view).constraint
             make.height.equalTo(50)
         }
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     //MARK:-----Getter and Setter-----
-    private var lastPosition: CGFloat = 0
-    private var headerTopConstraint: Constraint? = nil
-    private var model: CommonModel?
-    private var naviTitle: String!
+    fileprivate var lastPosition: CGFloat = 0
+    fileprivate var headerTopConstraint: Constraint? = nil
+    fileprivate var model: CommonModel?
+    fileprivate var naviTitle: String!
     /// wkWebView
-    private lazy var wkWebView: WKWebView = {
+    fileprivate lazy var wkWebView: WKWebView = {
         let wkWebView: WKWebView = WKWebView()
         wkWebView.navigationDelegate    = self
         wkWebView.scrollView.delegate   = self
         return wkWebView
     }()
     /// 底部工具栏
-    private lazy var toolBar: BottomToolsBar = {
+    fileprivate lazy var toolBar: BottomToolsBar = {
         let toolBar: BottomToolsBar = BottomToolsBar()
         toolBar.delegate = self
         return toolBar
     }()
     /// 顶部返回栏
-    private lazy var headerBack: HeaderBackView = {
+    fileprivate lazy var headerBack: HeaderBackView = {
         let headerBack: HeaderBackView = HeaderBackView(title: "")
         headerBack.delegate = self
         return headerBack
@@ -117,10 +117,10 @@ extension IFDetailsController: ToolBarDelegate {
     }
     
     func praiseButtonDidClick() {
-        if self.toolBar.praiseButton.selected {
-            self.toolBar.praiseButton.selected = false
+        if self.toolBar.praiseButton.isSelected {
+            self.toolBar.praiseButton.isSelected = false
         } else {
-            self.toolBar.praiseButton.selected = true
+            self.toolBar.praiseButton.isSelected = true
         }
     }
     
@@ -137,29 +137,28 @@ extension IFDetailsController: ToolBarDelegate {
 //MARK:-----WebViewDelegate UIScrollViewDelegate-----
 extension IFDetailsController: WKNavigationDelegate, UIScrollViewDelegate {
     
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         self.showProgress()
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.hiddenProgress()
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPosition: CGFloat = scrollView.contentOffset.y
         if currentPosition - self.lastPosition > 30 && currentPosition > 0 {
-            self.headerTopConstraint?.updateOffset(-50)
+            self.headerTopConstraint?.update(offset: -50)
             
-            UIView.animateWithDuration(0.3, animations: {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.headerBack.layoutIfNeeded()
             })
             
             self.lastPosition = currentPosition
             
         } else if self.lastPosition - currentPosition > 10 {
-            
-            self.headerTopConstraint?.updateOffset(0)
-            UIView.animateWithDuration(0.3, animations: {
+            self.headerTopConstraint?.update(offset: 0)
+            UIView.animate(withDuration: 0.3, animations: {
                 self.headerBack.layoutIfNeeded()
             })
             self.lastPosition = currentPosition
@@ -170,6 +169,6 @@ extension IFDetailsController: WKNavigationDelegate, UIScrollViewDelegate {
 //MARK:-----HeaderViewDelegate-----
 extension IFDetailsController: HeaderViewDelegate {
     func backButtonDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }

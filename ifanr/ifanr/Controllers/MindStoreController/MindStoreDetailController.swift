@@ -12,7 +12,7 @@ class MindStoreDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.view.addSubview(tableView)
@@ -27,17 +27,17 @@ class MindStoreDetailController: UIViewController {
         self.headerModel = headerModel
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     
     //MARK: --------------------------- Private Methods --------------------------
-    private func getNormalData() {
+    fileprivate func getNormalData() {
         isRefreshing = true
         
-        let group = dispatch_group_create()
-        dispatch_group_enter(group)
+        let group = DispatchGroup()
+        group.enter()
         
 //        IFanrService.shareInstance.getMindStoreVotedData(headerModel.id, successHandle: { [unowned self](voteModelArray) in
 //            self.voteModelArray = voteModelArray
@@ -73,38 +73,38 @@ class MindStoreDetailController: UIViewController {
 //        }
     }
 
-    private func setupLayout() {
-        headerBack.snp_makeConstraints { (make) in
+    fileprivate func setupLayout() {
+        headerBack.snp.makeConstraints { (make) in
             make.left.top.right.equalTo(self.view)
             make.height.equalTo(50)
         }
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view)
         }
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
-    private var headerModel: MindStoreModel!
-    private var voteModelArray = [MindStoreVoteModel]()
-    private var commentModelArray = [MindStoreVoteModel]()
+    fileprivate var headerModel: MindStoreModel!
+    fileprivate var voteModelArray = [MindStoreVoteModel]()
+    fileprivate var commentModelArray = [MindStoreVoteModel]()
     
-    private var offset = 1
-    private var isRefreshing: Bool = true
+    fileprivate var offset = 1
+    fileprivate var isRefreshing: Bool = true
     /// 上拉加载更多触发零界点
     var happenY: CGFloat = UIConstant.SCREEN_HEIGHT+20
     var differY: CGFloat = 0
 
     /// 顶部返回栏
-    private lazy var headerBack: HeaderBackView = {
+    fileprivate lazy var headerBack: HeaderBackView = {
         let headerBack: HeaderBackView = HeaderBackView(title: "MindStore")
         headerBack.delegate = self
         return headerBack
     }()
     
     /// tableview
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView()
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionFooterHeight = 50
@@ -115,14 +115,14 @@ class MindStoreDetailController: UIViewController {
 }
 
 extension MindStoreDetailController {
-    private func pullToRefreshFootView() -> UIView {
+    fileprivate func pullToRefreshFootView() -> UIView {
         
         let activityView = ActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 25, height: 25) )
         activityView.color = UIConstant.UI_COLOR_GrayTheme
         activityView.center = CGPoint(x: self.view.center.x, y: 25)
         activityView.startAnimation()
         let footView = UIView()
-        footView.origin = CGPointZero
+        footView.origin = CGPoint.zero
         footView.size = CGSize(width: 50, height: 50)
         footView.addSubview(activityView)
         return footView
@@ -131,21 +131,21 @@ extension MindStoreDetailController {
 
 extension MindStoreDetailController: HeaderViewDelegate {
     func backButtonDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension MindStoreDetailController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MindStoreTableViewCell.cellWithTableView(tableView)
         cell.model = headerModel
         return cell
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return MindStoreTableViewCell.estimateCellHeight(headerModel.title!, tagline: headerModel.tagline)
     }
 }

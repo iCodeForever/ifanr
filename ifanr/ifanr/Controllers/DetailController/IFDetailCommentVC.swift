@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class IFDetailCommentVC: UIViewController {
     
@@ -30,11 +54,11 @@ class IFDetailCommentVC: UIViewController {
     }
     
     //MARK:-----Private Function-----
-    private func getData() {
+    fileprivate func getData() {
         
         
         let type: CommentModel? = CommentModel(dict: [:])
-        IFanrService.shareInstance.getData(APIConstant.Comments_latest(self.post_id), t: type, keys: ["data", "all"], successHandle: { (modelArray) in
+        IFanrService.shareInstance.getData(APIConstant.comments_latest(self.post_id), t: type, keys: ["data", "all"], successHandle: { (modelArray) in
             // 添加数据
             modelArray.forEach {
                 self.ifDetailCommentsModelArray.append($0)
@@ -58,19 +82,19 @@ class IFDetailCommentVC: UIViewController {
 //        }
     }
     
-    private func setupLayout() {
-        self.headerView.snp_makeConstraints { (make) in
+    fileprivate func setupLayout() {
+        self.headerView.snp.makeConstraints { (make) in
             make.left.top.right.equalTo(self.view)
             make.height.equalTo(84)
         }
-        self.tableView.snp_makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { (make) in
             make.left.bottom.right.equalTo(self.view)
-            make.top.equalTo(self.headerView.snp_bottom)
+            make.top.equalTo(self.headerView.snp.bottom)
         }
     }
     
     //MARK:-----Getter Setter-----
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView(frame: self.view.frame)
         tableView.dataSource = self
         tableView.delegate  = self
@@ -79,7 +103,7 @@ class IFDetailCommentVC: UIViewController {
         return tableView
     }()
     
-    private lazy var headerView: CommentHeaderView = {
+    fileprivate lazy var headerView: CommentHeaderView = {
         let headerView = CommentHeaderView(model: nil)
         headerView.delegate = self
         return headerView
@@ -93,53 +117,53 @@ extension IFDetailCommentVC: CommentHeaderDelegate{
         for item: AnyObject in self.headerView.bottomView.subviews {
             if item is UIButton {
                 let itemBtn: UIButton = item as! UIButton
-                itemBtn.selected = false
+                itemBtn.isSelected = false
             }
         }
     }
     
     func goBackButtonDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
-    func timeSortedButtonDidClick(sender: UIButton) {
-        if !sender.selected {
+    func timeSortedButtonDidClick(_ sender: UIButton) {
+        if !sender.isSelected {
             resetBtnSelectState()
             
-            self.ifDetailCommentsModelArray.sortInPlace({ (model1, model2) -> Bool in
-                NSDate.isEarlier(model1.comment_date, dateStr2: model2.comment_date)
+            self.ifDetailCommentsModelArray.sort(by: { (model1, model2) -> Bool in
+                Date.isEarlier(model1.comment_date, dateStr2: model2.comment_date)
             })
             self.tableView.reloadData()
             
-            sender.selected = true
+            sender.isSelected = true
         }
     }
     
-    func heatSortedButtonDidClick(sender: UIButton) {
-        if !sender.selected {
+    func heatSortedButtonDidClick(_ sender: UIButton) {
+        if !sender.isSelected {
             resetBtnSelectState()
             
-            self.ifDetailCommentsModelArray.sortInPlace({ (model1, model2) -> Bool in
+            self.ifDetailCommentsModelArray.sort(by: { (model1, model2) -> Bool in
                 Int(model1.comment_rating_up) > Int(model2.comment_rating_up)
             })
             self.tableView.reloadData()
                 
-            sender.selected = true
+            sender.isSelected = true
         }
     }
 }
 
 extension IFDetailCommentVC: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.ifDetailCommentsModelArray.count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let model   = self.ifDetailCommentsModelArray[indexPath.row]
         
@@ -161,22 +185,22 @@ extension IFDetailCommentVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let model: CommentModel = self.ifDetailCommentsModelArray[indexPath.row]
         
         if model.comment_parent == "0" {
             return CommentTableViewCell.estimateCellHeight(model.comment_content,
-                                                           font: UIFont.systemFontOfSize(13),
-                                                           size: CGSizeMake(UIConstant.SCREEN_WIDTH-30, 2000))
+                                                           font: UIFont.systemFont(ofSize: 13),
+                                                           size: CGSize(width: UIConstant.SCREEN_WIDTH-30, height: 2000))
         } else {
             return SmallCommentTableViewCell.estimateCellHeight(model.comment_content,
-                                                                font: UIFont.systemFontOfSize(13),
-                                                                size: CGSizeMake(UIConstant.SCREEN_WIDTH-60, 2000))
+                                                                font: UIFont.systemFont(ofSize: 13),
+                                                                size: CGSize(width: UIConstant.SCREEN_WIDTH-60, height: 2000))
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
 }

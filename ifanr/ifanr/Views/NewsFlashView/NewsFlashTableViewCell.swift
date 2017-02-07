@@ -30,7 +30,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     var model : CommonModel! {
         didSet {
             
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
+            self.timeLabel.text = Date.getCommonExpressionOfDate(model.pubDate)
             // 设置行间距
             let attrs = NSMutableAttributedString(string: model.title!)
             let paragraphStyle = NSMutableParagraphStyle()
@@ -40,24 +40,24 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
                                range: NSMakeRange(0, ((model.title)!.characters.count)))
             self.contentLable.attributedText = attrs
             
-            self.sourceLabel.text   = "来源：" + (model.excerpt?.componentsSeparatedByString("/")[2])!
+            self.sourceLabel.text   = "来源：" + (model.excerpt?.components(separatedBy: "/")[2])!
 //            self.sourceLabel.text = "来源:"
         }
     }
     
     //MARK:-----Private Function----
-    class func cellWithTableView(tableView : UITableView) -> NewsFlashTableViewCell {
+    class func cellWithTableView(_ tableView : UITableView) -> NewsFlashTableViewCell {
         var cell: NewsFlashTableViewCell? = tableView.dequeueReusableCell() as NewsFlashTableViewCell?
         if cell == nil {
-            cell = NewsFlashTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
-            cell?.selectionStyle = .None
+            cell = NewsFlashTableViewCell(style: .default, reuseIdentifier: self.reuseIdentifier)
+            cell?.selectionStyle = .none
         }
         return cell!
     }
     
     // 计算内容的高度
-    class func estimateCellHeight(content : String) -> CGFloat {
-        let size = CGSizeMake(UIConstant.SCREEN_WIDTH - 64 ,2000)
+    class func estimateCellHeight(_ content : String) -> CGFloat {
+        let size = CGSize(width: UIConstant.SCREEN_WIDTH - 64 ,height: 2000)
         
         let attrs = NSMutableAttributedString(string: content)
         let paragphStyle = NSMutableParagraphStyle()
@@ -69,7 +69,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
         
         let dic = [NSFontAttributeName : UIFont.customFont_FZLTXIHJW(fontSize: 16),
                    NSParagraphStyleAttributeName: paragphStyle,
-                   NSKernAttributeName : 1.0]
+                   NSKernAttributeName : 1.0] as [String : Any]
         
         
         attrs.addAttribute(NSFontAttributeName,
@@ -78,7 +78,7 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
         attrs.addAttribute(NSParagraphStyleAttributeName, value: paragphStyle, range: NSMakeRange(0, (content.characters.count)))
         attrs.addAttribute(NSKernAttributeName, value: 1.0, range: NSMakeRange(0, (content.characters.count)))
         
-        let labelRect : CGRect = content.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
+        let labelRect : CGRect = content.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
         
         // 50为其他控件的高度
         return labelRect.height + 50;
@@ -86,27 +86,27 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     
     func setUpLayout() {
         
-        self.pointView.snp_makeConstraints { (make) in
+        self.pointView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_12)
             make.top.equalTo(self).offset(20)
             make.height.width.equalTo(8)
         }
         
-        self.timeLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(pointView.snp_right).offset(UIConstant.UI_MARGIN_12)
+        self.timeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(pointView.snp.right).offset(UIConstant.UI_MARGIN_12)
             make.right.equalTo(self).offset(32)
             make.centerY.equalTo(self.pointView)
             make.height.equalTo(20)
         }
         
-        self.contentLable.snp_makeConstraints { (make) in
+        self.contentLable.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(32)
             make.right.equalTo(self).offset(-32)
-            make.top.equalTo(self.timeLabel.snp_bottom).offset(5)
-            make.bottom.equalTo(self.sourceLabel.snp_top).offset(-5)
+            make.top.equalTo(self.timeLabel.snp.bottom).offset(5)
+            make.bottom.equalTo(self.sourceLabel.snp.top).offset(-5)
         }
         
-        self.sourceLabel.snp_makeConstraints { (make) in
+        self.sourceLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self).offset(32)
             make.bottom.equalTo(self).offset(-15)
             make.height.equalTo(20)
@@ -117,35 +117,35 @@ class NewsFlashTableViewCell: UITableViewCell, Reusable {
     }
     
     //MARK:-----Getter Setter-----
-    private lazy var timeLabel : UILabel = {
+    fileprivate lazy var timeLabel : UILabel = {
         //时间
         let timeLabel   = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
         timeLabel.font  = UIFont.customFont_FZLTXIHJW(fontSize: 13)
-        timeLabel.textColor = UIColor.lightGrayColor()
+        timeLabel.textColor = UIColor.lightGray
         return timeLabel;
         
     }()
     
-    private lazy var pointView : UIView = {
+    fileprivate lazy var pointView : UIView = {
         //小红点
         let pointView    = UIView()
 
         return pointView;
     }()
     
-    private lazy var contentLable : UILabel = {
+    fileprivate lazy var contentLable : UILabel = {
         let contentLable    = UILabel()
         contentLable.font   = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         contentLable.numberOfLines = 0
-        contentLable.lineBreakMode = .ByWordWrapping
+        contentLable.lineBreakMode = .byWordWrapping
         
         return contentLable
     }()
     
-    private lazy var sourceLabel : UILabel = {
+    fileprivate lazy var sourceLabel : UILabel = {
         let sourceLabel     = UILabel()
         sourceLabel.font    = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        sourceLabel.textColor = UIColor.lightGrayColor()
+        sourceLabel.textColor = UIColor.lightGray
         return sourceLabel
     }()
 }

@@ -7,7 +7,7 @@
   <key>CFBundleExecutable</key>
   <string>${EXECUTABLE_NAME}</string>
   <key>CFBundleIdentifier</key>
-  <string>org.cocoapods.${PRODUCT_NAME:rfc1034identifier}</string>
+  <string>${PRODUCT_BUNDLE_IDENTIFIER}</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
@@ -15,7 +15,11 @@
   <key>CFBundlePackageType</key>
   <string>FMWK</string>
   <key>CFBundleShortVersionString</key>
+<<<<<<< HEAD
   <string>0.22.0</string>
+=======
+  <string>3.0.2</string>
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
   <key>CFBundleSignature</key>
   <string>????</string>
   <key>CFBundleVersion</key>

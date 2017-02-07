@@ -11,13 +11,13 @@ import UIKit
 class CategoryController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
     }
     
     convenience init(categoryModel: CategoryModel) {
         self.init()
         self.view.addSubview(tableView)
-        self.tableView.insertSubview(CategoryMenuHeaderView(frame: CGRect(x: 0, y: -cellHeaderViewHeight, width: self.view.width, height: cellHeaderViewHeight)), atIndex: 0)
+        self.tableView.insertSubview(CategoryMenuHeaderView(frame: CGRect(x: 0, y: -cellHeaderViewHeight, width: self.view.width, height: cellHeaderViewHeight)), at: 0)
         self.view.addSubview(headerView)
         self.view.addSubview(titleLabel)
         self.view.addSubview(backBtn)
@@ -25,15 +25,15 @@ class CategoryController: UIViewController {
         self.categoryModel = categoryModel
         headerView.model = categoryModel
         
-        backBtn.snp_makeConstraints { (make) in
+        backBtn.snp.makeConstraints { (make) in
             make.left.equalTo(self.view)
             make.top.equalTo(self.view).offset(UIConstant.UI_MARGIN_20)
             make.size.equalTo(CGSize(width: 50, height: 15))
         }
         titleLabel.text = categoryModel.title
-        titleLabel.snp_makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self.view)
-            make.centerY.equalTo(backBtn.snp_centerY)
+            make.centerY.equalTo(backBtn.snp.centerY)
             make.height.equalTo(20)
         }
         headerHappenY = -(headerView.height+cellHeaderViewHeight)
@@ -41,48 +41,48 @@ class CategoryController: UIViewController {
         
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
-    private var cellHeaderViewHeight: CGFloat = 70.0
-    private var headerHappenY: CGFloat = 0
-    private var categoryModel: CategoryModel!
-    private var page = 1
-    private var isRefreshing: Bool = true
+    fileprivate var cellHeaderViewHeight: CGFloat = 70.0
+    fileprivate var headerHappenY: CGFloat = 0
+    fileprivate var categoryModel: CategoryModel!
+    fileprivate var page = 1
+    fileprivate var isRefreshing: Bool = true
     /// 上拉加载更多触发零界点
     var happenY: CGFloat = UIConstant.SCREEN_HEIGHT+20
     var differY: CGFloat = 0
-    private var latestCellLayout = Array<HomePopularLayout>()
+    fileprivate var latestCellLayout = Array<HomePopularLayout>()
     
-    private lazy var backBtn: UIButton = {
+    fileprivate lazy var backBtn: UIButton = {
         var backBtn = UIButton()
-        backBtn.setImage(UIImage(named: "ic_back"), forState: .Normal)
-        backBtn.addTarget(self, action: #selector(CategoryController.backBtnDidClick), forControlEvents: .TouchUpInside)
-        backBtn.imageView?.contentMode = .ScaleAspectFit
+        backBtn.setImage(UIImage(named: "ic_back"), for: UIControlState())
+        backBtn.addTarget(self, action: #selector(CategoryController.backBtnDidClick), for: .touchUpInside)
+        backBtn.imageView?.contentMode = .scaleAspectFit
         return backBtn
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         var titleLabel = UILabel()
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.alpha = 0
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 15)
         return titleLabel
     }()
     
-    private lazy var headerView: CategoryListHeaderView = {
+    fileprivate lazy var headerView: CategoryListHeaderView = {
         // 1440:944
         var headerView = CategoryListHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 200*UIConstant.SCREEN_WIDTH / UIConstant.IPHONE5_HEIGHT))
         return headerView
     }()
     
-    private lazy var tableView: UITableView = {
+    fileprivate lazy var tableView: UITableView = {
         let tableView = UITableView(frame: self.view.bounds)
-        tableView.backgroundColor = UIColor.whiteColor()
-        tableView.separatorStyle = .None
+        tableView.backgroundColor = UIColor.white
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionFooterHeight = 50
@@ -98,22 +98,22 @@ class CategoryController: UIViewController {
 }
 //MARK: --------------------------- Private Methods --------------------------
 extension CategoryController {
-    private func pullToRefreshFootView() -> UIView {
+    fileprivate func pullToRefreshFootView() -> UIView {
         
         let activityView = ActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 25, height: 25) )
         activityView.color = UIConstant.UI_COLOR_GrayTheme
         activityView.center = CGPoint(x: self.view.center.x, y: 25)
         activityView.startAnimation()
         let footView = UIView()
-        footView.origin = CGPointZero
+        footView.origin = CGPoint.zero
         footView.size = CGSize(width: 50, height: 50)
         footView.addSubview(activityView)
         return footView
     }
     
-    private func getData(page: Int = 1) {
+    fileprivate func getData(_ page: Int = 1) {
         isRefreshing = true
-        IFanrService.shareInstance.getLatestLayout(APIConstant.Category(categoryModel.type!, page), successHandle: { [weak self](layoutArray) in
+        IFanrService.shareInstance.getLatestLayout(APIConstant.category(categoryModel.type!, page), successHandle: { [weak self](layoutArray) in
             if self == nil {
                 return
             }
@@ -137,14 +137,14 @@ extension CategoryController {
 
 //MARK: --------------------------- Event and Action --------------------------
 extension CategoryController {
-    @objc private func backBtnDidClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+    @objc fileprivate func backBtnDidClick() {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 
 //MARK: --------------------------- PullToRefresh --------------------------
 extension CategoryController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 计算contentsize与offset的差值
         let contentSizeY = scrollView.contentSize.height
         let contentOffsetY = scrollView.contentOffset.y
@@ -168,7 +168,7 @@ extension CategoryController: UIScrollViewDelegate {
             let differ = fabs(headerHappenY) - happenMinContentoffsetY
             let titleLabelAlpha = (happenMinContentoffsetY-fabs(contentOffsetY))/differ+1
 //            print(titleLabelAlpha)
-            UIView.animateWithDuration(0.01, animations: {
+            UIView.animate(withDuration: 0.01, animations: {
                 self.headerView.y = self.headerHappenY-contentOffsetY
                 self.titleLabel.alpha = titleLabelAlpha
                 self.headerView.labelAlpha = 1-titleLabelAlpha
@@ -184,16 +184,16 @@ extension CategoryController: UIScrollViewDelegate {
 
 //MARK: --------------------------- UITableViewDelegate, UITableViewDataSource --------------------------
 extension CategoryController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return latestCellLayout.count
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cellModel = latestCellLayout[indexPath.row].model
-        if cellModel.post_type == PostType.dasheng {
+        if cellModel?.post_type == PostType.dasheng {
             let cell = cell as! HomeLatestTextCell
             cell.popularLayout = latestCellLayout[indexPath.row]
-        } else if cellModel.post_type == PostType.data {
+        } else if cellModel?.post_type == PostType.data {
             let cell = cell as! HomeLatestDataCell
             cell.popularLayout = latestCellLayout[indexPath.row]
         } else {
@@ -202,12 +202,12 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellModel = latestCellLayout[indexPath.row].model
         var cell : UITableViewCell!
-        if cellModel.post_type == PostType.dasheng {
+        if cellModel?.post_type == PostType.dasheng {
             cell = HomeLatestTextCell.cellWithTableView(tableView)
-        } else if cellModel.post_type == PostType.data {
+        } else if cellModel?.post_type == PostType.data {
             cell = HomeLatestDataCell.cellWithTableView(tableView)
         } else {
             cell = HomeLatestImageCell.cellWithTableView(tableView)
@@ -215,12 +215,12 @@ extension CategoryController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return latestCellLayout[indexPath.row].cellHeight
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = latestCellLayout[indexPath.row].model
-        self.navigationController?.pushViewController(IFDetailsController(model: model, naviTitle: categoryModel.title), animated: true)
+        self.navigationController?.pushViewController(IFDetailsController(model: model!, naviTitle: categoryModel.title), animated: true)
     }
 }

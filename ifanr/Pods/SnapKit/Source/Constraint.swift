@@ -22,21 +22,17 @@
 //  THE SOFTWARE.
 
 #if os(iOS) || os(tvOS)
-import UIKit
+    import UIKit
 #else
-import AppKit
+    import AppKit
 #endif
 
-/**
-    Used to expose API's for a Constraint
-*/
 public class Constraint {
     
-    public func install() -> [LayoutConstraint] { fatalError("Must be implemented by Concrete subclass.") }
-    public func uninstall() -> Void { fatalError("Must be implemented by Concrete subclass.") }
-    public func activate() -> Void { fatalError("Must be implemented by Concrete subclass.") }
-    public func deactivate() -> Void { fatalError("Must be implemented by Concrete subclass.") }
+    internal let sourceLocation: (String, UInt)
+    internal let label: String?
     
+<<<<<<< HEAD
     public func updateOffset(amount: Float) -> Void { fatalError("Must be implemented by Concrete subclass.") }
     public func updateOffset(amount: Double) -> Void { fatalError("Must be implemented by Concrete subclass.") }
     public func updateOffset(amount: CGFloat) -> Void { fatalError("Must be implemented by Concrete subclass.") }
@@ -173,30 +169,27 @@ internal class ConcreteConstraint: Constraint {
     
     private let fromItem: ConstraintItem
     private let toItem: ConstraintItem
+=======
+    private let from: ConstraintItem
+    private let to: ConstraintItem
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     private let relation: ConstraintRelation
-    private let multiplier: Float
-    private var constant: Any {
+    private let multiplier: ConstraintMultiplierTarget
+    private var constant: ConstraintConstantTarget {
         didSet {
-            if let installInfo = self.installInfo {
-                for layoutConstraint in installInfo.layoutConstraints.allObjects as! [LayoutConstraint] {
-                    let attribute = (layoutConstraint.secondAttribute == .NotAnAttribute) ? layoutConstraint.firstAttribute : layoutConstraint.secondAttribute
-                    layoutConstraint.constant = attribute.snp_constantForValue(self.constant)
-                }
-            }
+            self.updateConstantAndPriorityIfNeeded()
         }
     }
-    private var priority: Float {
+    private var priority: ConstraintPriorityTarget {
         didSet {
-            if let installInfo = self.installInfo {
-                for layoutConstraint in installInfo.layoutConstraints.allObjects as! [LayoutConstraint] {
-                    layoutConstraint.priority = self.priority
-                }
-            }
+          self.updateConstantAndPriorityIfNeeded()
         }
     }
+    private var layoutConstraints: [LayoutConstraint]
     
-    private let label: String?
+    // MARK: Initialization
     
+<<<<<<< HEAD
     private var installInfo: ConcreteConstraintInstallInfo? = nil
     
     override var layoutConstraints: [LayoutConstraint] {
@@ -213,189 +206,146 @@ internal class ConcreteConstraint: Constraint {
     internal init(fromItem: ConstraintItem, toItem: ConstraintItem, relation: ConstraintRelation, constant: Any, multiplier: Float, priority: Float, label: String? = nil) {
         self.fromItem = fromItem
         self.toItem = toItem
+=======
+    internal init(from: ConstraintItem,
+                  to: ConstraintItem,
+                  relation: ConstraintRelation,
+                  sourceLocation: (String, UInt),
+                  label: String?,
+                  multiplier: ConstraintMultiplierTarget,
+                  constant: ConstraintConstantTarget,
+                  priority: ConstraintPriorityTarget) {
+        self.from = from
+        self.to = to
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         self.relation = relation
-        self.constant = constant
-        self.multiplier = multiplier
-        self.priority = priority
+        self.sourceLocation = sourceLocation
         self.label = label
-    }
-    
-    internal func installOnView(updateExisting updateExisting: Bool = false, file: String? = nil, line: UInt? = nil) -> [LayoutConstraint] {
-        var installOnView: View? = nil
-        if self.toItem.view != nil {
-            installOnView = closestCommonSuperviewFromView(self.fromItem.view, toView: self.toItem.view)
-            if installOnView == nil {
-                NSException(name: "Cannot Install Constraint", reason: "No common superview between views (@\(self.makerFile)#\(self.makerLine))", userInfo: nil).raise()
-                return []
-            }
-        } else {
-            
-            if self.fromItem.attributes.isSubsetOf(ConstraintAttributes.Width.union(.Height)) {
-                installOnView = self.fromItem.view
-            } else {
-                installOnView = self.fromItem.view?.superview
-                if installOnView == nil {
-                    NSException(name: "Cannot Install Constraint", reason: "Missing superview (@\(self.makerFile)#\(self.makerLine))", userInfo: nil).raise()
-                    return []
-                }
-            }
-        }
+        self.multiplier = multiplier
+        self.constant = constant
+        self.priority = priority
+        self.layoutConstraints = []
         
-        if let installedOnView = self.installInfo?.view {
-            if installedOnView != installOnView {
-                NSException(name: "Cannot Install Constraint", reason: "Already installed on different view. (@\(self.makerFile)#\(self.makerLine))", userInfo: nil).raise()
-                return []
-            }
-            return self.installInfo?.layoutConstraints.allObjects as? [LayoutConstraint] ?? []
-        }
-        
-        var newLayoutConstraints = [LayoutConstraint]()
-        let layoutFromAttributes = self.fromItem.attributes.layoutAttributes
-        let layoutToAttributes = self.toItem.attributes.layoutAttributes
+        // get attributes
+        let layoutFromAttributes = self.from.attributes.layoutAttributes
+        let layoutToAttributes = self.to.attributes.layoutAttributes
         
         // get layout from
-        let layoutFrom: View? = self.fromItem.view
+        let layoutFrom: ConstraintView = self.from.view!
         
-        // get layout relation
-        let layoutRelation: NSLayoutRelation = self.relation.layoutRelation
+        // get relation
+        let layoutRelation = self.relation.layoutRelation
         
         for layoutFromAttribute in layoutFromAttributes {
             // get layout to attribute
-            let layoutToAttribute = (layoutToAttributes.count > 0) ? layoutToAttributes[0] : layoutFromAttribute
+            let layoutToAttribute: NSLayoutAttribute
+            #if os(iOS) || os(tvOS)
+                if layoutToAttributes.count > 0 {
+                    if self.from.attributes == .edges && self.to.attributes == .margins {
+                        switch layoutFromAttribute {
+                        case .left:
+                            layoutToAttribute = .leftMargin
+                        case .right:
+                            layoutToAttribute = .rightMargin
+                        case .top:
+                            layoutToAttribute = .topMargin
+                        case .bottom:
+                            layoutToAttribute = .bottomMargin
+                        default:
+                            fatalError()
+                        }
+                    } else if self.from.attributes == .margins && self.to.attributes == .edges {
+                        switch layoutFromAttribute {
+                        case .leftMargin:
+                            layoutToAttribute = .left
+                        case .rightMargin:
+                            layoutToAttribute = .right
+                        case .topMargin:
+                            layoutToAttribute = .top
+                        case .bottomMargin:
+                            layoutToAttribute = .bottom
+                        default:
+                            fatalError()
+                        }
+                    } else if self.from.attributes == self.to.attributes {
+                        layoutToAttribute = layoutFromAttribute
+                    } else {
+                        layoutToAttribute = layoutToAttributes[0]
+                    }
+                } else {
+                    if self.to.target == nil && (layoutFromAttribute == .centerX || layoutFromAttribute == .centerY) {
+                        layoutToAttribute = layoutFromAttribute == .centerX ? .left : .top
+                    } else {
+                        layoutToAttribute = layoutFromAttribute
+                    }
+                }
+            #else
+                if self.from.attributes == self.to.attributes {
+                    layoutToAttribute = layoutFromAttribute
+                } else if layoutToAttributes.count > 0 {
+                    layoutToAttribute = layoutToAttributes[0]
+                } else {
+                    layoutToAttribute = layoutFromAttribute
+                }
+            #endif
             
             // get layout constant
-            let layoutConstant: CGFloat = layoutToAttribute.snp_constantForValue(self.constant)
+            let layoutConstant: CGFloat = self.constant.constraintConstantTargetValueFor(layoutAttribute: layoutToAttribute)
             
             // get layout to
-            #if os(iOS) || os(tvOS)
-            var layoutTo: AnyObject? = self.toItem.view ?? self.toItem.layoutSupport
-            #else
-            var layoutTo: AnyObject? = self.toItem.view
-            #endif
-            if layoutTo == nil && layoutToAttribute != .Width && layoutToAttribute != .Height {
-                layoutTo = installOnView
+            var layoutTo: AnyObject? = self.to.target
+            
+            // use superview if possible
+            if layoutTo == nil && layoutToAttribute != .width && layoutToAttribute != .height {
+                layoutTo = layoutFrom.superview
             }
             
             // create layout constraint
             let layoutConstraint = LayoutConstraint(
-                item: layoutFrom!,
+                item: layoutFrom,
                 attribute: layoutFromAttribute,
                 relatedBy: layoutRelation,
                 toItem: layoutTo,
                 attribute: layoutToAttribute,
-                multiplier: CGFloat(self.multiplier),
-                constant: layoutConstant)
-            layoutConstraint.identifier = self.label
+                multiplier: self.multiplier.constraintMultiplierTargetValue,
+                constant: layoutConstant
+            )
+            
+            // set label
+            layoutConstraint.label = self.label
             
             // set priority
-            layoutConstraint.priority = self.priority
+            layoutConstraint.priority = self.priority.constraintPriorityTargetValue
             
             // set constraint
-            layoutConstraint.snp_constraint = self
+            layoutConstraint.constraint = self
             
-            newLayoutConstraints.append(layoutConstraint)
+            // append
+            self.layoutConstraints.append(layoutConstraint)
         }
-        
-        // special logic for updating
-        if updateExisting {
-            // get existing constraints for this view
-            let existingLayoutConstraints = layoutFrom!.snp_installedLayoutConstraints.reverse()
-            
-            // array that will contain only new layout constraints to keep
-            var newLayoutConstraintsToKeep = [LayoutConstraint]()
-            
-            // begin looping
-            for layoutConstraint in newLayoutConstraints {
-                // layout constraint that should be updated
-                var updateLayoutConstraint: LayoutConstraint? = nil
-                
-                // loop through existing and check for match
-                for existingLayoutConstraint in existingLayoutConstraints {
-                    if existingLayoutConstraint == layoutConstraint {
-                        updateLayoutConstraint = existingLayoutConstraint
-                        break
-                    }
-                }
-                
-                // if we have existing one lets just update the constant
-                if updateLayoutConstraint != nil {
-                    updateLayoutConstraint!.constant = layoutConstraint.constant
-                }
-                    // otherwise add this layout constraint to new keep list
-                else {
-                    newLayoutConstraintsToKeep.append(layoutConstraint)
-                }
-            }
-            
-            // set constraints to only new ones
-            newLayoutConstraints = newLayoutConstraintsToKeep
-        }
-        
-        // add constraints
-        #if SNAPKIT_DEPLOYMENT_LEGACY && !os(OSX)
-        if #available(iOS 8.0, *) {
-            NSLayoutConstraint.activateConstraints(newLayoutConstraints)
-        } else {
-            installOnView!.addConstraints(newLayoutConstraints)
-        }
-        #else
-            NSLayoutConstraint.activateConstraints(newLayoutConstraints)
-        #endif
-        
-        // set install info
-        self.installInfo = ConcreteConstraintInstallInfo(view: installOnView, layoutConstraints: NSHashTable.weakObjectsHashTable())
-        
-        // store which layout constraints are installed for this constraint
-        for layoutConstraint in newLayoutConstraints {
-            self.installInfo!.layoutConstraints.addObject(layoutConstraint)
-        }
-        
-        // store the layout constraints against the layout from view
-        layoutFrom!.snp_installedLayoutConstraints += newLayoutConstraints
-        
-        // return the new constraints
-        return newLayoutConstraints
     }
     
-    internal func uninstallFromView() {
-        if let installInfo = self.installInfo,
-            let installedLayoutConstraints = installInfo.layoutConstraints.allObjects as? [LayoutConstraint] {
-                
-                if installedLayoutConstraints.count > 0 {
-                    // remove the constraints from the UIView's storage
-                    #if SNAPKIT_DEPLOYMENT_LEGACY && !os(OSX)
-                    if #available(iOS 8.0, *) {
-                        NSLayoutConstraint.deactivateConstraints(installedLayoutConstraints)
-                    } else if let installedOnView = installInfo.view {
-                        installedOnView.removeConstraints(installedLayoutConstraints)
-                    }
-                    #else
-                        NSLayoutConstraint.deactivateConstraints(installedLayoutConstraints)
-                    #endif
-                    
-                    // remove the constraints from the from item view
-                    if let fromView = self.fromItem.view {
-                        fromView.snp_installedLayoutConstraints = fromView.snp_installedLayoutConstraints.filter {
-                            return !installedLayoutConstraints.contains($0)
-                        }
-                    }
-                }
-                
-        }
-        self.installInfo = nil
+    // MARK: Public
+    
+    @available(*, deprecated:3.0, message:"Use activate().")
+    public func install() {
+        self.activate()
     }
     
-}
-
-private struct ConcreteConstraintInstallInfo {
+    @available(*, deprecated:3.0, message:"Use deactivate().")
+    public func uninstall() {
+        self.deactivate()
+    }
     
-    weak var view: View? = nil
-    let layoutConstraints: NSHashTable
+    public func activate() {
+        self.activateIfNeeded()
+    }
     
-}
-
-private extension NSLayoutAttribute {
+    public func deactivate() {
+        self.deactivateIfNeeded()
+    }
     
+<<<<<<< HEAD
     private func snp_constantForValue(value: Any?) -> CGFloat {
         // Float
         if let float = value as? Float {
@@ -477,41 +427,98 @@ private extension NSLayoutAttribute {
                 case .NotAnAttribute: return CGFloat(0)
                 case .FirstBaseline: return insets.bottom
                 }
-            #endif
-        }
-        
-        return CGFloat(0);
+=======
+    @discardableResult
+    public func update(offset: ConstraintOffsetTarget) -> Constraint {
+        self.constant = offset.constraintOffsetTargetValue
+        return self
     }
-}
-
-private func closestCommonSuperviewFromView(fromView: View?, toView: View?) -> View? {
-    var views = Set<View>()
-    var fromView = fromView
-    var toView = toView
-    repeat {
-        if let view = toView {
-            if views.contains(view) {
-                return view
-            }
-            views.insert(view)
-            toView = view.superview
-        }
-        if let view = fromView {
-            if views.contains(view) {
-                return view
-            }
-            views.insert(view)
-            fromView = view.superview
-        }
-    } while (fromView != nil || toView != nil)
     
-    return nil
-}
-
-private func ==(left: ConcreteConstraint, right: ConcreteConstraint) -> Bool {
-    return (left.fromItem == right.fromItem &&
-            left.toItem == right.toItem &&
-            left.relation == right.relation &&
-            left.multiplier == right.multiplier &&
-            left.priority == right.priority)
+    @discardableResult
+    public func update(inset: ConstraintInsetTarget) -> Constraint {
+        self.constant = inset.constraintInsetTargetValue
+        return self
+    }
+    
+    @discardableResult
+    public func update(priority: ConstraintPriorityTarget) -> Constraint {
+        self.priority = priority.constraintPriorityTargetValue
+        return self
+    }
+    
+    @available(*, deprecated:3.0, message:"Use update(offset: ConstraintOffsetTarget) instead.")
+    public func updateOffset(amount: ConstraintOffsetTarget) -> Void { self.update(offset: amount) }
+    
+    @available(*, deprecated:3.0, message:"Use update(inset: ConstraintInsetTarget) instead.")
+    public func updateInsets(amount: ConstraintInsetTarget) -> Void { self.update(inset: amount) }
+    
+    @available(*, deprecated:3.0, message:"Use update(priority: ConstraintPriorityTarget) instead.")
+    public func updatePriority(amount: ConstraintPriorityTarget) -> Void { self.update(priority: amount) }
+    
+    @available(*, obsoleted:3.0, message:"Use update(priority: ConstraintPriorityTarget) instead.")
+    public func updatePriorityRequired() -> Void {}
+    
+    @available(*, obsoleted:3.0, message:"Use update(priority: ConstraintPriorityTarget) instead.")
+    public func updatePriorityHigh() -> Void { fatalError("Must be implemented by Concrete subclass.") }
+    
+    @available(*, obsoleted:3.0, message:"Use update(priority: ConstraintPriorityTarget) instead.")
+    public func updatePriorityMedium() -> Void { fatalError("Must be implemented by Concrete subclass.") }
+    
+    @available(*, obsoleted:3.0, message:"Use update(priority: ConstraintPriorityTarget) instead.")
+    public func updatePriorityLow() -> Void { fatalError("Must be implemented by Concrete subclass.") }
+    
+    // MARK: Internal
+    
+    internal func updateConstantAndPriorityIfNeeded() {
+        for layoutConstraint in self.layoutConstraints {
+            let attribute = (layoutConstraint.secondAttribute == .notAnAttribute) ? layoutConstraint.firstAttribute : layoutConstraint.secondAttribute
+            layoutConstraint.constant = self.constant.constraintConstantTargetValueFor(layoutAttribute: attribute)
+            
+            #if os(iOS) || os(tvOS)
+                let requiredPriority: UILayoutPriority = UILayoutPriorityRequired
+            #else
+                let requiredPriority: Float = 1000.0
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
+            #endif
+            
+            
+            if (layoutConstraint.priority < requiredPriority), (self.priority.constraintPriorityTargetValue != requiredPriority) {
+                layoutConstraint.priority = self.priority.constraintPriorityTargetValue
+            }
+        }
+    }
+    
+    internal func activateIfNeeded(updatingExisting: Bool = false) {
+        guard let view = self.from.view else {
+            print("WARNING: SnapKit failed to get from view from constraint. Activate will be a no-op.")
+            return
+        }
+        let layoutConstraints = self.layoutConstraints
+        let existingLayoutConstraints = view.snp.constraints.map({ $0.layoutConstraints }).reduce([]) { $0 + $1 }
+        
+        if updatingExisting {
+            for layoutConstraint in layoutConstraints {
+                let existingLayoutConstraint = existingLayoutConstraints.first { $0 == layoutConstraint }
+                guard let updateLayoutConstraint = existingLayoutConstraint else {
+                    fatalError("Updated constraint could not find existing matching constraint to update: \(layoutConstraint)")
+                }
+                
+                let updateLayoutAttribute = (updateLayoutConstraint.secondAttribute == .notAnAttribute) ? updateLayoutConstraint.firstAttribute : updateLayoutConstraint.secondAttribute
+                updateLayoutConstraint.constant = self.constant.constraintConstantTargetValueFor(layoutAttribute: updateLayoutAttribute)
+            }
+        } else {
+            NSLayoutConstraint.activate(layoutConstraints)
+            view.snp.add(constraints: [self])
+        }
+    }
+    
+    internal func deactivateIfNeeded() {
+        guard let view = self.from.view else {
+            print("WARNING: SnapKit failed to get from view from constraint. Deactivate will be a no-op.")
+            return
+        }
+        let layoutConstraints = self.layoutConstraints
+        NSLayoutConstraint.deactivate(layoutConstraints)
+        view.snp.remove(constraints: [self])
+    }
 }

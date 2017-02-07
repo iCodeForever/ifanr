@@ -9,32 +9,32 @@
 import Foundation
 
 enum SettingCellType {
-    case Default
-    case DetailTitle
-    case Switch
-    case Image
+    case `default`
+    case detailTitle
+    case `switch`
+    case image
     
     func cellReuseIdentifier() -> String {
         switch self {
-        case .Default:
+        case .default:
             return "SettingDefault"
-        case .DetailTitle:
+        case .detailTitle:
             return "SettingDetailTitle"
-        case .Switch:
+        case .switch:
             return "SettingSwitch"
-        case .Image:
+        case .image:
             return "SettingImage"
         }
     }
 }
 
 class SettingViewCell: UITableViewCell, Reusable {
-    var cellType: SettingCellType = .Default
+    var cellType: SettingCellType = .default
     
-    class func cellWithTableView(tableView: UITableView) -> SettingViewCell {
+    class func cellWithTableView(_ tableView: UITableView) -> SettingViewCell {
         var cell = tableView.dequeueReusableCell() as SettingViewCell?
         if cell == nil {
-            cell = SettingViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
+            cell = SettingViewCell(style: .default, reuseIdentifier: self.reuseIdentifier)
             
         }
         return cell!
@@ -42,25 +42,25 @@ class SettingViewCell: UITableViewCell, Reusable {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.blackColor()
-        selectionStyle = .None
+        self.backgroundColor = UIColor.black
+        selectionStyle = .none
         switch reuseIdentifier! {
-        case SettingCellType.Default.cellReuseIdentifier():
+        case SettingCellType.default.cellReuseIdentifier():
             addSubview(titleLabel)
             addSubview(detailLabel)
             setupTitleLayout()
             setupDetailTitleLayout()
-        case SettingCellType.DetailTitle.cellReuseIdentifier():
+        case SettingCellType.detailTitle.cellReuseIdentifier():
             addSubview(detailLabel)
             setupDetailTitleLayout()
-        case SettingCellType.Switch.cellReuseIdentifier():
+        case SettingCellType.switch.cellReuseIdentifier():
             addSubview(titleLabel)
             addSubview(detailLabel)
             addSubview(switchView)
             setupTitleLayout()
             setupDetailTitleLayout()
             setupSwitchLayout()
-        case SettingCellType.Image.cellReuseIdentifier():
+        case SettingCellType.image.cellReuseIdentifier():
             addSubview(titleLabel)
             addSubview(startView)
             setupTitleLayout()
@@ -75,22 +75,22 @@ class SettingViewCell: UITableViewCell, Reusable {
     var model: SettingModel! {
         didSet {
             switch model.type {
-            case .Default, .Switch:
+            case .default, .switch:
                 self.titleLabel.text = model.title
                 self.detailLabel.text = model.detail
                 
-            case .DetailTitle:
+            case .detailTitle:
                 detailLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 14)
                 self.detailLabel.text = model.detail
                 
-            case .Image:
+            case .image:
                 titleLabel.text = model.title
             }
         }
     }
     
     convenience init(cellType: SettingCellType) {
-        self.init(style: .Default, reuseIdentifier: cellType.cellReuseIdentifier())
+        self.init(style: .default, reuseIdentifier: cellType.cellReuseIdentifier())
         self.cellType = cellType
     }
     
@@ -98,53 +98,53 @@ class SettingViewCell: UITableViewCell, Reusable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
-        titleLabel.textColor = UIColor.lightGrayColor()
+        titleLabel.textColor = UIColor.lightGray
         return titleLabel
     }()
     
-    private lazy var detailLabel: UILabel = {
+    fileprivate lazy var detailLabel: UILabel = {
         let detailLable = UILabel()
         detailLable.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        detailLable.textColor = UIColor.darkGrayColor()
+        detailLable.textColor = UIColor.darkGray
         return detailLable
     }()
     
-    private lazy var switchView: UISwitch = {
+    fileprivate lazy var switchView: UISwitch = {
         let switchView = UISwitch()
         return switchView
     
     }()
     
-    private lazy var startView: UIView = {
+    fileprivate lazy var startView: UIView = {
         var startView = UIView()
         for i in 0 ..< 5 {
             var startImageView = UIImageView(image: UIImage(named: "ic_start"))
             startImageView.frame = CGRect(x: i*20, y: 0, width: 20, height: 20)
-            startImageView.contentMode = .ScaleAspectFit
+            startImageView.contentMode = .scaleAspectFit
             startView.addSubview(startImageView)
         }
         return startView
     }()
     
-    private lazy var startImageView: UIImageView = {
+    fileprivate lazy var startImageView: UIImageView = {
         var startImageView = UIImageView(image: UIImage(named: "ic_start"))
-        startImageView.contentMode = .ScaleAspectFit
+        startImageView.contentMode = .scaleAspectFit
         return startImageView
     }()
     
-    private lazy var lineView: UIView = {
+    fileprivate lazy var lineView: UIView = {
         var lineView = UIView()
-        lineView.backgroundColor = UIColor.darkGrayColor()
+        lineView.backgroundColor = UIColor.darkGray
         return lineView
     }()
 }
 
 extension SettingViewCell {
-    private func setupTitleLayout() {
-        self.titleLabel.snp_makeConstraints { (make) in
+    fileprivate func setupTitleLayout() {
+        self.titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_10)
@@ -152,8 +152,8 @@ extension SettingViewCell {
         }
     }
     
-    private func setupDetailTitleLayout() {
-        self.detailLabel.snp_makeConstraints { (make) in
+    fileprivate func setupDetailTitleLayout() {
+        self.detailLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.bottom.equalTo(self).inset(UIConstant.UI_MARGIN_10)
@@ -161,8 +161,8 @@ extension SettingViewCell {
         }
     }
     
-    private func setupLineView() {
-        self.lineView.snp_makeConstraints { (make) in
+    fileprivate func setupLineView() {
+        self.lineView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.height.equalTo(1)
@@ -170,15 +170,15 @@ extension SettingViewCell {
         }
     }
     
-    private func setupSwitchLayout() {
-        switchView.snp_makeConstraints { (make) in
+    fileprivate func setupSwitchLayout() {
+        switchView.snp.makeConstraints { (make) in
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
-            make.centerY.equalTo(self.snp_centerY)
+            make.centerY.equalTo(self.snp.centerY)
             make.size.equalTo(CGSize(width: 49, height: 31))
         }
     }
-    private func setupImageLayout() {
-        startView.snp_makeConstraints { (make) in
+    fileprivate func setupImageLayout() {
+        startView.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.right.equalTo(self).inset(UIConstant.UI_MARGIN_20)
             make.bottom.equalTo(self).inset(UIConstant.UI_MARGIN_10)

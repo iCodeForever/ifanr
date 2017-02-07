@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
     
         window?.rootViewController = NewFeatureController()
@@ -24,13 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
 //        registerShareSDK()
-        MonkeyKing.registerAccount(.WeChat(appID: "wx535617f8042959c0", appKey: "df8037d4b45d95f86b7969a463a7c662"))
+        MonkeyKing.registerAccount(.weChat(appID: "wx535617f8042959c0", appKey: "df8037d4b45d95f86b7969a463a7c662"))
         return true
     }
     
-    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
         // 获取缓存大小
-        let cache = YYWebImageManager.sharedManager().cache
+        let cache = YYWebImageManager.shared().cache
 //        let memoryCache = cache!.memoryCache.totalCost
 //        let diskCache = cache!.diskCache.totalCost
         

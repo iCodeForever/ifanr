@@ -10,20 +10,20 @@ import Foundation
 
 
 extension UIImage {
-    func imageByApplyingAlpha(alpha: CGFloat) -> UIImage {
+    func imageByApplyingAlpha(_ alpha: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0)
         
         let ctx: CGContext = UIGraphicsGetCurrentContext()!
         let area = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         
-        CGContextScaleCTM(ctx, 1, -1)
-        CGContextTranslateCTM(ctx, 0, -area.size.height)
+        ctx?.scaleBy(x: 1, y: -1)
+        ctx?.translateBy(x: 0, y: -area.size.height)
         
-        CGContextSetBlendMode(ctx, .Multiply)
+        ctx?.setBlendMode(.multiply)
         
-        CGContextSetAlpha(ctx, alpha)
+        ctx?.setAlpha(alpha)
         
-        CGContextDrawImage(ctx, area, self.CGImage!)
+        ctx?.draw(self.cgImage!, in: area)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         
@@ -33,13 +33,13 @@ extension UIImage {
     }
     
 
-    func imageInRect(rect: CGRect) -> UIImage {
-        let sourceImageRef = self.CGImage
-        let newImageRef = CGImageCreateWithImageInRect(sourceImageRef!, rect)
-        return UIImage(CGImage: newImageRef!)
+    func imageInRect(_ rect: CGRect) -> UIImage {
+        let sourceImageRef = self.cgImage
+        let newImageRef = sourceImageRef?.cropping(to: rect)
+        return UIImage(cgImage: newImageRef!)
     }
     
-    func clipImage(size: CGSize) -> UIImage {
+    func clipImage(_ size: CGSize) -> UIImage {
         if self.size.width*size.height <= self.size.height*size.width {
             //以被剪裁图片的宽度为基准，得到剪切范围的大小
             let width  = self.size.width

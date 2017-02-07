@@ -15,33 +15,39 @@ And, now MonkeyKing supports **Mobile payment** via WeChat and Alipay!
 
 ## Requirements
 
+<<<<<<< HEAD
 Swift 2.3, iOS 8.0
+=======
+Swift 3.0, iOS 8.0
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
-## Example
+(Swift 2.3, use version 0.9.4)
 
-Share to WeChat (微信)：
+## Examples
 
-### Basic
+### Share
+
+Example: Share to WeChat (微信)：
 
 1. In your Project Target's `Info.plist`, set `URL Type`, `LSApplicationQueriesSchemes`, `NSAppTransportSecurity` as follow:
 
 	![infoList.png](https://raw.githubusercontent.com/nixzhu/MonkeyKing/master/images/infoList.png)
 
-2. Register account
+2. Register account: // it's not necessary to do it here, but for convenient
 
 	```swift
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-	    MonkeyKing.registerAccount(.WeChat(appID: "wxd930ea5d5a258f4f"))
+	    MonkeyKing.registerAccount(.weChat(appID: "xxx", appKey: "yyy"))
 
 	    return true
 	}
 	```
 
-3. If you need handle call back, add following code
+3. If you need to handle call back, add following code:
 
 	```swift
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    func application(_ application: UIApplication, openURL url: URL, sourceApplication: String?, annotation: Any) -> Bool {
 
         if MonkeyKing.handleOpenURL(url) {
             return true
@@ -53,21 +59,21 @@ Share to WeChat (微信)：
 
 	to your AppDelegate.
 
-4. Prepare your message and share it:
+4. Prepare your message and ask MonkeyKing to deliver it:
 
 	```swift
     @IBAction func shareURLToWeChatSession(sender: UIButton) {
 
-        MonkeyKing.registerAccount(.WeChat(appID: weChatAppID))
+        MonkeyKing.registerAccount(.weChat(appID: "xxx", appKey: "yyy")) // you can do it here (just before deliver)
 
-        let message = MonkeyKing.Message.WeChat(.Session(info: (
+        let message = MonkeyKing.Message.weChat(.session(info: (
             title: "Session",
             description: "Hello Session",
             thumbnail: UIImage(named: "rabbit"),
-            media: .URL(NSURL(string: "http://www.apple.com/cn")!)
+            media: .url(URL(string: "http://www.apple.com/cn")!)
         )))
 
-        MonkeyKing.shareMessage(message) { success in
+        MonkeyKing.deliver(message) { success in
             print("shareURLToWeChatSession success: \(success)")
         }
     }
@@ -81,8 +87,8 @@ It's done!
 Example: Weibo OAuth
 
 ```swift
-MonkeyKing.OAuth(.Weibo) { (OAuthInfo, response, error) -> Void in
-    print("OAuthInfo \(OAuthInfo) error \(error)")
+MonkeyKing.oauth(for: .weibo) { (oauthInfo, response, error) -> Void in
+    print("OAuthInfo \(oauthInfo) error \(error)")
     // Now, you can use the token to fetch info.
 }
 ```
@@ -97,7 +103,7 @@ If user don't have Weibo App installed on their devices then MonkeyKing will use
 Example: Alipay
 
 ```swift
-MonkeyKing.payOrder(MonkeyKing.Order.Alipay(URLString: "https://example.com/pay.php?payType=alipay")) { result in
+MonkeyKing.deliver(MonkeyKing.Order.alipay(urlString: "https://example.com/pay.php?payType=alipay")) { result in
     print("result: \(result)")
 }
 ```
@@ -118,6 +124,7 @@ Check the demo for more information.
 
 ## Installation
 
+<<<<<<< HEAD
 It's recommended to use CocoaPods or Carthage.
 
 ### CocoaPods
@@ -151,6 +158,9 @@ $ pod install
 You should open the `{Project}.xcworkspace` instead of the `{Project}.xcodeproj` after you installed anything from CocoaPods.
 
 For more information about how to use CocoaPods, I suggest [this tutorial](http://www.raywenderlich.com/64546/introduction-to-cocoapods-2).
+=======
+We recommend using Carthage instead of CocoaPods.
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 ### Carthage
 
@@ -164,7 +174,11 @@ $ brew install carthage
 To integrate MonkeyKing into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
+<<<<<<< HEAD
 github "nixzhu/MonkeyKing" >= 0.9.4
+=======
+github "nixzhu/MonkeyKing" >= 1.1.0
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 ```
 
 Then, run the following command to build the MonkeyKing framework:
@@ -190,6 +204,38 @@ $(SRCROOT)/Carthage/Build/iOS/MonkeyKing.framework
 ```
 
 For more information about how to use Carthage, please see its [project page](https://github.com/Carthage/Carthage).
+
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
+
+CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install it with the following command:
+
+```bash
+$ [sudo] gem install cocoapods
+```
+
+To integrate MonkeyKing into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+target <Your Target Name> do
+    pod 'MonkeyKing', '~> 1.1.0'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+You should open the `{Project}.xcworkspace` instead of the `{Project}.xcodeproj` after you installed anything from CocoaPods.
+
+For more information about how to use CocoaPods, I suggest [this tutorial](http://www.raywenderlich.com/64546/introduction-to-cocoapods-2).
 
 ## Contact
 

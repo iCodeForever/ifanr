@@ -17,7 +17,7 @@ public enum APIConstant {
      *  @param Int    page请求的页数
      *
      */
-    case Home_hot_features(Int)
+    case home_hot_features(Int)
     
     /**
      *  首页-列表 每次请求12条
@@ -25,52 +25,52 @@ public enum APIConstant {
      *  @param Int 参数page 分页数从1开始
      *
      */
-    case Home_latest(Int)
+    case home_latest(Int)
     
     /**
      *  快讯-列表
      *
      *  @param Int 分页数
      */
-    case NewsFlash_latest(Int)
+    case newsFlash_latest(Int)
     
     /**
      *  玩物志
      *
      *  @param Int 分页数
      */
-    case PlayingZhi_latest(Int)
+    case playingZhi_latest(Int)
     
     /**
      *  AppSo
      *
      */
-    case AppSo_latest(Int)
+    case appSo_latest(Int)
     
     /**
      *  MainStore  从0开始
      */
-    case MindStore_latest(Int)
+    case mindStore_latest(Int)
     
     /**
      *  MindStore详情页的头像  id
      */
-    case MindStore_Detail_Vote(String)
+    case mindStore_Detail_Vote(String)
     
     /**
      *  MindStore详情页的评论  id offset
      */
-    case MindStore_Detail_Comments(String, Int)
+    case mindStore_Detail_Comments(String, Int)
     
     /**
      *  分类
      */
-    case Category(CategoryName,Int)
+    case category(CategoryName,Int)
     
     /**
      *  获得评论
      */
-    case Comments_latest(String)
+    case comments_latest(String)
 }
 
 /**
@@ -89,101 +89,108 @@ public enum APIConstant {
  - List:       清单
  */
 public enum CategoryName {
-    case Video
-    case ISeed
-    case DaSheng
-    case Shudu
-    case Evaluation
-    case Product
-    case Car
-    case Business
-    case Interview
-    case Picture
-    case List
+    case video
+    case iSeed
+    case daSheng
+    case shudu
+    case evaluation
+    case product
+    case car
+    case business
+    case interview
+    case picture
+    case list
     
     /**
      获取分类名字
      */
     func getName() -> String {
         switch self {
-        case .Video:
+        case .video:
             return "video-special"
-        case .ISeed:
+        case .iSeed:
             return "iseed"
-        case .DaSheng:
+        case .daSheng:
             return "dasheng"
-        case .Shudu:
+        case .shudu:
             return "data"
-        case .Evaluation:
+        case .evaluation:
             return "review"
-        case .Product:
+        case .product:
             return "product"
-        case .Car:
+        case .car:
             return "intelligentcar"
-        case .Business:
+        case .business:
             return "business"
-        case .Interview:
+        case .interview:
             return "interview"
-        case .Picture:
+        case .picture:
             return "tuji"
-        case .List:
-            return "%E6%B8%85%E5%8D%95".stringByRemovingPercentEncoding!
+        case .list:
+            return "%E6%B8%85%E5%8D%95".removingPercentEncoding!
         }
     }
 }
 
 extension APIConstant: TargetType {
+    public var task: Task {
+        switch self {
+        default:
+            return .request
+        }
+    }
+
     //MARK: ---------------------------基本默认要传入的参数 --------------------------
         /// appKey
-    private var appKey: String {
+    fileprivate var appKey: String {
         return "sg5673g77yk72455af4sd55ea"
     }
     
-    private var excerpt_length: Int {
+    fileprivate var excerpt_length: Int {
         return 80
     }
     
-    private var sign: String {
+    fileprivate var sign: String {
         return "be072a0fc0b7020836bae8777f2fbeca"
     }
     
         /// 当前时间的时间戳
-    private  var timestamp: String {
-        return NSDate.getCurrentTimeStamp()
+    fileprivate  var timestamp: String {
+        return Date.getCurrentTimeStamp()
     }
   
         /// 这个不知什么鬼。首页那里用到
-    private var post_type: String {
+    fileprivate var post_type: String {
         switch self {
-        case .Home_latest(_), .Home_hot_features(_):
-            return "post%2Cnews%2Cdasheng%2Cdata".stringByRemovingPercentEncoding!
-        case .NewsFlash_latest(_):
+        case .home_latest(_), .home_hot_features(_):
+            return "post%2Cnews%2Cdasheng%2Cdata".removingPercentEncoding!
+        case .newsFlash_latest(_):
             return "buzz"
-        case .PlayingZhi_latest(_):
+        case .playingZhi_latest(_):
             return "coolbuy"
-        case .AppSo_latest(_):
+        case .appSo_latest(_):
             return "app"
-        case let .Category(type, _):
+        case let .category(type, _):
             return type.getName()
             
         default: return ""
         }
     }
     
-    private var action: String {
+    fileprivate var action: String {
         switch self {
-        case .Home_hot_features(_):
+        case .home_hot_features(_):
             return "hot_features"
-        case .Comments_latest(_):
+        case .comments_latest(_):
             return "ifr_m_get_mobile_comments"
         default:
             return "ifr_m_latest"
         }
     }
     
-    private var posts_per_page: Int {
+    fileprivate var posts_per_page: Int {
         switch self {
-        case .Home_hot_features(_):
+        case .home_hot_features(_):
             return 5
         default:
             return 12
@@ -193,13 +200,13 @@ extension APIConstant: TargetType {
     //MARK: --------------------------- Path --------------------------
         /// url
     
-    public var baseURL: NSURL {
+    public var baseURL: URL {
         switch self {
             /// https://sso.ifanr.com/api/v1.2/mind/?look_back_days=0&limit=60
-        case .MindStore_latest(_), .MindStore_Detail_Vote(_), .MindStore_Detail_Comments(_,_):
-            return NSURL(string: "https://sso.ifanr.com/api/v1.2/mind/")!
+        case .mindStore_latest(_), .mindStore_Detail_Vote(_), .mindStore_Detail_Comments(_,_):
+            return URL(string: "https://sso.ifanr.com/api/v1.2/mind/")!
         default:
-            return NSURL(string: "https://www.ifanr.com/api/v3.0/")!
+            return URL(string: "https://www.ifanr.com/api/v3.0/")!
         }
         
     }
@@ -207,10 +214,10 @@ extension APIConstant: TargetType {
     public var path: String {
         
         switch self {
-        case let .MindStore_Detail_Vote(id):
+        case let .mindStore_Detail_Vote(id):
             return "vote/\(id)"
             
-        case .MindStore_Detail_Comments(_,_):
+        case .mindStore_Detail_Comments(_,_):
             return "comment/"
         default:
             return ""
@@ -222,40 +229,40 @@ extension APIConstant: TargetType {
     }
     
         /// 请求参数
-    public var parameters: [String: AnyObject]? {
+    public var parameters: [String: Any]? {
         switch self {
                     /// 首页热门
-        case let .Home_hot_features(page):
-            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+        case let .home_hot_features(page):
+            return ["action": action as AnyObject, "appKey": appKey as AnyObject, "excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page as AnyObject, "post_type": post_type]
                     /// 首页列表
-        case let .Home_latest(page):
-            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+        case let .home_latest(page):
+            return ["action": action as AnyObject, "appKey": appKey as AnyObject, "excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page as AnyObject, "post_type": post_type]
                     /// 快讯列表
-        case let .NewsFlash_latest(page):
-            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+        case let .newsFlash_latest(page):
+            return ["action": action as AnyObject, "appKey": appKey as AnyObject, "excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page as AnyObject, "post_type": post_type]
                     /// 玩物志列表
-        case let .PlayingZhi_latest(page):
-            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+        case let .playingZhi_latest(page):
+            return ["action": action as AnyObject, "appKey": appKey as AnyObject, "excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page as AnyObject, "post_type": post_type]
                     /// AppSo
-        case let .AppSo_latest(page):
-            return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+        case let .appSo_latest(page):
+            return ["action": action as AnyObject, "appKey": appKey as AnyObject, "excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page as AnyObject, "post_type": post_type]
                     /// MindStore
-        case let .MindStore_latest(page):
-            return ["look_back_days": page, "limit": 60]
+        case let .mindStore_latest(page):
+            return ["look_back_days": page as AnyObject, "limit": 60 as AnyObject]
                     /// 详情页评论
-        case let .Comments_latest(id):
-            return ["action":action, "appKey": appKey, "post_id":id ,"sign": sign, "timestamp": timestamp]
+        case let .comments_latest(id):
+            return ["action":action as AnyObject, "appKey": appKey as AnyObject, "post_id":id as AnyObject ,"sign": sign as AnyObject, "timestamp": timestamp as AnyObject]
                     /// 分类
-        case let .Category(type,page):
+        case let .category(type,page):
             // 大声， 数读，图记不需要传category_name参数，不然请求不到，所以这里处理了一下
-            if type == CategoryName.DaSheng || type == CategoryName.Shudu || type == CategoryName.Picture {
-                return ["action": action, "appKey": appKey, "excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+            if type == CategoryName.daSheng || type == CategoryName.shudu || type == CategoryName.picture {
+                return ["action": action as AnyObject, "appKey": appKey as AnyObject, "excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page as AnyObject, "post_type": post_type]
             } else {
-                return ["action": action, "appKey": appKey, "category_name": type.getName(),"excerpt_length": excerpt_length, "sign": sign, "timestamp": timestamp, "page": page, "posts_per_page": posts_per_page, "post_type": post_type]
+                return ["action": action as AnyObject, "appKey": appKey as AnyObject, "category_name": type.getName() as AnyObject,"excerpt_length": excerpt_length as AnyObject, "sign": sign as AnyObject, "timestamp": timestamp as AnyObject, "page": page as AnyObject, "posts_per_page": posts_per_page, "post_type": post_type]
             }
                     /// 分类评论
-        case let .MindStore_Detail_Comments(id, offset):
-            return ["mind": id, "limit": 12, "offset": offset]
+        case let .mindStore_Detail_Comments(id, offset):
+            return ["mind": id as AnyObject, "limit": 12 as AnyObject, "offset": offset as AnyObject]
             
         default:
             return nil
@@ -263,10 +270,11 @@ extension APIConstant: TargetType {
     }
     
         /// 单元测试用
-    public var sampleData: NSData {
-        return "{}".dataUsingEncoding(NSUTF8StringEncoding)!
+    public var sampleData: Data {
+        return "{}".data(using: String.Encoding.utf8)!
     }
     public var multipartBody: [MultipartFormData]? {
         return nil
     }
+
 }

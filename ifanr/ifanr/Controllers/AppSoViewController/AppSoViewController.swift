@@ -25,11 +25,11 @@ class AppSoViewController: BasePageController {
     }
     
     
-    func getData(page: Int = 1) {
+    func getData(_ page: Int = 1) {
         isRefreshing = true
         
         let type: CommonModel? = CommonModel(dict: [:])
-        IFanrService.shareInstance.getData(APIConstant.AppSo_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
+        IFanrService.shareInstance.getData(APIConstant.appSo_latest(page), t: type, keys: ["data"], successHandle: { (modelArray) in
             
             if page == 1 {
                 self.page = 1
@@ -76,14 +76,14 @@ class AppSoViewController: BasePageController {
 // MARK: - 下拉刷新回调
 // MARK: - 下拉刷新回调
 extension AppSoViewController: PullToRefreshDelegate {
-    func pullToRefreshViewDidRefresh(pulllToRefreshView: PullToRefreshView) {
+    func pullToRefreshViewDidRefresh(_ pulllToRefreshView: PullToRefreshView) {
         getData()
     }
 }
 
 // MARK: - 上拉加载更多
 extension AppSoViewController {
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         if differY < happenY {
             if !isRefreshing {
@@ -94,11 +94,9 @@ extension AppSoViewController {
     }
 }
 
-
-
 // MARK: - tableView代理和数据源
 extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell? = nil
         let curModel = self.appSoModelArray[indexPath.row];
         
@@ -115,17 +113,16 @@ extension AppSoViewController: UITableViewDataSource, UITableViewDelegate {
         return cell!
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.appSoModelArray.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return AppSoTableViewCell.estimateCellHeight(self.appSoModelArray[indexPath.row].title!) + 20
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let appSoModel: CommonModel = self.appSoModelArray[indexPath.row] {
-            let ifDetailController = IFDetailsController(model: appSoModel, naviTitle: "AppSo")
-            self.navigationController?.pushViewController(ifDetailController, animated: true)
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let appSoModel: CommonModel = self.appSoModelArray[indexPath.row]
+        let ifDetailController = IFDetailsController(model: appSoModel, naviTitle: "AppSo")
+        self.navigationController?.pushViewController(ifDetailController, animated: true)
     }
 }

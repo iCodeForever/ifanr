@@ -9,18 +9,18 @@
 import UIKit
 
 class HomeLatestImageCell: UITableViewCell, Reusable {
-    class func cellWithTableView(tableView: UITableView) -> HomeLatestImageCell {
+    class func cellWithTableView(_ tableView: UITableView) -> HomeLatestImageCell {
         var cell = tableView.dequeueReusableCell() as HomeLatestImageCell?
         
         if cell == nil {
-            cell = HomeLatestImageCell(style: .Default, reuseIdentifier: HomeLatestImageCell.reuseIdentifier)
+            cell = HomeLatestImageCell(style: .default, reuseIdentifier: HomeLatestImageCell.reuseIdentifier)
         }
         return cell!
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .None
+        self.selectionStyle = .none
         
         self.contentView.addSubview(linkImageView)
         self.contentView.addSubview(dateLabel)
@@ -39,11 +39,11 @@ class HomeLatestImageCell: UITableViewCell, Reusable {
     var popularLayout: HomePopularLayout! {
         didSet {
             // 设置图片位置
-            linkImageView.if_setImage(NSURL(string: popularLayout.model.image))
+            linkImageView.if_setImage(URL(string: popularLayout.model.image))
             linkImageView.frame = popularLayout.kHomeCellPicRect
             
             // 设置分类和时间
-            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.category) | \(NSDate.getCommonExpressionOfDate(popularLayout.model.pubDate))")
+            let dateAttributeText = NSMutableAttributedString(string: "\(popularLayout.model.category) | \(Date.getCommonExpressionOfDate(popularLayout.model.pubDate))")
             dateAttributeText.addAttribute(NSForegroundColorAttributeName, value: UIConstant.UI_COLOR_RedTheme, range: NSRange(location: 0, length: 2))
             dateLabel.attributedText = dateAttributeText
             dateLabel.frame = popularLayout.kHomeCellDateRect
@@ -69,14 +69,14 @@ class HomeLatestImageCell: UITableViewCell, Reusable {
     
     //MARK: --------------------------- Getter and Setter --------------------------
         ///  图片
-    private lazy var linkImageView: UIImageView = {
+    fileprivate lazy var linkImageView: UIImageView = {
         var linkImageView: UIImageView = UIImageView()
-        linkImageView.contentMode = .ScaleToFill
+        linkImageView.contentMode = .scaleToFill
         return linkImageView
     }()
     
         /// 分类 和 时间
-    private lazy var dateLabel: UILabel = {
+    fileprivate lazy var dateLabel: UILabel = {
         var dateLabel = UILabel()
         dateLabel.textColor = UIConstant.UI_COLOR_GrayTheme
         dateLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
@@ -84,29 +84,29 @@ class HomeLatestImageCell: UITableViewCell, Reusable {
     }()
     
         /// 喜欢数
-    private lazy var likeLabel: UILabel = {
+    fileprivate lazy var likeLabel: UILabel = {
         var likeLabel = UILabel()
         likeLabel.textColor = UIConstant.UI_COLOR_GrayTheme
         likeLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         return likeLabel
     }()
     
-    private lazy var likeImageView: UIImageView = {
+    fileprivate lazy var likeImageView: UIImageView = {
         var likeImage = UIImageView(image: UIImage(named: "heart_selected_false"))
-        likeImage.contentMode = .ScaleAspectFit
+        likeImage.contentMode = .scaleAspectFit
         return likeImage
     }()
         /// 标题
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         var titleLabel = UILabel()
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         titleLabel.numberOfLines = 0
-        titleLabel.textColor = UIColor.blackColor()
+        titleLabel.textColor = UIColor.black
         return titleLabel
     }()
     
         /// 引文
-    private lazy var introduceLabel: UILabel = {
+    fileprivate lazy var introduceLabel: UILabel = {
         var introduceLabel = UILabel()
         introduceLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         introduceLabel.numberOfLines = 0
@@ -115,9 +115,9 @@ class HomeLatestImageCell: UITableViewCell, Reusable {
     }()
     
         /// 底部分割线
-    private lazy var cellBottomLine: CALayer = {
+    fileprivate lazy var cellBottomLine: CALayer = {
         var cellBottomLine = CALayer()
-        cellBottomLine.backgroundColor = UIConstant.UI_COLOR_GrayTheme.CGColor
+        cellBottomLine.backgroundColor = UIConstant.UI_COLOR_GrayTheme.cgColor
         return cellBottomLine
     }()
 }

@@ -14,8 +14,8 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.userInteractionEnabled = true
-        self.contentView.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
+        self.contentView.isUserInteractionEnabled = true
         
         self.contentView.addSubview(self.voteBtn)
         self.contentView.addSubview(self.voteNumberLabel)
@@ -46,10 +46,10 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
 //                self.relatedImg1.image = UIImage(named: "ic_mind_store_comment")
 //                self.relatedImg2.image = UIImage(named: "ic_mind_store_like")
 //            }
-            self.relatedImg1.if_setAvatarImage(NSURL(string: model.createdByModel.avatar_url))
+            self.relatedImg1.if_setAvatarImage(URL(string: model.createdByModel.avatar_url))
             self.relatedImg2.image = UIImage(named: "mind_store_comment_background")
             
-            self.voteBtn.imageView?.image = UIImage(imageLiteral: "mind_store_vote_background_voted_false")
+            self.voteBtn.imageView?.image = UIImage(named: "mind_store_vote_background_voted_false")
             self.voteNumberLabel.text = "\(model.vote_user_count)"
             
             self.setupLayout()
@@ -57,99 +57,99 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     }
     
     //MARK:-----Action-----
-    @objc private func toVote(btn: UIButton) {
-        if btn.selected {
-            btn.selected = false
+    @objc fileprivate func toVote(_ btn: UIButton) {
+        if btn.isSelected {
+            btn.isSelected = false
             let num: Int = Int(self.voteNumberLabel.text!)! - 1;
             self.voteNumberLabel.text = "\(num)"
             self.voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
                                                      green: 173/255.0, blue: 169/255.0, alpha: 1)
         } else {
-            btn.selected = true
+            btn.isSelected = true
             let num: Int = Int(self.voteNumberLabel.text!)! + 1;
             self.voteNumberLabel.text = "\(num)"
-            self.voteNumberLabel.textColor = UIColor.whiteColor()
+            self.voteNumberLabel.textColor = UIColor.white
         }
     }
     
     //MARK:-----Private Function-----
-    private func setupLayout() -> Void {
+    fileprivate func setupLayout() -> Void {
         //
         // voteBtn - - -  - - - -
         // - - - - titlelabel   -
         // - - - - tagLineLabel -
         // - - - - rImg1-rImg2 - -
         //
-        self.voteBtn.snp_makeConstraints { (make) in
+        self.voteBtn.snp.makeConstraints { (make) in
             make.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_20)
             make.left.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_15)
             make.width.equalTo(35)
             make.height.equalTo(45)
         }
         
-        self.voteNumberLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.voteBtn.snp_top).offset(20)
-            make.left.equalTo(self.voteBtn.snp_left).offset(3)
-            make.right.equalTo(self.voteBtn.snp_right).offset(-3)
-            make.bottom.equalTo(self.voteBtn.snp_bottom).offset(-3)
+        self.voteNumberLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.voteBtn.snp.top).offset(20)
+            make.left.equalTo(self.voteBtn.snp.left).offset(3)
+            make.right.equalTo(self.voteBtn.snp.right).offset(-3)
+            make.bottom.equalTo(self.voteBtn.snp.bottom).offset(-3)
         }
         
-        self.relatedImg1.snp_makeConstraints { (make) in
+        self.relatedImg1.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.contentView).offset(-UIConstant.UI_MARGIN_20)
-            make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
+            make.left.equalTo(self.voteBtn.snp.right).offset(UIConstant.UI_MARGIN_15)
             make.width.equalTo(20)
             make.height.equalTo(20)
         }
         
-        self.relatedImg2.snp_makeConstraints { (make) in
+        self.relatedImg2.snp.makeConstraints { (make) in
             make.bottom.equalTo(relatedImg1)
-            make.left.equalTo(self.relatedImg1.snp_right).offset(UIConstant.UI_MARGIN_5)
+            make.left.equalTo(self.relatedImg1.snp.right).offset(UIConstant.UI_MARGIN_5)
             make.size.equalTo(relatedImg1)
         }
         
-        self.titleLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
+        self.titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.voteBtn.snp.right).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self.contentView).offset(-UIConstant.UI_MARGIN_15)
             make.top.equalTo(self.contentView).offset(UIConstant.UI_MARGIN_20)
-            make.bottom.equalTo(self.tagLineLabel.snp_top).offset(-UIConstant.UI_MARGIN_10)
+            make.bottom.equalTo(self.tagLineLabel.snp.top).offset(-UIConstant.UI_MARGIN_10)
         }
         
-        self.tagLineLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(self.voteBtn.snp_right).offset(UIConstant.UI_MARGIN_15)
+        self.tagLineLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self.voteBtn.snp.right).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self.contentView).offset(-UIConstant.UI_MARGIN_15)
-            make.bottom.equalTo(self.relatedImg1.snp_top).offset(-UIConstant.UI_MARGIN_10)
+            make.bottom.equalTo(self.relatedImg1.snp.top).offset(-UIConstant.UI_MARGIN_10)
         }
         
         // 设置拉伸的优先级，titleLabel默认不拉伸
-        self.titleLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
-        self.tagLineLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Vertical)
+        self.titleLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, for: .vertical)
+        self.tagLineLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, for: .vertical)
         
-        self.relatedImg1.contentMode    = .ScaleAspectFill
+        self.relatedImg1.contentMode    = .scaleAspectFill
         self.relatedImg1.layer.cornerRadius     = 10
         self.relatedImg1.layer.masksToBounds    = true
         self.relatedImg1.clipsToBounds  = true
         
-        self.relatedImg2.contentMode    = .ScaleAspectFit
+        self.relatedImg2.contentMode    = .scaleAspectFit
 //        self.relatedImg2.clipsToBounds  = true
 //        self.relatedImg2.layer.cornerRadius = 10
 //        self.relatedImg2.layer.masksToBounds = true
         
     }
     
-    class func cellWithTableView(tableView : UITableView) -> MindStoreTableViewCell {
+    class func cellWithTableView(_ tableView : UITableView) -> MindStoreTableViewCell {
         
         var cell: MindStoreTableViewCell? = tableView.dequeueReusableCell() as MindStoreTableViewCell?
         if cell == nil {
-            cell = MindStoreTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
-            cell?.selectionStyle = .None
+            cell = MindStoreTableViewCell(style: .default, reuseIdentifier: self.reuseIdentifier)
+            cell?.selectionStyle = .none
         }
         return cell!
     }
     
     // 动态label的高度
-    class func estimateLabelHeight (content: String, font: UIFont) -> CGFloat {
+    class func estimateLabelHeight (_ content: String, font: UIFont) -> CGFloat {
         
-        let size    = CGSizeMake(UIConstant.SCREEN_WIDTH - 80 ,2000)
+        let size    = CGSize(width: UIConstant.SCREEN_WIDTH - 80 ,height: 2000)
         let paragphStyle = NSMutableParagraphStyle()
         
         paragphStyle.lineSpacing = 5.0;
@@ -159,15 +159,15 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
         
         let dic = [NSFontAttributeName : font,
                    NSParagraphStyleAttributeName: paragphStyle,
-                   NSKernAttributeName : 1.0]
+                   NSKernAttributeName : 1.0] as [String : Any]
         
-        let labelRect : CGRect = content.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
+        let labelRect : CGRect = content.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
         
         return labelRect.height
     }
     
     // 动态计算 titleLabel/tagLineLabel 的高度
-    class func estimateCellHeight(title : String, tagline: String) -> CGFloat {
+    class func estimateCellHeight(_ title : String, tagline: String) -> CGFloat {
         
         return estimateLabelHeight(title, font: UIFont.customFont_FZLTXIHJW(fontSize: 16)) +
             estimateLabelHeight(tagline, font: UIFont.customFont_FZLTZCHJW(fontSize: 12)) + 80
@@ -175,45 +175,45 @@ class MindStoreTableViewCell: UITableViewCell, Reusable {
     
     //MARK:-----Setter Getter-----
     // vote button
-    private lazy var voteBtn: UIButton = {
+    fileprivate lazy var voteBtn: UIButton = {
         let voteBtn = UIButton()
-        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_false"), forState: .Normal)
-        voteBtn.setImage(UIImage(imageLiteral: "mind_store_vote_background_voted_true"),forState: .Selected)
-        voteBtn.addTarget(self, action: #selector(toVote), forControlEvents: .TouchUpInside)
+        voteBtn.setImage(UIImage(named: "mind_store_vote_background_voted_false"), for: UIControlState())
+        voteBtn.setImage(UIImage(named: "mind_store_vote_background_voted_true"), for: .selected)
+        voteBtn.addTarget(self, action: #selector(toVote), for: .touchUpInside)
         return voteBtn
     }()
     // vote label
-    private lazy var voteNumberLabel: UILabel = {
+    fileprivate lazy var voteNumberLabel: UILabel = {
         let voteNumberLabel = UILabel()
         voteNumberLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 13)
-        voteNumberLabel.textAlignment = .Center
+        voteNumberLabel.textAlignment = .center
         voteNumberLabel.textColor = UIColor(colorLiteralRed: 41/255.0,
                                             green: 173/255.0, blue: 169/255.0, alpha: 1)
         return voteNumberLabel
     }()
     // 标题，需动态计算高度
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel  = UILabel()
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         titleLabel.numberOfLines    = 0
-        titleLabel.lineBreakMode    = .ByWordWrapping
+        titleLabel.lineBreakMode    = .byWordWrapping
         return titleLabel
     }()
     // 粗略信息，动态计算高度
-    private lazy var tagLineLabel: UILabel = {
+    fileprivate lazy var tagLineLabel: UILabel = {
         let tagLineLabel = UILabel()
         tagLineLabel.numberOfLines     = 0
-        tagLineLabel.lineBreakMode     = .ByCharWrapping
+        tagLineLabel.lineBreakMode     = .byCharWrapping
         tagLineLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        tagLineLabel.textColor = UIColor.lightGrayColor()
+        tagLineLabel.textColor = UIColor.lightGray
         return tagLineLabel
     }()
     // related imageview
-    private lazy var relatedImg1: UIImageView = {
+    fileprivate lazy var relatedImg1: UIImageView = {
         let relatedImg1 = UIImageView()
         return relatedImg1
     }()
-    private lazy var relatedImg2: UIImageView = {
+    fileprivate lazy var relatedImg2: UIImageView = {
         let relatedImg2 = UIImageView()
         return relatedImg2
     }()

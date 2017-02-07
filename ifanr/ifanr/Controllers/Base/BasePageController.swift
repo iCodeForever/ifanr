@@ -15,13 +15,13 @@ class BasePageController: UIViewController, ScrollViewControllerReusable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.black
         
         setupTableView()
         setupPullToRefreshView()
     }
   
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
   
@@ -44,13 +44,13 @@ class BasePageController: UIViewController, ScrollViewControllerReusable {
     var differY: CGFloat = 0
 
     /// scrollView方向
-    var direction: ScrollViewDirection! = ScrollViewDirection.None
+    var direction: ScrollViewDirection! = ScrollViewDirection.none
     var lastContentOffset: CGFloat = 0
 }
 
 
 extension BasePageController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 计算contentsize与offset的差值
         let contentSizeY = scrollView.contentSize.height
         let contentOffsetY = scrollView.contentOffset.y
@@ -66,26 +66,26 @@ extension BasePageController: UIScrollViewDelegate {
     /**
      判断滚动方向
      */
-    private func ChangeScrollViewDirection(contentOffsetY: CGFloat) {
+    fileprivate func ChangeScrollViewDirection(_ contentOffsetY: CGFloat) {
 //        print("contentoffsety:\(contentOffsetY)     last: \(lastContentOffset)   dir: \(direction)")
         
         if contentOffsetY > lastContentOffset {
             lastContentOffset = contentOffsetY
-            guard direction != .Down else {
+            guard direction != .down else {
                 return
             }
-            scrollViewReusableDelegate.ScrollViewControllerDirectionDidChange(.Down)
+            scrollViewReusableDelegate.ScrollViewControllerDirectionDidChange(.down)
             
-            direction = .Down
+            direction = .down
             
         } else if lastContentOffset > contentOffsetY {
             lastContentOffset = contentOffsetY
-            guard direction != .Up else {
+            guard direction != .up else {
                 return
             }
-            scrollViewReusableDelegate.ScrollViewControllerDirectionDidChange(.Up)
+            scrollViewReusableDelegate.ScrollViewControllerDirectionDidChange(.up)
             
-            direction = .Up
+            direction = .up
         }
         
         

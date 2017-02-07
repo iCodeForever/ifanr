@@ -14,14 +14,14 @@ public typealias LoadMoreViewTask = () -> Void
 /// 下拉刷新回调
 protocol LoadMoreViewDelegate: class {
     func scrollView() -> UIScrollView
-    func LoadMoreViewWillRefresh(pullToRefreshView: LoadMoreView)
-    func LoadMoreViewDidRefresh(pulllToRefreshView: LoadMoreView) -> LoadMoreViewTask
+    func LoadMoreViewWillRefresh(_ pullToRefreshView: LoadMoreView)
+    func LoadMoreViewDidRefresh(_ pulllToRefreshView: LoadMoreView) -> LoadMoreViewTask
 }
 
 class LoadMoreView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.blackColor()
+        self.backgroundColor = UIColor.black
         /**
          添加音符动画
          */
@@ -35,16 +35,16 @@ class LoadMoreView: UIView {
     
     //MARK: --------------------------- Getter and Setter --------------------------
     /// 滚动器
-    private var scrollView: UIScrollView!
+    fileprivate var scrollView: UIScrollView!
     /// 执行的代码块
-    private var task: LoadMoreViewTask?
+    fileprivate var task: LoadMoreViewTask?
     /// 代理回调
     weak var delegate: LoadMoreViewDelegate? {
         willSet {
             if let newValue = newValue {
                 scrollView = newValue.scrollView()
-                scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New, context: nil)
-                scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+                scrollView.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.new, context: nil)
+                scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
                 scrollViewOriginalInset = scrollView.contentInset
             }
         }
@@ -56,13 +56,13 @@ class LoadMoreView: UIView {
             }
         }
     }
-    private var scrollViewOriginalInset: UIEdgeInsets!
+    fileprivate var scrollViewOriginalInset: UIEdgeInsets!
     /// 保存cell的总个数
-    private var lastRefreshCount: Int = 0
+    fileprivate var lastRefreshCount: Int = 0
     // 上一个状态
     var oldState: RefreshState?
     // 当前状态
-    var state: RefreshState = RefreshState.Normal {
+    var state: RefreshState = RefreshState.normal {
         willSet {
             oldState = state
         }
@@ -70,10 +70,10 @@ class LoadMoreView: UIView {
         didSet {
             switch state {
             // 普通状态
-            case .Normal:
-                if .Refreshing == oldState {
+            case .normal:
+                if .refreshing == oldState {
                     
-                    UIView.animateWithDuration(0.2, animations: {
+                    UIView.animate(withDuration: 0.2, animations: {
                         self.scrollView.contentInset.bottom = self.scrollViewOriginalInset.bottom
                     })
                     
@@ -87,14 +87,14 @@ class LoadMoreView: UIView {
                     }
                 }
             // 释放加载更多
-            case .Pulling:
+            case .pulling:
                 break;
                 
             // 正在加载更多
-            case .Refreshing:
+            case .refreshing:
                 self.activityView.startAnimation()
                 self.lastRefreshCount = self.totalDataCountInScrollView();
-                UIView.animateWithDuration(0.2, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     var bottom : CGFloat = self.frame.size.height + self.scrollViewOriginalInset.bottom
                     let deltaH : CGFloat = self.heightForContentBreakView()
                     if deltaH < 0 {
@@ -108,11 +108,11 @@ class LoadMoreView: UIView {
         }
     }
     /// 菊花
-    private lazy var activityView: ActivityIndicatorView = {
+    fileprivate lazy var activityView: ActivityIndicatorView = {
         let activityView = ActivityIndicatorView()
-        activityView.backgroundColor = UIColor.blueColor()
+        activityView.backgroundColor = UIColor.blue
         activityView.color = UIConstant.UI_COLOR_GrayTheme
-        activityView.frame = CGRect(origin: CGPointZero, size: CGSize(width: 25, height: 25))
+        activityView.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 25, height: 25))
         activityView.center = self.center
 //        activityView.hidden = true
         return activityView
@@ -120,15 +120,15 @@ class LoadMoreView: UIView {
 }
 
 extension LoadMoreView {
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if let keyPath = keyPath where keyPath == "contentSize" {
+        if let keyPath = keyPath, keyPath == "contentSize" {
             resetFrameWithContentSize()
         }
             
-        else if let keyPath = keyPath where keyPath == "contentOffset" {
+        else if let keyPath = keyPath, keyPath == "contentOffset" {
             // 如果不是刷新状态
-            guard state != .Refreshing else {
+            guard state != .refreshing else {
                 return
             }
             
@@ -139,20 +139,20 @@ extension LoadMoreView {
                 return
             }
             
-            if self.scrollView.dragging {
+            if self.scrollView.isDragging {
                 let normal2pullingOffsetY =  happenOffsetY + self.frame.size.height
-                if state == .Normal && currentOffsetY > normal2pullingOffsetY {
-                    state = .Pulling
-                } else if (state == .Pulling && currentOffsetY <= normal2pullingOffsetY) {
-                    state = .Normal;
+                if state == .normal && currentOffsetY > normal2pullingOffsetY {
+                    state = .pulling
+                } else if (state == .pulling && currentOffsetY <= normal2pullingOffsetY) {
+                    state = .normal;
                 }
-            } else if (state == .Pulling) {
-                state = .Refreshing
+            } else if (state == .pulling) {
+                state = .refreshing
             }
         }
     }
     
-    private func resetFrameWithContentSize() {
+    fileprivate func resetFrameWithContentSize() {
         let contentHeight: CGFloat = self.scrollView.contentSize.height
         let scrollHeight: CGFloat = self.scrollView.frame.size.height
         
@@ -162,13 +162,13 @@ extension LoadMoreView {
 
     }
     
-    private func heightForContentBreakView() -> CGFloat {
+    fileprivate func heightForContentBreakView() -> CGFloat {
         let h:CGFloat  = self.scrollView.frame.size.height - self.scrollViewOriginalInset.bottom - self.scrollViewOriginalInset.top;
         return self.scrollView.contentSize.height - h;
     }
     
     
-    private func happenOffsetY() -> CGFloat {
+    fileprivate func happenOffsetY() -> CGFloat {
         let deltaH:CGFloat = self.heightForContentBreakView()
         
         if deltaH > 0 {
@@ -181,18 +181,18 @@ extension LoadMoreView {
     /**
      获取cell的总个数
      */
-    private  func  totalDataCountInScrollView() -> Int {
+    fileprivate  func  totalDataCountInScrollView() -> Int {
         var totalCount:Int = 0
         if self.scrollView is UITableView {
             let tableView:UITableView = self.scrollView as! UITableView
             
             for i in 0..<tableView.numberOfSections {
-                totalCount = totalCount + tableView.numberOfRowsInSection(i)
+                totalCount = totalCount + tableView.numberOfRows(inSection: i)
             }
         } else if self.scrollView is UICollectionView {
             let collectionView:UICollectionView = self.scrollView as! UICollectionView
-            for i in 0..<collectionView.numberOfSections() {
-                totalCount = totalCount + collectionView.numberOfItemsInSection(i)
+            for i in 0..<collectionView.numberOfSections {
+                totalCount = totalCount + collectionView.numberOfItems(inSection: i)
             }
         }
         return totalCount

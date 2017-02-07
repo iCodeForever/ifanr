@@ -96,7 +96,7 @@ struct CommonModel: Initable {
 }
 
 extension CommonModel {
-    mutating func initCommonData(dict: NSDictionary) {
+    mutating func initCommonData(_ dict: NSDictionary) {
         let idStr: NSInteger = dict["ID"] as? NSInteger ?? 0
         self.ID = "\(idStr)"
         self.title = dict["title"] as? String ?? ""
@@ -121,7 +121,7 @@ extension CommonModel {
         }
     }
     
-    mutating func initHomeData(dict: NSDictionary) {
+    mutating func initHomeData(_ dict: NSDictionary) {
         if let type = dict["post_type"] as? String {
             if type == "post" {
                 self.post_type = .post
@@ -138,7 +138,7 @@ extension CommonModel {
         }
     }
     
-    mutating func initAppSoData(dict: NSDictionary) {
+    mutating func initAppSoData(_ dict: NSDictionary) {
         self.app_icon_url   = dict["app_icon_url"] as? String ?? ""
     }
 }

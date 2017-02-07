@@ -2,8 +2,9 @@ import Foundation
 import Result
 
 /// Closure to be executed when a request has completed.
-public typealias Completion = (result: Result<Moya.Response, Moya.Error>) -> ()
+public typealias Completion = (_ result: Result<Moya.Response, Moya.Error>) -> ()
 
+<<<<<<< HEAD
 /// Closure to be executed when a request has completed.
 public typealias ProgressBlock = (progress: ProgressResponse) -> Void
 
@@ -75,34 +76,37 @@ extension TargetType {
         return (method == .POST || method == .PUT) && !mBody.isEmpty
     }
 }
+=======
+/// Closure to be executed when progress changes.
+public typealias ProgressBlock = (_ progress: ProgressResponse) -> Void
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
-public enum StructTarget: TargetType {
-    case Struct(TargetType)
+public struct ProgressResponse {
+    public let response: Response?
+    public let progressObject: Progress?
 
-    public init(_ target: TargetType) {
-        self = StructTarget.Struct(target)
+    init(progress: Progress? = nil, response: Response? = nil) {
+        self.progressObject = progress
+        self.response = response
     }
 
-    public var path: String {
-        return target.path
+    public var progress: Double {
+        return progressObject?.fractionCompleted ?? 1.0
     }
 
-    public var baseURL: NSURL {
-        return target.baseURL
+    public var completed: Bool {
+        return progress == 1.0 && response != nil
     }
+}
 
-    public var method: Moya.Method {
-        return target.method
-    }
 
-    public var parameters: [String: AnyObject]? {
-        return target.parameters
-    }
+/// Request provider class. Requests should be made through this class only.
+open class MoyaProvider<Target: TargetType> {
 
-    public var sampleData: NSData {
-        return target.sampleData
-    }
+    /// Closure that defines the endpoints for the provider.
+    public typealias EndpointClosure = (Target) -> Endpoint<Target>
 
+<<<<<<< HEAD
     public var multipartBody: [MultipartFormData]? {
         return target.multipartBody
     }
@@ -147,11 +151,34 @@ public class MoyaProvider<Target: TargetType> {
     public let trackInflights: Bool
 
     public private(set) var inflightRequests = Dictionary<Endpoint<Target>, [Moya.Completion]>()
+=======
+    /// Closure that decides if and what request should be performed
+    public typealias RequestResultClosure = (Result<URLRequest, Moya.Error>) -> Void
+
+    /// Closure that resolves an `Endpoint` into a `RequestResult`.
+    public typealias RequestClosure = (Endpoint<Target>, @escaping RequestResultClosure) -> Void
+
+    /// Closure that decides if/how a request should be stubbed.
+    public typealias StubClosure = (Target) -> Moya.StubBehavior
+
+    open let endpointClosure: EndpointClosure
+    open let requestClosure: RequestClosure
+    open let stubClosure: StubClosure
+    open let manager: Manager
+
+    /// A list of plugins
+    /// e.g. for logging, network activity indicator or credentials
+    open let plugins: [PluginType]
+
+    open let trackInflights: Bool
+
+    open internal(set) var inflightRequests = Dictionary<Endpoint<Target>, [Moya.Completion]>()
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
     /// Initializes a provider.
-    public init(endpointClosure: EndpointClosure = MoyaProvider.DefaultEndpointMapping,
-        requestClosure: RequestClosure = MoyaProvider.DefaultRequestMapping,
-        stubClosure: StubClosure = MoyaProvider.NeverStub,
+    public init(endpointClosure: @escaping EndpointClosure = MoyaProvider.DefaultEndpointMapping,
+        requestClosure: @escaping RequestClosure = MoyaProvider.DefaultRequestMapping,
+        stubClosure: @escaping StubClosure = MoyaProvider.NeverStub,
         manager: Manager = MoyaProvider<Target>.DefaultAlamofireManager(),
         plugins: [PluginType] = [],
         trackInflights: Bool = false) {
@@ -164,6 +191,7 @@ public class MoyaProvider<Target: TargetType> {
             self.trackInflights = trackInflights
     }
 
+<<<<<<< HEAD
     /// Returns an Endpoint based on the token, method, and parameters by invoking the endpointsClosure.
     public func endpoint(token: Target) -> Endpoint<Target> {
         return endpointClosure(token)
@@ -264,25 +292,46 @@ public class MoyaProvider<Target: TargetType> {
         completion(result: .Failure(error))
     }
 
+=======
+    /// Returns an `Endpoint` based on the token, method, and parameters by invoking the `endpointClosure`.
+    open func endpoint(_ token: Target) -> Endpoint<Target> {
+        return endpointClosure(token)
+    }
+
+    /// Designated request-making method. Returns a `Cancellable` token to cancel the request later.
+    @discardableResult
+    open func request(_ target: Target, completion: @escaping Moya.Completion) -> Cancellable {
+        return self.request(target, queue: nil, completion: completion)
+    }
+
+    /// Designated request-making method with queue option. Returns a `Cancellable` token to cancel the request later.
+    @discardableResult
+    open func request(_ target: Target, queue: DispatchQueue?, progress: Moya.ProgressBlock? = nil, completion: @escaping Moya.Completion) -> Cancellable {
+        return requestNormal(target, queue: queue, progress: progress, completion: completion)
+    }
+
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     /// When overriding this method, take care to `notifyPluginsOfImpendingStub` and to perform the stub using the `createStubFunction` method.
     /// Note: this was previously in an extension, however it must be in the original class declaration to allow subclasses to override.
-    internal func stubRequest(target: Target, request: NSURLRequest, completion: Moya.Completion, endpoint: Endpoint<Target>, stubBehavior: Moya.StubBehavior) -> CancellableToken {
+    @discardableResult
+    func stubRequest(_ target: Target, request: URLRequest, completion: @escaping Moya.Completion, endpoint: Endpoint<Target>, stubBehavior: Moya.StubBehavior) -> CancellableToken {
         let cancellableToken = CancellableToken { }
         notifyPluginsOfImpendingStub(request, target: target)
         let plugins = self.plugins
-        let stub: () -> () = createStubFunction(cancellableToken, forTarget: target, withCompletion: completion, endpoint: endpoint, plugins: plugins)
+        let stub: () -> () = createStubFunction(cancellableToken, forTarget: target, withCompletion: completion, endpoint: endpoint, plugins: plugins, request: request)
         switch stubBehavior {
-        case .Immediate:
+        case .immediate:
             stub()
-        case .Delayed(let delay):
+        case .delayed(let delay):
             let killTimeOffset = Int64(CDouble(delay) * CDouble(NSEC_PER_SEC))
-            let killTime = dispatch_time(DISPATCH_TIME_NOW, killTimeOffset)
-            dispatch_after(killTime, dispatch_get_main_queue()) {
+            let killTime = DispatchTime.now() + Double(killTimeOffset) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: killTime) {
                 stub()
             }
-        case .Never:
+        case .never:
             fatalError("Method called to stub request when stubbing is disabled.")
         }
+<<<<<<< HEAD
 
         return cancellableToken
     }
@@ -312,6 +361,10 @@ public extension MoyaProvider {
         let manager = Manager(configuration: configuration)
         manager.startRequestsImmediately = false
         return manager
+=======
+
+        return cancellableToken
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     }
 }
 
@@ -323,18 +376,22 @@ public extension MoyaProvider {
     // at least add some class functions to allow easy access to common stubbing closures.
 
     public final class func NeverStub(_: Target) -> Moya.StubBehavior {
+<<<<<<< HEAD
         return .Never
     }
 
     public final class func ImmediatelyStub(_: Target) -> Moya.StubBehavior {
         return .Immediate
+=======
+        return .never
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     }
 
-    public final class func DelayedStub(seconds: NSTimeInterval) -> (Target) -> Moya.StubBehavior {
-        return { _ in return .Delayed(seconds: seconds) }
+    public final class func ImmediatelyStub(_: Target) -> Moya.StubBehavior {
+        return .immediate
     }
-}
 
+<<<<<<< HEAD
 internal extension MoyaProvider {
 
     private func sendUpload(target: Target, request: NSURLRequest, queue: dispatch_queue_t?, multipartBody: [MultipartFormData], progress: Moya.ProgressBlock? = nil, completion: Moya.Completion) -> CancellableWrapper {
@@ -445,19 +502,24 @@ internal extension MoyaProvider {
     internal final func notifyPluginsOfImpendingStub(request: NSURLRequest, target: Target) {
         let alamoRequest = manager.request(request)
         plugins.forEach { $0.willSendRequest(alamoRequest, target: target) }
+=======
+    public final class func DelayedStub(_ seconds: TimeInterval) -> (Target) -> Moya.StubBehavior {
+        return { _ in return .delayed(seconds: seconds) }
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     }
 }
 
-public func convertResponseToResult(response: NSHTTPURLResponse?, data: NSData?, error: NSError?) ->
+public func convertResponseToResult(_ response: HTTPURLResponse?, request: URLRequest?, data: Data?, error: Swift.Error?) ->
     Result<Moya.Response, Moya.Error> {
     switch (response, data, error) {
-    case let (.Some(response), .Some(data), .None):
-        let response = Moya.Response(statusCode: response.statusCode, data: data, response: response)
-        return .Success(response)
-    case let (_, _, .Some(error)):
-        let error = Moya.Error.Underlying(error)
-        return .Failure(error)
+    case let (.some(response), data, .none):
+        let response = Moya.Response(statusCode: response.statusCode, data: data ?? Data(), request: request, response: response)
+        return .success(response)
+    case let (_, _, .some(error)):
+        let error = Moya.Error.underlying(error)
+        return .failure(error)
     default:
+<<<<<<< HEAD
         let error = Moya.Error.Underlying(NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil))
         return .Failure(error)
     }
@@ -477,6 +539,10 @@ internal class SimpleCancellable: Cancellable {
     var cancelled = false
     func cancel() {
         cancelled = true
+=======
+        let error = Moya.Error.underlying(NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil))
+        return .failure(error)
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     }
 }
 

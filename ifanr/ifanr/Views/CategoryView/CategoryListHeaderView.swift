@@ -39,37 +39,37 @@ class CategoryListHeaderView: UIView {
     }
     
         /// 背景图
-    private lazy var backgroundImage: UIImageView = {
+    fileprivate lazy var backgroundImage: UIImageView = {
         var backgroundImage = UIImageView()
-        backgroundImage.origin = CGPointZero
+        backgroundImage.origin = CGPoint.zero
         backgroundImage.size = self.size
         backgroundImage.clipsToBounds = true
-        backgroundImage.contentMode = .ScaleAspectFill
+        backgroundImage.contentMode = .scaleAspectFill
         return backgroundImage
     }()
     
         /// 标题
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         var titleLable = UILabel()
         titleLable.origin = CGPoint(x: UIConstant.UI_MARGIN_20, y: self.center.y)
         titleLable.size = CGSize(width: self.width-2*UIConstant.UI_MARGIN_20, height: 20)
-        titleLable.textColor = UIColor.whiteColor()
+        titleLable.textColor = UIColor.white
         titleLable.font = UIFont.customFont_FZLTZCHJW(fontSize: 20)
         return titleLable
     }()
         // alpa
-    private lazy var coverView: UIView = {
+    fileprivate lazy var coverView: UIView = {
         let coverView = UIView()
-        coverView.origin = CGPointZero
+        coverView.origin = CGPoint.zero
         coverView.size = self.size
         return coverView
     }()
         /// 子标题
-    private lazy var subTitleLabel: UILabel = {
+    fileprivate lazy var subTitleLabel: UILabel = {
         var subTitleLabel = UILabel()
         subTitleLabel.origin = CGPoint(x: self.titleLabel.x, y: self.titleLabel.frame.maxY+UIConstant.UI_MARGIN_10)
         subTitleLabel.size = self.titleLabel.size
-        subTitleLabel.textColor = UIColor.whiteColor()
+        subTitleLabel.textColor = UIColor.white
         subTitleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
         return subTitleLabel
     }()

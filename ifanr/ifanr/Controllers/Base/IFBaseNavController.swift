@@ -12,42 +12,42 @@ class IFBaseNavController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if respondsToSelector(Selector("interactivePopGestureRecognizer")) {
+        if responds(to: #selector(getter: UINavigationController.interactivePopGestureRecognizer)) {
             interactivePopGestureRecognizer?.delegate = self
             delegate = self
         }
-        self.navigationBarHidden = true
+        self.isNavigationBarHidden = true
     }
     
-    override func pushViewController(viewController: UIViewController, animated: Bool) {
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         if self.viewControllers.count > 0 {
-            UIApplication.sharedApplication().statusBarStyle = .Default
+            UIApplication.shared.statusBarStyle = .default
         }
         
         super.pushViewController(viewController, animated: animated)
     }
     
-    override func popViewControllerAnimated(animated: Bool) -> UIViewController? {
+    override func popViewController(animated: Bool) -> UIViewController? {
         if self.viewControllers.count == 2 {
-            UIApplication.sharedApplication().statusBarStyle = .LightContent
+            UIApplication.shared.statusBarStyle = .lightContent
         }
-        return super.popViewControllerAnimated(animated)
+        return super.popViewController(animated: animated)
     }
 }
 
 extension IFBaseNavController: UIGestureRecognizerDelegate {
     
-    override func popToRootViewControllerAnimated(animated: Bool) -> [UIViewController]? {
-        if respondsToSelector(Selector("interactivePopGestureRecognizer")) && animated {
-            interactivePopGestureRecognizer?.enabled = false
+    override func popToRootViewController(animated: Bool) -> [UIViewController]? {
+        if responds(to: #selector(getter: UINavigationController.interactivePopGestureRecognizer)) && animated {
+            interactivePopGestureRecognizer?.isEnabled = false
         }
         
-        return super.popToRootViewControllerAnimated(animated)
+        return super.popToRootViewController(animated: animated)
     }
     
-    override func popToViewController(viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        if respondsToSelector(Selector("interactivePopGestureRecognizer")) && animated {
-            interactivePopGestureRecognizer?.enabled = false
+    override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+        if responds(to: #selector(getter: UINavigationController.interactivePopGestureRecognizer)) && animated {
+            interactivePopGestureRecognizer?.isEnabled = false
         }
         
         return super.popToViewController(viewController, animated: false)
@@ -56,9 +56,9 @@ extension IFBaseNavController: UIGestureRecognizerDelegate {
 
 extension IFBaseNavController: UINavigationControllerDelegate {
     //MARK: - UINavigationControllerDelegate
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-        if respondsToSelector(Selector("interactivePopGestureRecognizer")) {
-            interactivePopGestureRecognizer?.enabled = true
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if responds(to: #selector(getter: UINavigationController.interactivePopGestureRecognizer)) {
+            interactivePopGestureRecognizer?.isEnabled = true
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11576B76DB6D7DC3AF996978 /* Pods_ifanr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A43AF57C2BB4F1E01ACC8E /* Pods_ifanr.framework */; };
 		43070EA21D3B8E5600B0C2A3 /* BottomToolsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */; };
 		43090D4A1D5F527F00B3D9A3 /* Initable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43090D491D5F527F00B3D9A3 /* Initable.swift */; };
 		4323CC8C1D4BC43100D1DFCE /* ShareSDKUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */; };
@@ -42,7 +43,6 @@
 		699874C91D23C6CA0059A2BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 699874C71D23C6CA0059A2BE /* LaunchScreen.storyboard */; };
 		699874D41D23C6CA0059A2BE /* ifanrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699874D31D23C6CA0059A2BE /* ifanrTests.swift */; };
 		699874DF1D23C6CA0059A2BE /* ifanrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699874DE1D23C6CA0059A2BE /* ifanrUITests.swift */; };
-		EC6EFEF19DAD716ADE932327 /* Pods_ifanr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B07879CCAC673D632BB2B36D /* Pods_ifanr.framework */; };
 		F105F6561D5886B7009C0EE2 /* MindStoreVoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F6551D5886B7009C0EE2 /* MindStoreVoteModel.swift */; };
 		F105F65A1D5896F9009C0EE2 /* MindStoreVotedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F6591D5896F9009C0EE2 /* MindStoreVotedView.swift */; };
 		F105F65F1D5C10B1009C0EE2 /* IFDetailCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105F65C1D5C10B1009C0EE2 /* IFDetailCommentVC.swift */; };
@@ -115,6 +115,7 @@
 
 /* Begin PBXFileReference section */
 		19142DE52BA65CA63302D628 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		306DE314E0C50F0759277B98 /* Pods-ifanr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ifanr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ifanr/Pods-ifanr.debug.xcconfig"; sourceTree = "<group>"; };
 		43070EA11D3B8E5600B0C2A3 /* BottomToolsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BottomToolsBar.swift; path = DetailsView/BottomToolsBar.swift; sourceTree = "<group>"; };
 		43090D491D5F527F00B3D9A3 /* Initable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Initable.swift; sourceTree = "<group>"; };
 		4323CC8B1D4BC43100D1DFCE /* ShareSDKUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareSDKUtil.swift; path = Utils/ShareSDKUtil.swift; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 		43D931501D55A07B00DE17FC /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentTableViewCell.swift; path = DetailsView/CommentTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEABF1D2AB35E00BF7DC3 /* NewsFlashTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFlashTableViewCell.swift; sourceTree = "<group>"; };
 		43EBEAC11D2AB35E00BF7DC3 /* PlayingZhiTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingZhiTableViewCell.swift; sourceTree = "<group>"; };
+		58A43AF57C2BB4F1E01ACC8E /* Pods_ifanr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ifanr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		699874BB1D23C6CA0059A2BE /* ifanr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ifanr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		699874BE1D23C6CA0059A2BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		699874C51D23C6CA0059A2BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -156,9 +158,6 @@
 		699874DA1D23C6CA0059A2BE /* ifanrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ifanrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		699874DE1D23C6CA0059A2BE /* ifanrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ifanrUITests.swift; sourceTree = "<group>"; };
 		699874E01D23C6CA0059A2BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ifanr.release.xcconfig"; path = "Pods/Target Support Files/Pods-ifanr/Pods-ifanr.release.xcconfig"; sourceTree = "<group>"; };
-		B07879CCAC673D632BB2B36D /* Pods_ifanr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ifanr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ifanr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ifanr/Pods-ifanr.debug.xcconfig"; sourceTree = "<group>"; };
 		F105F6551D5886B7009C0EE2 /* MindStoreVoteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreVoteModel.swift; sourceTree = "<group>"; };
 		F105F6591D5896F9009C0EE2 /* MindStoreVotedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindStoreVotedView.swift; sourceTree = "<group>"; };
 		F105F65C1D5C10B1009C0EE2 /* IFDetailCommentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IFDetailCommentVC.swift; sourceTree = "<group>"; };
@@ -213,6 +212,7 @@
 		F1D89BB71D544B2600B9C852 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F1E006391D38D9C600901099 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
 		F1E0063C1D3955D300901099 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
+		FE2973655CC34285D02B406C /* Pods-ifanr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ifanr.release.xcconfig"; path = "Pods/Target Support Files/Pods-ifanr/Pods-ifanr.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC6EFEF19DAD716ADE932327 /* Pods_ifanr.framework in Frameworks */,
+				11576B76DB6D7DC3AF996978 /* Pods_ifanr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				19142DE52BA65CA63302D628 /* Pods.framework */,
-				B07879CCAC673D632BB2B36D /* Pods_ifanr.framework */,
+				58A43AF57C2BB4F1E01ACC8E /* Pods_ifanr.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -355,15 +355,6 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		50D75510351D35B5895A74ED /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */,
-				7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		699874B21D23C6CA0059A2BE = {
 			isa = PBXGroup;
 			children = (
@@ -372,7 +363,7 @@
 				699874DD1D23C6CA0059A2BE /* ifanrUITests */,
 				699874BC1D23C6CA0059A2BE /* Products */,
 				2AAB2460CEE5BCB285E1634E /* Frameworks */,
-				50D75510351D35B5895A74ED /* Pods */,
+				88594501AC49BE8D2DD7C834 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -422,6 +413,15 @@
 				699874E01D23C6CA0059A2BE /* Info.plist */,
 			);
 			path = ifanrUITests;
+			sourceTree = "<group>";
+		};
+		88594501AC49BE8D2DD7C834 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				306DE314E0C50F0759277B98 /* Pods-ifanr.debug.xcconfig */,
+				FE2973655CC34285D02B406C /* Pods-ifanr.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F105F65B1D5C10B1009C0EE2 /* DetailController */ = {
@@ -735,7 +735,6 @@
 				699874B91D23C6CA0059A2BE /* Resources */,
 				E8BBF36FD1D0198D51A295A1 /* [CP] Embed Pods Frameworks */,
 				0D4521982A71F425CE56F521 /* [CP] Copy Pods Resources */,
-				26A2C46F9DCCD226C5DEDAF7 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -789,24 +788,29 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = ifanrOrg;
 				TargetAttributes = {
 					699874BA1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5N8LXT5RPD;
-						LastSwiftMigration = 0800;
+
+
+						DevelopmentTeam = FT3RY85KVZ;
+						LastSwiftMigration = 0810;
+
 					};
 					699874CE1D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 3G3JV73KM2;
-						LastSwiftMigration = 0800;
+
+						LastSwiftMigration = 0810;
 						TestTargetID = 699874BA1D23C6CA0059A2BE;
 					};
 					699874D91D23C6CA0059A2BE = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 3G3JV73KM2;
-						LastSwiftMigration = 0800;
+
+						LastSwiftMigration = 0810;
 						TestTargetID = 699874BA1D23C6CA0059A2BE;
 					};
 				};
@@ -875,21 +879,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ifanr/Pods-ifanr-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		26A2C46F9DCCD226C5DEDAF7 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ifanr/Pods-ifanr-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3F6DED635ED552DAEB9737F /* [CP] Check Pods Manifest.lock */ = {
@@ -1066,8 +1055,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1089,7 +1080,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1111,8 +1102,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1128,89 +1121,113 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 2.3;
+
+				SWIFT_VERSION = 3.0;
+
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		699874E41D23C6CA0059A2BE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */;
+			baseConfigurationReference = 306DE314E0C50F0759277B98 /* Pods-ifanr.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5N8LXT5RPD;
+
+				DEVELOPMENT_TEAM = FT3RY85KVZ;
+
 				INFOPLIST_FILE = ifanr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoming.ifanr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ifanr/ifanr-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		699874E51D23C6CA0059A2BE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */;
+			baseConfigurationReference = FE2973655CC34285D02B406C /* Pods-ifanr.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 5N8LXT5RPD;
+
+				DEVELOPMENT_TEAM = FT3RY85KVZ;
+
 				INFOPLIST_FILE = ifanr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoming.ifanr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ifanr/ifanr-Bridging-Header.h";
+<<<<<<< HEAD
 				SWIFT_VERSION = 2.3;
+=======
+				SWIFT_VERSION = 3.0;
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 			};
 			name = Release;
 		};
 		699874E71D23C6CA0059A2BE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ifanrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ifanr.ifanrTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
 				SWIFT_VERSION = 2.3;
+=======
+				SWIFT_VERSION = 3.0;
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ifanr.app/ifanr";
 			};
 			name = Debug;
 		};
 		699874E81D23C6CA0059A2BE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ifanrTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ifanr.ifanrTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
 				SWIFT_VERSION = 2.3;
+=======
+				SWIFT_VERSION = 3.0;
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ifanr.app/ifanr";
 			};
 			name = Release;
 		};
 		699874EA1D23C6CA0059A2BE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDC38BEA783494330BE2612C /* Pods-ifanr.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ifanrUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ifanr.ifanrUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
 				SWIFT_VERSION = 2.3;
+=======
+				SWIFT_VERSION = 3.0;
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 				TEST_TARGET_NAME = ifanr;
 				USES_XCTRUNNER = YES;
 			};
@@ -1218,13 +1235,16 @@
 		};
 		699874EB1D23C6CA0059A2BE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7581018035853D4ED5921F45 /* Pods-ifanr.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ifanrUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ifanr.ifanrUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
 				SWIFT_VERSION = 2.3;
+=======
+				SWIFT_VERSION = 3.0;
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 				TEST_TARGET_NAME = ifanr;
 				USES_XCTRUNNER = YES;
 			};

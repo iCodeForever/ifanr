@@ -17,22 +17,22 @@ class SettingHeaderView: UIView {
         addSubview(backBtn)
         addSubview(titleLabel)
         
-        backBtn.snp_makeConstraints { (make) in
+        backBtn.snp.makeConstraints { (make) in
             make.left.equalTo(self)
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.size.equalTo(CGSize(width: 50, height: 15))
         }
         
-        titleLabel.snp_makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(self)
-            make.centerY.equalTo(backBtn.snp_centerY)
+            make.centerY.equalTo(backBtn.snp.centerY)
             make.height.equalTo(20)
         }
     }
-    func backBtnDidClick(callBack: BackBtnClickCallBack?) {
+    func backBtnDidClick(_ callBack: BackBtnClickCallBack?) {
         self.callBack = callBack
     }
-    @objc private func backBtnDidClick() {
+    @objc fileprivate func backBtnDidClick() {
         if let callBack = callBack {
             callBack()
         }
@@ -42,19 +42,19 @@ class SettingHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var backBtn: UIButton = {
+    fileprivate lazy var backBtn: UIButton = {
         var backBtn = UIButton()
-        backBtn.setImage(UIImage(named: "ic_back"), forState: .Normal)
-        backBtn.addTarget(self, action: #selector(SettingHeaderView.backBtnDidClick as (SettingHeaderView) -> () -> ()), forControlEvents: .TouchUpInside)
-        backBtn.imageView?.contentMode = .ScaleAspectFit
+        backBtn.setImage(UIImage(named: "ic_back"), for: UIControlState())
+        backBtn.addTarget(self, action: #selector(SettingHeaderView.backBtnDidClick as (SettingHeaderView) -> () -> ()), for: .touchUpInside)
+        backBtn.imageView?.contentMode = .scaleAspectFit
         return backBtn
     }()
     
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         var titleLabel = UILabel()
         titleLabel.text = "设置"
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.textAlignment = .Center
+        titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
         titleLabel.font = UIFont.customFont_FZLTZCHJW(fontSize: 16)
         return titleLabel
     }()

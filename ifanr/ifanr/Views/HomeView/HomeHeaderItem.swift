@@ -14,7 +14,7 @@ class HomeHeaderItem: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.addSubview(bgImageView)
         self.addSubview(dateLabel)
         self.addSubview(titleLabel)
@@ -35,7 +35,7 @@ class HomeHeaderItem: UIView {
     var imageURL: String? {
         didSet {
             if let url = imageURL {
-                self.bgImageView.if_setImage(NSURL(string: url))
+                self.bgImageView.if_setImage(URL(string: url))
             }
         }
     }
@@ -45,7 +45,7 @@ class HomeHeaderItem: UIView {
             titleLabel.text = title
             // 计算高度
             let attributes = [NSFontAttributeName: UIFont.customFont_FZLTXIHJW(fontSize: 18)]
-            let titleHeight = (title as NSString).boundingRectWithSize(CGSize(width: self.width-2*UIConstant.UI_MARGIN_10, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil).height
+            let titleHeight = (title as NSString).boundingRect(with: CGSize(width: self.width-2*UIConstant.UI_MARGIN_10, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: attributes, context: nil).height
             titleLabel.frame = CGRect(x: UIConstant.UI_MARGIN_10, y: self.height-50-titleHeight, width: self.width-2*UIConstant.UI_MARGIN_10, height: titleHeight)
             dateLabel.frame = CGRect(x: UIConstant.UI_MARGIN_10, y: titleLabel.y-25, width:self.width-2*UIConstant.UI_MARGIN_10, height: 20)
         }
@@ -57,26 +57,26 @@ class HomeHeaderItem: UIView {
         }
     }
         /// 标题
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         var titleLabel: UILabel = UILabel()
         titleLabel.numberOfLines = 0
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 18)
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textColor = UIColor.white
         return titleLabel
     }()
     
         /// 分类和日期
-    private lazy var dateLabel : UILabel = {
+    fileprivate lazy var dateLabel : UILabel = {
         var dateLabel: UILabel = UILabel()
         dateLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        dateLabel.textColor = UIColor.whiteColor()
+        dateLabel.textColor = UIColor.white
         return dateLabel
     }()
     
         /// 图片
-    private lazy var bgImageView: UIImageView = {
+    fileprivate lazy var bgImageView: UIImageView = {
         var bgImageView: UIImageView = UIImageView()
-        bgImageView.contentMode = .ScaleToFill
+        bgImageView.contentMode = .scaleToFill
         return bgImageView
     }()
 }

@@ -14,24 +14,24 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
     var model : CommonModel! {
         didSet {
             
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(model.pubDate)
+            self.timeLabel.text = Date.getCommonExpressionOfDate(model.pubDate)
             self.likeCountLabel.text    = "\(model.like)"
             
             self.titleLabel.attributedText = UILabel.setAttributText(model.title, lineSpcae: 5.0)
             self.infoLabel.attributedText  = UILabel.setAttributText(model.excerpt, lineSpcae: 5.0)
-            self.logoImageView.if_setImage(NSURL(string: model.image!))
+            self.logoImageView.if_setImage(URL(string: model.image!))
         }
     }
     
     var appSoModel: CommonModel! {
         didSet {
             
-            self.timeLabel.text = NSDate.getCommonExpressionOfDate(appSoModel.pubDate)
+            self.timeLabel.text = Date.getCommonExpressionOfDate(appSoModel.pubDate)
             self.likeCountLabel.text    = "\(appSoModel.like)"
             
             self.titleLabel.attributedText = UILabel.setAttributText(appSoModel.title, lineSpcae: 5.0)
             self.infoLabel.attributedText  = UILabel.setAttributText(appSoModel.excerpt, lineSpcae: 5.0)
-            self.logoImageView.if_setImage(NSURL(string: appSoModel.image!))
+            self.logoImageView.if_setImage(URL(string: appSoModel.image!))
         }
     }
     
@@ -56,67 +56,67 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
     
     //MARK:-----Private Function-----
     //布局
-    private func setupLayout() -> Void {
-        self.logoImageView.snp_makeConstraints { (make) in
+    fileprivate func setupLayout() -> Void {
+        self.logoImageView.snp.makeConstraints { (make) in
             make.top.equalTo(self).offset(UIConstant.UI_MARGIN_20)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
             make.height.equalTo(170).priority(1000)
         }
-        self.timeLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.logoImageView.snp_bottom).offset(UIConstant.UI_MARGIN_10)
+        self.timeLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.logoImageView.snp.bottom).offset(UIConstant.UI_MARGIN_10)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.width.equalTo(100)
             make.height.equalTo(20)
         }
-        self.likeCountLabel.snp_makeConstraints { (make) in
+        self.likeCountLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.timeLabel)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
             make.width.height.equalTo(20)
         }
-        self.heartImgView.snp_makeConstraints { (make) in
-            make.right.equalTo(self.likeCountLabel.snp_left).offset(-UIConstant.UI_MARGIN_5)
+        self.heartImgView.snp.makeConstraints { (make) in
+            make.right.equalTo(self.likeCountLabel.snp.left).offset(-UIConstant.UI_MARGIN_5)
             make.centerY.equalTo(self.timeLabel)
             make.width.height.equalTo(10)
         }
-        self.separateLineView.snp_makeConstraints { (make) in
+        self.separateLineView.snp.makeConstraints { (make) in
             make.bottom.equalTo(self).offset(-UIConstant.UI_MARGIN_5)
             make.centerX.equalTo(self)
             make.width.equalTo(20)
             make.height.equalTo(2)
         }
-        self.infoLabel.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.separateLineView.snp_top).offset(-UIConstant.UI_MARGIN_10)
+        self.infoLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.separateLineView.snp.top).offset(-UIConstant.UI_MARGIN_10)
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-1 * UIConstant.UI_MARGIN_15)
             make.height.equalTo(50)
         }
-        self.titleLabel.snp_makeConstraints { (make) in
+        self.titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(UIConstant.UI_MARGIN_15)
             make.right.equalTo(self).offset(-UIConstant.UI_MARGIN_15)
-            make.bottom.equalTo(self.infoLabel.snp_top)
-            make.top.equalTo(self.likeCountLabel.snp_bottom)
+            make.bottom.equalTo(self.infoLabel.snp.top)
+            make.top.equalTo(self.likeCountLabel.snp.bottom)
         }
         
-        self.logoImageView.contentMode      = .ScaleAspectFill
+        self.logoImageView.contentMode      = .scaleAspectFill
         self.logoImageView.clipsToBounds    = true
-        self.heartImgView.contentMode       = .ScaleAspectFill
+        self.heartImgView.contentMode       = .scaleAspectFill
     }
    
     
-    class func cellWithTableView(tableView : UITableView) -> PlayingZhiTableViewCell {
+    class func cellWithTableView(_ tableView : UITableView) -> PlayingZhiTableViewCell {
         
         var cell: PlayingZhiTableViewCell? = tableView.dequeueReusableCell() as PlayingZhiTableViewCell?
         if cell == nil {
-            cell = PlayingZhiTableViewCell(style: .Default, reuseIdentifier: self.reuseIdentifier)
-            cell?.selectionStyle = .None
+            cell = PlayingZhiTableViewCell(style: .default, reuseIdentifier: self.reuseIdentifier)
+            cell?.selectionStyle = .none
         }
         return cell!
     }
     
     // 计算内容的高度
-    class func estimateCellHeight(content : String) -> CGFloat {
-        let size = CGSizeMake(UIConstant.SCREEN_WIDTH - 30 ,2000)
+    class func estimateCellHeight(_ content : String) -> CGFloat {
+        let size = CGSize(width: UIConstant.SCREEN_WIDTH - 30 ,height: 2000)
         
         let paragphStyle = NSMutableParagraphStyle()
         
@@ -127,9 +127,9 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
         
         let dic = [NSFontAttributeName : UIFont.customFont_FZLTXIHJW(fontSize: 16),
                    NSParagraphStyleAttributeName: paragphStyle,
-                   NSKernAttributeName : 1.0]
+                   NSKernAttributeName : 1.0] as [String : Any]
         
-        let labelRect : CGRect = content.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
+        let labelRect : CGRect = content.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as [String : AnyObject], context: nil)
         
         // 50为其他控件的高度
         return labelRect.height + 280;
@@ -137,51 +137,51 @@ class PlayingZhiTableViewCell: UITableViewCell, Reusable {
     
     //MARK:-----setter or getter-----
     // 封面
-    private lazy var logoImageView: UIImageView = {
+    fileprivate lazy var logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         return logoImageView
     }()
     // 时间
-    private lazy var timeLabel: UILabel = {
+    fileprivate lazy var timeLabel: UILabel = {
         let timeLabel = UILabel()
         timeLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        timeLabel.textColor = UIColor.lightGrayColor()
+        timeLabel.textColor = UIColor.lightGray
         return timeLabel
     }()
     // 点赞的数目
-    private lazy var likeCountLabel: UILabel = {
+    fileprivate lazy var likeCountLabel: UILabel = {
         let likeCountLabel = UILabel()
         likeCountLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        likeCountLabel.textColor = UIColor.lightGrayColor()
+        likeCountLabel.textColor = UIColor.lightGray
         return likeCountLabel
     }()
     //点赞左侧的心
-    private lazy var heartImgView: UIImageView = {
+    fileprivate lazy var heartImgView: UIImageView = {
         let heartImgView = UIImageView()
-        heartImgView.image = UIImage(imageLiteral: "heart_selected_false")
+        heartImgView.image = UIImage(named: "heart_selected_false")
         return heartImgView
     }()
     // 标题，需动态计算高度
-    private lazy var titleLabel: UILabel = {
+    fileprivate lazy var titleLabel: UILabel = {
         let titleLabel  = UILabel()
         titleLabel.font = UIFont.customFont_FZLTXIHJW(fontSize: 16)
         titleLabel.numberOfLines    = 0
-        titleLabel.lineBreakMode    = .ByWordWrapping
+        titleLabel.lineBreakMode    = .byWordWrapping
         return titleLabel
     }()
     // 粗略信息，固定两行
-    private lazy var infoLabel: UILabel = {
+    fileprivate lazy var infoLabel: UILabel = {
         let infoLabel = UILabel()
         infoLabel.numberOfLines     = 0
-        infoLabel.lineBreakMode     = .ByCharWrapping
+        infoLabel.lineBreakMode     = .byCharWrapping
         infoLabel.font      = UIFont.customFont_FZLTXIHJW(fontSize: 12)
-        infoLabel.textColor = UIColor.lightGrayColor()
+        infoLabel.textColor = UIColor.lightGray
         return infoLabel
     }()
     // 小黄线
-    private lazy var separateLineView: UIView = {
+    fileprivate lazy var separateLineView: UIView = {
         let separateLineView = UIView()
-        separateLineView.backgroundColor = UIColor.brownColor()
+        separateLineView.backgroundColor = UIColor.brown
         return separateLineView
     }()
 }

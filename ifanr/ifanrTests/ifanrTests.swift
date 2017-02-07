@@ -28,7 +28,12 @@ class ifanrTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
+<<<<<<< HEAD
         self.mease            // Put the code you want to measure the time of here.
+=======
+        self.measure {
+            // Put the code you want to measure the time of here.
+>>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         }
     }
     

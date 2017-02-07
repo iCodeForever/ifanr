@@ -43,21 +43,21 @@ class HomeHeaderView: UIView {
     }
     
     //MARK: --------------------------- Event or Action --------------------------
-    @objc private func currentItemTap() {
+    @objc fileprivate func currentItemTap() {
         if let callBack = callBack {
-            callBack(index: indexOfCurrentImage)
+            callBack(indexOfCurrentImage)
         }
     }
-    func currentItemDidClick(callBack: CurrentItemTapCallBack?) {
+    func currentItemDidClick(_ callBack: CurrentItemTapCallBack?) {
         self.callBack = callBack
     }
     //MARK: --------------------------- Private Methods --------------------------
-    typealias CurrentItemTapCallBack = (index: Int) -> Void
+    typealias CurrentItemTapCallBack = (_ index: Int) -> Void
     
     
-    private var callBack: CurrentItemTapCallBack?
+    fileprivate var callBack: CurrentItemTapCallBack?
     /// 定时器，定时轮播图片
-    private var timer : NSTimer?
+    fileprivate var timer : Timer?
     /**
      得到上一张图片的下标
      
@@ -65,7 +65,7 @@ class HomeHeaderView: UIView {
      
      - returns: 上一个图片标位置
      */
-    private func getLastImageIndex(indexOfCurrentImage index: Int) -> Int {
+    fileprivate func getLastImageIndex(indexOfCurrentImage index: Int) -> Int {
         let tempIndex = index - 1
         if tempIndex == -1 {
             return self.modelArray.count - 1
@@ -81,56 +81,56 @@ class HomeHeaderView: UIView {
      
      - returns: 下一个图片下标位置
      */
-    private func getNextImageIndex(indexOfCurrentImage index: Int) -> Int {
+    fileprivate func getNextImageIndex(indexOfCurrentImage index: Int) -> Int {
         let tempIndex = index + 1
         return tempIndex < self.modelArray.count ? tempIndex : 0
     }
     
     
     /// 移除定时器
-    private func removeTimer () {
+    fileprivate func removeTimer () {
         self.timer?.invalidate()
         self.timer = nil
     }
     
     /// 启动定时器
-    private func addTimer() {
+    fileprivate func addTimer() {
         if self.timer == nil {
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(HomeHeaderView.timerAction), userInfo: nil, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer((self.timer!), forMode: NSRunLoopCommonModes)
+            self.timer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(HomeHeaderView.timerAction), userInfo: nil, repeats: true)
+            RunLoop.current.add((self.timer!), forMode: RunLoopMode.commonModes)
         }
     }
     //事件触发方法
-    @objc private func timerAction() {
-        contentScrollView.setContentOffset(CGPointMake(self.width*2, 0), animated: true)
+    @objc fileprivate func timerAction() {
+        contentScrollView.setContentOffset(CGPoint(x: self.width*2, y: 0), animated: true)
     }
     /**
      重新设置scrollview的图片
      */
-    private func setScrollViewOfImage() {
+    fileprivate func setScrollViewOfImage() {
         // 获取当前模型数据
         let currentModel = self.modelArray[self.indexOfCurrentImage]
         self.currentItem.imageURL = currentModel.image
         self.currentItem.title = currentModel.title
-        self.currentItem.date = "\(currentModel.category) | \(NSDate.getCommonExpressionOfDate(currentModel.pubDate))"
+        self.currentItem.date = "\(currentModel.category) | \(Date.getCommonExpressionOfDate(currentModel.pubDate))"
         // 获取下一张图片的模型
         let nextImageModel = self.modelArray[self.getNextImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
         self.nextItem.imageURL = nextImageModel.image
         self.nextItem.title = nextImageModel.title
-        self.nextItem.date = "\(nextImageModel.category) | \(NSDate.getCommonExpressionOfDate(nextImageModel.pubDate))"
+        self.nextItem.date = "\(nextImageModel.category) | \(Date.getCommonExpressionOfDate(nextImageModel.pubDate))"
         // 获取上衣张图片的模型
         let lastImageModel = self.modelArray[self.getLastImageIndex(indexOfCurrentImage: self.indexOfCurrentImage)]
         self.lastItem.imageURL = lastImageModel.image
         self.lastItem.title = lastImageModel.title
-        self.lastItem.date = "\(lastImageModel.category) | \(NSDate.getCommonExpressionOfDate(lastImageModel.pubDate)))"
+        self.lastItem.date = "\(lastImageModel.category) | \(Date.getCommonExpressionOfDate(lastImageModel.pubDate)))"
     }
     
     //MARK: --------------------------- Getter and Setter --------------------------
-    private lazy var contentScrollView: UIScrollView = {
+    fileprivate lazy var contentScrollView: UIScrollView = {
         let contentScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.width, height: self.height-45))
-        contentScrollView.userInteractionEnabled = false
+        contentScrollView.isUserInteractionEnabled = false
         contentScrollView.bounces = false
-        contentScrollView.pagingEnabled = true
+        contentScrollView.isPagingEnabled = true
         contentScrollView.showsHorizontalScrollIndicator = false
         contentScrollView.contentSize = CGSize(width: self.width * 3, height: 0)
         contentScrollView.delegate = self
@@ -150,12 +150,12 @@ class HomeHeaderView: UIView {
             if modelArray.count<=0 {
                 return
             }
-            contentScrollView.userInteractionEnabled = true
-            contentScrollView.scrollEnabled = !(modelArray.count == 1)
+            contentScrollView.isUserInteractionEnabled = true
+            contentScrollView.isScrollEnabled = !(modelArray.count == 1)
             pageControl.numberOfPage = self.modelArray.count
             setScrollViewOfImage()
             contentScrollView.setContentOffset(CGPoint(x: self.width, y: 0), animated: false)
-            tagImageView.hidden = false
+            tagImageView.isHidden = false
             // 启动定时器
             self.addTimer()
         }
@@ -168,36 +168,36 @@ class HomeHeaderView: UIView {
     }
     
         /// 当前显示的View
-    private lazy var currentItem: HomeHeaderItem = {
+    fileprivate lazy var currentItem: HomeHeaderItem = {
         var currentItem: HomeHeaderItem = HomeHeaderItem()
         currentItem.frame = CGRect(x: self.width, y: 0, width: self.width, height: self.contentScrollView.height)
         return currentItem
     }()
         /// 上一个显示的View
-    private lazy var lastItem: HomeHeaderItem = {
+    fileprivate lazy var lastItem: HomeHeaderItem = {
         var lastItem: HomeHeaderItem = HomeHeaderItem()
         lastItem.frame = CGRect(x: 0, y: 0, width: self.width, height: self.contentScrollView.height)
         return lastItem
     }()
         /// 下一个显示的View
-    private lazy var nextItem: HomeHeaderItem = {
+    fileprivate lazy var nextItem: HomeHeaderItem = {
         var nextItem: HomeHeaderItem = HomeHeaderItem()
         nextItem.frame = CGRect(x: self.width * 2, y: 0, width: self.width, height: self.contentScrollView.height)
         return nextItem
     }()
     
-    private lazy var pageControl: HomePageControl = {
+    fileprivate lazy var pageControl: HomePageControl = {
         var pageControl = HomePageControl(frame: CGRect(x: UIConstant.UI_MARGIN_10, y: self.contentScrollView.height-35, width: self.width, height: 20))
         return pageControl
     }()
     
         /// 最下面那张图片
-    private lazy var tagImageView: UIImageView = {
+    fileprivate lazy var tagImageView: UIImageView = {
         var tagImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIConstant.SCREEN_WIDTH, height: 25))
-        tagImageView.hidden = true
+        tagImageView.isHidden = true
         tagImageView.center = CGPoint(x: self.center.x, y: self.height-13)
-        tagImageView.image = UIImage(imageLiteral: "tag_latest_press")
-        tagImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        tagImageView.image = UIImage(imageLiteralResourceName: "tag_latest_press")
+        tagImageView.contentMode = UIViewContentMode.scaleAspectFit
         return tagImageView
     }()
 }
@@ -206,7 +206,7 @@ extension HomeHeaderView: UIScrollViewDelegate {
     /**
      *  开始拖拽的时候调用
      */
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // 停止定时器(一旦定时器停止了,就不能再使用)
         self.removeTimer()
     }
@@ -214,7 +214,7 @@ extension HomeHeaderView: UIScrollViewDelegate {
     /**
      *  停止拖拽的时候调用
      */
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         //如果用户手动拖动到了一个整数页的位置就不会发生滑动了 所以需要判断手动调用滑动停止滑动方法
         if !decelerate {
@@ -223,7 +223,7 @@ extension HomeHeaderView: UIScrollViewDelegate {
         self.addTimer()
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let offset = scrollView.contentOffset.x
         if offset == 0 {
@@ -237,7 +237,7 @@ extension HomeHeaderView: UIScrollViewDelegate {
         scrollView.setContentOffset(CGPoint(x: self.width, y: 0), animated: false)
     }
     
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         self.scrollViewDidEndDecelerating(scrollView)
     }
 }

@@ -19,15 +19,15 @@ extension String {
      - parameter pattern: 正则表达式
      - returns: 字符串集合
      */
-    func getSuitableString(pattern: String) -> [String]{
+    func getSuitableString(_ pattern: String) -> [String]{
         
         do {
             let pattern = pattern
-            let regex   = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
-            let res     = regex.matchesInString(self, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count))
+            let regex   = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
+            let res     = regex.matches(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count))
             var subStrArray = [String]()
             for checkingRes in res {
-                let subStr = (self as NSString).substringWithRange(checkingRes.range)
+                let subStr = (self as NSString).substring(with: checkingRes.range)
                 subStrArray.append(subStr)
             }
             return subStrArray
