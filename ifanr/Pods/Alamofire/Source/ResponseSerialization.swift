@@ -1,24 +1,26 @@
-// ResponseSerialization.swift
 //
-// Copyright (c) 2014–2016 Alamofire Software Foundation (http://alamofire.org/)
+//  ResponseSerialization.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Foundation
 
@@ -99,7 +101,7 @@ extension Request {
         Adds a handler to be called once the request has finished.
 
         - parameter queue:              The queue on which the completion handler is dispatched.
-        - parameter responseSerializer: The response serializer responsible for serializing the request, response, 
+        - parameter responseSerializer: The response serializer responsible for serializing the request, response,
                                         and data.
         - parameter completionHandler:  The code to be executed once the request has finished.
 
@@ -161,7 +163,7 @@ extension Request {
 
             guard let validData = data else {
                 let failureReason = "Data could not be serialized. Input data was nil."
-                let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                let error = Error.error(code: .DataSerializationFailed, failureReason: failureReason)
                 return .Failure(error)
             }
 
@@ -190,10 +192,10 @@ extension Request {
 extension Request {
 
     /**
-        Creates a response serializer that returns a string initialized from the response data with the specified 
+        Creates a response serializer that returns a string initialized from the response data with the specified
         string encoding.
 
-        - parameter encoding: The string encoding. If `nil`, the string encoding will be determined from the server 
+        - parameter encoding: The string encoding. If `nil`, the string encoding will be determined from the server
                               response, falling back to the default HTTP default character set, ISO-8859-1.
 
         - returns: A string response serializer.
@@ -209,12 +211,12 @@ extension Request {
 
             guard let validData = data else {
                 let failureReason = "String could not be serialized. Input data was nil."
-                let error = Error.errorWithCode(.StringSerializationFailed, failureReason: failureReason)
+                let error = Error.error(code: .StringSerializationFailed, failureReason: failureReason)
                 return .Failure(error)
             }
-            
+
             var convertedEncoding = encoding
-            
+
             if let encodingName = response?.textEncodingName where convertedEncoding == nil {
                 convertedEncoding = CFStringConvertEncodingToNSStringEncoding(
                     CFStringConvertIANACharSetNameToEncoding(encodingName)
@@ -227,7 +229,7 @@ extension Request {
                 return .Success(string)
             } else {
                 let failureReason = "String could not be serialized with encoding: \(actualEncoding)"
-                let error = Error.errorWithCode(.StringSerializationFailed, failureReason: failureReason)
+                let error = Error.error(code: .StringSerializationFailed, failureReason: failureReason)
                 return .Failure(error)
             }
         }
@@ -236,8 +238,8 @@ extension Request {
     /**
         Adds a handler to be called once the request has finished.
 
-        - parameter encoding:          The string encoding. If `nil`, the string encoding will be determined from the 
-                                       server response, falling back to the default HTTP default character set, 
+        - parameter encoding:          The string encoding. If `nil`, the string encoding will be determined from the
+                                       server response, falling back to the default HTTP default character set,
                                        ISO-8859-1.
         - parameter completionHandler: A closure to be executed once the request has finished.
 
@@ -262,7 +264,7 @@ extension Request {
 extension Request {
 
     /**
-        Creates a response serializer that returns a JSON object constructed from the response data using 
+        Creates a response serializer that returns a JSON object constructed from the response data using
         `NSJSONSerialization` with the specified reading options.
 
         - parameter options: The JSON serialization reading options. `.AllowFragments` by default.
@@ -280,7 +282,7 @@ extension Request {
 
             guard let validData = data where validData.length > 0 else {
                 let failureReason = "JSON could not be serialized. Input data was nil or zero length."
-                let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                let error = Error.error(code: .JSONSerializationFailed, failureReason: failureReason)
                 return .Failure(error)
             }
 
@@ -320,7 +322,7 @@ extension Request {
 extension Request {
 
     /**
-        Creates a response serializer that returns an object constructed from the response data using 
+        Creates a response serializer that returns an object constructed from the response data using
         `NSPropertyListSerialization` with the specified reading options.
 
         - parameter options: The property list reading options. `NSPropertyListReadOptions()` by default.
@@ -338,7 +340,7 @@ extension Request {
 
             guard let validData = data where validData.length > 0 else {
                 let failureReason = "Property list could not be serialized. Input data was nil or zero length."
-                let error = Error.errorWithCode(.PropertyListSerializationFailed, failureReason: failureReason)
+                let error = Error.error(code: .PropertyListSerializationFailed, failureReason: failureReason)
                 return .Failure(error)
             }
 
@@ -356,7 +358,7 @@ extension Request {
 
         - parameter options:           The property list reading options. `0` by default.
         - parameter completionHandler: A closure to be executed once the request has finished. The closure takes 3
-                                       arguments: the URL request, the URL response, the server data and the result 
+                                       arguments: the URL request, the URL response, the server data and the result
                                        produced while creating the property list.
 
         - returns: The request.

@@ -7,7 +7,7 @@
 
 MonkeyKing helps you post messages to Chinese Social Networks, without their buggy SDKs.
 
-MonkeyKing use the same analysis process of [openshare](https://github.com/100apps/openshare), support share **Text**, **URL**, **Image**, **Audio**, **Video**, and **File** to **WeChat**, **QQ**, **Alipay** or **Weibo**. MonkeyKing also can post message to Weibo by webpage. (Note: Auido and Video are only specifically for WeChat or QQ, File is only for QQ Dataline)
+MonkeyKing uses the same analysis process of [openshare](https://github.com/100apps/openshare), support share **Text**, **URL**, **Image**, **Audio**, **Video**, and **File** to **WeChat**, **QQ**, **Alipay** or **Weibo**. MonkeyKing also can post messages to Weibo by webpage. (Note: Audio and Video are only specifically for WeChat or QQ, File is only for QQ Dataline)
 
 One more thing: MonkeyKing supports **OAuth**.
 
@@ -15,7 +15,7 @@ And, now MonkeyKing supports **Mobile payment** via WeChat and Alipay!
 
 ## Requirements
 
-Swift 2.0, iOS 8.0
+Swift 2.3, iOS 8.0
 
 ## Example
 
@@ -87,7 +87,7 @@ MonkeyKing.OAuth(.Weibo) { (OAuthInfo, response, error) -> Void in
 }
 ```
 
-If user do not installed Weibo App on their devices, MonkeyKing will use web OAuth:
+If user don't have Weibo App installed on their devices then MonkeyKing will use web OAuth:
 
 ![weiboOAuth](https://raw.githubusercontent.com/nixzhu/MonkeyKing/master/images/wbOAuth.png)
 
@@ -110,7 +110,7 @@ MonkeyKing.payOrder(MonkeyKing.Order.Alipay(URLString: "https://example.com/pay.
 
 ### More
 
-If you like use `UIActivityViewController` to share, MonkeyKing has `AnyActivity` can help you.
+If you like to use `UIActivityViewController` for sharing then MonkeyKing has `AnyActivity` which can help you.
 
 ![System Share](https://raw.githubusercontent.com/nixzhu/MonkeyKing/master/images/system_share.png)
 
@@ -137,7 +137,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'MonkeyKing', '~> 0.9.2'
+target <Your Target Name> do
+    pod 'MonkeyKing', '~> 0.9.4'
+end
 ```
 
 Then, run the following command:
@@ -162,7 +164,7 @@ $ brew install carthage
 To integrate MonkeyKing into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "nixzhu/MonkeyKing" >= 0.9.2
+github "nixzhu/MonkeyKing" >= 0.9.4
 ```
 
 Then, run the following command to build the MonkeyKing framework:

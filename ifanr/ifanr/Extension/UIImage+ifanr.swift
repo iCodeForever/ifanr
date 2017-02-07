@@ -13,7 +13,7 @@ extension UIImage {
     func imageByApplyingAlpha(alpha: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0)
         
-        let ctx = UIGraphicsGetCurrentContext()
+        let ctx: CGContext = UIGraphicsGetCurrentContext()!
         let area = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         
         CGContextScaleCTM(ctx, 1, -1)
@@ -23,19 +23,19 @@ extension UIImage {
         
         CGContextSetAlpha(ctx, alpha)
         
-        CGContextDrawImage(ctx, area, self.CGImage)
+        CGContextDrawImage(ctx, area, self.CGImage!)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return newImage
+        return newImage!
     }
     
 
     func imageInRect(rect: CGRect) -> UIImage {
         let sourceImageRef = self.CGImage
-        let newImageRef = CGImageCreateWithImageInRect(sourceImageRef, rect)
+        let newImageRef = CGImageCreateWithImageInRect(sourceImageRef!, rect)
         return UIImage(CGImage: newImageRef!)
     }
     

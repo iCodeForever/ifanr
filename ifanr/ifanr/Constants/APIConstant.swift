@@ -266,4 +266,7 @@ extension APIConstant: TargetType {
     public var sampleData: NSData {
         return "{}".dataUsingEncoding(NSUTF8StringEncoding)!
     }
+    public var multipartBody: [MultipartFormData]? {
+        return nil
+    }
 }
