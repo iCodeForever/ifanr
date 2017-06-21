@@ -17,60 +17,24 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 		self = .failure(error)
 	}
 
-<<<<<<< HEAD
-	/// Constructs a result from an Optional, failing with `Error` if `nil`.
-#if swift(>=3)
-	public init(_ value: T?, failWith: @autoclosure () -> Error) {
-		self = value.map(Result.Success) ?? .Failure(failWith())
-	}
-#else
-	public init(_ value: T?, @autoclosure failWith: () -> Error) {
-		self = value.map(Result.Success) ?? .Failure(failWith())
-=======
 	/// Constructs a result from an `Optional`, failing with `Error` if `nil`.
 	public init(_ value: T?, failWith: @autoclosure () -> Error) {
 		self = value.map(Result.success) ?? .failure(failWith())
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 	}
-#endif
 
 	/// Constructs a result from a function that uses `throw`, failing with `Error` if throws.
-<<<<<<< HEAD
-#if swift(>=3)
 	public init(_ f: @autoclosure () throws -> T) {
 		self.init(attempt: f)
 	}
-#else
-	public init(@autoclosure _ f: () throws -> T) {
-=======
-	public init(_ f: @autoclosure () throws -> T) {
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
-		self.init(attempt: f)
-	}
-#endif
 
 	/// Constructs a result from a function that uses `throw`, failing with `Error` if throws.
-<<<<<<< HEAD
-#if swift(>=3)
-	public init(attempt f: @noescape () throws -> T) {
-		do {
-			self = .Success(try f())
-		} catch {
-			self = .Failure(error as! Error)
-		}
-	}
-#else
-	public init(@noescape attempt f: () throws -> T) {
-=======
 	public init(attempt f: () throws -> T) {
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 		do {
 			self = .success(try f())
 		} catch {
 			self = .failure(error as! Error)
 		}
 	}
-#endif
 
 	// MARK: Deconstruction
 
@@ -86,14 +50,8 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 
 	/// Case analysis for Result.
 	///
-<<<<<<< HEAD
-	/// Returns the value produced by applying `ifFailure` to `Failure` Results, or `ifSuccess` to `Success` Results.
-#if swift(>=3)
-	public func analysis<Result>(ifSuccess: @noescape (T) -> Result, ifFailure: @noescape (Error) -> Result) -> Result {
-=======
 	/// Returns the value produced by applying `ifFailure` to `failure` Results, or `ifSuccess` to `success` Results.
 	public func analysis<Result>(ifSuccess: (T) -> Result, ifFailure: (Error) -> Result) -> Result {
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 		switch self {
 		case let .success(value):
 			return ifSuccess(value)
@@ -101,19 +59,6 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 			return ifFailure(value)
 		}
 	}
-<<<<<<< HEAD
-#else
-	public func analysis<Result>(@noescape ifSuccess ifSuccess: T -> Result, @noescape ifFailure: Error -> Result) -> Result {
-		switch self {
-		case let .Success(value):
-			return ifSuccess(value)
-		case let .Failure(value):
-			return ifFailure(value)
-		}
-	}
-#endif
-=======
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 	// MARK: Errors
 
@@ -130,28 +75,8 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 	public static var lineKey: String { return "\(errorDomain).line" }
 
 	/// Constructs an error.
-<<<<<<< HEAD
-#if swift(>=3)
-	public static func error(_ message: String? = nil, function: String = #function, file: String = #file, line: Int = #line) -> NSError {
-		var userInfo: [String: UserInfoType] = [
-		                                       	functionKey: function,
-		                                       	fileKey: file,
-		                                       	lineKey: line,
-		                                       	]
-		
-		if let message = message {
-			userInfo[NSLocalizedDescriptionKey] = message
-		}
-		
-		return NSError(domain: errorDomain, code: 0, userInfo: userInfo)
-	}
-#else
-	public static func error(message: String? = nil, function: String = #function, file: String = #file, line: Int = #line) -> NSError {
-		var userInfo: [String: UserInfoType] = [
-=======
 	public static func error(_ message: String? = nil, function: String = #function, file: String = #file, line: Int = #line) -> NSError {
 		var userInfo: [String: Any] = [
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 			functionKey: function,
 			fileKey: file,
 			lineKey: line,
@@ -163,7 +88,6 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 
 		return NSError(domain: errorDomain, code: 0, userInfo: userInfo)
 	}
-#endif
 
 
 	// MARK: CustomStringConvertible
@@ -184,26 +108,6 @@ public enum Result<T, Error: Swift.Error>: ResultProtocol, CustomStringConvertib
 
 // MARK: - Derive result from failable closure
 
-<<<<<<< HEAD
-#if swift(>=3)
-public func materialize<T>(_ f: @noescape () throws -> T) -> Result<T, NSError> {
-	return materialize(try f())
-}
-
-public func materialize<T>(_ f: @autoclosure () throws -> T) -> Result<T, NSError> {
-	do {
-		return .Success(try f())
-	} catch let error as NSError {
-		return .Failure(error)
-	}
-}
-#else
-public func materialize<T>(@noescape f: () throws -> T) -> Result<T, NSError> {
-	return materialize(try f())
-}
-	
-public func materialize<T>(@autoclosure f: () throws -> T) -> Result<T, NSError> {
-=======
 public func materialize<T>(_ f: () throws -> T) -> Result<T, AnyError> {
 	return materialize(try f())
 }
@@ -223,14 +127,12 @@ public func materialize<T>(_ f: () throws -> T) -> Result<T, NSError> {
 
 @available(*, deprecated, message: "Use the overload which returns `Result<T, AnyError>` instead")
 public func materialize<T>(_ f: @autoclosure () throws -> T) -> Result<T, NSError> {
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 	do {
 		return .success(try f())
 	} catch let error as NSError {
 		return .failure(error)
 	}
 }
-#endif
 
 // MARK: - Cocoa API conveniences
 
@@ -240,60 +142,26 @@ public func materialize<T>(_ f: @autoclosure () throws -> T) -> Result<T, NSErro
 ///
 /// This is convenient for wrapping Cocoa API which returns an object or `nil` + an error, by reference. e.g.:
 ///
-<<<<<<< HEAD
-///     Result.try { NSData(contentsOfURL: URL, options: .DataReadingMapped, error: $0) }
-#if swift(>=3)
-public func `try`<T>(_ function: String = #function, file: String = #file, line: Int = #line, `try`: (NSErrorPointer) -> T?) -> Result<T, NSError> {
-	var error: NSError?
-	return `try`(&error).map(Result.Success) ?? .Failure(error ?? Result<T, NSError>.error(function: function, file: file, line: line))
-}
-#else
-public func `try`<T>(function: String = #function, file: String = #file, line: Int = #line, `try`: NSErrorPointer -> T?) -> Result<T, NSError> {
-=======
 ///     Result.try { NSData(contentsOfURL: URL, options: .dataReadingMapped, error: $0) }
 public func `try`<T>(_ function: String = #function, file: String = #file, line: Int = #line, `try`: (NSErrorPointer) -> T?) -> Result<T, NSError> {
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 	var error: NSError?
 	return `try`(&error).map(Result.success) ?? .failure(error ?? Result<T, NSError>.error(function: function, file: file, line: line))
 }
-#endif
 
 /// Constructs a `Result` with the result of calling `try` with an error pointer.
 ///
 /// This is convenient for wrapping Cocoa API which returns a `Bool` + an error, by reference. e.g.:
 ///
 ///     Result.try { NSFileManager.defaultManager().removeItemAtURL(URL, error: $0) }
-<<<<<<< HEAD
-#if swift(>=3)
 public func `try`(_ function: String = #function, file: String = #file, line: Int = #line, `try`: (NSErrorPointer) -> Bool) -> Result<(), NSError> {
-	var error: NSError?
-	return `try`(&error) ?
-		.Success(())
-		:	.Failure(error ?? Result<(), NSError>.error(function: function, file: file, line: line))
-}
-#else
-public func `try`(function: String = #function, file: String = #file, line: Int = #line, `try`: NSErrorPointer -> Bool) -> Result<(), NSError> {
-=======
-public func `try`(_ function: String = #function, file: String = #file, line: Int = #line, `try`: (NSErrorPointer) -> Bool) -> Result<(), NSError> {
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 	var error: NSError?
 	return `try`(&error) ?
 		.success(())
 	:	.failure(error ?? Result<(), NSError>.error(function: function, file: file, line: line))
 }
+
 #endif
 
-<<<<<<< HEAD
-#endif
-
-// MARK: - ErrorTypeConvertible conformance
-	
-extension NSError: ErrorTypeConvertible {
-#if swift(>=3)
-	public static func errorFromErrorType(_ error: ResultErrorType) -> Self {
-		func cast<T: NSError>(_ error: ResultErrorType) -> T {
-			return error as! T
-=======
 // MARK: - ErrorProtocolConvertible conformance
 	
 extension NSError: ErrorProtocolConvertible {
@@ -330,22 +198,8 @@ public struct AnyError: Swift.Error {
 			self = anyError
 		} else {
 			self.error = error
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 		}
-
-		return cast(error)
 	}
-<<<<<<< HEAD
-#else
-	public static func errorFromErrorType(error: ResultErrorType) -> Self {
-		func cast<T: NSError>(error: ResultErrorType) -> T {
-			return error as! T
-		}
-
-		return cast(error)
-	}
-#endif
-=======
 }
 
 extension AnyError: ErrorProtocolConvertible {
@@ -358,7 +212,6 @@ extension AnyError: CustomStringConvertible {
 	public var description: String {
 		return String(describing: error)
 	}
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 }
 
 // MARK: - migration support

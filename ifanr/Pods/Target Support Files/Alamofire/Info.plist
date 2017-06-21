@@ -15,11 +15,7 @@
   <key>CFBundlePackageType</key>
   <string>FMWK</string>
   <key>CFBundleShortVersionString</key>
-<<<<<<< HEAD
-  <string>3.5.0</string>
-=======
-  <string>4.0.1</string>
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
+  <string>4.1.0</string>
   <key>CFBundleSignature</key>
   <string>????</string>
   <key>CFBundleVersion</key>

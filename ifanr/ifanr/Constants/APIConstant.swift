@@ -133,6 +133,12 @@ public enum CategoryName {
 }
 
 extension APIConstant: TargetType {
+    
+
+    public var parameterEncoding: ParameterEncoding {
+        return URLEncoding.default
+    }
+
     public var task: Task {
         switch self {
         default:
@@ -225,7 +231,7 @@ extension APIConstant: TargetType {
     }
         /// 请求方法
     public var method: Moya.Method {
-        return .GET
+        return .get
     }
     
         /// 请求参数

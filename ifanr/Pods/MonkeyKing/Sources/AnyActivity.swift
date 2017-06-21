@@ -8,49 +8,49 @@
 
 import UIKit
 
-public class AnyActivity: UIActivity {
+open class AnyActivity: UIActivity {
 
-    private let type: String
-    private let title: String
-    private let image: UIImage
+    fileprivate let type: UIActivityType
+    fileprivate let title: String
+    fileprivate let image: UIImage
 
-    private let message: MonkeyKing.Message
-    private let sharedCompletionHandler: MonkeyKing.SharedCompletionHandler
+    fileprivate let message: MonkeyKing.Message
+    fileprivate let completionHandler: MonkeyKing.DeliverCompletionHandler
 
-    public init(type: String, title: String, image: UIImage, message: MonkeyKing.Message, completionHandler: MonkeyKing.SharedCompletionHandler) {
+    public init(type: UIActivityType, title: String, image: UIImage, message: MonkeyKing.Message, completionHandler: @escaping MonkeyKing.DeliverCompletionHandler) {
 
         self.type = type
         self.title = title
         self.image = image
 
         self.message = message
-        self.sharedCompletionHandler = completionHandler
+        self.completionHandler = completionHandler
 
         super.init()
     }
 
-    override public class func activityCategory() -> UIActivityCategory {
-        return .Share
+    override open class var activityCategory : UIActivityCategory {
+        return .share
     }
 
-    override public func activityType() -> String? {
+    override open var activityType: UIActivityType? {
         return type
     }
 
-    override public  func activityTitle() -> String? {
+    override open  var activityTitle : String? {
         return title
     }
 
-    override public func activityImage() -> UIImage? {
+    override open var activityImage : UIImage? {
         return image
     }
 
-    override public func canPerformWithActivityItems(activityItems: [AnyObject]) -> Bool {
+    override open func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         return message.canBeDelivered
     }
 
-    override public func performActivity() {
-        MonkeyKing.shareMessage(message, completionHandler: sharedCompletionHandler)
+    override open func perform() {
+        MonkeyKing.deliver(message, completionHandler: completionHandler)
         activityDidFinish(true)
     }
 }

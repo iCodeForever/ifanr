@@ -57,58 +57,6 @@ public protocol ParameterEncoding {
     func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest
 }
 
-<<<<<<< HEAD
-// MARK: ParameterEncoding
-
-/**
-    Used to specify the way in which a set of parameters are applied to a URL request.
-
-    - `URL`:             Creates a query string to be set as or appended to any existing URL query for `GET`, `HEAD`,
-                         and `DELETE` requests, or set as the body for requests with any other HTTP method. The
-                         `Content-Type` HTTP header field of an encoded request with HTTP body is set to
-                         `application/x-www-form-urlencoded; charset=utf-8`. Since there is no published specification
-                         for how to encode collection types, the convention of appending `[]` to the key for array
-                         values (`foo[]=1&foo[]=2`), and appending the key surrounded by square brackets for nested
-                         dictionary values (`foo[bar]=baz`).
-
-    - `URLEncodedInURL`: Creates query string to be set as or appended to any existing URL query. Uses the same
-                         implementation as the `.URL` case, but always applies the encoded result to the URL.
-
-    - `JSON`:            Uses `NSJSONSerialization` to create a JSON representation of the parameters object, which is
-                         set as the body of the request. The `Content-Type` HTTP header field of an encoded request is
-                         set to `application/json`.
-
-    - `PropertyList`:    Uses `NSPropertyListSerialization` to create a plist representation of the parameters object,
-                         according to the associated format and write options values, which is set as the body of the
-                         request. The `Content-Type` HTTP header field of an encoded request is set to
-                         `application/x-plist`.
-
-    - `Custom`:          Uses the associated closure value to construct a new request given an existing request and
-                         parameters.
-*/
-public enum ParameterEncoding {
-    case URL
-    case URLEncodedInURL
-    case JSON
-    case PropertyList(NSPropertyListFormat, NSPropertyListWriteOptions)
-    case Custom((URLRequestConvertible, [String: AnyObject]?) -> (NSMutableURLRequest, NSError?))
-
-    /**
-        Creates a URL request by encoding parameters and applying them onto an existing request.
-
-        - parameter URLRequest: The request to have parameters applied.
-        - parameter parameters: The parameters to apply.
-
-        - returns: A tuple containing the constructed request and the error that occurred during parameter encoding,
-                   if any.
-    */
-    public func encode(
-        URLRequest: URLRequestConvertible,
-        parameters: [String: AnyObject]?)
-        -> (NSMutableURLRequest, NSError?)
-    {
-        var mutableURLRequest = URLRequest.URLRequest
-=======
 // MARK: -
 
 /// Creates a url-encoded query string to be set as or appended to any existing URL query string or set as the HTTP
@@ -133,7 +81,6 @@ public struct URLEncoding: ParameterEncoding {
     public enum Destination {
         case methodDependent, queryString, httpBody
     }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
     // MARK: Properties
 
@@ -252,7 +199,39 @@ public struct URLEncoding: ParameterEncoding {
         var allowedCharacterSet = CharacterSet.urlQueryAllowed
         allowedCharacterSet.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
 
-        return string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? string
+        var escaped = ""
+
+        //==========================================================================================================
+        //
+        //  Batching is required for escaping due to an internal bug in iOS 8.1 and 8.2. Encoding more than a few
+        //  hundred Chinese characters causes various malloc error crashes. To avoid this issue until iOS 8 is no
+        //  longer supported, batching MUST be used for encoding. This introduces roughly a 20% overhead. For more
+        //  info, please refer to:
+        //
+        //      - https://github.com/Alamofire/Alamofire/issues/206
+        //
+        //==========================================================================================================
+
+        if #available(iOS 8.3, *) {
+            escaped = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? string
+        } else {
+            let batchSize = 50
+            var index = string.startIndex
+
+            while index != string.endIndex {
+                let startIndex = index
+                let endIndex = string.index(index, offsetBy: batchSize, limitedBy: string.endIndex) ?? string.endIndex
+                let range = startIndex..<endIndex
+
+                let substring = string.substring(with: range)
+
+                escaped += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? substring
+
+                index = endIndex
+            }
+        }
+
+        return escaped
     }
 
     private func query(_ parameters: [String: Any]) -> String {
@@ -285,20 +264,7 @@ public struct URLEncoding: ParameterEncoding {
     }
 }
 
-<<<<<<< HEAD
-        //==========================================================================================================
-        //
-        //  Batching is required for escaping due to an internal bug in iOS 8.1 and 8.2. Encoding more than a few
-        //  hundred Chinese characters causes various malloc error crashes. To avoid this issue until iOS 8 is no
-        //  longer supported, batching MUST be used for encoding. This introduces roughly a 20% overhead. For more
-        //  info, please refer to:
-        //
-        //      - https://github.com/Alamofire/Alamofire/issues/206
-        //
-        //==========================================================================================================
-=======
 // MARK: -
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 /// Uses `JSONSerialization` to create a JSON representation of the parameters object, which is set as the body of the
 /// request. The `Content-Type` HTTP header field of an encoded request is set to `application/json`.

@@ -24,13 +24,6 @@
 
 import Foundation
 
-<<<<<<< HEAD
-/**
-    Responsible for sending a request and receiving the response and associated data from the server, as well as
-    managing its underlying `NSURLSessionTask`.
-*/
-public class Request {
-=======
 /// A type that can inspect and optionally adapt a `URLRequest` in some manner if necessary.
 public protocol RequestAdapter {
     /// Inspects and adapts the specified `URLRequest` in some manner if necessary and returns the result.
@@ -80,7 +73,6 @@ public typealias HTTPHeaders = [String: String]
 open class Request {
 
     // MARK: Helper Types
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
     /// A closure executed when monitoring upload or download progress of a request.
     public typealias ProgressHandler = (Progress) -> Void
@@ -117,6 +109,9 @@ open class Request {
 
     /// The response received from the server, if any.
     open var response: HTTPURLResponse? { return task?.response as? HTTPURLResponse }
+
+    /// The number of times the request has been retried.
+    open internal(set) var retryCount: UInt = 0
 
     let originalTask: TaskConvertible?
 
@@ -183,34 +178,6 @@ open class Request {
         return self
     }
 
-<<<<<<< HEAD
-    /**
-        Returns a base64 encoded basic authentication credential as an authorization header dictionary.
-
-        - parameter user:     The user.
-        - parameter password: The password.
-
-        - returns: A dictionary with Authorization key and credential value or empty dictionary if encoding fails.
-    */
-    public static func authorizationHeader(user user: String, password: String) -> [String: String] {
-        guard let data = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding) else { return [:] }
-
-        let credential = data.base64EncodedStringWithOptions([])
-
-        return ["Authorization": "Basic \(credential)"]
-    }
-
-    // MARK: - Progress
-
-    /**
-        Sets a closure to be called periodically during the lifecycle of the request as data is written to or read
-        from the server.
-
-        - For uploads, the progress closure returns the bytes written, total bytes written, and total bytes expected
-          to write.
-        - For downloads and data tasks, the progress closure returns the bytes read, total bytes read, and total bytes
-          expected to read.
-=======
     /// Returns a base64 encoded basic authentication credential as an authorization header tuple.
     ///
     /// - parameter user:     The user.
@@ -219,25 +186,13 @@ open class Request {
     /// - returns: A tuple with Authorization header and credential value if encoding succeeds, `nil` otherwise.
     open static func authorizationHeader(user: String, password: String) -> (key: String, value: String)? {
         guard let data = "\(user):\(password)".data(using: .utf8) else { return nil }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
         let credential = data.base64EncodedString(options: [])
 
         return (key: "Authorization", value: "Basic \(credential)")
     }
 
-<<<<<<< HEAD
-    /**
-        Sets a closure to be called periodically during the lifecycle of the request as data is read from the server.
-
-        This closure returns the bytes most recently received from the server, not including data from previous calls.
-        If this closure is set, data will only be available within this closure, and will not be saved elsewhere. It is
-        also important to note that the `response` closure will be called with nil `responseData`.
-
-        - parameter closure: The code to be executed periodically during the lifecycle of the request.
-=======
     // MARK: State
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
     /// Resumes the request.
     open func resume() {
@@ -258,17 +213,7 @@ open class Request {
     open func suspend() {
         guard let task = task else { return }
 
-<<<<<<< HEAD
-    // MARK: - TaskDelegate
-
-    /**
-        The task delegate is responsible for handling all delegate callbacks for the underlying task as well as
-        executing all operations attached to the serial operation queue upon task completion.
-    */
-    public class TaskDelegate: NSObject {
-=======
         task.suspend()
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
         NotificationCenter.default.post(
             name: Notification.Name.Task.DidSuspend,
@@ -351,19 +296,8 @@ extension Request: CustomDebugStringConvertible {
                     components.append("-u \(credential.user!):\(credential.password!)")
                 }
             } else {
-<<<<<<< HEAD
-                if challenge.previousFailureCount > 0 {
-                    disposition = .RejectProtectionSpace
-                } else {
-                    credential = self.credential ?? session.configuration.URLCredentialStorage?.defaultCredentialForProtectionSpace(challenge.protectionSpace)
-
-                    if credential != nil {
-                        disposition = .UseCredential
-                    }
-=======
                 if let credential = delegate.credential {
                     components.append("-u \(credential.user!):\(credential.password!)")
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
                 }
             }
         }
@@ -420,8 +354,12 @@ open class DataRequest: Request {
         let urlRequest: URLRequest
 
         func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            let urlRequest = try self.urlRequest.adapt(using: adapter)
-            return queue.syncResult { session.dataTask(with: urlRequest) }
+            do {
+                let urlRequest = try self.urlRequest.adapt(using: adapter)
+                return queue.syncResult { session.dataTask(with: urlRequest) }
+            } catch {
+                throw AdaptError(error: error)
+            }
         }
     }
 
@@ -507,17 +445,21 @@ open class DownloadRequest: Request {
         case resumeData(Data)
 
         func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            let task: URLSessionTask
+            do {
+                let task: URLSessionTask
 
-            switch self {
-            case let .request(urlRequest):
-                let urlRequest = try urlRequest.adapt(using: adapter)
-                task = queue.syncResult { session.downloadTask(with: urlRequest) }
-            case let .resumeData(resumeData):
-                task = queue.syncResult { session.downloadTask(withResumeData: resumeData) }
+                switch self {
+                case let .request(urlRequest):
+                    let urlRequest = try urlRequest.adapt(using: adapter)
+                    task = queue.syncResult { session.downloadTask(with: urlRequest) }
+                case let .resumeData(resumeData):
+                    task = queue.syncResult { session.downloadTask(withResumeData: resumeData) }
+                }
+
+                return task
+            } catch {
+                throw AdaptError(error: error)
             }
-
-            return task
         }
     }
 
@@ -526,17 +468,8 @@ open class DownloadRequest: Request {
     /// The resume data of the underlying download task if available after a failure.
     open var resumeData: Data? { return downloadDelegate.resumeData }
 
-<<<<<<< HEAD
-    /**
-        The textual representation used when written to an output stream, which includes the HTTP method and URL, as
-        well as the response status code if a response has been received.
-    */
-    public var description: String {
-        var components: [String] = []
-=======
     /// The progress of downloading the response data from the server for the request.
     open var progress: Progress { return downloadDelegate.progress }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
     var downloadDelegate: DownloadTaskDelegate { return delegate as! DownloadTaskDelegate }
 
@@ -549,7 +482,7 @@ open class DownloadRequest: Request {
         NotificationCenter.default.post(
             name: Notification.Name.Task.DidCancel,
             object: self,
-            userInfo: [Notification.Key.Task: task]
+            userInfo: [Notification.Key.Task: task as Any]
         )
     }
 
@@ -600,56 +533,31 @@ open class UploadRequest: DataRequest {
 
     // MARK: Helper Types
 
-<<<<<<< HEAD
-        var headers: [NSObject: AnyObject] = [:]
-
-        if let additionalHeaders = session.configuration.HTTPAdditionalHeaders {
-            for (field, value) in additionalHeaders where field != "Cookie" {
-                headers[field] = value
-            }
-        }
-
-        if let headerFields = request.allHTTPHeaderFields {
-            for (field, value) in headerFields where field != "Cookie" {
-                headers[field] = value
-=======
     enum Uploadable: TaskConvertible {
         case data(Data, URLRequest)
         case file(URL, URLRequest)
         case stream(InputStream, URLRequest)
 
         func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            let task: URLSessionTask
+            do {
+                let task: URLSessionTask
 
-            switch self {
-            case let .data(data, urlRequest):
-                let urlRequest = try urlRequest.adapt(using: adapter)
-                task = queue.syncResult { session.uploadTask(with: urlRequest, from: data) }
-            case let .file(url, urlRequest):
-                let urlRequest = try urlRequest.adapt(using: adapter)
-                task = queue.syncResult { session.uploadTask(with: urlRequest, fromFile: url) }
-            case let .stream(_, urlRequest):
-                let urlRequest = try urlRequest.adapt(using: adapter)
-                task = queue.syncResult { session.uploadTask(withStreamedRequest: urlRequest) }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
+                switch self {
+                case let .data(data, urlRequest):
+                    let urlRequest = try urlRequest.adapt(using: adapter)
+                    task = queue.syncResult { session.uploadTask(with: urlRequest, from: data) }
+                case let .file(url, urlRequest):
+                    let urlRequest = try urlRequest.adapt(using: adapter)
+                    task = queue.syncResult { session.uploadTask(with: urlRequest, fromFile: url) }
+                case let .stream(_, urlRequest):
+                    let urlRequest = try urlRequest.adapt(using: adapter)
+                    task = queue.syncResult { session.uploadTask(withStreamedRequest: urlRequest) }
+                }
+
+                return task
+            } catch {
+                throw AdaptError(error: error)
             }
-
-<<<<<<< HEAD
-        for (field, value) in headers {
-            components.append("-H \"\(field): \(value)\"")
-        }
-
-        if let
-            HTTPBodyData = request.HTTPBody,
-            HTTPBody = String(data: HTTPBodyData, encoding: NSUTF8StringEncoding)
-        {
-            var escapedBody = HTTPBody.stringByReplacingOccurrencesOfString("\\\"", withString: "\\\\\"")
-            escapedBody = escapedBody.stringByReplacingOccurrencesOfString("\"", withString: "\\\"")
-
-            components.append("-d \"\(escapedBody)\"")
-=======
-            return task
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         }
     }
 
@@ -658,15 +566,7 @@ open class UploadRequest: DataRequest {
     /// The progress of uploading the payload to the server for the upload request.
     open var uploadProgress: Progress { return uploadDelegate.uploadProgress }
 
-<<<<<<< HEAD
-    #if swift(>=2.3)
-        components.append("\"\(URL.absoluteString!)\"")
-    #else
-        components.append("\"\(URL.absoluteString)\"")
-    #endif
-=======
     var uploadDelegate: UploadTaskDelegate { return delegate as! UploadTaskDelegate }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
     // MARK: Upload Progress
 
@@ -692,6 +592,7 @@ open class UploadRequest: DataRequest {
 #if !os(watchOS)
 
 /// Specific type of `Request` that manages an underlying `URLSessionStreamTask`.
+@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
 open class StreamRequest: Request {
     enum Streamable: TaskConvertible {
         case stream(hostName: String, port: Int)

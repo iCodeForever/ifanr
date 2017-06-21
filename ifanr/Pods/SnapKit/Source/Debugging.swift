@@ -34,21 +34,12 @@ public extension LayoutConstraint {
         
         description += descriptionForObject(self)
         
-<<<<<<< HEAD
-        if let firstItem: AnyObject = self.firstItem {
-            description += " \(descriptionForObject(firstItem))"
-        }
-        
-        if self.firstAttribute != .NotAnAttribute {
-            description += ".\(self.firstAttribute.snp_description)"
-=======
         if let firstItem = conditionalOptional(from: self.firstItem) {
             description += " \(descriptionForObject(firstItem))"
         }
         
         if self.firstAttribute != .notAnAttribute {
             description += ".\(descriptionForAttribute(self.firstAttribute))"
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         }
         
         description += " \(descriptionForRelation(self.relation))"
@@ -167,67 +158,3 @@ private func descriptionForObject(_ object: AnyObject) -> String {
     desc += ""
     return desc
 }
-<<<<<<< HEAD
-
-private extension NSLayoutRelation {
-    
-    private var snp_description: String {
-        switch self {
-        case .Equal:                return "=="
-        case .GreaterThanOrEqual:   return ">="
-        case .LessThanOrEqual:      return "<="
-        }
-    }
-    
-}
-
-private extension NSLayoutAttribute {
-    
-    private var snp_description: String {
-        #if os(iOS) || os(tvOS)
-        switch self {
-        case .NotAnAttribute:       return "notAnAttribute"
-        case .Top:                  return "top"
-        case .Left:                 return "left"
-        case .Bottom:               return "bottom"
-        case .Right:                return "right"
-        case .Leading:              return "leading"
-        case .Trailing:             return "trailing"
-        case .Width:                return "width"
-        case .Height:               return "height"
-        case .CenterX:              return "centerX"
-        case .CenterY:              return "centerY"
-        case .LastBaseline:             return "baseline"
-        case .FirstBaseline:        return "firstBaseline"
-        case .TopMargin:            return "topMargin"
-        case .LeftMargin:           return "leftMargin"
-        case .BottomMargin:         return "bottomMargin"
-        case .RightMargin:          return "rightMargin"
-        case .LeadingMargin:        return "leadingMargin"
-        case .TrailingMargin:       return "trailingMargin"
-        case .CenterXWithinMargins: return "centerXWithinMargins"
-        case .CenterYWithinMargins: return "centerYWithinMargins"
-        }
-        #else
-        switch self {
-        case .NotAnAttribute:       return "notAnAttribute"
-        case .Top:                  return "top"
-        case .Left:                 return "left"
-        case .Bottom:               return "bottom"
-        case .Right:                return "right"
-        case .Leading:              return "leading"
-        case .Trailing:             return "trailing"
-        case .Width:                return "width"
-        case .Height:               return "height"
-        case .CenterX:              return "centerX"
-        case .CenterY:              return "centerY"
-        case .LastBaseline:             return "baseline"
-        default:                    return "default"
-        }
-        #endif
-        
-    }
-    
-}
-=======
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf

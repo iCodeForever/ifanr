@@ -16,14 +16,14 @@ extension UIImage {
         let ctx: CGContext = UIGraphicsGetCurrentContext()!
         let area = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         
-        ctx?.scaleBy(x: 1, y: -1)
-        ctx?.translateBy(x: 0, y: -area.size.height)
+        ctx.scaleBy(x: 1, y: -1)
+        ctx.translateBy(x: 0, y: -area.size.height)
         
-        ctx?.setBlendMode(.multiply)
+        ctx.setBlendMode(.multiply)
         
-        ctx?.setAlpha(alpha)
+        ctx.setAlpha(alpha)
         
-        ctx?.draw(self.cgImage!, in: area)
+        ctx.draw(self.cgImage!, in: area)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         

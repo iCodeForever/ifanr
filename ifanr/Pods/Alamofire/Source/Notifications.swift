@@ -33,11 +33,6 @@ extension Notification.Name {
         /// Posted when a `URLSessionTask` is suspended. The notification `object` contains the suspended `URLSessionTask`.
         public static let DidSuspend = Notification.Name(rawValue: "org.alamofire.notification.name.task.didSuspend")
 
-<<<<<<< HEAD
-        /// Notification posted when an `NSURLSessionTask` is suspended. The notification `object` contains the
-        /// suspended `NSURLSessionTask`.
-        public static let DidSuspend = "com.alamofire.notifications.task.didSuspend"
-=======
         /// Posted when a `URLSessionTask` is cancelled. The notification `object` contains the cancelled `URLSessionTask`.
         public static let DidCancel = Notification.Name(rawValue: "org.alamofire.notification.name.task.didCancel")
 
@@ -45,7 +40,6 @@ extension Notification.Name {
         public static let DidComplete = Notification.Name(rawValue: "org.alamofire.notification.name.task.didComplete")
     }
 }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 // MARK: -
 

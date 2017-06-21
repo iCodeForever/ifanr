@@ -15,11 +15,7 @@ And, now MonkeyKing supports **Mobile payment** via WeChat and Alipay!
 
 ## Requirements
 
-<<<<<<< HEAD
-Swift 2.3, iOS 8.0
-=======
 Swift 3.0, iOS 8.0
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 (Swift 2.3, use version 0.9.4)
 
@@ -124,43 +120,7 @@ Check the demo for more information.
 
 ## Installation
 
-<<<<<<< HEAD
-It's recommended to use CocoaPods or Carthage.
-
-### CocoaPods
-
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
-
-CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install it with the following command:
-
-```bash
-$ [sudo] gem install cocoapods
-```
-
-To integrate MonkeyKing into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
-target <Your Target Name> do
-    pod 'MonkeyKing', '~> 0.9.4'
-end
-```
-
-Then, run the following command:
-
-```bash
-$ pod install
-```
-
-You should open the `{Project}.xcworkspace` instead of the `{Project}.xcodeproj` after you installed anything from CocoaPods.
-
-For more information about how to use CocoaPods, I suggest [this tutorial](http://www.raywenderlich.com/64546/introduction-to-cocoapods-2).
-=======
 We recommend using Carthage instead of CocoaPods.
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 ### Carthage
 
@@ -174,11 +134,7 @@ $ brew install carthage
 To integrate MonkeyKing into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-<<<<<<< HEAD
-github "nixzhu/MonkeyKing" >= 0.9.4
-=======
 github "nixzhu/MonkeyKing" >= 1.1.0
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 ```
 
 Then, run the following command to build the MonkeyKing framework:

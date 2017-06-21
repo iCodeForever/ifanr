@@ -24,47 +24,6 @@
 
 import Foundation
 
-<<<<<<< HEAD
-// MARK: - URLStringConvertible
-
-/**
-    Types adopting the `URLStringConvertible` protocol can be used to construct URL strings, which are then used to
-    construct URL requests.
-*/
-public protocol URLStringConvertible {
-    /**
-        A URL that conforms to RFC 2396.
-
-        Methods accepting a `URLStringConvertible` type parameter parse it according to RFCs 1738 and 1808.
-
-        See https://tools.ietf.org/html/rfc2396
-        See https://tools.ietf.org/html/rfc1738
-        See https://tools.ietf.org/html/rfc1808
-    */
-    var URLString: String { get }
-}
-
-extension String: URLStringConvertible {
-    public var URLString: String { return self }
-}
-
-extension NSURL: URLStringConvertible {
-    public var URLString: String {
-        #if swift(>=2.3)
-            return absoluteString!
-        #else
-            return absoluteString
-        #endif
-    }
-}
-
-extension NSURLComponents: URLStringConvertible {
-    public var URLString: String { return URL!.URLString }
-}
-
-extension NSURLRequest: URLStringConvertible {
-    public var URLString: String { return URL!.URLString }
-=======
 /// Types adopting the `URLConvertible` protocol can be used to construct URLs, which are then used to construct
 /// URL requests.
 public protocol URLConvertible {
@@ -103,7 +62,6 @@ extension URLComponents: URLConvertible {
         guard let url = url else { throw AFError.invalidURL(url: self) }
         return url
     }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 }
 
 // MARK: -
@@ -123,37 +81,13 @@ extension URLRequestConvertible {
     public var urlRequest: URLRequest? { return try? asURLRequest() }
 }
 
-<<<<<<< HEAD
-extension NSURLRequest: URLRequestConvertible {
-    public var URLRequest: NSMutableURLRequest { return self.mutableCopy() as! NSMutableURLRequest }
-=======
 extension URLRequest: URLRequestConvertible {
     /// Returns a URL request or throws if an `Error` was encountered.
     public func asURLRequest() throws -> URLRequest { return self }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 }
 
 // MARK: -
 
-<<<<<<< HEAD
-func URLRequest(
-    method: Method,
-    _ URLString: URLStringConvertible,
-    headers: [String: String]? = nil)
-    -> NSMutableURLRequest
-{
-    let mutableURLRequest: NSMutableURLRequest
-
-    if let request = URLString as? NSMutableURLRequest {
-        mutableURLRequest = request
-    } else if let request = URLString as? NSURLRequest {
-        mutableURLRequest = request.URLRequest
-    } else {
-        mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString.URLString)!)
-    }
-
-    mutableURLRequest.HTTPMethod = method.rawValue
-=======
 extension URLRequest {
     /// Creates an instance with the specified `method`, `urlString` and `headers`.
     ///
@@ -164,7 +98,6 @@ extension URLRequest {
     /// - returns: The new `URLRequest` instance.
     public init(url: URLConvertible, method: HTTPMethod, headers: HTTPHeaders? = nil) throws {
         let url = try url.asURL()
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
         self.init(url: url)
 
@@ -288,6 +221,13 @@ public func download(
 ///
 /// If `destination` is not specified, the contents will remain in the temporary location determined by the
 /// underlying URL session.
+///
+/// On the latest release of all the Apple platforms (iOS 10, macOS 10.12, tvOS 10, watchOS 3), `resumeData` is broken
+/// on background URL session configurations. There's an underlying bug in the `resumeData` generation logic where the
+/// data is written incorrectly and will always fail to resume the download. For more information about the bug and
+/// possible workarounds, please refer to the following Stack Overflow post:
+///
+///    - http://stackoverflow.com/a/39347461/1342462
 ///
 /// - parameter resumeData:  The resume data. This is an opaque data blob produced by `URLSessionDownloadTask`
 ///                          when a task is cancelled. See `URLSession -downloadTask(withResumeData:)` for additional
@@ -502,6 +442,7 @@ public func upload(
 ///
 /// - returns: The created `StreamRequest`.
 @discardableResult
+@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
 public func stream(withHostName hostName: String, port: Int) -> StreamRequest {
     return SessionManager.default.stream(withHostName: hostName, port: port)
 }
@@ -516,27 +457,9 @@ public func stream(withHostName hostName: String, port: Int) -> StreamRequest {
 ///
 /// - returns: The created `StreamRequest`.
 @discardableResult
+@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
 public func stream(with netService: NetService) -> StreamRequest {
     return SessionManager.default.stream(with: netService)
 }
 
-<<<<<<< HEAD
-// MARK: Resume Data
-
-/**
-    Creates a request using the shared manager instance for downloading from the resume data produced from a
-    previous request cancellation.
-
-    - parameter resumeData:  The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask`
-                             when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional
-                             information.
-    - parameter destination: The closure used to determine the destination of the downloaded file.
-
-    - returns: The created download request.
-*/
-public func download(resumeData data: NSData, destination: Request.DownloadFileDestination) -> Request {
-    return Manager.sharedInstance.download(data, destination: destination)
-}
-=======
 #endif
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf

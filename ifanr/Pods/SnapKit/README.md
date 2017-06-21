@@ -109,11 +109,7 @@ class MyViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.addSubview(box)
-<<<<<<< HEAD
-        box.snp_makeConstraints { make in
-=======
         box.snp.makeConstraints { (make) -> Void in
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
            make.width.height.equalTo(50)
            make.center.equalTo(self.view)
         }

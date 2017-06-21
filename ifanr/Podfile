@@ -1,42 +1,25 @@
 source 'https://github.com/CocoaPods/Specs.git'
-<<<<<<< HEAD
+
 platform :ios, ’8.0’
 use_frameworks!
 
-target 'ifanr' do
-    pod 'Alamofire','~>3.5.0'
-    pod 'SnapKit','~>0.22.0'
-    pod 'Moya','~>7.0.0'
-    pod 'MonkeyKing', '~>0.9.4'
-=======
-platform :ios, '10.0'
-use_frameworks!
 
 target 'ifanr' do
-    pod 'Alamofire', '~>4.0.0'
-    pod 'SnapKit', '~>3.0.1'
-    pod 'Moya/RxSwift', git: 'https://github.com/Moya/Moya.git', tag: '8.0.0-beta.1'
-    pod 'MonkeyKing', '~> 1.1.0'
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
+    pod 'Alamofire',    '~>4.1.0’
+    pod 'SnapKit',      '~>3.0.1'
+    pod 'Moya',  	'~>8.0.0-beta.1'
+    pod 'RxSwift',      '~> 3.0.0-beta.1'
+    pod 'RxCocoa',      '~> 3.0.0-beta.1'
+    pod 'MonkeyKing',   '~> 1.1.0'
     pod 'YYWebImage'
 end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
-<<<<<<< HEAD
-            config.build_settings['SWIFT_VERSION'] = '2.3'
-        end
-    end
-end
-#pod 'ShareSDK3'
 
-#pod 'ShareSDK3/ShareSDKUI'
-#pod 'MOBFoundation'
-#pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
-=======
-            config.build_settings['SWIFT_VERSION'] = ‘3.0’
+            config.build_settings['SWIFT_VERSION'] = '3.0'
         end
     end
 end
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
+

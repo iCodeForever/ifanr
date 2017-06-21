@@ -48,22 +48,6 @@ public struct Timeline {
     public let serializationDuration: TimeInterval
 
     /// The time interval in seconds from the time the request started to the time response serialization completed.
-<<<<<<< HEAD
-    public let totalDuration: NSTimeInterval
-
-    /**
-        Creates a new `Timeline` instance with the specified request times.
-
-        - parameter requestStartTime:           The time the request was initialized. Defaults to `0.0`.
-        - parameter initialResponseTime:        The time the first bytes were received from or sent to the server.
-                                                Defaults to `0.0`.
-        - parameter requestCompletedTime:       The time when the request was completed. Defaults to `0.0`.
-        - parameter serializationCompletedTime: The time when the response serialization was completed. Defaults
-                                                to `0.0`.
-
-        - returns: The new `Timeline` instance.
-    */
-=======
     public let totalDuration: TimeInterval
 
     /// Creates a new `Timeline` instance with the specified request times.
@@ -76,7 +60,6 @@ public struct Timeline {
     ///                                         to `0.0`.
     ///
     /// - returns: The new `Timeline` instance.
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     public init(
         requestStartTime: CFAbsoluteTime = 0.0,
         initialResponseTime: CFAbsoluteTime = 0.0,
@@ -115,11 +98,7 @@ extension Timeline: CustomStringConvertible {
             "\"Total Duration\": " + totalDuration + " secs"
         ]
 
-<<<<<<< HEAD
-        return "Timeline: { " + timings.joinWithSeparator(", ") + " }"
-=======
         return "Timeline: { " + timings.joined(separator: ", ") + " }"
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     }
 }
 
@@ -152,10 +131,6 @@ extension Timeline: CustomDebugStringConvertible {
             "\"Total Duration\": " + totalDuration + " secs"
         ]
 
-<<<<<<< HEAD
-        return "Timeline: { " + timings.joinWithSeparator(", ") + " }"
-=======
         return "Timeline: { " + timings.joined(separator: ", ") + " }"
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     }
 }

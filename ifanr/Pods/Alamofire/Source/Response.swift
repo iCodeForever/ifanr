@@ -67,20 +67,6 @@ public struct DataResponse<Value> {
     /// The timeline of the complete lifecycle of the `Request`.
     public let timeline: Timeline
 
-<<<<<<< HEAD
-    /**
-        Initializes the `Response` instance with the specified URL request, URL response, server data and response
-        serialization result.
-
-        - parameter request:  The URL request sent to the server.
-        - parameter response: The server's response to the URL request.
-        - parameter data:     The data returned by the server.
-        - parameter result:   The result of response serialization.
-        - parameter timeline: The timeline of the complete lifecycle of the `Request`. Defaults to `Timeline()`.
-
-        - returns: the new `Response` instance.
-    */
-=======
     var _metrics: AnyObject?
 
     /// Creates a `DataResponse` instance with the specified parameters derived from response serialization.
@@ -92,7 +78,6 @@ public struct DataResponse<Value> {
     /// - parameter timeline: The timeline of the complete lifecycle of the `Request`. Defaults to `Timeline()`.
     ///
     /// - returns: The new `DataResponse` instance.
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
     public init(
         request: URLRequest?,
         response: HTTPURLResponse?,

@@ -61,11 +61,7 @@ Other methods available for processing `Result` are detailed in the [API documen
 
 ## Result vs. Throws
 
-<<<<<<< HEAD
-Swift 2.0 introduces error handling via throwing and catching `ErrorType`. `Result` accomplishes the same goal by encapsulating the result instead of hijacking control flow. The `Result` abstraction enables powerful functionality such as `map` and `flatMap`, making `Result` more composable than `throw`.
-=======
 Swift 2.0 introduces error handling via throwing and catching `Error`. `Result` accomplishes the same goal by encapsulating the result instead of hijacking control flow. The `Result` abstraction enables powerful functionality such as `map` and `flatMap`, making `Result` more composable than `throw`.
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
 
 Since dealing with APIs that throw is common, you can convert such functions into a `Result` by using the `materialize` method. Conversely, a `Result` can be used to throw an error by calling `dematerialize`.
 

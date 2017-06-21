@@ -116,23 +116,6 @@ open class NetworkReachabilityManager {
         self.init(reachability: reachability)
     }
 
-<<<<<<< HEAD
-    /**
-        Creates a `NetworkReachabilityManager` instance that monitors the address 0.0.0.0.
-
-        Reachability treats the 0.0.0.0 address as a special token that causes it to monitor the general routing
-        status of the device, both IPv4 and IPv6.
-
-        - returns: The new `NetworkReachabilityManager` instance.
-    */
-    public convenience init?() {
-        var address = sockaddr_in()
-        address.sin_len = UInt8(sizeofValue(address))
-        address.sin_family = sa_family_t(AF_INET)
-
-        guard let reachability = withUnsafePointer(&address, {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
-=======
     /// Creates a `NetworkReachabilityManager` instance that monitors the address 0.0.0.0.
     ///
     /// Reachability treats the 0.0.0.0 address as a special token that causes it to monitor the general routing
@@ -148,7 +131,6 @@ open class NetworkReachabilityManager {
             return pointer.withMemoryRebound(to: sockaddr.self, capacity: MemoryLayout<sockaddr>.size) {
                 return SCNetworkReachabilityCreateWithAddress(nil, $0)
             }
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         }) else { return nil }
 
         self.init(reachability: reachability)

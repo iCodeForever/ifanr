@@ -135,17 +135,8 @@ internal struct ConstraintAttributes: OptionSet {
         if (self.contains(ConstraintAttributes.centerY)) {
             attrs.append(.centerY)
         }
-<<<<<<< HEAD
-        if (self.contains(ConstraintAttributes.Baseline)) {
-            #if swift(>=2.3)
-            attrs.append(.LastBaseline)
-            #else
-            attrs.append(.Baseline)
-            #endif
-=======
         if (self.contains(ConstraintAttributes.lastBaseline)) {
             attrs.append(.lastBaseline)
->>>>>>> b18bd8c21aabb1c63e51708b735d2a09f40b6baf
         }
         
         #if os(iOS) || os(tvOS)
